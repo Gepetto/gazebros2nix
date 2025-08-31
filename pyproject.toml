@@ -1,7 +1,7 @@
 [project]
 name = "gazebros2nix"
 version = "0.1.0"
-description = "Add your description here"
+description = "Generate and maintain Nix packages from gazebodistro & ROS package.xmls"
 readme = "README.md"
 authors = [
     { name = "Guilhem Saurel", email = "guilhem.saurel@laas.fr" }
