@@ -1,0 +1,129 @@
+[fortress.ign-common4]
+do_check = false
+patches = [{ url = "https://github.com/gazebosim/gz-common/pull/521.patch", hash = "sha256-NlUyAfGugYuNYURY1NjgStNsJ+jrLuaHmJ8Gp9QBSmQ=" }]
+propagated = [ "gts" ]
+
+[fortress.ign-fuel-tools7]
+do_check = false
+
+[fortress.ign-gazebo6]
+do_check = false
+patches = [{ url = "https://github.com/gazebosim/gz-sim/pull/3022.patch", hash = "sha256-/cACcshZ3nkepvgjiDkpMCZpee9704MYPkQNdRpZntU=" }]
+
+[fortress.ign-gui6]
+do_check = false
+patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/544.patch", hash = "sha256-kr5bowr9/aHnuJsRZ/2Igf96BNKNr4Z2dDz0iv7AzA8=" }, { url = "https://github.com/gazebosim/gz-gui/pull/696.patch", hash = "sha256-eYGYYGkaWOp0H97hyMKk/5p5zAfPd+X5HPM+0NDp07U=" }]
+
+[fortress.ign-launch5]
+do_check = false
+
+[fortress.ign-msgs8]
+patches = [{ url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch", hash = "sha256-QnR1WtB4gbgyJKbQ4doMhfSjJBksEeQ3Us4y9KqCWeY=" }]
+
+[fortress.ign-physics5]
+do_check = false
+patches = [{ url = "https://github.com/gazebosim/gz-physics/pull/768.patch", hash = "sha256-qqqkWb5VWZZ6SCZFp1Md2Sd5zVQkWmlCuE0V4ZnUtUk=" }]
+
+[fortress.ign-plugin1]
+do_check = false
+
+[fortress.ign-rendering6]
+do_check = false
+propagated = [ "boost" ]
+patches = [{ url = "https://github.com/gazebosim/gz-rendering/pull/1017.patch", hash = "sha256-NQuyeGGZjzH4qm9CC+W/HdwmLx8d0HmP6S7dLRv8hSA=" }]
+
+[fortress.ign-sensors6]
+do_check = false
+
+[fortress.ign-transport11]
+do_check = false
+propagated = [ "libsodium" ]
+
+[fortress.sdformat12]
+do_check = false
+
+[harmonic.gz-common5]
+do_check = false
+patches = [{ url = "https://github.com/gazebosim/gz-common/pull/660.patch", hash = "sha256-LJBGGzUgS/AhKWawTeLpnOteJj3PdN9MR4wacuEgxVc=" }]
+
+[harmonic.gz-fuel-tools9]
+do_check = false
+
+[harmonic.gz-gui8]
+do_check = false
+patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/676.patch", hash = "sha256-EVuGTAT/U3So/K1ti2B0QdMr2AErjRLDgENWkGZYMXc=" }]
+
+[harmonic.gz-launch7]
+do_check = false
+
+[harmonic.gz-msgs10]
+do_check = false
+
+[harmonic.gz-physics7]
+do_check = false
+
+[harmonic.gz-plugin2]
+do_check = false
+
+[harmonic.gz-rendering8]
+do_check = false
+propagated = [ "boost" ]
+
+[harmonic.gz-sensors8]
+do_check = false
+
+[harmonic.gz-sim8]
+do_check = false
+
+[harmonic.gz-tools2]
+do_check = false
+
+[harmonic.gz-transport13]
+do_check = false
+propagated = [ "libsodium" ]
+
+[harmonic.sdformat14]
+do_check = false
+
+[ionic.gz-common6]
+do_check = false
+propagated = [ "libz" ]
+
+[ionic.gz-fuel-tools10]
+do_check = false
+
+[ionic.gz-gui9]
+do_check = false
+patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/676.patch", hash = "sha256-EVuGTAT/U3So/K1ti2B0QdMr2AErjRLDgENWkGZYMXc=" }]
+
+[ionic.gz-launch8]
+do_check = false
+
+[ionic.gz-msgs11]
+do_check = false
+
+[ionic.gz-physics8]
+do_check = false
+
+[ionic.gz-plugin3]
+do_check = false
+
+[ionic.gz-rendering9]
+do_check = false
+propagated = [ "boost", "libz", "python3" ]
+
+[ionic.gz-sensors9]
+do_check = false
+
+[ionic.gz-sim9]
+do_check = false
+
+[ionic.gz-tools2]
+do_check = false
+
+[ionic.gz-transport14]
+do_check = false
+propagated = [ "libsodium" ]
+
+[ionic.sdformat15]
+do_check = false
