@@ -5,8 +5,23 @@
     nix-ros-overlay.url = "github:lopsided98/nix-ros-overlay/develop";
     nixpkgs.follows = "nix-ros-overlay/nixpkgs";
     systems.follows = "nix-ros-overlay/flake-utils/systems";
+    pyproject-build-systems = {
+      url = "github:pyproject-nix/build-system-pkgs";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+      inputs.uv2nix.follows = "uv2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pyproject-nix = {
+      url = "github:pyproject-nix/pyproject.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    uv2nix = {
+      url = "github:pyproject-nix/uv2nix";
+      inputs.pyproject-nix.follows = "pyproject-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -30,7 +45,7 @@
           {
             devShells.default = pkgs.mkShell {
               packages = [
-                pkgs.uv
+                pkgs.gazebros2nix-venv.passthru.editableVirtualenv
               ];
             };
             packages = lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (
