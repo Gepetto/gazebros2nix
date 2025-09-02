@@ -146,10 +146,11 @@ class GazeboDistro:
     def rosdep(self, k: str) -> list[str]:
         return [p for p in self.rosdeps.get(k, [kebabcase(k)])]
 
-    def sort_deps(self, deps, overrides) -> list[str]:
+    def sort_deps(self, deps, overrides, blacklist) -> list[str]:
         deps = [self.rosdep(dep.name) for dep in deps]
+        deps = {i for d in deps for i in d} | set(overrides)
 
-        return sorted({i for d in deps for i in d} | set(overrides))
+        return sorted(deps - set(blacklist))
 
     def process_repo(self, nick: str, data):
         url, pkg_name = (
@@ -208,12 +209,13 @@ class GazeboDistro:
                 logger.warning("Unknown license: %s", lic)
                 licenses.append("unfree")
 
-        native = self.sort_deps(pkg.buildtool_depends, ["cmake", "pkg-config"] + native)
-        propagated = self.sort_deps(
-            pkg.exec_depends,
-            [d for d in deps if d != k] + propagated,
+        native = self.sort_deps(
+            pkg.buildtool_depends, ["cmake", "pkg-config"] + native, []
         )
-        check = self.sort_deps(pkg.test_depends, check)
+        propagated = self.sort_deps(
+            pkg.exec_depends, [d for d in deps if d != k] + propagated, native
+        )
+        check = self.sort_deps(pkg.test_depends, check, [*native, *propagated])
         if ign:
             native = list(map(gz_to_ign, native))
             propagated = list(map(gz_to_ign, propagated))
