@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 
-  cli11,
   cmake,
   ign-cmake,
   pkg-config,
@@ -28,7 +27,6 @@ stdenv.mkDerivation {
     pkg-config
   ];
   propagatedBuildInputs = [
-    cli11
     ign-cmake
     spdlog
   ];

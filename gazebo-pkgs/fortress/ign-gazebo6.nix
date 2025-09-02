@@ -25,15 +25,7 @@
   pkg-config,
   protobuf,
   python3Packages,
-  qml6-module-qt-labs-folderlistmodel,
-  qml6-module-qt-labs-settings,
-  qml6-module-qt5compat-graphicaleffects,
-  qml6-module-qtquick-controls,
-  qml6-module-qtquick-dialogs,
-  qml6-module-qtquick-layouts,
-  qt6,
-  qt6-5compat-dev,
-  qt6-base-private-dev,
+  qt5,
   sdformat,
   tinyxml-2,
   util-linux,
@@ -85,17 +77,12 @@ stdenv.mkDerivation {
     ign-utils
     protobuf
     python3Packages.pybind11
-    qml6-module-qt-labs-folderlistmodel
-    qml6-module-qt-labs-settings
-    qml6-module-qt5compat-graphicaleffects
-    qml6-module-qtquick-controls
-    qml6-module-qtquick-dialogs
-    qml6-module-qtquick-layouts
-    qt6-5compat-dev
-    qt6-base-private-dev
-    qt6.qtbase
-    qt6.qtdeclarative
-    qt6.qtquickcontrols
+    qt5.qtbase
+    qt5.qtdeclarative
+    qt5.qtgraphicaleffects
+    qt5.qtquickcontrols
+    qt5.qtquickcontrols2
+    sdformat
     sdformat
     tinyxml-2
     util-linux

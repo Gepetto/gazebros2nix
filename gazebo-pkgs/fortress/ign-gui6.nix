@@ -14,28 +14,9 @@
   ign-tools,
   ign-transport,
   ign-utils,
-  libqt6svg6,
   pkg-config,
   protobuf,
-  qml6-module-qt-labs-folderlistmodel,
-  qml6-module-qt-labs-platform,
-  qml6-module-qt-labs-settings,
-  qml6-module-qt5compat-graphicaleffects,
-  qml6-module-qtcharts,
-  qml6-module-qtcore,
-  qml6-module-qtpositioning,
-  qml6-module-qtqml,
-  qml6-module-qtqml-models,
-  qml6-module-qtqml-workerscript,
-  qml6-module-qtquick-controls,
-  qml6-module-qtquick-dialogs,
-  qml6-module-qtquick-layouts,
-  qml6-module-qtquick-templates,
-  qml6-module-qtquick-window,
-  qt6,
-  qt6-5compat-dev,
-  qt6-base-private-dev,
-  qt6-declarative-private-dev,
+  qt5,
   tinyxml-2,
   xorg,
 }:
@@ -79,29 +60,15 @@ stdenv.mkDerivation {
     ign-tools
     ign-transport
     ign-utils
-    libqt6svg6
     protobuf
-    qml6-module-qt-labs-folderlistmodel
-    qml6-module-qt-labs-platform
-    qml6-module-qt-labs-settings
-    qml6-module-qt5compat-graphicaleffects
-    qml6-module-qtcharts
-    qml6-module-qtcore
-    qml6-module-qtpositioning
-    qml6-module-qtqml
-    qml6-module-qtqml-models
-    qml6-module-qtqml-workerscript
-    qml6-module-qtquick-controls
-    qml6-module-qtquick-dialogs
-    qml6-module-qtquick-layouts
-    qml6-module-qtquick-templates
-    qml6-module-qtquick-window
-    qt6-5compat-dev
-    qt6-base-private-dev
-    qt6-declarative-private-dev
-    qt6.qtbase
-    qt6.qtdeclarative
-    qt6.qtquickcontrols
+    qt5.qtbase
+    qt5.qtcharts
+    qt5.qtdeclarative
+    qt5.qtgraphicaleffects
+    qt5.qtlocation
+    qt5.qtpositioning
+    qt5.qtquickcontrols
+    qt5.qtquickcontrols2
     tinyxml-2
   ];
   checkInputs = [
