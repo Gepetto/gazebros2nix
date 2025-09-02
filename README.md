@@ -10,6 +10,14 @@ This repository also have those configuration files and the corresponding genera
 
 So you can either generate your own packages, or use those we maintain, or both :)
 
+## Examples
+
+```
+nix shell .#gz-fortress --command ign gazebo --render-engine ogre tests/fortress.sdf
+nix shell .#gz-harmonic --command gz sim tests/harmonic.sdf
+nix shell .#gz-ionic    --command gz sim tests/ionic.sdf
+```
+
 ## Known issues
 
 ### Freeimage
@@ -18,7 +26,7 @@ Gazebo depend on `freeimage`, which is not maintained and has a ton of CVE, so i
 
 Therefore in this repo we use `permittedInsecurePackages`.
 
-We don't see any solution to this issue.
+We don't see any good solution to this issue, which has to be fixed in gazebo upstream
 
 ### Gazebo Classic
 
