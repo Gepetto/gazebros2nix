@@ -4,17 +4,17 @@
   final: prev:
   {
     # keep-sorted start block=yes
-    # boost = prev.boost186; # Thanks gazebo 11 :(
-    # gazebo_11 = prev.gazebo_11.overrideAttrs (rec {
-    #   # 11.14.0 does not compile
-    #   version = "11.15.1";
-    #   src = final.fetchFromGitHub {
-    #     owner = "gazebosim";
-    #     repo = "gazebo-classic";
-    #     tag = "gazebo11_${version}";
-    #     hash = "sha256-EieBsedwxelKY9LfFUzxuO189OvziSNXoKX2hYDoxMQ=";
-    #   };
-    # });
+    boost = prev.boost186; # Thanks gazebo 11 :(
+    gazebo_11 = prev.gazebo_11.overrideAttrs (rec {
+      # 11.14.0 does not compile
+      version = "11.15.1";
+      src = final.fetchFromGitHub {
+        owner = "gazebosim";
+        repo = "gazebo-classic";
+        tag = "gazebo11_${version}";
+        hash = "sha256-EieBsedwxelKY9LfFUzxuO189OvziSNXoKX2hYDoxMQ=";
+      };
+    });
     # keep-sorted end
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
       (
@@ -25,6 +25,11 @@
         }
       )
     ];
+    qt6 = prev.qt6.overrideScope (
+      qt6-final: _qt6-prev: {
+        qtquickcontrols = qt6-final.qtdeclarative; # TODO
+      }
+    );
     rosPackages = prev.rosPackages // {
       noetic = prev.rosPackages.noetic.overrideScope (
         _noetic-final: noetic-prev: {

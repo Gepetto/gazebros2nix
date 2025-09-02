@@ -7,7 +7,6 @@
 Take some gazebo distributions and generate nix packages
 """
 
-from argparse import ArgumentParser
 from logging import basicConfig, getLogger
 from os import environ
 from pathlib import Path
@@ -18,7 +17,6 @@ from typing import Any
 from caseconverter import kebabcase
 from catkin_pkg.package import parse_package_string
 from github import Auth, Github
-from github.GithubException import UnknownObjectException
 from jinja2 import Environment, Template
 from yaml import load
 
@@ -27,7 +25,8 @@ try:
 except ImportError:
     from yaml import Loader
 
-LICENSES = {"Apache License 2.0": "asl20"}
+from .lib import LICENSES, get_parser
+
 TEMPLATE = """{
   lib,
   stdenv,
@@ -85,25 +84,7 @@ stdenv.mkDerivation {
 }"""
 
 logger = getLogger("ros2nix")
-
-parser = ArgumentParser(prog="gazebo2nix", description=__doc__)
-parser.add_argument("distro", nargs="?", help="generate only this distro")
-parser.add_argument("repo", nargs="?", help="generate only this repo")
-parser.add_argument(
-    "-q",
-    "--quiet",
-    action="count",
-    default=int(environ.get("QUIET", 0)),
-    help="decrement verbosity level",
-)
-
-parser.add_argument(
-    "-v",
-    "--verbose",
-    action="count",
-    default=int(environ.get("VERBOSITY", 0)),
-    help="increment verbosity level",
-)
+parser = get_parser(prog="gazebo2nix", description=__doc__)
 
 
 def fix_name(name: str) -> str:
@@ -164,10 +145,11 @@ class GazeboDistro:
     def rosdep(self, k: str) -> list[str]:
         return [p for p in self.rosdeps.get(k, [kebabcase(k)])]
 
-    def sort_deps(self, deps, overrides) -> list[str]:
+    def sort_deps(self, deps, overrides, blacklist) -> list[str]:
         deps = [self.rosdep(dep.name) for dep in deps]
+        deps = {i for d in deps for i in d} | set(overrides)
 
-        return sorted({i for d in deps for i in d} | set(overrides))
+        return sorted(deps - set(blacklist))
 
     def process_repo(self, nick: str, data):
         url, pkg_name = (
@@ -226,12 +208,13 @@ class GazeboDistro:
                 logger.warning("Unknown license: %s", lic)
                 licenses.append("unfree")
 
-        native = self.sort_deps(pkg.buildtool_depends, ["cmake", "pkg-config"] + native)
-        propagated = self.sort_deps(
-            pkg.exec_depends,
-            [d for d in deps if d != k] + propagated,
+        native = self.sort_deps(
+            pkg.buildtool_depends, ["cmake", "pkg-config"] + native, []
         )
-        check = self.sort_deps(pkg.test_depends, check)
+        propagated = self.sort_deps(
+            pkg.exec_depends, [d for d in deps if d != k] + propagated, native
+        )
+        check = self.sort_deps(pkg.test_depends, check, [*native, *propagated])
         if ign:
             native = list(map(gz_to_ign, native))
             propagated = list(map(gz_to_ign, propagated))
@@ -286,7 +269,7 @@ def main():
     path = Path("gazebo-pkgs")
 
     template = Environment().from_string(TEMPLATE)
-    with Path(".gazebo2nix.toml").open("rb") as f:
+    with args.config_file.open("rb") as f:
         cfg = tload(f)
 
     auth = Auth.Token(token)

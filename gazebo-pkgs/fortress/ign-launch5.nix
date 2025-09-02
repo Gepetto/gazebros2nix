@@ -50,26 +50,18 @@ stdenv.mkDerivation {
     binutils
     gflags
     ign-cmake
-    ign-cmake
-    ign-common
     ign-common
     ign-fuel-tools
     ign-gui
-    ign-gui
     ign-math
-    ign-math
-    ign-msgs
     ign-msgs
     ign-physics
-    ign-plugin
     ign-plugin
     ign-rendering
     ign-sensors
     ign-sim
-    ign-sim
     ign-tools
     ign-tools
-    ign-transport
     ign-transport
     ign-utils
     libwebsockets

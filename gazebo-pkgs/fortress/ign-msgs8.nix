@@ -42,7 +42,6 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [
     ign-cmake
     ign-math
-    ign-math
     ign-tools
     ign-tools
     protobuf

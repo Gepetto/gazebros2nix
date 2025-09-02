@@ -49,14 +49,9 @@ stdenv.mkDerivation {
     gbenchmark
     ign-cmake
     ign-common
-    ign-common
-    ign-math
     ign-math
     ign-plugin
-    ign-plugin
     ign-utils
-    ign-utils
-    sdformat
     sdformat
   ];
   checkInputs = [

@@ -51,8 +51,6 @@ stdenv.mkDerivation {
     gts
     ign-cmake
     ign-math
-    ign-math
-    ign-utils
     ign-utils
     spdlog
     tinyxml-2

@@ -52,20 +52,13 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [
     ign-cmake
     ign-common
-    ign-common
-    ign-math
     ign-math
     ign-msgs
-    ign-msgs
     ign-plugin
-    ign-plugin
-    ign-rendering
     ign-rendering
     ign-tools
     ign-tools
     ign-transport
-    ign-transport
-    ign-utils
     ign-utils
     protobuf
     qt5.qtbase

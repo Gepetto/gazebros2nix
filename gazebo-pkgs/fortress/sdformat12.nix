@@ -35,10 +35,8 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [
     ign-cmake
     ign-math
-    ign-math
     ign-tools
     ign-tools
-    ign-utils
     ign-utils
     python3Packages.pybind11
     tinyxml-2

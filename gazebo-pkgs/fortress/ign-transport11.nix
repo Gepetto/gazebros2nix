@@ -40,12 +40,9 @@ stdenv.mkDerivation {
     cppzmq
     ign-cmake
     ign-math
-    ign-math
-    ign-msgs
     ign-msgs
     ign-tools
     ign-tools
-    ign-utils
     ign-utils
     libsodium
     pkg-config

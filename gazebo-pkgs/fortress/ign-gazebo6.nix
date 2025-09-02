@@ -62,30 +62,18 @@ stdenv.mkDerivation {
     gbenchmark
     glew
     ign-cmake
-    ign-cmake
-    ign-common
     ign-common
     ign-fuel-tools
-    ign-fuel-tools
-    ign-gui
     ign-gui
     ign-math
-    ign-math
-    ign-msgs
     ign-msgs
     ign-physics
-    ign-physics
-    ign-plugin
     ign-plugin
     ign-rendering
-    ign-rendering
-    ign-sensors
     ign-sensors
     ign-tools
     ign-tools
     ign-transport
-    ign-transport
-    ign-utils
     ign-utils
     protobuf
     python3Packages.pybind11

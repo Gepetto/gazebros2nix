@@ -53,12 +53,8 @@ stdenv.mkDerivation {
     glew
     ign-cmake
     ign-common
-    ign-common
-    ign-math
     ign-math
     ign-plugin
-    ign-plugin
-    ign-utils
     ign-utils
     libogre-next-23-dev
     ogre1_9

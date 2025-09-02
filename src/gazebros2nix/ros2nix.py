@@ -8,7 +8,6 @@ Take an url to a ROS repo and a distro to generate nix packages.
 Currently github only.
 """
 
-from argparse import ArgumentParser
 from logging import basicConfig, getLogger
 from os import environ
 from pathlib import Path
@@ -20,10 +19,8 @@ from catkin_pkg.package import parse_package_string
 from github import Auth, Github
 from jinja2 import Environment, Template
 
-LICENSES = {
-    "Apache License 2.0": "asl20",
-    "Apache-2.0": "asl20",  # https://github.com/ros-controls/ros2_control_demos
-}
+from .lib import LICENSES, get_parser
+
 TEMPLATE = """{
   lib,
   buildRosPackage,
@@ -74,25 +71,7 @@ buildRosPackage rec {
 }"""
 
 logger = getLogger("ros2nix")
-
-parser = ArgumentParser(prog="ros2nix", description=__doc__)
-parser.add_argument("distro", nargs="?", help="generate only this distro")
-parser.add_argument("repo", nargs="?", help="generate only this repo")
-parser.add_argument(
-    "-q",
-    "--quiet",
-    action="count",
-    default=int(environ.get("QUIET", 0)),
-    help="decrement verbosity level",
-)
-
-parser.add_argument(
-    "-v",
-    "--verbose",
-    action="count",
-    default=int(environ.get("VERBOSITY", 0)),
-    help="increment verbosity level",
-)
+parser = get_parser(prog="ros2nix", description=__doc__)
 
 
 class Repo:
@@ -118,7 +97,7 @@ class Repo:
         self.distro = distro
         logger.info("Distro: %s", self.distro)
 
-        self.path = Path(f"{self.distro}-pkgs")
+        self.path = Path("ros-pkgs") / self.distro
         if not self.path.is_dir():
             logger.error("%s is not a directory", self.path)
             return
@@ -228,7 +207,7 @@ def main():
 
     basicConfig(level=30 - 10 * args.verbose + 10 * args.quiet)
 
-    with Path(".ros2nix.toml").open("rb") as f:
+    with args.config_file.open("rb") as f:
         cfg = load(f)
 
     auth = Auth.Token(token)

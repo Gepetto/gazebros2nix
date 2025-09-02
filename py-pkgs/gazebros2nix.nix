@@ -41,7 +41,9 @@ buildPythonPackage {
   ];
 
   meta = {
+    homepage = "https://github.com/gepetto/gazebros2nix";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.nim65s ];
+    platforms = lib.platforms.unix;
   };
 }

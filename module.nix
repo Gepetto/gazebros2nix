@@ -44,6 +44,7 @@
             overlays = [
               inputs.nix-ros-overlay.overlays.default
               (final: prev: {
+                inherit (inputs) pyproject-build-systems pyproject-nix uv2nix;
                 lib =
                   prev.lib
                   // (prev.lib.mapAttrs (_name: value: value final) ({
