@@ -27,7 +27,6 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [
   ];
   checkInputs = [
-    cmake
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

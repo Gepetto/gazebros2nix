@@ -38,20 +38,14 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [
     ign-cmake
     ign-common
-    ign-common
     ign-math
-    ign-math
-    ign-msgs
     ign-msgs
     ign-plugin
     ign-rendering
-    ign-rendering
     ign-tools
     ign-tools
-    ign-transport
     ign-transport
     ign-utils
-    sdformat
     sdformat
   ];
   checkInputs = [

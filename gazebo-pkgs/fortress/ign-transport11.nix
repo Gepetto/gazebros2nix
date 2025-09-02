@@ -11,6 +11,8 @@
   ign-tools,
   ign-utils,
   libsodium,
+  libzenohc-dev,
+  libzenohcpp-dev,
   pkg-config,
   protobuf,
   python3,
@@ -40,15 +42,13 @@ stdenv.mkDerivation {
     cppzmq
     ign-cmake
     ign-math
-    ign-math
-    ign-msgs
     ign-msgs
     ign-tools
     ign-tools
-    ign-utils
     ign-utils
     libsodium
-    pkg-config
+    libzenohc-dev
+    libzenohcpp-dev
     protobuf
     python3
     python3Packages.psutil

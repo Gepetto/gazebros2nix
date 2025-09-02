@@ -52,7 +52,6 @@ stdenv.mkDerivation {
     gz-utils
     gz-utils3
     libsodium
-    pkg-config
     protobuf
     python3
     python3Packages.psutil

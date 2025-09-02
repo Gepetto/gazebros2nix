@@ -41,10 +41,7 @@ stdenv.mkDerivation {
     gflags
     ign-cmake
     ign-common
-    ign-common
     ign-math
-    ign-math
-    ign-msgs
     ign-msgs
     ign-tools
     ign-tools

@@ -25,7 +25,15 @@
   pkg-config,
   protobuf,
   python3Packages,
-  qt5,
+  qml6-module-qt-labs-folderlistmodel,
+  qml6-module-qt-labs-settings,
+  qml6-module-qt5compat-graphicaleffects,
+  qml6-module-qtquick-controls,
+  qml6-module-qtquick-dialogs,
+  qml6-module-qtquick-layouts,
+  qt6,
+  qt6-5compat-dev,
+  qt6-base-private-dev,
   sdformat,
   tinyxml-2,
   util-linux,
@@ -62,39 +70,32 @@ stdenv.mkDerivation {
     gbenchmark
     glew
     ign-cmake
-    ign-cmake
-    ign-common
     ign-common
     ign-fuel-tools
-    ign-fuel-tools
-    ign-gui
     ign-gui
     ign-math
-    ign-math
-    ign-msgs
     ign-msgs
     ign-physics
-    ign-physics
-    ign-plugin
     ign-plugin
     ign-rendering
-    ign-rendering
-    ign-sensors
     ign-sensors
     ign-tools
     ign-tools
     ign-transport
-    ign-transport
-    ign-utils
     ign-utils
     protobuf
     python3Packages.pybind11
-    qt5.qtbase
-    qt5.qtdeclarative
-    qt5.qtgraphicaleffects
-    qt5.qtquickcontrols
-    qt5.qtquickcontrols2
-    sdformat
+    qml6-module-qt-labs-folderlistmodel
+    qml6-module-qt-labs-settings
+    qml6-module-qt5compat-graphicaleffects
+    qml6-module-qtquick-controls
+    qml6-module-qtquick-dialogs
+    qml6-module-qtquick-layouts
+    qt6-5compat-dev
+    qt6-base-private-dev
+    qt6.qtbase
+    qt6.qtdeclarative
+    qt6.qtquickcontrols
     sdformat
     tinyxml-2
     util-linux

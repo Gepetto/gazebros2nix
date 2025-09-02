@@ -56,8 +56,7 @@
                 };
               })
               (import ./overlay.nix { })
-            ]
-            ++ config.gazebros2nix-pkgs.overlays;
+            ] ++ config.gazebros2nix-pkgs.overlays;
           };
         checks =
           let
