@@ -97,7 +97,7 @@ class Repo:
         self.distro = distro
         logger.info("Distro: %s", self.distro)
 
-        self.path = Path(f"{self.distro}-pkgs")
+        self.path = Path("ros-pkgs") / self.distro
         if not self.path.is_dir():
             logger.error("%s is not a directory", self.path)
             return
@@ -207,7 +207,7 @@ def main():
 
     basicConfig(level=30 - 10 * args.verbose + 10 * args.quiet)
 
-    with Path.open("rb") as f:
+    with args.config_file.open("rb") as f:
         cfg = load(f)
 
     auth = Auth.Token(token)
