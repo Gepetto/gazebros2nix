@@ -7,7 +7,6 @@
 Take some gazebo distributions and generate nix packages
 """
 
-from argparse import ArgumentParser
 from logging import basicConfig, getLogger
 from os import environ
 from pathlib import Path
@@ -27,7 +26,8 @@ try:
 except ImportError:
     from yaml import Loader
 
-LICENSES = {"Apache License 2.0": "asl20"}
+from .lib import LICENSES, get_parser
+
 TEMPLATE = """{
   lib,
   stdenv,
@@ -85,25 +85,7 @@ stdenv.mkDerivation {
 }"""
 
 logger = getLogger("ros2nix")
-
-parser = ArgumentParser(prog="gazebo2nix", description=__doc__)
-parser.add_argument("distro", nargs="?", help="generate only this distro")
-parser.add_argument("repo", nargs="?", help="generate only this repo")
-parser.add_argument(
-    "-q",
-    "--quiet",
-    action="count",
-    default=int(environ.get("QUIET", 0)),
-    help="decrement verbosity level",
-)
-
-parser.add_argument(
-    "-v",
-    "--verbose",
-    action="count",
-    default=int(environ.get("VERBOSITY", 0)),
-    help="increment verbosity level",
-)
+parser = get_parser(prog="gazebo2nix", description=__doc__)
 
 
 def fix_name(name: str) -> str:
