@@ -82,9 +82,6 @@
                 };
                 gz-harmonic = pkgs.rosPackages.jazzy.buildEnv {
                   name = "gz-harmonic";
-                  postBuild = ''
-                    rosWrapperArgs+=(--set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt5.qtbase.bin}/lib/qt-${pkgs.qt5.qtbase.version}/plugins/platforms)
-                  '';
                   paths = with pkgs.gazebo.harmonic; [
                     # keep-sorted start
                     gz-cmake
@@ -109,9 +106,6 @@
                 };
                 gz-ionic = pkgs.rosPackages.jazzy.buildEnv {
                   name = "gz-ionic";
-                  postBuild = ''
-                    rosWrapperArgs+=(--set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt5.qtbase.bin}/lib/qt-${pkgs.qt5.qtbase.version}/plugins/platforms)
-                  '';
                   paths = with pkgs.gazebo.ionic; [
                     # keep-sorted start
                     gz-cmake
