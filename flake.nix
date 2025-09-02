@@ -138,7 +138,8 @@
               // {
                 inherit (pkgs)
                   # keep-sorted start
-                  gazebros2nix
+                  gazebo2nix
+                  ros2nix
                   # keep-sorted end
                   ;
               }

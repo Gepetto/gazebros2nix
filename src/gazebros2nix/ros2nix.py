@@ -8,7 +8,6 @@ Take an url to a ROS repo and a distro to generate nix packages.
 Currently github only.
 """
 
-from argparse import ArgumentParser
 from logging import basicConfig, getLogger
 from os import environ
 from pathlib import Path
@@ -208,7 +207,7 @@ def main():
 
     basicConfig(level=30 - 10 * args.verbose + 10 * args.quiet)
 
-    with args.config_file.open("rb") as f:
+    with Path.open("rb") as f:
         cfg = load(f)
 
     auth = Auth.Token(token)

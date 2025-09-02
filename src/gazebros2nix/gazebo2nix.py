@@ -17,7 +17,6 @@ from typing import Any
 from caseconverter import kebabcase
 from catkin_pkg.package import parse_package_string
 from github import Auth, Github
-from github.GithubException import UnknownObjectException
 from jinja2 import Environment, Template
 from yaml import load
 

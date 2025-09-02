@@ -171,7 +171,7 @@ requires-dist = [
     { name = "case-converter", specifier = ">=1.2.0" },
     { name = "catkin-pkg", specifier = ">=1.0.0" },
     { name = "jinja2", specifier = ">=3.1.6" },
-    { name = "pygithub", specifier = ">=2.8.0" },
+    { name = "pygithub", specifier = ">=2.6.1" },
     { name = "pyyaml", specifier = ">=6.0.2" },
 ]
 
