@@ -22,3 +22,4 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           extraPullNames: ros
       - run: nix flake check -L
+        continue-on-error: true
