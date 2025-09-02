@@ -208,7 +208,7 @@ def main():
 
     basicConfig(level=30 - 10 * args.verbose + 10 * args.quiet)
 
-    with Path(".ros2nix.toml").open("rb") as f:
+    with args.config_file.open("rb") as f:
         cfg = load(f)
 
     auth = Auth.Token(token)

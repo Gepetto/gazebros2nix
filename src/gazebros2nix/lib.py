@@ -1,5 +1,6 @@
 from argparse import ArgumentParser
 from os import environ
+from pathlib import Path
 
 LICENSES = {
     "Apache License 2.0": "asl20",
@@ -11,6 +12,13 @@ def get_parser(prog: str, description: str) -> ArgumentParser:
     parser = ArgumentParser(prog=prog, description=description)
     parser.add_argument("distro", nargs="?", help="generate only this distro")
     parser.add_argument("repo", nargs="?", help="generate only this repo")
+    parser.add_argument(
+        "-c",
+        "--config-file",
+        default=Path(f"{prog}.toml"),
+        type=Path,
+        help="configuration file",
+    )
     parser.add_argument(
         "-q",
         "--quiet",

@@ -268,7 +268,7 @@ def main():
     path = Path("gazebo-pkgs")
 
     template = Environment().from_string(TEMPLATE)
-    with Path(".gazebo2nix.toml").open("rb") as f:
+    with args.config_file.open("rb") as f:
         cfg = tload(f)
 
     auth = Auth.Token(token)
