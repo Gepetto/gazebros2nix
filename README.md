@@ -2,6 +2,14 @@
 
 Generate and maintain Nix packages from gazebodistro & ROS package.xmls
 
+## Usage
+
+A `gazebros2nix` Python module provide `gazebo2nix` and `ros2nix` executables. Those will look respectively for `gazebo2nix.toml` and `ros2nix.toml` configuration files, and generate Nix packages with that.
+
+This repository also have those configuration files and the corresponding generated packages, so that we can use those.
+
+So you can either generate your own packages, or use those we maintain, or both :)
+
 ## Known issues
 
 ### Freeimage
