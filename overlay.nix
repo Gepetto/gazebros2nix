@@ -25,6 +25,11 @@
         }
       )
     ];
+    qt6 = prev.qt6.overrideScope (
+      qt6-final: _qt6-prev: {
+        qtquickcontrols = qt6-final.qtdeclarative; # TODO
+      }
+    );
     rosPackages = prev.rosPackages // {
       noetic = prev.rosPackages.noetic.overrideScope (
         _noetic-final: noetic-prev: {
