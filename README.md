@@ -8,7 +8,7 @@ A `gazebros2nix` Python module provide `gazebo2nix` and `ros2nix` executables. T
 
 This repository also have those configuration files and the corresponding generated packages, so that we can use those.
 
-So you can either generate your own packages, or use those we maintain, or both :)
+So you can either write your own config file to generate your own packages, or use those we maintain, or both :)
 
 ## Examples
 
