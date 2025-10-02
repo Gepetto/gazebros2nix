@@ -22,6 +22,7 @@ jobs:
           name: gepetto
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           extraPullNames: ros
+          extraPullNames: baxter
       - run: nix flake check -L
   check:
     if: always()
