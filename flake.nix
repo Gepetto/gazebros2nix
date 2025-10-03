@@ -272,14 +272,6 @@
                   # keep-sorted start
                   ros2-control-demo-description
                   ros2-control-demo-example-1
-                  ros2-control-demo-example-2
-                  ros2-control-demo-example-3
-                  ros2-control-demo-example-4
-                  ros2-control-demo-example-5
-                  ros2-control-demo-example-6
-                  ros2-control-demo-example-7
-                  ros2-control-demo-example-8
-                  ros2-control-demo-example-9
                   ros2-control-demo-example-10
                   ros2-control-demo-example-11
                   ros2-control-demo-example-12
@@ -288,6 +280,14 @@
                   ros2-control-demo-example-15
                   ros2-control-demo-example-16
                   ros2-control-demo-example-17
+                  ros2-control-demo-example-2
+                  ros2-control-demo-example-3
+                  ros2-control-demo-example-4
+                  ros2-control-demo-example-5
+                  ros2-control-demo-example-6
+                  ros2-control-demo-example-7
+                  ros2-control-demo-example-8
+                  ros2-control-demo-example-9
                   ros2-control-demos
                   # keep-sorted end
                   ;
