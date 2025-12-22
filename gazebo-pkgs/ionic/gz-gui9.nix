@@ -24,7 +24,7 @@
   gz-utils3,
   pkg-config,
   protobuf,
-  qt5,
+  qt6,
   tinyxml-2,
   xorg,
 }:
@@ -72,14 +72,14 @@ stdenv.mkDerivation {
     gz-utils
     gz-utils3
     protobuf
-    qt5.qtbase
-    qt5.qtcharts
-    qt5.qtdeclarative
-    qt5.qtgraphicaleffects
-    qt5.qtlocation
-    qt5.qtpositioning
-    qt5.qtquickcontrols
-    qt5.qtquickcontrols2
+    qt6.qtbase
+    qt6.qtcharts
+    qt6.qtdeclarative
+    # qt6.qtgraphicaleffects
+    qt6.qtlocation
+    qt6.qtpositioning
+    qt6.qtquickcontrols
+    # qt6.qtquickcontrols2
     tinyxml-2
   ];
   checkInputs = [

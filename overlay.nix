@@ -31,21 +31,21 @@
       }
     );
     rosPackages = prev.rosPackages // {
-      noetic = prev.rosPackages.noetic.overrideScope (
-        _noetic-final: noetic-prev: {
-          # https://github.com/lopsided98/nix-ros-overlay/blob/develop/distros/noetic/overrides.nix#L206
-          # has https://github.com/ros/rosconsole/pull/58.patch
-          # but github somehow raises HTTP 429
-          rosconsole = noetic-prev.rosconsole.overrideAttrs {
-            patches = [ ./patches/ros/rosconsole/58_compatibility-fix-for-liblog4cxx-v011-013.patch ];
-          };
-          # drop fixed patch
-          # ref. https://github.com/lopsided98/nix-ros-overlay/pull/636
-          rosgraph = noetic-prev.rosgraph.overrideAttrs {
-            patches = [ ];
-          };
-        }
-      );
+      # noetic = prev.rosPackages.noetic.overrideScope (
+      #   _noetic-final: noetic-prev: {
+      #     # https://github.com/lopsided98/nix-ros-overlay/blob/develop/distros/noetic/overrides.nix#L206
+      #     # has https://github.com/ros/rosconsole/pull/58.patch
+      #     # but github somehow raises HTTP 429
+      #     rosconsole = noetic-prev.rosconsole.overrideAttrs {
+      #       patches = [ ./patches/ros/rosconsole/58_compatibility-fix-for-liblog4cxx-v011-013.patch ];
+      #     };
+      #     # drop fixed patch
+      #     # ref. https://github.com/lopsided98/nix-ros-overlay/pull/636
+      #     rosgraph = noetic-prev.rosgraph.overrideAttrs {
+      #       patches = [ ];
+      #     };
+      #   }
+      # );
       humble = prev.rosPackages.humble.overrideScope (
         humble-final: humble-prev:
         {
@@ -86,7 +86,7 @@
             # keep-sorted end
             ;
           gazebo-ros = humble-prev.gazebo-ros.overrideAttrs (super: {
-            buildInputs = (super.buildInputs or [ ]) ++ [ final.qt5.qtbase ];
+            buildInputs = (super.buildInputs or [ ]) ++ [ final.qt6.qtbase ];
           });
           play-motion2-msgs = humble-prev.play-motion2-msgs.overrideAttrs (_super: rec {
             version = "1.6.1";
@@ -108,11 +108,9 @@
             };
             sourceRoot = "source/play_motion2";
             # fix for rclcpp < 17.1.0 (#2018). we currently have 16.0.12.
-            postPatch =
-              (super.postPatch or "")
-              + ''
-                sed -i "1i #include <functional>" src/utils/motion_loader.*
-              '';
+            postPatch = (super.postPatch or "") + ''
+              sed -i "1i #include <functional>" src/utils/motion_loader.*
+            '';
           });
           python-with-ament-package =
             let

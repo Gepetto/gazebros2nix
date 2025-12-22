@@ -37,7 +37,7 @@
   pkg-config,
   protobuf,
   python3Packages,
-  qt5,
+  qt6,
   sdformat,
   sdformat15,
   tinyxml-2,
@@ -95,11 +95,11 @@ stdenv.mkDerivation {
     gz-utils3
     protobuf
     python3Packages.pybind11
-    qt5.qtbase
-    qt5.qtdeclarative
-    qt5.qtgraphicaleffects
-    qt5.qtquickcontrols
-    qt5.qtquickcontrols2
+    qt6.qtbase
+    qt6.qtdeclarative
+    # qt6.qtgraphicaleffects
+    qt6.qtquickcontrols
+    # qt6.tquickcontrols2
     sdformat
     sdformat15
     tinyxml-2

@@ -30,7 +30,31 @@
               pkgsForPatching.applyPatches {
                 name = "gepetto patched nixpkgs";
                 src = inputs.nixpkgs;
-                patches = lib.fileset.toList ./patches/NixOS/nixpkgs ++ config.gazebros2nix-pkgs.patches;
+                patches =
+                  lib.fileset.toList ./patches/NixOS/nixpkgs
+                  ++ config.gazebros2nix-pkgs.patches
+                  ++ [
+                    (pkgsForPatching.fetchpatch {
+                      name = "allow-next-patches.patch";
+                      url = "https://github.com/NixOS/nixpkgs/commit/5a0711127cd8b916c3d3128f473388c8c79df0da.patch";
+                      hash = "sha256-CF/KRqYODL9GwFYv+QUDj7bgSFo/DEliJgtYBOkMO3o=";
+                      revert = true;
+                      includes = [ "pkgs/by-name/li/libjpeg_turbo/package.nix" ];
+                    })
+                    (pkgsForPatching.fetchpatch {
+                      name = "allow-next-patch.patch";
+                      url = "https://github.com/NixOS/nixpkgs/commit/29950c9795a29e15f2a467ba095a49200871cfdf.patch";
+                      hash = "sha256-uBUDTXAHeV2W5j4dYZPUFIklnCDzcfuMx/3+jYcEbkI=";
+                      revert = true;
+
+                    })
+                    (pkgsForPatching.fetchpatch {
+                      name = "undrop-libjpeg-freeimage-support.patch";
+                      url = "https://github.com/NixOS/nixpkgs/commit/608422bd4ba434d02278602bc74c46d10bfde2ba.patch";
+                      hash = "sha256-6cAMTmJZtXEsLo5/ZiLaVs83x6sd5rcOawZmhVsR0lM=";
+                      revert = true;
+                    })
+                  ];
               }
             );
           in
@@ -56,7 +80,8 @@
                 };
               })
               (import ./overlay.nix { })
-            ] ++ config.gazebros2nix-pkgs.overlays;
+            ]
+            ++ config.gazebros2nix-pkgs.overlays;
           };
         checks =
           let

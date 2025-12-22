@@ -54,7 +54,7 @@
                   name = "gz-fortress";
                   postBuild = ''
                     rosWrapperArgs+=(
-                    --set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt5.qtbase.bin}/lib/qt-${pkgs.qt5.qtbase.version}/plugins/platforms
+                    --set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt6.qtbase.bin}/lib/qt-${pkgs.qt6.qtbase.version}/plugins/platforms
                     --prefix IGN_CONFIG_PATH : "$out/share/ignition"
                     )
                   '';
@@ -75,7 +75,7 @@
                     gz-tools
                     gz-transport
                     gz-utils
-                    pkgs.qt5.wrapQtAppsHook
+                    pkgs.qt6.wrapQtAppsHook
                     sdformat
                     # keep-sorted end
                   ];
@@ -99,7 +99,7 @@
                     gz-tools
                     gz-transport
                     gz-utils
-                    pkgs.qt5.wrapQtAppsHook
+                    pkgs.qt6.wrapQtAppsHook
                     sdformat
                     # keep-sorted end
                   ];
@@ -123,7 +123,7 @@
                     gz-tools
                     gz-transport
                     gz-utils
-                    pkgs.qt5.wrapQtAppsHook
+                    pkgs.qt6.wrapQtAppsHook
                     sdformat
                     # keep-sorted end
                   ];
@@ -249,16 +249,16 @@
                     ;
                 }
               )
-              // lib.mapAttrs' (n: lib.nameValuePair "ros-noetic-${n}") (
-                lib.optionalAttrs (system == "x86_64-linux") {
-                  inherit (pkgs.rosPackages.noetic)
-                    # keep-sorted start
-                    rosbag
-                    rospy
-                    # keep-sorted end
-                    ;
-                }
-              )
+              # // lib.mapAttrs' (n: lib.nameValuePair "ros-noetic-${n}") (
+              #   lib.optionalAttrs (system == "x86_64-linux") {
+              #     inherit (pkgs.rosPackages.noetic)
+              #       # keep-sorted start
+              #       rosbag
+              #       rospy
+              #       # keep-sorted end
+              #       ;
+              #   }
+              # )
               // lib.mapAttrs' (n: lib.nameValuePair "ros-humble-${n}") {
                 inherit (pkgs.rosPackages.humble)
                   # keep-sorted start
