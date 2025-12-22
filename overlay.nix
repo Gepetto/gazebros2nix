@@ -4,16 +4,19 @@
   final: prev:
   {
     # keep-sorted start block=yes
-    boost = prev.boost186; # Thanks gazebo 11 :(
-    gazebo_11 = prev.gazebo_11.overrideAttrs (rec {
-      # 11.14.0 does not compile
-      version = "11.15.1";
-      src = final.fetchFromGitHub {
-        owner = "gazebosim";
-        repo = "gazebo-classic";
-        tag = "gazebo11_${version}";
-        hash = "sha256-EieBsedwxelKY9LfFUzxuO189OvziSNXoKX2hYDoxMQ=";
-      };
+    zenoh-c = prev.zenoh-c.overrideAttrs (super: {
+      postInstall = super.postInstall + ''
+        substituteInPlace $out/lib/cmake/zenohc/zenohcConfig.cmake --replace-fail \
+          "$""{PACKAGE_PREFIX_DIR}/lib" \
+          "$out/lib" \
+      '';
+    });
+    zenoh-cpp = prev.zenoh-cpp.overrideAttrs (super: {
+      postInstall = super.postInstall + ''
+        substituteInPlace $out/lib/cmake/zenohcxx/zenohcxxConfig.cmake --replace-fail \
+          "$""{_IMPORT_PREFIX}//nix/store" \
+          "/nix/store"
+      '';
     });
     # keep-sorted end
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
@@ -30,6 +33,21 @@
         qtquickcontrols = qt6-final.qtdeclarative; # TODO
       }
     );
+    gazebo = prev.gazebo // {
+      jetty = prev.gazebo.jetty.overrideScope (
+        jetty-final: jetty-prev: {
+          gz-sim10 = jetty-prev.gz-sim10.overrideAttrs (super: {
+            postPatch = (super.postPatch or "") + ''
+              substituteInPlace src/cmd/CMakeLists.txt \
+                --replace-fail "$<TARGET_FILE_NAME:$""{model_executable}>" "$""{model_executable}" \
+                --replace-fail "$<TARGET_FILE_NAME:$""{sim_executable}>" "$""{sim_executable}" \
+                --replace-fail "$<TARGET_FILE_NAME:$""{gui_executable}>" "$""{gui_executable}" \
+                --replace-fail "$""{CMAKE_INSTALL_LIBEXECDIR}" "libexec"
+            '';
+          });
+        }
+      );
+    };
     rosPackages = prev.rosPackages // {
       # noetic = prev.rosPackages.noetic.overrideScope (
       #   _noetic-final: noetic-prev: {

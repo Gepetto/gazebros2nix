@@ -16,6 +16,7 @@ So you can either write your own config file to generate your own packages, or u
 nix shell .#gz-fortress --command ign gazebo --render-engine ogre tests/fortress.sdf
 nix shell .#gz-harmonic --command gz sim tests/harmonic.sdf
 nix shell .#gz-ionic    --command gz sim tests/ionic.sdf
+nix shell .#gz-jetty    --command gz sim tests/ionic.sdf
 ```
 
 ## Known issues

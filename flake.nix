@@ -128,6 +128,30 @@
                     # keep-sorted end
                   ];
                 };
+                gz-jetty = pkgs.rosPackages.jazzy.buildEnv {
+                  name = "gz-jetty";
+                  paths = with pkgs.gazebo.jetty; [
+                    # keep-sorted start
+                    gz-cmake
+                    gz-common
+                    gz-fuel-tools
+                    gz-gui
+                    gz-launch
+                    gz-math
+                    gz-msgs
+                    gz-physics
+                    gz-plugin
+                    gz-rendering
+                    gz-sensors
+                    gz-sim
+                    gz-tools
+                    gz-transport
+                    gz-utils
+                    pkgs.qt6.wrapQtAppsHook
+                    sdformat
+                    # keep-sorted end
+                  ];
+                };
               }
               // {
                 inherit (pkgs)
@@ -228,6 +252,30 @@
               // lib.mapAttrs' (n: lib.nameValuePair "gz-ionic-${n}") (
                 lib.optionalAttrs (system == "x86_64-linux") {
                   inherit (pkgs.gazebo.ionic)
+                    # keep-sorted start
+                    gz-cmake
+                    gz-common
+                    gz-fuel-tools
+                    gz-gui
+                    gz-launch
+                    gz-math
+                    gz-msgs
+                    gz-physics
+                    gz-plugin
+                    gz-rendering
+                    gz-sensors
+                    gz-sim
+                    gz-tools
+                    gz-transport
+                    gz-utils
+                    sdformat
+                    # keep-sorted end
+                    ;
+                }
+              )
+              // lib.mapAttrs' (n: lib.nameValuePair "gz-jetty-${n}") (
+                lib.optionalAttrs (system == "x86_64-linux") {
+                  inherit (pkgs.gazebo.jetty)
                     # keep-sorted start
                     gz-cmake
                     gz-common

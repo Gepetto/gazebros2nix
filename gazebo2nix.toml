@@ -127,3 +127,51 @@ propagated = [ "libsodium" ]
 
 [ionic.sdformat15]
 do_check = false
+
+[jetty.gz-cmake5]
+
+[jetty.gz-common7]
+do_check = false
+propagated = [ "libz" ]
+
+[jetty.gz-fuel-tools11]
+do_check = false
+
+[jetty.gz-sim10]
+do_check = false
+
+[jetty.gz-gui10]
+do_check = false
+
+[jetty.gz-launch9]
+do_check = false
+
+[jetty.gz-math9]
+
+[jetty.gz-msgs12]
+do_check = false
+
+[jetty.gz-physics9]
+do_check = false
+
+[jetty.gz-plugin4]
+do_check = false
+
+[jetty.gz-rendering10]
+propagated = [ "boost", "libz", "python3" ]
+do_check = false
+
+[jetty.gz-sensors10]
+do_check = false
+
+[jetty.gz-tools2]
+do_check = false
+
+[jetty.gz-transport15]
+propagated = [ "libsodium" ]
+do_check = false
+
+[jetty.gz-utils4]
+
+[jetty.sdformat16]
+do_check = false
