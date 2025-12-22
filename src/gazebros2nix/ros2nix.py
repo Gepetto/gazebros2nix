@@ -11,6 +11,7 @@ Currently github only.
 from logging import basicConfig, getLogger
 from os import environ
 from pathlib import Path
+from pickle import load as pload, dump as pdump
 from subprocess import check_call, check_output
 from tomllib import load
 
@@ -79,6 +80,7 @@ class Repo:
         self,
         gh: Github,
         repo: str | int,
+        cache_file: Path,
         branch: str | None = None,
         distro: str | None = None,
         packages: list | None = None,
@@ -115,7 +117,11 @@ class Repo:
         env.filters["kebab"] = kebabcase
         template = env.from_string(TEMPLATE, {"distro": self.distro})
 
-        self.hashes = {}
+        if cache_file.exists():
+            with cache_file.open("rb") as f:
+                self.hashes = pload(f)
+        else:
+            self.hashes = {}
 
         for package in self.packages:
             override = package or self.repo.name
@@ -123,6 +129,9 @@ class Repo:
                 packages[override] if packages and override in packages else {}
             )
             Package(repo=self, package=package, template=template, overrides=overrides)
+
+        with cache_file.open("wb") as f:
+            pdump(self.hashes, f)
 
 
 class Overrides:
@@ -222,6 +231,7 @@ def main():
                     gh=gh,
                     distro=distro,
                     repo=repo,
+                    cache_file=args.cache_file,
                     branch=repo_conf["branch"] if "branch" in repo_conf else None,
                     packages=repo_conf["packages"] if "packages" in repo_conf else None,
                 )

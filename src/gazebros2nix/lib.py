@@ -20,13 +20,20 @@ def get_parser(prog: str, description: str) -> ArgumentParser:
         help="configuration file",
     )
     parser.add_argument(
+        "-C",
+        "--cache-file",
+        default=Path(f".{prog}.pickle"),
+        type=Path,
+        help="cache file",
+    )
+
+    parser.add_argument(
         "-q",
         "--quiet",
         action="count",
         default=int(environ.get("QUIET", 0)),
         help="decrement verbosity level",
     )
-
     parser.add_argument(
         "-v",
         "--verbose",

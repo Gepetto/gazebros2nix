@@ -10,6 +10,7 @@ Take some gazebo distributions and generate nix packages
 from logging import basicConfig, getLogger
 from os import environ
 from pathlib import Path
+from pickle import load as pload, dump as pdump
 from subprocess import check_call, check_output
 from tomllib import load as tload
 from typing import Any
@@ -120,6 +121,7 @@ class GazeboDistro:
         distro: str,
         conf: Any,
         repo: str | None,
+        cache_file: Path,
     ):
         logger.info("Gazebo Distro: %s", distro)
 
@@ -132,6 +134,12 @@ class GazeboDistro:
         self.conf = conf
         self.rosdeps = rosdeps
 
+        if cache_file.exists():
+            with cache_file.open("rb") as f:
+                self.hashes = pload(f)
+        else:
+            self.hashes = {}
+
         self.main = gh.get_repo("gazebo-tooling/gazebodistro")
         collection = self.main.get_contents(
             f"collection-{distro}.yaml", ref=self.main.default_branch
@@ -141,6 +149,9 @@ class GazeboDistro:
             if repo and repo != nick:
                 continue
             self.process_repo(nick, data)
+
+        with cache_file.open("wb") as f:
+            pdump(self.hashes, f)
 
     def rosdep(self, k: str) -> list[str]:
         return [p for p in self.rosdeps.get(k, [kebabcase(k)])]
@@ -187,11 +198,16 @@ class GazeboDistro:
                 break
         else:
             breakpoint()
-        hash = check_output(
-            ["nurl", "-H", repo.html_url, tag_name],
-            env={**environ, "GITHUB_TOKEN": self.token},
-            text=True,
-        ).strip()
+
+        if (repo.html_url, tag_name) in self.hashes:
+            hash = self.hashes[(repo.html_url, tag_name)]
+        else:
+            hash = check_output(
+                ["nurl", "-H", repo.html_url, tag_name],
+                env={**environ, "GITHUB_TOKEN": self.token},
+                text=True,
+            ).strip()
+            self.hashes[(repo.html_url, tag_name)] = hash
 
         if ign:
             package_xml = repo.get_contents("package.xml", ref=repo.default_branch)
@@ -290,7 +306,17 @@ def main():
         for distro, conf in cfg.items():
             if args.distro and distro != args.distro:
                 continue
-            GazeboDistro(gh, token, path, template, rosdeps, distro, conf, args.repo)
+            GazeboDistro(
+                gh,
+                token,
+                path,
+                template,
+                rosdeps,
+                distro,
+                conf,
+                args.repo,
+                args.cache_file,
+            )
 
 
 if __name__ == "__main__":
