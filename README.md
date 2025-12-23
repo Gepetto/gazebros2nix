@@ -23,11 +23,11 @@ nix shell .#gz-jetty    --command gz sim tests/ionic.sdf
 
 ### Freeimage
 
-Gazebo depend on `freeimage`, which is not maintained and has a ton of CVE, so it is marked as insecure in nixpkgs.
+OGRE & Gazebo depend on `freeimage`, which is not maintained and has a ton of CVE, so it is marked as insecure in nixpkgs.
 
-Therefore in this repo we use `permittedInsecurePackages`.
+Therefore in this repo we use `permittedInsecurePackages` and copy-paste packages from obsolete nixpkgs in the `garbage/` directory.
 
-We don't see any good solution to this issue, which has to be fixed in gazebo upstream
+We don't see any good solution to this issue, which has to be fixed in OGRE & gazebo upstream.
 
 ### Gazebo Classic
 
@@ -39,7 +39,7 @@ A better solution would be to update the packages that depend on Gazebo Classic 
 
 ### Boost
 
-Gazebo Classic depends on Boost Asio \< 1.87.
+Gazebo Classic depends on Boost Asio < 1.87.
 
 Therefore, in the repo we have a `boost = boost186;` in the overlay, which imply a ton of rebuilds. You should probably use a binary cache.
 

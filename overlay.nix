@@ -4,6 +4,8 @@
   final: prev:
   {
     # keep-sorted start block=yes
+    libjpeg_turbo-freeimage = final.callPackage ./garbage/libjpeg_turbo-freeimage/package.nix { };
+    freeimage = final.callPackage ./garbage/freeimage/package.nix { };
     zenoh-c = prev.zenoh-c.overrideAttrs (super: {
       postInstall = super.postInstall + ''
         substituteInPlace $out/lib/cmake/zenohc/zenohcConfig.cmake --replace-fail \
@@ -35,7 +37,7 @@
     );
     gazebo = prev.gazebo // {
       jetty = prev.gazebo.jetty.overrideScope (
-        jetty-final: jetty-prev: {
+        _jetty-final: jetty-prev: {
           gz-sim10 = jetty-prev.gz-sim10.overrideAttrs (super: {
             postPatch = (super.postPatch or "") + ''
               substituteInPlace src/cmd/CMakeLists.txt \
