@@ -11,7 +11,6 @@ Currently github only.
 from logging import basicConfig, getLogger
 from os import environ
 from pathlib import Path
-from pickle import load as pload, dump as pdump
 from subprocess import check_call, check_output
 from tomllib import load
 
@@ -20,7 +19,7 @@ from catkin_pkg.package import parse_package_string
 from github import Auth, Github
 from jinja2 import Environment, Template
 
-from .lib import LICENSES, get_parser
+from .lib import LICENSES, get_parser, HashesFile
 
 TEMPLATE = """{
   lib,
@@ -75,12 +74,13 @@ logger = getLogger("ros2nix")
 parser = get_parser(prog="ros2nix", description=__doc__)
 
 
-class Repo:
+class Repo(HashesFile):
     def __init__(
         self,
         gh: Github,
         repo: str | int,
-        cache_file: Path,
+        token: str,
+        hashes_file: Path,
         branch: str | None = None,
         distro: str | None = None,
         packages: list | None = None,
@@ -117,11 +117,9 @@ class Repo:
         env.filters["kebab"] = kebabcase
         template = env.from_string(TEMPLATE, {"distro": self.distro})
 
-        if cache_file.exists():
-            with cache_file.open("rb") as f:
-                self.hashes = pload(f)
-        else:
-            self.hashes = {}
+        self.token = token
+        self.hashes_file = hashes_file
+        self.load_hashes()
 
         for package in self.packages:
             override = package or self.repo.name
@@ -130,8 +128,7 @@ class Repo:
             )
             Package(repo=self, package=package, template=template, overrides=overrides)
 
-        with cache_file.open("wb") as f:
-            pdump(self.hashes, f)
+        self.dump_hashes()
 
 
 class Overrides:
@@ -231,7 +228,8 @@ def main():
                     gh=gh,
                     distro=distro,
                     repo=repo,
-                    cache_file=args.cache_file,
+                    token=token,
+                    hashes_file=args.hashes_file,
                     branch=repo_conf["branch"] if "branch" in repo_conf else None,
                     packages=repo_conf["packages"] if "packages" in repo_conf else None,
                 )

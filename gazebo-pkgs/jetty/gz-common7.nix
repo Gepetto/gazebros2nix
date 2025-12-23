@@ -35,11 +35,11 @@ stdenv.mkDerivation {
   patches = [
     (fetchpatch {
       url = "https://github.com/gazebosim/gz-common/commit/58c6eaa7bd9c048264f3e0b33a36a744cca8d18c.patch";
-      hash = "sha256-Ektl9KeY5u+U8fgfksQmRPUwqCA6ZtY6buCwJ4sWcn8=";
+      hash = "sha256-XQ0InwMTArFyQA5onJPcatyulA3RTIXkfY8bUh+SvOc=";
     })
     (fetchpatch {
       url = "https://github.com/wentasah/gz-common/commit/8d18342302b7586b5b34c3cd12f2ef26e148b6ab.patch";
-      hash = "sha256-a4EF+m2j4BjQBsr02Md9SxC9/nplO+pVw95lGX0SNSY=";
+      hash = "sha256-hi3KgipmWYtS93ug3eedOXzj8PdKDWySWJ5a/jLQAPw=";
     })
   ];
 
