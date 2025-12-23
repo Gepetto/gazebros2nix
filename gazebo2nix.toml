@@ -1,6 +1,6 @@
 [fortress.ign-common4]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-common/pull/521.patch" }]
+patches = [{ url = "https://github.com/gazebosim/gz-common/pull/521.patch?full_index=1" }]
 propagated = [ "gts" ]
 
 [fortress.ign-fuel-tools7]
@@ -8,21 +8,21 @@ do_check = false
 
 [fortress.ign-gazebo6]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-sim/pull/3022.patch" }]
+patches = [{ url = "https://github.com/gazebosim/gz-sim/pull/3022.patch?full_index=1" }]
 
 [fortress.ign-gui6]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/544.patch" }, { url = "https://github.com/gazebosim/gz-gui/pull/696.patch" }]
+patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/544.patch?full_index=1" }, { url = "https://github.com/gazebosim/gz-gui/pull/696.patch?full_index=1" }]
 
 [fortress.ign-launch5]
 do_check = false
 
 [fortress.ign-msgs8]
-patches = [{ url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch" }]
+patches = [{ url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch?full_index=1" }]
 
 [fortress.ign-physics5]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-physics/pull/768.patch" }]
+patches = [{ url = "https://github.com/gazebosim/gz-physics/pull/768.patch?full_index=1" }]
 
 [fortress.ign-plugin1]
 do_check = false
@@ -30,7 +30,7 @@ do_check = false
 [fortress.ign-rendering6]
 do_check = false
 propagated = [ "boost" ]
-patches = [{ url = "https://github.com/gazebosim/gz-rendering/pull/1017.patch" }]
+patches = [{ url = "https://github.com/gazebosim/gz-rendering/pull/1017.patch?full_index=1" }]
 
 [fortress.ign-sensors6]
 do_check = false
@@ -44,14 +44,14 @@ do_check = false
 
 [harmonic.gz-common5]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-common/pull/660.patch" }]
+patches = [{ url = "https://github.com/gazebosim/gz-common/pull/660.patch?full_index=1" }]
 
 [harmonic.gz-fuel-tools9]
 do_check = false
 
 [harmonic.gz-gui8]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/676.patch" }]
+patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/676.patch?full_index=1" }]
 
 [harmonic.gz-launch7]
 do_check = false
@@ -94,7 +94,7 @@ do_check = false
 
 [ionic.gz-gui9]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/676.patch" }]
+patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/676.patch?full_index=1" }]
 
 [ionic.gz-launch8]
 do_check = false
@@ -134,8 +134,8 @@ do_check = false
 do_check = false
 propagated = [ "libz" ]
 patches = [
-  { url = "https://github.com/gazebosim/gz-common/commit/58c6eaa7bd9c048264f3e0b33a36a744cca8d18c.patch" },
-  { url = "https://github.com/wentasah/gz-common/commit/8d18342302b7586b5b34c3cd12f2ef26e148b6ab.patch" }
+  { url = "https://github.com/gazebosim/gz-common/commit/58c6eaa7bd9c048264f3e0b33a36a744cca8d18c.patch?full_index=1" },
+  { url = "https://github.com/wentasah/gz-common/commit/8d18342302b7586b5b34c3cd12f2ef26e148b6ab.patch?full_index=1" }
 ]
 
 [jetty.gz-fuel-tools11]

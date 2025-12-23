@@ -54,6 +54,8 @@
                 unset QML2_IMPORT_PATH
                 unset QT_PLUGIN_PATH
                 unset QT_STYLE_OVERRIDE
+
+                test -f .venv/bin/activate && source .venv/bin/activate
               '';
             };
             packages = lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (

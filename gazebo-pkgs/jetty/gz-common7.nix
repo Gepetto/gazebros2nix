@@ -34,12 +34,12 @@ stdenv.mkDerivation {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/gazebosim/gz-common/commit/58c6eaa7bd9c048264f3e0b33a36a744cca8d18c.patch";
-      hash = "sha256-XQ0InwMTArFyQA5onJPcatyulA3RTIXkfY8bUh+SvOc=";
+      url = "https://github.com/gazebosim/gz-common/commit/58c6eaa7bd9c048264f3e0b33a36a744cca8d18c.patch?full_index=1";
+      hash = "sha256-1MDiufVeNj54sWs0H200INVxS8mwzwR1UVMd523Byp0=";
     })
     (fetchpatch {
-      url = "https://github.com/wentasah/gz-common/commit/8d18342302b7586b5b34c3cd12f2ef26e148b6ab.patch";
-      hash = "sha256-hi3KgipmWYtS93ug3eedOXzj8PdKDWySWJ5a/jLQAPw=";
+      url = "https://github.com/wentasah/gz-common/commit/8d18342302b7586b5b34c3cd12f2ef26e148b6ab.patch?full_index=1";
+      hash = "sha256-Jtx1IShjLjaKsQ0x9RmTwPpbd3x07dOrt7bEXMTGnCw=";
     })
   ];
 
