@@ -84,5 +84,8 @@
 				</collision>
 			</link>
 		</model>
+		<include>
+			<uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+		</include>
 	</world>
 </sdf>
