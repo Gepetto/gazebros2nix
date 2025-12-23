@@ -47,6 +47,14 @@
               packages = [
                 pkgs.gazebros2nix-venv.passthru.editableVirtualenv
               ];
+              shellHook = ''
+                export GZ_IP=127.0.0.1
+                unset QTWEBKIT_PLUGIN_PATH
+                unset QT_QPA_PLATFORMTHEME
+                unset QML2_IMPORT_PATH
+                unset QT_PLUGIN_PATH
+                unset QT_STYLE_OVERRIDE
+              '';
             };
             packages = lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (
               {
