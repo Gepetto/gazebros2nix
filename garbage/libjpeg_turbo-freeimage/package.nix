@@ -14,7 +14,6 @@
   # for passthru.tests
   dvgrab,
   epeg,
-  freeimage,
   gd,
   graphicsmagick,
   imagemagick,
