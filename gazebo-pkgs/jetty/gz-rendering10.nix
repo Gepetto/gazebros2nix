@@ -24,7 +24,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-rendering10";
-  version = "10.0.0";
+  version = "10.0.1";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -32,8 +32,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-rendering";
-    tag = "gz-rendering10_10.0.0";
-    hash = "sha256-Y6kGr4GmDDiQsoO/C2adhWdYhhvuEil+WXKdq3hPqfo=";
+    tag = "gz-rendering10_10.0.1";
+    hash = "sha256-gnNGe/yk+ucwPviaa6FusLD9Kp3SXKhnAChyNQhRzrM=";
   };
 
   nativeBuildInputs = [

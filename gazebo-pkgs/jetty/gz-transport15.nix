@@ -23,7 +23,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-transport15";
-  version = "15.0.1";
+  version = "15.0.2";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -31,8 +31,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-transport";
-    tag = "gz-transport15_15.0.1";
-    hash = "sha256-ibw1J8bECYoZpPko9q9QL7gIH6pf4HFNU+hU3eXrklE=";
+    tag = "gz-transport15_15.0.2";
+    hash = "sha256-9ple0Bz3tFno/ZjUi7f2dqU06g81W8w0IeIzRFrA0s8=";
   };
 
   nativeBuildInputs = [

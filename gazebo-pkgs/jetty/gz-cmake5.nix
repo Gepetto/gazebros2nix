@@ -8,7 +8,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-cmake5";
-  version = "5.0.0";
+  version = "5.0.1";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -16,8 +16,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-cmake";
-    tag = "gz-cmake5_5.0.0";
-    hash = "sha256-XF7oglj9Xr6F8a+6uowrY5a040yl4FZlFfW/Y0BJwOs=";
+    tag = "gz-cmake5_5.0.1";
+    hash = "sha256-KkqSwTTcgzZ+mbID9OTSc1Wqa5q7mF9Fve++DmwP9hY=";
   };
 
   nativeBuildInputs = [
