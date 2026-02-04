@@ -38,6 +38,7 @@
     gazebo = prev.gazebo // {
       jetty = prev.gazebo.jetty.overrideScope (
         _jetty-final: jetty-prev: {
+          dart = final.dartsim;
           gz-sim10 = jetty-prev.gz-sim10.overrideAttrs (super: {
             postPatch = (super.postPatch or "") + ''
               substituteInPlace src/cmd/CMakeLists.txt \
