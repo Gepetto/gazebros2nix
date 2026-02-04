@@ -19,7 +19,7 @@ from catkin_pkg.package import parse_package_string
 from github import Auth, Github
 from jinja2 import Environment, Template
 
-from .lib import LICENSES, get_parser
+from .lib import LICENSES, get_parser, HashesFile
 
 TEMPLATE = """{
   lib,
@@ -74,11 +74,13 @@ logger = getLogger("ros2nix")
 parser = get_parser(prog="ros2nix", description=__doc__)
 
 
-class Repo:
+class Repo(HashesFile):
     def __init__(
         self,
         gh: Github,
         repo: str | int,
+        token: str,
+        hashes_file: Path,
         branch: str | None = None,
         distro: str | None = None,
         packages: list | None = None,
@@ -115,7 +117,9 @@ class Repo:
         env.filters["kebab"] = kebabcase
         template = env.from_string(TEMPLATE, {"distro": self.distro})
 
-        self.hashes = {}
+        self.token = token
+        self.hashes_file = hashes_file
+        self.load_hashes()
 
         for package in self.packages:
             override = package or self.repo.name
@@ -123,6 +127,8 @@ class Repo:
                 packages[override] if packages and override in packages else {}
             )
             Package(repo=self, package=package, template=template, overrides=overrides)
+
+        self.dump_hashes()
 
 
 class Overrides:
@@ -222,6 +228,8 @@ def main():
                     gh=gh,
                     distro=distro,
                     repo=repo,
+                    token=token,
+                    hashes_file=args.hashes_file,
                     branch=repo_conf["branch"] if "branch" in repo_conf else None,
                     packages=repo_conf["packages"] if "packages" in repo_conf else None,
                 )

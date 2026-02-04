@@ -3,59 +3,44 @@
   stdenv,
   fetchFromGitHub,
 
+  binutils,
   cmake,
-  freeglut,
-  freeimage,
-  gbenchmark,
-  glew,
+  gflags,
   gz-cmake,
-  gz-cmake4,
   gz-common,
-  gz-common6,
   gz-fuel-tools,
-  gz-fuel-tools10,
   gz-gui,
-  gz-gui9,
   gz-math,
-  gz-math8,
   gz-msgs,
-  gz-msgs11,
   gz-physics,
-  gz-physics8,
   gz-plugin,
-  gz-plugin3,
   gz-rendering,
-  gz-rendering9,
   gz-sensors,
-  gz-sensors9,
+  gz-sim,
   gz-tools,
   gz-tools2,
   gz-transport,
-  gz-transport14,
   gz-utils,
-  gz-utils3,
+  libwebsockets,
+  libyaml,
   pkg-config,
-  protobuf,
-  python3Packages,
-  qt6,
   sdformat,
-  sdformat15,
   tinyxml-2,
   util-linux,
   xorg,
 }:
 stdenv.mkDerivation {
-  pname = "gz-ionic-gz-sim9";
-  version = "9.3.0";
+  pname = "gz-jetty-gz-launch9";
+  version = "9.0.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
 
   src = fetchFromGitHub {
     owner = "gazebosim";
-    repo = "gz-sim";
-    tag = "gz-sim9_9.3.0";
-    hash = "sha256-v8YgOIRQE5gLjn5/cBIK0usMYZYKdVZ1GQJGAgaDxoc=";
+    repo = "gz-launch";
+    tag = "gz-launch9_9.0.0";
+    hash = "sha256-fRzRFsnhK0IiOLNyB9JrYgX0D2vPXQ7rxp7JXCMd3hQ=";
   };
 
   nativeBuildInputs = [
@@ -63,52 +48,32 @@ stdenv.mkDerivation {
     pkg-config
   ];
   propagatedBuildInputs = [
-    freeglut
-    freeimage
-    gbenchmark
-    glew
+    binutils
+    gflags
     gz-cmake
-    gz-cmake4
     gz-common
-    gz-common6
     gz-fuel-tools
-    gz-fuel-tools10
     gz-gui
-    gz-gui9
     gz-math
-    gz-math8
     gz-msgs
-    gz-msgs11
     gz-physics
-    gz-physics8
     gz-plugin
-    gz-plugin3
     gz-rendering
-    gz-rendering9
     gz-sensors
-    gz-sensors9
+    gz-sim
     gz-tools
     gz-tools2
     gz-transport
-    gz-transport14
     gz-utils
-    gz-utils3
-    protobuf
-    python3Packages.pybind11
-    qt6.qtbase
-    qt6.qtdeclarative
-    # qt6.qtgraphicaleffects
-    qt6.qtquickcontrols
-    # qt6.tquickcontrols2
+    libwebsockets
+    libyaml
     sdformat
-    sdformat15
     tinyxml-2
     util-linux
     xorg.libXi
     xorg.libXmu
   ];
   checkInputs = [
-    python3Packages.pytest
     xorg.xorgserver
   ];
 
@@ -117,9 +82,9 @@ stdenv.mkDerivation {
   doCheck = false;
 
   meta = {
-    description = "Gazebo Sim : A Robotic Simulator";
+    description = "Gazebo Launch : Run and manage programs and plugins";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/gazebosim/gz-sim";
+    homepage = "https://github.com/gazebosim/gz-launch";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

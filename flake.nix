@@ -47,6 +47,16 @@
               packages = [
                 pkgs.gazebros2nix-venv.passthru.editableVirtualenv
               ];
+              shellHook = ''
+                export GZ_IP=127.0.0.1
+                unset QTWEBKIT_PLUGIN_PATH
+                unset QT_QPA_PLATFORMTHEME
+                unset QML2_IMPORT_PATH
+                unset QT_PLUGIN_PATH
+                unset QT_STYLE_OVERRIDE
+
+                test -f .venv/bin/activate && source .venv/bin/activate
+              '';
             };
             packages = lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (
               {
@@ -54,7 +64,7 @@
                   name = "gz-fortress";
                   postBuild = ''
                     rosWrapperArgs+=(
-                    --set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt5.qtbase.bin}/lib/qt-${pkgs.qt5.qtbase.version}/plugins/platforms
+                    --set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt6.qtbase.bin}/lib/qt-${pkgs.qt6.qtbase.version}/plugins/platforms
                     --prefix IGN_CONFIG_PATH : "$out/share/ignition"
                     )
                   '';
@@ -75,7 +85,7 @@
                     gz-tools
                     gz-transport
                     gz-utils
-                    pkgs.qt5.wrapQtAppsHook
+                    pkgs.qt6.wrapQtAppsHook
                     sdformat
                     # keep-sorted end
                   ];
@@ -99,7 +109,7 @@
                     gz-tools
                     gz-transport
                     gz-utils
-                    pkgs.qt5.wrapQtAppsHook
+                    pkgs.qt6.wrapQtAppsHook
                     sdformat
                     # keep-sorted end
                   ];
@@ -123,7 +133,31 @@
                     gz-tools
                     gz-transport
                     gz-utils
-                    pkgs.qt5.wrapQtAppsHook
+                    pkgs.qt6.wrapQtAppsHook
+                    sdformat
+                    # keep-sorted end
+                  ];
+                };
+                gz-jetty = pkgs.rosPackages.jazzy.buildEnv {
+                  name = "gz-jetty";
+                  paths = with pkgs.gazebo.jetty; [
+                    # keep-sorted start
+                    gz-cmake
+                    gz-common
+                    gz-fuel-tools
+                    gz-gui
+                    gz-launch
+                    gz-math
+                    gz-msgs
+                    gz-physics
+                    gz-plugin
+                    gz-rendering
+                    gz-sensors
+                    gz-sim
+                    gz-tools
+                    gz-transport
+                    gz-utils
+                    pkgs.qt6.wrapQtAppsHook
                     sdformat
                     # keep-sorted end
                   ];
@@ -132,6 +166,7 @@
               // {
                 inherit (pkgs)
                   # keep-sorted start
+                  freeimage
                   gazebo2nix
                   ros2nix
                   # keep-sorted end
@@ -249,16 +284,40 @@
                     ;
                 }
               )
-              // lib.mapAttrs' (n: lib.nameValuePair "ros-noetic-${n}") (
+              // lib.mapAttrs' (n: lib.nameValuePair "gz-jetty-${n}") (
                 lib.optionalAttrs (system == "x86_64-linux") {
-                  inherit (pkgs.rosPackages.noetic)
+                  inherit (pkgs.gazebo.jetty)
                     # keep-sorted start
-                    rosbag
-                    rospy
+                    gz-cmake
+                    gz-common
+                    gz-fuel-tools
+                    gz-gui
+                    gz-launch
+                    gz-math
+                    gz-msgs
+                    gz-physics
+                    gz-plugin
+                    gz-rendering
+                    gz-sensors
+                    gz-sim
+                    gz-tools
+                    gz-transport
+                    gz-utils
+                    sdformat
                     # keep-sorted end
                     ;
                 }
               )
+              # // lib.mapAttrs' (n: lib.nameValuePair "ros-noetic-${n}") (
+              #   lib.optionalAttrs (system == "x86_64-linux") {
+              #     inherit (pkgs.rosPackages.noetic)
+              #       # keep-sorted start
+              #       rosbag
+              #       rospy
+              #       # keep-sorted end
+              #       ;
+              #   }
+              # )
               // lib.mapAttrs' (n: lib.nameValuePair "ros-humble-${n}") {
                 inherit (pkgs.rosPackages.humble)
                   # keep-sorted start

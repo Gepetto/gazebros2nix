@@ -3,50 +3,41 @@
   stdenv,
   fetchFromGitHub,
 
+  binutils,
   cmake,
+  elfutils,
   freeglut,
   freeimage,
   gbenchmark,
   glew,
   gz-cmake,
-  gz-cmake4,
   gz-common,
-  gz-common6,
   gz-fuel-tools,
-  gz-fuel-tools10,
   gz-gui,
-  gz-gui9,
   gz-math,
-  gz-math8,
   gz-msgs,
-  gz-msgs11,
   gz-physics,
-  gz-physics8,
   gz-plugin,
-  gz-plugin3,
   gz-rendering,
-  gz-rendering9,
   gz-sensors,
-  gz-sensors9,
   gz-tools,
   gz-tools2,
   gz-transport,
-  gz-transport14,
   gz-utils,
-  gz-utils3,
+  libdwarf,
+  libwebsockets,
   pkg-config,
   protobuf,
   python3Packages,
   qt6,
   sdformat,
-  sdformat15,
   tinyxml-2,
   util-linux,
   xorg,
 }:
 stdenv.mkDerivation {
-  pname = "gz-ionic-gz-sim9";
-  version = "9.3.0";
+  pname = "gz-jetty-gz-sim10";
+  version = "10.1.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -54,8 +45,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sim";
-    tag = "gz-sim9_9.3.0";
-    hash = "sha256-v8YgOIRQE5gLjn5/cBIK0usMYZYKdVZ1GQJGAgaDxoc=";
+    tag = "gz-sim10_10.1.0";
+    hash = "sha256-HzVQAJ0Hkfgds/b4WUyP4bINdiaNLLMefDmb3UsET50=";
   };
 
   nativeBuildInputs = [
@@ -63,45 +54,34 @@ stdenv.mkDerivation {
     pkg-config
   ];
   propagatedBuildInputs = [
+    binutils
+    elfutils
     freeglut
     freeimage
     gbenchmark
     glew
     gz-cmake
-    gz-cmake4
     gz-common
-    gz-common6
     gz-fuel-tools
-    gz-fuel-tools10
     gz-gui
-    gz-gui9
     gz-math
-    gz-math8
     gz-msgs
-    gz-msgs11
     gz-physics
-    gz-physics8
     gz-plugin
-    gz-plugin3
     gz-rendering
-    gz-rendering9
     gz-sensors
-    gz-sensors9
     gz-tools
     gz-tools2
     gz-transport
-    gz-transport14
     gz-utils
-    gz-utils3
+    libdwarf
+    libwebsockets
     protobuf
     python3Packages.pybind11
+    qt6.qt5compat
     qt6.qtbase
     qt6.qtdeclarative
-    # qt6.qtgraphicaleffects
-    qt6.qtquickcontrols
-    # qt6.tquickcontrols2
     sdformat
-    sdformat15
     tinyxml-2
     util-linux
     xorg.libXi

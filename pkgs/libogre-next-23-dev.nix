@@ -22,6 +22,7 @@
   graphviz,
   zlib,
   libXrandr,
+  libxcb,
 }:
 stdenv.mkDerivation rec {
   pname = "ogre-next";
@@ -72,6 +73,7 @@ stdenv.mkDerivation rec {
     tinyxml
     zlib
     openvr
+    libxcb
   ];
 
   meta = with lib; {

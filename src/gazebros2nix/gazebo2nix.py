@@ -25,7 +25,7 @@ try:
 except ImportError:
     from yaml import Loader
 
-from .lib import LICENSES, get_parser
+from .lib import LICENSES, get_parser, HashesFile
 
 TEMPLATE = """{
   lib,
@@ -109,7 +109,7 @@ def gz_to_ign(name: str) -> str:
     return name
 
 
-class GazeboDistro:
+class GazeboDistro(HashesFile):
     def __init__(
         self,
         gh: Github,
@@ -120,6 +120,7 @@ class GazeboDistro:
         distro: str,
         conf: Any,
         repo: str | None,
+        hashes_file: Path,
     ):
         logger.info("Gazebo Distro: %s", distro)
 
@@ -131,6 +132,9 @@ class GazeboDistro:
         self.distro = distro
         self.conf = conf
         self.rosdeps = rosdeps
+        self.hashes_file = hashes_file
+
+        self.load_hashes()
 
         self.main = gh.get_repo("gazebo-tooling/gazebodistro")
         collection = self.main.get_contents(
@@ -141,6 +145,8 @@ class GazeboDistro:
             if repo and repo != nick:
                 continue
             self.process_repo(nick, data)
+
+        self.dump_hashes()
 
     def rosdep(self, k: str) -> list[str]:
         return [p for p in self.rosdeps.get(k, [kebabcase(k)])]
@@ -174,6 +180,11 @@ class GazeboDistro:
             propagated = self.conf[pkg_name].get("propagated", [])
             check = self.conf[pkg_name].get("check", [])
 
+        patches = [
+            {"hash": self.get_hash(patch["url"], patch=True), **patch}
+            for patch in patches
+        ]
+
         package = self.main.get_contents(f"{pkg_name}.yaml")
         content = load(package.decoded_content.decode(), Loader=Loader)
         deps = [fix_name(d) for d in content["repositories"].keys()]
@@ -187,11 +198,8 @@ class GazeboDistro:
                 break
         else:
             breakpoint()
-        hash = check_output(
-            ["nurl", "-H", repo.html_url, tag_name],
-            env={**environ, "GITHUB_TOKEN": self.token},
-            text=True,
-        ).strip()
+
+        hash = self.get_hash(repo.html_url, tag_name)
 
         if ign:
             package_xml = repo.get_contents("package.xml", ref=repo.default_branch)
@@ -290,7 +298,17 @@ def main():
         for distro, conf in cfg.items():
             if args.distro and distro != args.distro:
                 continue
-            GazeboDistro(gh, token, path, template, rosdeps, distro, conf, args.repo)
+            GazeboDistro(
+                gh,
+                token,
+                path,
+                template,
+                rosdeps,
+                distro,
+                conf,
+                args.repo,
+                args.hashes_file,
+            )
 
 
 if __name__ == "__main__":

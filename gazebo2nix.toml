@@ -1,6 +1,6 @@
 [fortress.ign-common4]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-common/pull/521.patch", hash = "sha256-NlUyAfGugYuNYURY1NjgStNsJ+jrLuaHmJ8Gp9QBSmQ=" }]
+patches = [{ url = "https://github.com/gazebosim/gz-common/pull/521.patch?full_index=1" }]
 propagated = [ "gts" ]
 
 [fortress.ign-fuel-tools7]
@@ -8,21 +8,21 @@ do_check = false
 
 [fortress.ign-gazebo6]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-sim/pull/3022.patch", hash = "sha256-/cACcshZ3nkepvgjiDkpMCZpee9704MYPkQNdRpZntU=" }]
+patches = [{ url = "https://github.com/gazebosim/gz-sim/pull/3022.patch?full_index=1" }]
 
 [fortress.ign-gui6]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/544.patch", hash = "sha256-kr5bowr9/aHnuJsRZ/2Igf96BNKNr4Z2dDz0iv7AzA8=" }, { url = "https://github.com/gazebosim/gz-gui/pull/696.patch", hash = "sha256-eYGYYGkaWOp0H97hyMKk/5p5zAfPd+X5HPM+0NDp07U=" }]
+patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/544.patch?full_index=1" }, { url = "https://github.com/gazebosim/gz-gui/pull/696.patch?full_index=1" }]
 
 [fortress.ign-launch5]
 do_check = false
 
 [fortress.ign-msgs8]
-patches = [{ url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch", hash = "sha256-QnR1WtB4gbgyJKbQ4doMhfSjJBksEeQ3Us4y9KqCWeY=" }]
+patches = [{ url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch?full_index=1" }]
 
 [fortress.ign-physics5]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-physics/pull/768.patch", hash = "sha256-qqqkWb5VWZZ6SCZFp1Md2Sd5zVQkWmlCuE0V4ZnUtUk=" }]
+patches = [{ url = "https://github.com/gazebosim/gz-physics/pull/768.patch?full_index=1" }]
 
 [fortress.ign-plugin1]
 do_check = false
@@ -30,7 +30,7 @@ do_check = false
 [fortress.ign-rendering6]
 do_check = false
 propagated = [ "boost" ]
-patches = [{ url = "https://github.com/gazebosim/gz-rendering/pull/1017.patch", hash = "sha256-NQuyeGGZjzH4qm9CC+W/HdwmLx8d0HmP6S7dLRv8hSA=" }]
+patches = [{ url = "https://github.com/gazebosim/gz-rendering/pull/1017.patch?full_index=1" }]
 
 [fortress.ign-sensors6]
 do_check = false
@@ -44,14 +44,14 @@ do_check = false
 
 [harmonic.gz-common5]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-common/pull/660.patch", hash = "sha256-LJBGGzUgS/AhKWawTeLpnOteJj3PdN9MR4wacuEgxVc=" }]
+patches = [{ url = "https://github.com/gazebosim/gz-common/pull/660.patch?full_index=1" }]
 
 [harmonic.gz-fuel-tools9]
 do_check = false
 
 [harmonic.gz-gui8]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/676.patch", hash = "sha256-EVuGTAT/U3So/K1ti2B0QdMr2AErjRLDgENWkGZYMXc=" }]
+patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/676.patch?full_index=1" }]
 
 [harmonic.gz-launch7]
 do_check = false
@@ -94,7 +94,7 @@ do_check = false
 
 [ionic.gz-gui9]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/676.patch", hash = "sha256-EVuGTAT/U3So/K1ti2B0QdMr2AErjRLDgENWkGZYMXc=" }]
+patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/676.patch?full_index=1" }]
 
 [ionic.gz-launch8]
 do_check = false
@@ -126,4 +126,55 @@ do_check = false
 propagated = [ "libsodium" ]
 
 [ionic.sdformat15]
+do_check = false
+
+[jetty.gz-cmake5]
+
+[jetty.gz-common7]
+do_check = false
+propagated = [ "libz" ]
+# patches = [
+#   { url = "https://github.com/wentasah/gz-common/commit/8d18342302b7586b5b34c3cd12f2ef26e148b6ab.patch?full_index=1" }
+# ]
+
+[jetty.gz-fuel-tools11]
+do_check = false
+
+[jetty.gz-sim10]
+do_check = false
+
+[jetty.gz-gui10]
+do_check = false
+
+[jetty.gz-launch9]
+do_check = false
+
+[jetty.gz-math9]
+
+[jetty.gz-msgs12]
+do_check = false
+
+[jetty.gz-physics9]
+do_check = false
+
+[jetty.gz-plugin4]
+do_check = false
+
+[jetty.gz-rendering10]
+propagated = [ "boost", "libz", "python3" ]
+do_check = false
+
+[jetty.gz-sensors10]
+do_check = false
+
+[jetty.gz-tools2]
+do_check = false
+
+[jetty.gz-transport15]
+propagated = [ "libsodium" ]
+do_check = false
+
+[jetty.gz-utils4]
+
+[jetty.sdformat16]
 do_check = false
