@@ -5,7 +5,7 @@ https://github.com/msys2/MINGW-packages/blob/master/mingw-w64-libjpeg-turbo/jpeg
 @@ -224,7 +224,13 @@
   * Defining HAVE_BOOLEAN before including jpeglib.h should make it work.
   */
- 
+
 -#ifndef HAVE_BOOLEAN
 +#if defined(_WIN32) && !defined(HAVE_BOOLEAN)
 +#ifndef __RPCNDR_H__
