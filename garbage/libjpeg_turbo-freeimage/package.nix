@@ -8,8 +8,8 @@
   enableJava ? false, # whether to build the java wrapper
   enableJpeg7 ? false, # whether to build libjpeg with v7 compatibility
   enableJpeg8 ? false, # whether to build libjpeg with v8 compatibility
-  enableStatic ? stdenv.hostPlatform.isStatic,
-  enableShared ? !stdenv.hostPlatform.isStatic,
+  enableStatic ? true, # stdenv.hostPlatform.isStatic,
+  enableShared ? false, # !stdenv.hostPlatform.isStatic,
 
   # for passthru.tests
   dvgrab,
