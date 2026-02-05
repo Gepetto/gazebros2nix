@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   patches = [
-    ./unbundle.diff
+    ./unbundle.patch
     ./CVE-2020-24292.patch
     ./CVE-2020-24293.patch
     ./CVE-2020-24295.patch
