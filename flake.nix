@@ -48,7 +48,10 @@
                 pkgs.gazebros2nix-venv.passthru.editableVirtualenv
               ];
               shellHook = ''
-                export GZ_IP=127.0.0.1
+                : ''${GZ_IP:=127.0.0.1}
+                : ''${IGN_IP:=127.0.0.1}
+                export GZ_IP
+                export IGN_IP
                 unset QTWEBKIT_PLUGIN_PATH
                 unset QT_QPA_PLATFORMTHEME
                 unset QML2_IMPORT_PATH
@@ -58,13 +61,14 @@
                 test -f .venv/bin/activate && source .venv/bin/activate
               '';
             };
+
             packages = lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (
               {
                 gz-fortress = pkgs.rosPackages.humble.buildEnv {
                   name = "gz-fortress";
                   postBuild = ''
                     rosWrapperArgs+=(
-                    --set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt6.qtbase.bin}/lib/qt-${pkgs.qt6.qtbase.version}/plugins/platforms
+                    --set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt5.qtbase.bin}/lib/qt-${pkgs.qt5.qtbase.version}/plugins/platforms
                     --prefix IGN_CONFIG_PATH : "$out/share/ignition"
                     )
                   '';
@@ -85,11 +89,13 @@
                     gz-tools
                     gz-transport
                     gz-utils
-                    pkgs.qt6.wrapQtAppsHook
+                    pkgs.qt5.qtgraphicaleffects
+                    pkgs.qt5.wrapQtAppsHook
                     sdformat
                     # keep-sorted end
                   ];
                 };
+
                 gz-harmonic = pkgs.rosPackages.jazzy.buildEnv {
                   name = "gz-harmonic";
                   paths = with pkgs.gazebo.harmonic; [
@@ -109,11 +115,12 @@
                     gz-tools
                     gz-transport
                     gz-utils
-                    pkgs.qt6.wrapQtAppsHook
+                    pkgs.qt5.wrapQtAppsHook
                     sdformat
                     # keep-sorted end
                   ];
                 };
+
                 gz-ionic = pkgs.rosPackages.jazzy.buildEnv {
                   name = "gz-ionic";
                   paths = with pkgs.gazebo.ionic; [
@@ -133,11 +140,12 @@
                     gz-tools
                     gz-transport
                     gz-utils
-                    pkgs.qt6.wrapQtAppsHook
+                    pkgs.qt5.wrapQtAppsHook
                     sdformat
                     # keep-sorted end
                   ];
                 };
+
                 gz-jetty = pkgs.rosPackages.jazzy.buildEnv {
                   name = "gz-jetty";
                   paths = with pkgs.gazebo.jetty; [
@@ -163,6 +171,7 @@
                   ];
                 };
               }
+
               // {
                 inherit (pkgs)
                   # keep-sorted start
@@ -172,6 +181,7 @@
                   # keep-sorted end
                   ;
               }
+
               // lib.mapAttrs' (n: lib.nameValuePair "py-${n}") {
                 inherit (pkgs.python3Packages)
                   # keep-sorted start
@@ -179,6 +189,7 @@
                   # keep-sorted end
                   ;
               }
+
               // lib.mapAttrs' (n: lib.nameValuePair "gz-fortress-${n}") (
                 lib.optionalAttrs (system == "x86_64-linux") {
                   inherit (pkgs.gazebo.fortress)
@@ -219,6 +230,7 @@
                     ;
                 }
               )
+
               // lib.mapAttrs' (n: lib.nameValuePair "gz-harmonic-${n}") (
                 lib.optionalAttrs (system == "x86_64-linux") {
                   inherit (pkgs.gazebo.harmonic)
@@ -257,9 +269,9 @@
                     sdformat14
                     # keep-sorted end
                     ;
-
                 }
               )
+
               // lib.mapAttrs' (n: lib.nameValuePair "gz-ionic-${n}") (
                 lib.optionalAttrs (system == "x86_64-linux") {
                   inherit (pkgs.gazebo.ionic)
@@ -284,6 +296,7 @@
                     ;
                 }
               )
+
               // lib.mapAttrs' (n: lib.nameValuePair "gz-jetty-${n}") (
                 lib.optionalAttrs (system == "x86_64-linux") {
                   inherit (pkgs.gazebo.jetty)
@@ -308,6 +321,7 @@
                     ;
                 }
               )
+
               # // lib.mapAttrs' (n: lib.nameValuePair "ros-noetic-${n}") (
               #   lib.optionalAttrs (system == "x86_64-linux") {
               #     inherit (pkgs.rosPackages.noetic)
@@ -318,17 +332,21 @@
               #       ;
               #   }
               # )
+
               // lib.mapAttrs' (n: lib.nameValuePair "ros-humble-${n}") {
                 inherit (pkgs.rosPackages.humble)
                   # keep-sorted start
+                  linear-feedback-controller-msgs
                   tiago-pro-description
-                  tiago-pro-gazebo
+                  # tiago-pro-gazebo TODO: gazebo-classic
                   # keep-sorted end
                   ;
               }
+
               // lib.mapAttrs' (n: lib.nameValuePair "ros-jazzy-${n}") {
                 inherit (pkgs.rosPackages.jazzy)
                   # keep-sorted start
+                  linear-feedback-controller-msgs
                   ros2-control-demo-description
                   ros2-control-demo-example-1
                   ros2-control-demo-example-10
@@ -338,7 +356,7 @@
                   ros2-control-demo-example-14
                   ros2-control-demo-example-15
                   ros2-control-demo-example-16
-                  ros2-control-demo-example-17
+                  # ros2-control-demo-example-17 # error: 'control_msgs' has not been declared
                   ros2-control-demo-example-2
                   ros2-control-demo-example-3
                   ros2-control-demo-example-4
@@ -346,12 +364,29 @@
                   ros2-control-demo-example-6
                   ros2-control-demo-example-7
                   ros2-control-demo-example-8
-                  ros2-control-demo-example-9
-                  ros2-control-demos
+                  # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
+                  # ros2-control-demos # need the other ones
+                  # keep-sorted end
+                  ;
+              }
+
+              // lib.mapAttrs' (n: lib.nameValuePair "ros-kilted-${n}") {
+                inherit (pkgs.rosPackages.kilted)
+                  # keep-sorted start
+                  linear-feedback-controller-msgs
+                  # keep-sorted end
+                  ;
+              }
+
+              // lib.mapAttrs' (n: lib.nameValuePair "ros-rolling-${n}") {
+                inherit (pkgs.rosPackages.rolling)
+                  # keep-sorted start
+                  linear-feedback-controller-msgs
                   # keep-sorted end
                   ;
               }
             );
+
             treefmt = {
               settings.global.excludes = [
                 ".envrc"

@@ -6,8 +6,9 @@
   # nativeBuildInputs
   ament-cmake-auto,
 
+  # buildInputs
+
   # propagatedBuildInputs
-  allegro-hand-description,
   gazebo-plugins,
   gazebo-ros,
   gazebo-ros2-control,
@@ -21,13 +22,13 @@
   pal-pro-gripper-description,
   pal-urdf-utils,
   play-motion2-msgs,
-  robot-info-publisher,
   tiago-pro-2dnav,
   tiago-pro-bringup,
   tiago-pro-description,
   tiago-pro-head-description,
   tiago-pro-laser-sensors,
   tiago-pro-moveit-config,
+  tiago-pro-rgbd-sensors,
 
   # checkInputs
   ament-lint-auto,
@@ -35,13 +36,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-gazebo";
-  version = "1.10.1";
+  version = "1.14.1";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_simulation";
     tag = version;
-    hash = "sha256-qxY8VL6JhEWZtmmnVS309xPFYhGI1RpQjsI/CZivmfk=";
+    hash = "sha256-cjfTsCl/3OGPcYErw19zOXJUWxwXInHsicZTC93f5Hs=";
   };
   sourceRoot = "source/tiago_pro_gazebo";
 
@@ -50,8 +51,9 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake-auto
   ];
+  buildInputs = [
+  ];
   propagatedBuildInputs = [
-    allegro-hand-description
     gazebo-plugins
     gazebo-ros
     gazebo-ros2-control
@@ -65,13 +67,13 @@ buildRosPackage rec {
     pal-pro-gripper-description
     pal-urdf-utils
     play-motion2-msgs
-    robot-info-publisher
     tiago-pro-2dnav
     tiago-pro-bringup
     tiago-pro-description
     tiago-pro-head-description
     tiago-pro-laser-sensors
     tiago-pro-moveit-config
+    tiago-pro-rgbd-sensors
   ];
   checkInputs = [
     ament-lint-auto

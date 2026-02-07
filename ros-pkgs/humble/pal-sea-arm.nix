@@ -6,6 +6,8 @@
   # nativeBuildInputs
   ament-cmake,
 
+  # buildInputs
+
   # propagatedBuildInputs
   pal-sea-arm-bringup,
   pal-sea-arm-controller-configuration,
@@ -15,13 +17,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm";
-  version = "1.18.7";
+  version = "1.23.1";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_sea_arm";
     tag = version;
-    hash = "sha256-VoJQepKxkCMTQECaOnYjCdEvfKq+n2zNyhGkgvotkoI=";
+    hash = "sha256-g2ky/HxKPucZJpdFVmkG4iV9Ug6OzsbjKQE7+/b3grM=";
   };
   sourceRoot = "source/pal_sea_arm";
 
@@ -29,6 +31,8 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+  ];
+  buildInputs = [
   ];
   propagatedBuildInputs = [
     pal-sea-arm-bringup

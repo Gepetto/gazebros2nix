@@ -6,6 +6,8 @@
   # nativeBuildInputs
   ament-cmake-auto,
 
+  # buildInputs
+
   # propagatedBuildInputs
   joint-state-broadcaster,
   joint-trajectory-controller,
@@ -18,13 +20,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-pro-gripper-bringup";
-  version = "1.6.0";
+  version = "1.11.2";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_pro_gripper";
     tag = version;
-    hash = "sha256-3iYiBdAlo3DBap2HRK3GcrYnGAEWHyfYpK2+ck0AgPU=";
+    hash = "sha256-p4aQ8IK6erb85uIpVLA0whfEDSB4gaHzJWhxQrrz7jg=";
   };
   sourceRoot = "source/pal_pro_gripper_bringup";
 
@@ -32,6 +34,8 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake-auto
+  ];
+  buildInputs = [
   ];
   propagatedBuildInputs = [
     joint-state-broadcaster

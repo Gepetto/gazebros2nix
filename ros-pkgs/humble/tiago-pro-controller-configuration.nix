@@ -6,20 +6,18 @@
   # nativeBuildInputs
   ament-cmake-auto,
 
+  # buildInputs
+
   # propagatedBuildInputs
-  allegro-hand-controller-configuration,
-  gravity-compensation-controller2,
   joint-state-broadcaster,
   joint-trajectory-controller,
   launch,
   launch-pal,
   omni-base-controller-configuration,
-  omni-drive-controller,
   pal-pro-gripper-controller-configuration,
   pal-sea-arm-controller-configuration,
   ros2controlcli,
   tiago-pro-head-controller-configuration,
-  tsid-controllers,
 
   # checkInputs
   ament-lint-auto,
@@ -27,13 +25,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-controller-configuration";
-  version = "1.30.0";
+  version = "1.35.2";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_robot";
     tag = version;
-    hash = "sha256-2YoWKZgJoEaEhkpW0nlfoHjKtbFc/GZ0ieQKPhQD7Do=";
+    hash = "sha256-JiDy6l4wlydTgWYaZ8UsUaIgdipcRK/6qnxJ2TxE/k4=";
   };
   sourceRoot = "source/tiago_pro_controller_configuration";
 
@@ -42,20 +40,18 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake-auto
   ];
+  buildInputs = [
+  ];
   propagatedBuildInputs = [
-    allegro-hand-controller-configuration
-    gravity-compensation-controller2
     joint-state-broadcaster
     joint-trajectory-controller
     launch
     launch-pal
     omni-base-controller-configuration
-    omni-drive-controller
     pal-pro-gripper-controller-configuration
     pal-sea-arm-controller-configuration
     ros2controlcli
     tiago-pro-head-controller-configuration
-    tsid-controllers
   ];
   checkInputs = [
     ament-lint-auto

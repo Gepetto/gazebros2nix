@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
 
   boost,
   cmake,
@@ -23,7 +22,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-rendering6";
-  version = "6.6.3";
+  version = "6.6.4";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -31,16 +30,9 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-rendering";
-    tag = "ignition-rendering6_6.6.3";
-    hash = "sha256-FV35+LobIFJANJ+P6EOYQWVCIKVOpzmiDgLOk7axdMA=";
+    tag = "ignition-rendering6_6.6.4";
+    hash = "sha256-fKsPosKFp/0bQTmoAmZL0vxlreOHhx3jnJ8TUm9LyHE=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/gazebosim/gz-rendering/pull/1017.patch";
-      hash = "sha256-NQuyeGGZjzH4qm9CC+W/HdwmLx8d0HmP6S7dLRv8hSA=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake

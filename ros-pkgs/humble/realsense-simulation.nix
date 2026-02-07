@@ -6,6 +6,8 @@
   # nativeBuildInputs
   ament-cmake-auto,
 
+  # buildInputs
+
   # propagatedBuildInputs
   realsense-gazebo-plugin,
   xacro,
@@ -22,7 +24,7 @@ buildRosPackage rec {
     owner = "pal-robotics";
     repo = "realsense_simulation";
     tag = version;
-    hash = "sha256-Ug5VZLKR+eGfkwJDQa26+REj0IuURQ5l7U9NZJTnpOY=";
+    hash = "sha256-QtII4tiTN0p+eqdfgs/N2VGB1oP8Ne1Wvf43Aw9y2Nk=";
   };
   sourceRoot = "source/";
 
@@ -30,6 +32,8 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake-auto
+  ];
+  buildInputs = [
   ];
   propagatedBuildInputs = [
     realsense-gazebo-plugin

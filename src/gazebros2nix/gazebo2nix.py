@@ -18,14 +18,14 @@ from caseconverter import kebabcase
 from catkin_pkg.package import parse_package_string
 from github import Auth, Github
 from jinja2 import Environment, Template
-from yaml import load
+from yaml import load as yload
 
 try:
     from yaml import CLoader as Loader
 except ImportError:
     from yaml import Loader
 
-from .lib import LICENSES, get_parser, HashesFile
+from .lib import LICENSES, get_parser, get_rosdeps, HashesFile
 
 TEMPLATE = """{
   lib,
@@ -131,7 +131,6 @@ class GazeboDistro(HashesFile):
         self.rosdeps = rosdeps
         self.distro = distro
         self.conf = conf
-        self.rosdeps = rosdeps
         self.hashes_file = hashes_file
 
         self.load_hashes()
@@ -140,7 +139,7 @@ class GazeboDistro(HashesFile):
         collection = self.main.get_contents(
             f"collection-{distro}.yaml", ref=self.main.default_branch
         )
-        repositories = load(collection.decoded_content.decode(), Loader=Loader)
+        repositories = yload(collection.decoded_content.decode(), Loader=Loader)
         for nick, data in repositories["repositories"].items():
             if repo and repo != nick:
                 continue
@@ -186,7 +185,7 @@ class GazeboDistro(HashesFile):
         ]
 
         package = self.main.get_contents(f"{pkg_name}.yaml")
-        content = load(package.decoded_content.decode(), Loader=Loader)
+        content = yload(package.decoded_content.decode(), Loader=Loader)
         deps = [fix_name(d) for d in content["repositories"].keys()]
         owner, name = url.split("/")
         repo = self.gh.get_repo(url)
@@ -210,8 +209,8 @@ class GazeboDistro(HashesFile):
 
         licenses = []
         for lic in pkg.licenses:
-            if lic := LICENSES.get(lic):
-                licenses.append(lic)
+            if nlic := LICENSES.get(lic):
+                licenses.append(nlic)
             else:
                 logger.warning("Unknown license: %s", lic)
                 licenses.append("unfree")
@@ -283,18 +282,7 @@ def main():
     auth = Auth.Token(token)
     with Github(auth=auth) as gh:
         logger.info("Importing rosdeps")
-        rosdistro = gh.get_repo("ros/rosdistro")
-        ref = rosdistro.default_branch
-        base = rosdistro.get_contents("rosdep/base.yaml", ref=ref)
-        base_db = load(base.decoded_content.decode(), Loader=Loader)
-        python = rosdistro.get_contents("rosdep/python.yaml", ref=ref)
-        python_db = load(python.decoded_content.decode(), Loader=Loader)
-        rosdeps = {
-            k: v["nixos"]
-            for k, v in [*base_db.items(), *python_db.items()]
-            if "nixos" in v
-        }
-
+        rosdeps = get_rosdeps(gh)
         for distro, conf in cfg.items():
             if args.distro and distro != args.distro:
                 continue

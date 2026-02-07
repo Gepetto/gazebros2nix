@@ -26,7 +26,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-rendering8";
-  version = "8.2.2";
+  version = "8.2.3";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -34,8 +34,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-rendering";
-    tag = "gz-rendering8_8.2.2";
-    hash = "sha256-x+QHn8d+19U12CG1+HEmP0KcM3beY00Vvrc8mrxvAs0=";
+    tag = "gz-rendering8_8.2.3";
+    hash = "sha256-5zqEHt7+69Qbp6I+JcY7h2CYzLKnvl1HHcnM3BYpqr4=";
   };
 
   nativeBuildInputs = [

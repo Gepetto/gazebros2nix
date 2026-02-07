@@ -47,7 +47,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-sim8";
-  version = "8.9.0";
+  version = "8.10.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -55,8 +55,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sim";
-    tag = "gz-sim8_8.9.0";
-    hash = "sha256-hvhq2XBzcIoupJdJyJzk38LDXoEnd9iBCCiXvPZsPqY=";
+    tag = "gz-sim8_8.10.0";
+    hash = "sha256-XOIwffDOaaToHsMKDn7XTDC5CfqKWsfCSXPLhii3wVw=";
   };
 
   nativeBuildInputs = [

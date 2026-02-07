@@ -37,7 +37,7 @@
   pkg-config,
   protobuf,
   python3Packages,
-  qt6,
+  qt5,
   sdformat,
   sdformat15,
   tinyxml-2,
@@ -46,7 +46,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-sim9";
-  version = "9.3.0";
+  version = "9.5.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -54,8 +54,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sim";
-    tag = "gz-sim9_9.3.0";
-    hash = "sha256-v8YgOIRQE5gLjn5/cBIK0usMYZYKdVZ1GQJGAgaDxoc=";
+    tag = "gz-sim9_9.5.0";
+    hash = "sha256-qUnItGpZkE4HTufhO/gBefX5AfHd2jfnWEwGwYmlKIE=";
   };
 
   nativeBuildInputs = [
@@ -95,11 +95,11 @@ stdenv.mkDerivation {
     gz-utils3
     protobuf
     python3Packages.pybind11
-    qt6.qtbase
-    qt6.qtdeclarative
-    # qt6.qtgraphicaleffects
-    qt6.qtquickcontrols
-    # qt6.tquickcontrols2
+    qt5.qtbase
+    qt5.qtdeclarative
+    qt5.qtgraphicaleffects
+    qt5.qtquickcontrols
+    qt5.qtquickcontrols2
     sdformat
     sdformat15
     tinyxml-2

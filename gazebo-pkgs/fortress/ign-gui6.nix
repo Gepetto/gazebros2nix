@@ -16,7 +16,7 @@
   ign-utils,
   pkg-config,
   protobuf,
-  qt5,
+  qt6,
   tinyxml-2,
   xorg,
 }:
@@ -36,12 +36,12 @@ stdenv.mkDerivation {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/gazebosim/gz-gui/pull/544.patch";
-      hash = "sha256-kr5bowr9/aHnuJsRZ/2Igf96BNKNr4Z2dDz0iv7AzA8=";
+      url = "https://github.com/gazebosim/gz-gui/pull/544.patch?full_index=1";
+      hash = "sha256-qxPkW5+eofA/Cdta2p3bflebFu1bCVOX7sEps1ezB0E=";
     })
     (fetchpatch {
-      url = "https://github.com/gazebosim/gz-gui/pull/696.patch";
-      hash = "sha256-eYGYYGkaWOp0H97hyMKk/5p5zAfPd+X5HPM+0NDp07U=";
+      url = "https://github.com/gazebosim/gz-gui/pull/696.patch?full_index=1";
+      hash = "sha256-LHoPW5nL4aezVkt6hIYecbQK6Jr6SAcWDkgRJXgIHIw=";
     })
   ];
 
@@ -61,14 +61,10 @@ stdenv.mkDerivation {
     ign-transport
     ign-utils
     protobuf
-    qt5.qtbase
-    qt5.qtcharts
-    qt5.qtdeclarative
-    qt5.qtgraphicaleffects
-    qt5.qtlocation
-    qt5.qtpositioning
-    qt5.qtquickcontrols
-    qt5.qtquickcontrols2
+    qt6.qt5compat
+    qt6.qtbase
+    qt6.qtdeclarative
+    qt6.qtsvg
     tinyxml-2
   ];
   checkInputs = [

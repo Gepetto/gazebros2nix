@@ -6,6 +6,8 @@
   # nativeBuildInputs
   ament-cmake-auto,
 
+  # buildInputs
+
   # propagatedBuildInputs
   joint-state-broadcaster,
   joint-trajectory-controller,
@@ -19,13 +21,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-head-controller-configuration";
-  version = "1.5.0";
+  version = "1.9.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_head_robot";
     tag = version;
-    hash = "sha256-XEUlNiuaDBIBSGRbaEB6WTf7YgCcEp2RBp3XjO2uUPE=";
+    hash = "sha256-KRlY/s2Nl5VCrGNFWi44atxg6QTu8NmEHIASI7pK174=";
   };
   sourceRoot = "source/tiago_pro_head_controller_configuration";
 
@@ -33,6 +35,8 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake-auto
+  ];
+  buildInputs = [
   ];
   propagatedBuildInputs = [
     joint-state-broadcaster

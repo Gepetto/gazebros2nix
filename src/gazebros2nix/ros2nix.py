@@ -12,14 +12,14 @@ from logging import basicConfig, getLogger
 from os import environ
 from pathlib import Path
 from subprocess import check_call, check_output
-from tomllib import load
+from tomllib import load as tload
 
 from caseconverter import kebabcase
 from catkin_pkg.package import parse_package_string
 from github import Auth, Github
 from jinja2 import Environment, Template
 
-from .lib import LICENSES, get_parser, HashesFile
+from .lib import LICENSES, get_parser, HashesFile, get_rosdeps
 
 TEMPLATE = """{
   lib,
@@ -27,13 +27,16 @@ TEMPLATE = """{
   fetchFromGitHub,
 
   # nativeBuildInputs{% for dep in native %}
+  {{ dep.split('.')[0] }},{% endfor %}
+
+  # buildInputs{% for dep in build %}
   {{ dep }},{% endfor %}
 
   # propagatedBuildInputs{% for dep in propagated %}
-  {{ dep }},{% endfor %}
+  {{ dep.split('.')[0] }},{% endfor %}
 
   # checkInputs{% for dep in check %}
-  {{ dep }},{% endfor %}
+  {{ dep.split('.')[0] }},{% endfor %}
 }:
 buildRosPackage rec {
   pname = "ros-{{ distro }}-{{ pkg.name|kebab }}";
@@ -50,6 +53,9 @@ buildRosPackage rec {
   buildType = "{{ pkg.get_build_type() }}";
 
   nativeBuildInputs = [{% for dep in native %}
+    {{ dep }}{% endfor %}
+  ];
+  buildInputs = [{% for dep in build %}
     {{ dep }}{% endfor %}
   ];
   propagatedBuildInputs = [{% for dep in propagated %}
@@ -80,6 +86,7 @@ class Repo(HashesFile):
         gh: Github,
         repo: str | int,
         token: str,
+        rosdeps: dict[str, list[str]],
         hashes_file: Path,
         branch: str | None = None,
         distro: str | None = None,
@@ -118,6 +125,7 @@ class Repo(HashesFile):
         template = env.from_string(TEMPLATE, {"distro": self.distro})
 
         self.token = token
+        self.rosdeps = rosdeps
         self.hashes_file = hashes_file
         self.load_hashes()
 
@@ -137,6 +145,7 @@ class Overrides:
             return data[key] if key in data else val
 
         self.native = default("native", [])
+        self.build = default("build", [])
         self.propagated = default("propagated", [])
         self.check = default("check", [])
         self.do_check = default("do_check", True)
@@ -152,19 +161,28 @@ class Package:
 
         licenses = []
         for lic in pkg.licenses:
-            if lic := LICENSES.get(lic):
-                licenses.append(lic)
+            if nlic := LICENSES.get(lic):
+                licenses.append(nlic)
             else:
                 logger.warning("Unknown license: %s", lic)
                 licenses.append("unfree")
 
+        def rosdep(k: str) -> list[str]:
+            return [p for p in repo.rosdeps.get(k, [kebabcase(k)])]
+
         def sort_deps(deps, overrides, blacklist):
-            deps = {kebabcase(dep.name) for dep in deps} | set(overrides)
+            deps = [
+                rosdep(dep.name)
+                for dep in deps
+                if dep.condition is None or "PAL" not in dep.condition
+            ]
+            deps = {i for d in deps for i in d} | set(overrides)
+
             return sorted(deps - set(blacklist))
 
         hash_url = f"{repo.repo.html_url}/archive"
         for tag in repo.repo.get_tags():
-            if tag.name == pkg.version:
+            if tag.name == pkg.version or tag.name == f"v{pkg.version}":
                 rev = "tag = version"
                 hash_url = f"{hash_url}/refs/tags/{pkg.version}.tar.gz"
                 break
@@ -180,8 +198,13 @@ class Package:
             repo.hashes[hash_url] = hash
 
         native = sort_deps(pkg.buildtool_depends, overrides.native, [])
-        propagated = sort_deps(pkg.exec_depends, overrides.propagated, native)
-        check = sort_deps(pkg.test_depends, overrides.check, [*native, *propagated])
+        build = sort_deps(pkg.build_depends, overrides.build, native)
+        propagated = sort_deps(
+            pkg.exec_depends, overrides.propagated, [*native, *build]
+        )
+        check = sort_deps(
+            pkg.test_depends, overrides.check, [*native, *build, *propagated]
+        )
         nix = template.render(
             pkg=pkg,
             rev=rev,
@@ -190,6 +213,7 @@ class Package:
             licenses=licenses,
             repo=repo.repo,
             native=native,
+            build=build,
             propagated=propagated,
             check=check,
             do_check=str(overrides.do_check).lower(),
@@ -214,21 +238,25 @@ def main():
     basicConfig(level=30 - 10 * args.verbose + 10 * args.quiet)
 
     with args.config_file.open("rb") as f:
-        cfg = load(f)
+        cfg = tload(f)
 
     auth = Auth.Token(token)
     with Github(auth=auth) as gh:
+        rosdeps = get_rosdeps(gh)
         for distro, conf in cfg.items():
             if args.distro and distro != args.distro:
+                logger.debug("ignore distro %s", distro)
                 continue
             for repo, repo_conf in conf.items():
                 if args.repo and repo != args.repo:
+                    logger.debug("ignore repo %s", repo)
                     continue
                 Repo(
                     gh=gh,
                     distro=distro,
                     repo=repo,
                     token=token,
+                    rosdeps=rosdeps,
                     hashes_file=args.hashes_file,
                     branch=repo_conf["branch"] if "branch" in repo_conf else None,
                     packages=repo_conf["packages"] if "packages" in repo_conf else None,

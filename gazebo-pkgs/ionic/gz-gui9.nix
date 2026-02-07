@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
 
   cmake,
   gz-cmake,
@@ -24,13 +23,13 @@
   gz-utils3,
   pkg-config,
   protobuf,
-  qt6,
+  qt5,
   tinyxml-2,
   xorg,
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-gui9";
-  version = "9.0.1";
+  version = "9.0.2";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -38,16 +37,9 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-gui";
-    tag = "gz-gui9_9.0.1";
-    hash = "sha256-ZBDgd37TPBOldorGZimsCk57fVa7tTc8wRwUGFBZnDk=";
+    tag = "gz-gui9_9.0.2";
+    hash = "sha256-2HA9Ah2QdC9VmYAJdC/36Kiin9lJJbSOT9YlJj3VwU8=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/gazebosim/gz-gui/pull/676.patch";
-      hash = "sha256-EVuGTAT/U3So/K1ti2B0QdMr2AErjRLDgENWkGZYMXc=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake
@@ -72,14 +64,14 @@ stdenv.mkDerivation {
     gz-utils
     gz-utils3
     protobuf
-    qt6.qtbase
-    qt6.qtcharts
-    qt6.qtdeclarative
-    # qt6.qtgraphicaleffects
-    qt6.qtlocation
-    qt6.qtpositioning
-    qt6.qtquickcontrols
-    # qt6.qtquickcontrols2
+    qt5.qtbase
+    qt5.qtcharts
+    qt5.qtdeclarative
+    qt5.qtgraphicaleffects
+    qt5.qtlocation
+    qt5.qtpositioning
+    qt5.qtquickcontrols
+    qt5.qtquickcontrols2
     tinyxml-2
   ];
   checkInputs = [

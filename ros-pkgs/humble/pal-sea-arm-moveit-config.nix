@@ -6,6 +6,8 @@
   # nativeBuildInputs
   ament-cmake-auto,
 
+  # buildInputs
+
   # propagatedBuildInputs
   launch-pal,
   moveit-configs-utils,
@@ -38,6 +40,8 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake-auto
+  ];
+  buildInputs = [
   ];
   propagatedBuildInputs = [
     launch-pal

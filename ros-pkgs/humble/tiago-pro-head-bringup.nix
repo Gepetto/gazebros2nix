@@ -6,8 +6,11 @@
   # nativeBuildInputs
   ament-cmake-auto,
 
+  # buildInputs
+
   # propagatedBuildInputs
   play-motion2,
+  play-motion2-cli,
   tiago-pro-head-controller-configuration,
   tiago-pro-head-description,
 
@@ -17,13 +20,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-head-bringup";
-  version = "1.5.0";
+  version = "1.9.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_head_robot";
     tag = version;
-    hash = "sha256-XEUlNiuaDBIBSGRbaEB6WTf7YgCcEp2RBp3XjO2uUPE=";
+    hash = "sha256-KRlY/s2Nl5VCrGNFWi44atxg6QTu8NmEHIASI7pK174=";
   };
   sourceRoot = "source/tiago_pro_head_bringup";
 
@@ -32,8 +35,11 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake-auto
   ];
+  buildInputs = [
+  ];
   propagatedBuildInputs = [
     play-motion2
+    play-motion2-cli
     tiago-pro-head-controller-configuration
     tiago-pro-head-description
   ];

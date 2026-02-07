@@ -1,65 +1,74 @@
 {
   lib,
-  stdenv,
-
+  buildRosPackage,
   fetchFromGitHub,
 
   # nativeBuildInputs
-  cmake,
-  eigen,
-  jrl-cmakemodules,
-  python3Packages,
   ament-cmake,
-  ament-cmake-cppcheck,
-  ament-cmake-cpplint,
-  ament-cmake-flake8,
-  ament-cmake-pep257,
-  ament-cmake-uncrustify,
+  eigen3-cmake-module,
   rosidl-default-generators,
 
-  # propagatedBuildInputs
+  # buildInputs
+  builtin-interfaces,
+  eigen,
   geometry-msgs,
+  jrl-cmakemodules,
   sensor-msgs,
+  std-msgs,
   tf2-eigen,
+
+  # propagatedBuildInputs
+  rosidl-default-runtime,
+
+  # checkInputs
+  ament-cmake-gtest,
+  ament-cmake-pytest,
+  ament-lint-common,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  pname = "linear-feedback-controller-msgs";
-  version = "1.0.0";
+buildRosPackage rec {
+  pname = "ros-jazzy-linear-feedback-controller-msgs";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "loco-3d";
     repo = "linear-feedback-controller-msgs";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-iolp/25VccP7knwRUOj4eQ5kGlcvWEiCfTYHkx/AUrA=";
+    tag = version;
+    hash = "sha256-EFHYD5PC7HeUVZcLPqisUFfAFLsjpoR7xYqFaOx8bp4=";
   };
+  sourceRoot = "source/";
+
+  buildType = "ament_cmake";
 
   nativeBuildInputs = [
-    cmake
-    eigen
-    jrl-cmakemodules
-    python3Packages.python
     ament-cmake
-    ament-cmake-cppcheck
-    ament-cmake-cpplint
-    ament-cmake-flake8
-    ament-cmake-pep257
-    ament-cmake-uncrustify
+    eigen3-cmake-module
     rosidl-default-generators
   ];
-
-  propagatedBuildInputs = [
+  buildInputs = [
+    builtin-interfaces
+    eigen
     geometry-msgs
+    jrl-cmakemodules
     sensor-msgs
+    std-msgs
     tf2-eigen
+  ];
+  propagatedBuildInputs = [
+    rosidl-default-runtime
+  ];
+  checkInputs = [
+    ament-cmake-gtest
+    ament-cmake-pytest
+    ament-lint-common
   ];
 
   doCheck = true;
 
   meta = {
-    description = "ROS messages which correspond to the loco-3d/linear-feedback-controller package.";
+    description = "ROS msgs that interface the linear_feedback_controller package.";
+    license = with lib.licenses; [ bsd2 ];
     homepage = "https://github.com/loco-3d/linear-feedback-controller-msgs";
-    license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.nim65s ];
     platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.nim65s ];
   };
-})
+}

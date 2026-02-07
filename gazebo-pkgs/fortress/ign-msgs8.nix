@@ -30,8 +30,8 @@ stdenv.mkDerivation {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch";
-      hash = "sha256-QnR1WtB4gbgyJKbQ4doMhfSjJBksEeQ3Us4y9KqCWeY=";
+      url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch?full_index=1";
+      hash = "sha256-At0+5Gfc3RtbHHwm1W6+o0J2/qf/NhH7U78nuZ57pLw=";
     })
   ];
 

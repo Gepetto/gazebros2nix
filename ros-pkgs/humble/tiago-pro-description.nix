@@ -7,16 +7,13 @@
   ament-cmake-auto,
   ament-cmake-python,
 
+  # buildInputs
+
   # propagatedBuildInputs
-  allegro-hand-description,
-  hector-gazebo-plugins,
   omni-base-description,
   pal-sea-arm-description,
   pal-urdf-utils,
-  realsense-simulation,
-  realsense2-description,
   robot-state-publisher,
-  tiago-pro-controller-configuration,
   tiago-pro-head-description,
   xacro,
 
@@ -29,13 +26,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-description";
-  version = "1.30.0";
+  version = "1.35.2";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_robot";
     tag = version;
-    hash = "sha256-2YoWKZgJoEaEhkpW0nlfoHjKtbFc/GZ0ieQKPhQD7Do=";
+    hash = "sha256-JiDy6l4wlydTgWYaZ8UsUaIgdipcRK/6qnxJ2TxE/k4=";
   };
   sourceRoot = "source/tiago_pro_description";
 
@@ -45,16 +42,13 @@ buildRosPackage rec {
     ament-cmake-auto
     ament-cmake-python
   ];
+  buildInputs = [
+  ];
   propagatedBuildInputs = [
-    allegro-hand-description
-    hector-gazebo-plugins
     omni-base-description
     pal-sea-arm-description
     pal-urdf-utils
-    realsense-simulation
-    realsense2-description
     robot-state-publisher
-    tiago-pro-controller-configuration
     tiago-pro-head-description
     xacro
   ];

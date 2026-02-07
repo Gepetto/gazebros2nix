@@ -28,7 +28,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-rendering9";
-  version = "9.3.0";
+  version = "9.5.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -36,8 +36,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-rendering";
-    tag = "gz-rendering9_9.3.0";
-    hash = "sha256-mNDjqp54Y13BzZQdKvIfZkxXPq2Kn26sO9Gf+/aCaPk=";
+    tag = "gz-rendering9_9.5.0";
+    hash = "sha256-oinqpmtQt7DlpLvkb4xlXh2vprJqGaxh9LC1NLDiyXQ=";
   };
 
   nativeBuildInputs = [

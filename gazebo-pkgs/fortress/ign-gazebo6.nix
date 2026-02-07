@@ -4,7 +4,9 @@
   fetchFromGitHub,
   fetchpatch,
 
+  binutils,
   cmake,
+  elfutils,
   freeglut,
   freeimage,
   gbenchmark,
@@ -22,10 +24,12 @@
   ign-tools,
   ign-transport,
   ign-utils,
+  libdwarf,
+  libwebsockets,
   pkg-config,
   protobuf,
   python3Packages,
-  qt5,
+  qt6,
   sdformat,
   tinyxml-2,
   util-linux,
@@ -47,8 +51,8 @@ stdenv.mkDerivation {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/gazebosim/gz-sim/pull/3022.patch";
-      hash = "sha256-/cACcshZ3nkepvgjiDkpMCZpee9704MYPkQNdRpZntU=";
+      url = "https://github.com/gazebosim/gz-sim/pull/3022.patch?full_index=1";
+      hash = "sha256-0v0EBaBhVUb5RJ6e80S6guIMcdLPR6TZdg8aEmIE8ac=";
     })
   ];
 
@@ -57,6 +61,8 @@ stdenv.mkDerivation {
     pkg-config
   ];
   propagatedBuildInputs = [
+    binutils
+    elfutils
     freeglut
     freeimage
     gbenchmark
@@ -75,14 +81,13 @@ stdenv.mkDerivation {
     ign-tools
     ign-transport
     ign-utils
+    libdwarf
+    libwebsockets
     protobuf
     python3Packages.pybind11
-    qt5.qtbase
-    qt5.qtdeclarative
-    qt5.qtgraphicaleffects
-    qt5.qtquickcontrols
-    qt5.qtquickcontrols2
-    sdformat
+    qt6.qt5compat
+    qt6.qtbase
+    qt6.qtdeclarative
     sdformat
     tinyxml-2
     util-linux

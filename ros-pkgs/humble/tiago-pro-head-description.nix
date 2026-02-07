@@ -7,10 +7,11 @@
   ament-cmake-auto,
   ament-cmake-python,
 
+  # buildInputs
+
   # propagatedBuildInputs
   launch-param-builder,
   pal-urdf-utils,
-  realsense-simulation,
   realsense2-description,
   robot-state-publisher,
   tiago-pro-head-controller-configuration,
@@ -25,13 +26,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-head-description";
-  version = "1.5.0";
+  version = "1.9.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_head_robot";
     tag = version;
-    hash = "sha256-XEUlNiuaDBIBSGRbaEB6WTf7YgCcEp2RBp3XjO2uUPE=";
+    hash = "sha256-KRlY/s2Nl5VCrGNFWi44atxg6QTu8NmEHIASI7pK174=";
   };
   sourceRoot = "source/tiago_pro_head_description";
 
@@ -41,10 +42,11 @@ buildRosPackage rec {
     ament-cmake-auto
     ament-cmake-python
   ];
+  buildInputs = [
+  ];
   propagatedBuildInputs = [
     launch-param-builder
     pal-urdf-utils
-    realsense-simulation
     realsense2-description
     robot-state-publisher
     tiago-pro-head-controller-configuration

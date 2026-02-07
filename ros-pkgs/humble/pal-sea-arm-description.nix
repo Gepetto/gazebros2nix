@@ -7,9 +7,9 @@
   ament-cmake-auto,
   ament-cmake-python,
 
+  # buildInputs
+
   # propagatedBuildInputs
-  allegro-hand-description,
-  allegro-hand-system,
   joint-state-publisher-gui,
   launch,
   launch-pal,
@@ -19,7 +19,6 @@
   pal-sea-arm-controller-configuration,
   pal-urdf-utils,
   robot-state-publisher,
-  sea-transmissions,
   xacro,
 
   # checkInputs
@@ -31,13 +30,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm-description";
-  version = "1.18.7";
+  version = "1.23.1";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_sea_arm";
     tag = version;
-    hash = "sha256-VoJQepKxkCMTQECaOnYjCdEvfKq+n2zNyhGkgvotkoI=";
+    hash = "sha256-g2ky/HxKPucZJpdFVmkG4iV9Ug6OzsbjKQE7+/b3grM=";
   };
   sourceRoot = "source/pal_sea_arm_description";
 
@@ -47,9 +46,9 @@ buildRosPackage rec {
     ament-cmake-auto
     ament-cmake-python
   ];
+  buildInputs = [
+  ];
   propagatedBuildInputs = [
-    allegro-hand-description
-    allegro-hand-system
     joint-state-publisher-gui
     launch
     launch-pal
@@ -59,7 +58,6 @@ buildRosPackage rec {
     pal-sea-arm-controller-configuration
     pal-urdf-utils
     robot-state-publisher
-    sea-transmissions
     xacro
   ];
   checkInputs = [
@@ -74,10 +72,7 @@ buildRosPackage rec {
 
   meta = {
     description = "The pal_sea_arm_description package";
-    license = with lib.licenses; [
-      unfree
-      asl20
-    ];
+    license = with lib.licenses; [ asl20 ];
     homepage = "https://github.com/pal-robotics/pal_sea_arm";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];

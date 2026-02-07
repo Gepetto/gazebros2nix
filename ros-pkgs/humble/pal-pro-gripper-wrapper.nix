@@ -6,8 +6,12 @@
   # nativeBuildInputs
   ament-cmake-python,
 
-  # propagatedBuildInputs
+  # buildInputs
   rclpy,
+  sensor-msgs,
+  trajectory-msgs,
+
+  # propagatedBuildInputs
 
   # checkInputs
   ament-copyright,
@@ -15,17 +19,17 @@
   ament-lint-auto,
   ament-lint-common,
   ament-pep257,
-  python3-pytest,
+  python3Packages,
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-pro-gripper-wrapper";
-  version = "1.6.0";
+  version = "1.11.2";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_pro_gripper";
     tag = version;
-    hash = "sha256-3iYiBdAlo3DBap2HRK3GcrYnGAEWHyfYpK2+ck0AgPU=";
+    hash = "sha256-p4aQ8IK6erb85uIpVLA0whfEDSB4gaHzJWhxQrrz7jg=";
   };
   sourceRoot = "source/pal_pro_gripper_wrapper";
 
@@ -34,8 +38,12 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake-python
   ];
-  propagatedBuildInputs = [
+  buildInputs = [
     rclpy
+    sensor-msgs
+    trajectory-msgs
+  ];
+  propagatedBuildInputs = [
   ];
   checkInputs = [
     ament-copyright
@@ -43,7 +51,7 @@ buildRosPackage rec {
     ament-lint-auto
     ament-lint-common
     ament-pep257
-    python3-pytest
+    python3Packages.pytest
   ];
 
   doCheck = true;
