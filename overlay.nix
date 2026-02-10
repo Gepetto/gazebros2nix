@@ -164,6 +164,17 @@
               broken = true;
             };
           });
+
+          linear-feedback-controller = humble-prev.linear-feedback-controller.overrideAttrs (super: {
+            buildInputs = super.buildInputs ++ [
+              humble-final.eigen3-cmake-module
+              humble-final.tf2-eigen
+            ];
+            preCheck = ''
+              export LD_LIBRARY_PATH=.
+            '';
+          });
+
           play-motion2-msgs = humble-prev.play-motion2-msgs.overrideAttrs (_super: rec {
             version = "1.6.1";
             src = final.fetchFromGitHub {
@@ -174,6 +185,7 @@
             };
             sourceRoot = "source/play_motion2_msgs";
           });
+
           play-motion2 = humble-prev.play-motion2.overrideAttrs (super: rec {
             version = "1.6.1";
             src = final.fetchFromGitHub {
@@ -188,6 +200,7 @@
               sed -i "1i #include <functional>" src/utils/motion_loader.*
             '';
           });
+
           python-with-ament-package =
             let
               # TODO: this make no sense
@@ -197,10 +210,12 @@
               ]);
             in
             "${python}/${python.sitePackages}";
+
           ros-gz = humble-prev.ros-gz.overrideAttrs (_super: {
             env.PYTHONPATH = humble-final.python-with-ament-package;
             meta.platforms = final.lib.platforms.linux;
           });
+
           topic-tools-interfaces = humble-prev.topic-tools-interfaces.overrideAttrs {
             doCheck = false;
           };
@@ -208,18 +223,59 @@
       );
 
       jazzy = prev.rosPackages.jazzy.overrideScope (
-        _jazzy-final: _jazzy-prev: {
-          # liburdfdom-tools = final.urdfdom; # TODO
+        jazzy-final: jazzy-prev: {
+          linear-feedback-controller = jazzy-prev.linear-feedback-controller.overrideAttrs (super: {
+            buildInputs = super.buildInputs ++ [
+              jazzy-final.tf2-eigen
+            ];
+            preCheck = ''
+              export LD_LIBRARY_PATH=.
+            '';
+          });
         }
       );
 
       kilted = prev.rosPackages.kilted.overrideScope (
-        _kilted-final: _kilted-prev: {
+        kilted-final: kilted-prev: {
+          linear-feedback-controller = kilted-prev.linear-feedback-controller.overrideAttrs (super: {
+            buildInputs = super.buildInputs ++ [
+              kilted-final.tf2-eigen
+            ];
+            preCheck = ''
+              export LD_LIBRARY_PATH=.
+            '';
+          });
         }
       );
 
       rolling = prev.rosPackages.rolling.overrideScope (
-        _rolling-final: rolling-prev: {
+        rolling-final: rolling-prev: {
+          linear-feedback-controller = rolling-prev.linear-feedback-controller.overrideAttrs (super: {
+            buildInputs = super.buildInputs ++ [
+              rolling-final.eigen3-cmake-module
+              rolling-final.tf2-eigen
+            ];
+            postPatch = ''
+              substituteInPlace CMakeLists.txt \
+                --replace-warn \
+                  "ament_target_dependencies($""{PROJECT_NAME} Eigen3)" \
+                  "target_link_libraries($""{PROJECT_NAME} Eigen3::Eigen message_filters::message_filters)"
+              substituteInPlace include/linear_feedback_controller/linear_feedback_controller_ros.hpp \
+                --replace-warn \
+                  "message_filters/subscriber.h" \
+                  "message_filters/subscriber.hpp" \
+                --replace-warn \
+                  "message_filters/time_synchronizer.h" \
+                  "message_filters/time_synchronizer.hpp"
+              substituteInPlace src/joint_state_estimator.cpp \
+                --replace-warn \
+                  "state_ordered_interfaces_[i].get().get_value()" \
+                  "state_ordered_interfaces_[i].get().get_optional().value()"
+            '';
+            preCheck = ''
+              export LD_LIBRARY_PATH=.
+            '';
+          });
           linear-feedback-controller-msgs =
             rolling-prev.linear-feedback-controller-msgs.overrideAttrs
               (super: {

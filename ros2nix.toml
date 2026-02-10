@@ -5,6 +5,7 @@ packages = {"net_ft_driver" = {native = ["pkg-config"], propagated = ["curl", "c
 [humble."jpgtzg/omni_drive_controller".packages]
 omni_drive_controller = {do_check = false}
 
+[humble."loco-3d/linear-feedback-controller"]
 [humble."loco-3d/linear-feedback-controller-msgs"]
 
 [humble."pal-robotics/pal_pro_gripper".packages]
@@ -48,6 +49,7 @@ tiago_pro_description = {do_check = false}
 [humble."pal-robotics/tiago_pro_simulation".packages]
 tiago_pro_gazebo = {do_check = false}
 
+[jazzy."loco-3d/linear-feedback-controller"]
 [jazzy."loco-3d/linear-feedback-controller-msgs"]
 
 [jazzy."ros-controls/ros2_control_demos"]
@@ -87,6 +89,8 @@ do_check = false
 [jazzy."ros-controls/ros2_control_demos".packages.example_17]
 do_check = false
 
+[kilted."loco-3d/linear-feedback-controller"]
 [kilted."loco-3d/linear-feedback-controller-msgs"]
 
+[rolling."loco-3d/linear-feedback-controller"]
 [rolling."loco-3d/linear-feedback-controller-msgs"]
