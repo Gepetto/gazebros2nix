@@ -41,7 +41,7 @@ buildRosPackage rec {
     owner = "ros-controls";
     repo = "ros2_control_demos";
     rev = "e9602bc2683fd01f76bf5c15d312e216c6db9b26";
-    hash = "sha256-zUoUyk17qfuAnSHJPoig0BHB3Mc9ekm1xAytyHMN6ME=";
+    hash = "sha256-VMpoOTSCaWP0eNfFYspKvpren+3nDRP1sgfmFkCUJTM=";
   };
   sourceRoot = "source/example_13";
 
