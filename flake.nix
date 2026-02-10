@@ -336,6 +336,7 @@
               // lib.mapAttrs' (n: lib.nameValuePair "ros-humble-${n}") {
                 inherit (pkgs.rosPackages.humble)
                   # keep-sorted start
+                  linear-feedback-controller
                   linear-feedback-controller-msgs
                   tiago-pro-description
                   # tiago-pro-gazebo TODO: gazebo-classic
@@ -346,6 +347,7 @@
               // lib.mapAttrs' (n: lib.nameValuePair "ros-jazzy-${n}") {
                 inherit (pkgs.rosPackages.jazzy)
                   # keep-sorted start
+                  linear-feedback-controller
                   linear-feedback-controller-msgs
                   ros2-control-demo-description
                   ros2-control-demo-example-1
@@ -373,6 +375,7 @@
               // lib.mapAttrs' (n: lib.nameValuePair "ros-kilted-${n}") {
                 inherit (pkgs.rosPackages.kilted)
                   # keep-sorted start
+                  linear-feedback-controller
                   linear-feedback-controller-msgs
                   # keep-sorted end
                   ;
@@ -381,6 +384,7 @@
               // lib.mapAttrs' (n: lib.nameValuePair "ros-rolling-${n}") {
                 inherit (pkgs.rosPackages.rolling)
                   # keep-sorted start
+                  linear-feedback-controller
                   linear-feedback-controller-msgs
                   # keep-sorted end
                   ;

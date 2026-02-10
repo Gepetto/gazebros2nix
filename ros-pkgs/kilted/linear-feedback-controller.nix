@@ -38,7 +38,7 @@
   gtest-vendor,
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-linear-feedback-controller";
+  pname = "ros-kilted-linear-feedback-controller";
   version = "3.0.1";
 
   src = fetchFromGitHub {

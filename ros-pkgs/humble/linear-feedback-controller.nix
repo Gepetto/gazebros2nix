@@ -1,91 +1,98 @@
 {
   lib,
-  stdenv,
-
+  buildRosPackage,
   fetchFromGitHub,
 
   # nativeBuildInputs
-  cmake,
-  fmt,
-  python3Packages,
-  ament-cmake,
   ament-cmake-auto,
-  ament-lint-auto,
-  eigen3-cmake-module,
-  generate-parameter-library-py,
-  pluginlib,
+  ament-cmake-python,
 
-  # propagatedBuildInputs
-  linear-feedback-controller-msgs,
+  # buildInputs
   control-toolbox,
   controller-interface,
+  eigen,
+  fmt,
+  generate-parameter-library,
+  hardware-interface,
+  jrl-cmakemodules,
+  linear-feedback-controller-msgs,
+  message-filters,
   nav-msgs,
   pal-statistics,
   parameter-traits,
-  realtime-tools,
+  pinocchio,
+  pluginlib,
+  rcl,
+  rclcpp,
   rclcpp-lifecycle,
+  realtime-tools,
+  sensor-msgs,
+
+  # propagatedBuildInputs
 
   # checkInputs
-  gtest,
+  ament-lint-auto,
+  example-robot-data,
+  gmock-vendor,
+  gtest-vendor,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  pname = "linear-feedback-controller";
-  version = "2.0.0";
+buildRosPackage rec {
+  pname = "ros-humble-linear-feedback-controller";
+  version = "3.0.1";
 
   src = fetchFromGitHub {
     owner = "loco-3d";
     repo = "linear-feedback-controller";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-WB0QXTY74jqeYIt+lv5Y9slMw6lx8FfHO26aGpoX7T0=";
+    tag = "v${version}";
+    hash = "sha256-LeKn8myFQ7e9sS2UrPsmlHGPujTwGptkIHcT9G1wfLc=";
   };
+  sourceRoot = "source/";
+
+  buildType = "ament_cmake";
 
   nativeBuildInputs = [
-    cmake
-    fmt
-    python3Packages.python
-    ament-cmake
     ament-cmake-auto
-    ament-lint-auto
-    eigen3-cmake-module # this is a mistake on humble
-    generate-parameter-library-py
-    pluginlib
+    ament-cmake-python
   ];
-
-  propagatedBuildInputs = [
-    fmt
-    linear-feedback-controller-msgs
-    python3Packages.pinocchio
-    python3Packages.example-robot-data
+  buildInputs = [
     control-toolbox
     controller-interface
+    eigen
+    fmt
+    generate-parameter-library
+    hardware-interface
+    jrl-cmakemodules
+    linear-feedback-controller-msgs
+    message-filters
     nav-msgs
     pal-statistics
     parameter-traits
-    realtime-tools
+    pinocchio
+    pluginlib
+    rcl
+    rclcpp
     rclcpp-lifecycle
+    realtime-tools
+    sensor-msgs
   ];
-
+  propagatedBuildInputs = [
+  ];
   checkInputs = [
-    gtest
+    ament-lint-auto
+    example-robot-data
+    gmock-vendor
+    gtest-vendor
   ];
-
-  # revert https://github.com/lopsided98/nix-ros-overlay/blob/develop/distros/rosidl-generator-py-setup-hook.sh
-  # as they break tests
-  postConfigure = ''
-    cmake $cmakeDir -DCMAKE_SKIP_BUILD_RPATH:BOOL=OFF
-  '';
 
   doCheck = true;
 
-  # generate_parameter_library_markdown complains that build/doc exists
-  # ref. https://github.com/PickNikRobotics/generate_parameter_library/pull/212
-  enableParallelBuilding = false;
-
   meta = {
-    description = "RosControl linear feedback controller with pal base estimator and RosTopics external interface.";
+    description = "roscontrol controller package conputing a linear feedback. The user needs
+    to provide a model of the robot and a list of controlled joint and the
+    controller computes a linear feedback on the user defined state.";
+    license = with lib.licenses; [ bsd2 ];
     homepage = "https://github.com/loco-3d/linear-feedback-controller";
-    license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.nim65s ];
     platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.nim65s ];
   };
-})
+}

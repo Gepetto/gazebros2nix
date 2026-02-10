@@ -171,11 +171,7 @@ class Package:
             return [p for p in repo.rosdeps.get(k, [kebabcase(k)])]
 
         def sort_deps(deps, overrides, blacklist):
-            deps = [
-                rosdep(dep.name)
-                for dep in deps
-                if dep.condition is None or "PAL" not in dep.condition
-            ]
+            deps = [rosdep(dep.name) for dep in deps if dep.evaluate_condition(environ)]
             deps = {i for d in deps for i in d} | set(overrides)
 
             return sorted(deps - set(blacklist))
@@ -251,6 +247,7 @@ def main():
             if args.distro and distro != args.distro:
                 logger.debug("ignore distro %s", distro)
                 continue
+            environ["ROS_DISTRO"] = distro
             for repo, repo_conf in conf.items():
                 if args.repo and repo != args.repo:
                     logger.debug("ignore repo %s", repo)
