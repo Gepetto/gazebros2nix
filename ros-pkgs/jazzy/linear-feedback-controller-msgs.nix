@@ -32,7 +32,7 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "loco-3d";
     repo = "linear-feedback-controller-msgs";
-    tag = version;
+    tag = "v${version}";
     hash = "sha256-EFHYD5PC7HeUVZcLPqisUFfAFLsjpoR7xYqFaOx8bp4=";
   };
   sourceRoot = "source/";

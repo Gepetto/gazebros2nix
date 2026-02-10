@@ -20,13 +20,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-pro-gripper-bringup";
-  version = "1.11.2";
+  version = "1.11.3";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_pro_gripper";
     tag = version;
-    hash = "sha256-p4aQ8IK6erb85uIpVLA0whfEDSB4gaHzJWhxQrrz7jg=";
+    hash = "sha256-fAkXqNQeKPv+/zUKVwzzaEXuQooDZV6Ley8Bw2yJf2Q=";
   };
   sourceRoot = "source/pal_pro_gripper_bringup";
 
