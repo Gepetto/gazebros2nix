@@ -182,9 +182,13 @@ class Package:
 
         hash_url = f"{repo.repo.html_url}/archive"
         for tag in repo.repo.get_tags():
-            if tag.name == pkg.version or tag.name == f"v{pkg.version}":
+            if tag.name == pkg.version:
                 rev = "tag = version"
                 hash_url = f"{hash_url}/refs/tags/{pkg.version}.tar.gz"
+                break
+            elif tag.name == f"v{pkg.version}":
+                rev = 'tag = "v${version}"'
+                hash_url = f"{hash_url}/refs/tags/v{pkg.version}.tar.gz"
                 break
         else:
             rev = f'rev = "{repo.branch.commit.sha}"'
