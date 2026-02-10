@@ -26,7 +26,7 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "gbartyzel";
     repo = "ros2_net_ft_driver";
-    tag = version;
+    tag = "v${version}";
     hash = "sha256-TbTs7PmP98WyCIslfgdh+TLHi8jZZXgjEiHoFnIQXZw=";
   };
   sourceRoot = "source/net_ft_diagnostic_broadcaster";
