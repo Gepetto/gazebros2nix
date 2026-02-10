@@ -5,37 +5,41 @@
 
   # nativeBuildInputs
   ament-cmake,
-  ros2-control-cmake,
 
-  # propagatedBuildInputs
+  # buildInputs
   backward-ros,
   control-msgs,
   controller-interface,
-  controller-manager,
   hardware-interface,
-  joint-state-broadcaster,
-  joint-state-publisher-gui,
   kdl-parser,
-  launch,
-  launch-ros,
   pluginlib,
   rclcpp,
   rclcpp-lifecycle,
   realtime-tools,
+  ros2-control-cmake,
+  trajectory-msgs,
+
+  # propagatedBuildInputs
+  controller-manager,
+  joint-state-broadcaster,
+  joint-state-publisher-gui,
+  launch,
+  launch-ros,
   robot-state-publisher,
   ros2-control-demo-description,
   ros2controlcli,
   ros2launch,
   rviz2,
-  trajectory-msgs,
   urdf,
   xacro,
 
   # checkInputs
   ament-cmake-pytest,
+  ament-cmake-ros,
   launch-testing,
-  urdfdom,
+  launch-testing-ament-cmake,
   rclpy,
+  urdfdom,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-ros2-control-demo-example-7";
@@ -44,8 +48,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control_demos";
-    rev = "7732eec0d301b0544ff4b8a6fe0ed3842c475d86";
-    hash = "sha256-bJxaqS20rEyDHpkkDtOd0rbYeuwrdDK212G8Qw2ZF/k=";
+    rev = "e9602bc2683fd01f76bf5c15d312e216c6db9b26";
+    hash = "sha256-zUoUyk17qfuAnSHJPoig0BHB3Mc9ekm1xAytyHMN6ME=";
   };
   sourceRoot = "source/example_7";
 
@@ -53,38 +57,44 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
-    ros2-control-cmake
   ];
-  propagatedBuildInputs = [
+  buildInputs = [
     backward-ros
     control-msgs
     controller-interface
-    controller-manager
     hardware-interface
-    joint-state-broadcaster
-    joint-state-publisher-gui
     kdl-parser
-    launch
-    launch-ros
     pluginlib
     rclcpp
     rclcpp-lifecycle
     realtime-tools
+    ros2-control-cmake
+    trajectory-msgs
+  ];
+  propagatedBuildInputs = [
+    controller-manager
+    joint-state-broadcaster
+    joint-state-publisher-gui
+    launch
+    launch-ros
     robot-state-publisher
     ros2-control-demo-description
     ros2controlcli
     ros2launch
     rviz2
-    trajectory-msgs
     urdf
     xacro
   ];
   checkInputs = [
     ament-cmake-pytest
+    ament-cmake-ros
     launch-testing
-    urdfdom
+    launch-testing-ament-cmake
     rclpy
+    urdfdom
   ];
+
+  doCheck = false;
 
   meta = {
     description = "Demo for 6 DOF robot.";

@@ -6,6 +6,8 @@
   # nativeBuildInputs
   ament-cmake,
 
+  # buildInputs
+
   # propagatedBuildInputs
 
   # checkInputs
@@ -29,6 +31,8 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake
   ];
+  buildInputs = [
+  ];
   propagatedBuildInputs = [
   ];
   checkInputs = [
@@ -40,7 +44,7 @@ buildRosPackage rec {
 
   meta = {
     description = "TODO: Package description";
-    license = with lib.licenses; [ unfree ];
+    license = with lib.licenses; [ asl20 ];
     homepage = "https://github.com/jpgtzg/omni_drive_controller";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];

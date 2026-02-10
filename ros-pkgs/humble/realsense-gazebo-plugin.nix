@@ -6,13 +6,15 @@
   # nativeBuildInputs
   ament-cmake,
 
-  # propagatedBuildInputs
+  # buildInputs
   camera-info-manager,
   gazebo-ros,
   image-transport,
   point-cloud-transport,
   rclcpp,
   sensor-msgs,
+
+  # propagatedBuildInputs
 
   # checkInputs
   ament-lint-auto,
@@ -35,13 +37,15 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake
   ];
-  propagatedBuildInputs = [
+  buildInputs = [
     camera-info-manager
     gazebo-ros
     image-transport
     point-cloud-transport
     rclcpp
     sensor-msgs
+  ];
+  propagatedBuildInputs = [
   ];
   checkInputs = [
     ament-lint-auto
@@ -52,7 +56,7 @@ buildRosPackage rec {
 
   meta = {
     description = "Intel RealSense D435 Gazebo plugin package";
-    license = with lib.licenses; [ unfree ];
+    license = with lib.licenses; [ asl20 ];
     homepage = "https://github.com/pal-robotics/realsense_gazebo_plugin";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];

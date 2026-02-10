@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
 
   assimp,
   cmake,
@@ -21,7 +20,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-common5";
-  version = "5.7.1";
+  version = "5.8.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -29,16 +28,9 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-common";
-    tag = "gz-common5_5.7.1";
-    hash = "sha256-vNCjCSQYCSUHXKwXnq8vwWXiSK2+cD3yPSLT1FdAWrE=";
+    tag = "gz-common5_5.8.0";
+    hash = "sha256-akwbxx38PVizQD29A7OtpA+raivk1ALkDUpPYkGblPs=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/gazebosim/gz-common/pull/660.patch";
-      hash = "sha256-LJBGGzUgS/AhKWawTeLpnOteJj3PdN9MR4wacuEgxVc=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake

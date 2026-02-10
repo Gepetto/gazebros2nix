@@ -6,6 +6,8 @@
   # nativeBuildInputs
   ament-cmake-auto,
 
+  # buildInputs
+
   # propagatedBuildInputs
   launch-pal,
   moveit-configs-utils,
@@ -16,6 +18,7 @@
   moveit-ros-move-group,
   moveit-ros-perception,
   moveit-ros-visualization,
+  moveit-task-constructor-capabilities,
   pal-sea-arm-moveit-config,
   tiago-pro-description,
 
@@ -25,13 +28,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-moveit-config";
-  version = "1.3.2";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_moveit_config";
     tag = version;
-    hash = "sha256-kAtHiwv3qTwCfgpbMa+t3zdhg9toohNWnyZ6mdgDWcs=";
+    hash = "sha256-aAnR+3y6MXhZy4rKtLMFWvX3kCus/cBAXVmTKI5XVqw=";
   };
   sourceRoot = "source/";
 
@@ -39,6 +42,8 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake-auto
+  ];
+  buildInputs = [
   ];
   propagatedBuildInputs = [
     launch-pal
@@ -50,6 +55,7 @@ buildRosPackage rec {
     moveit-ros-move-group
     moveit-ros-perception
     moveit-ros-visualization
+    moveit-task-constructor-capabilities
     pal-sea-arm-moveit-config
     tiago-pro-description
   ];

@@ -16,7 +16,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-sdformat12";
-  version = "12.8.0";
+  version = "12.9.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -24,8 +24,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "sdformat";
-    tag = "sdformat12_12.8.0";
-    hash = "sha256-jLomD1cY9Ki8+SXOYz+g7ddRQagaseoVMgU2HDxm490=";
+    tag = "sdformat12_12.9.0";
+    hash = "sha256-KvQNrFxhZ+dJeTLe/BxMdtzLcrFcWasakbazKvLvJ7o=";
   };
 
   nativeBuildInputs = [

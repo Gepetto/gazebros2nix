@@ -6,6 +6,8 @@
   # nativeBuildInputs
   ament-cmake,
 
+  # buildInputs
+
   # propagatedBuildInputs
   pal-sea-arm-gazebo,
 
@@ -19,7 +21,7 @@ buildRosPackage rec {
     owner = "pal-robotics";
     repo = "pal_sea_arm_simulation";
     tag = version;
-    hash = "sha256-0UPWs4TLLf9rffQAbk0wEoDDyRJUPCOkMxCTQ42Kd+E=";
+    hash = "sha256-o89EOSgSZlLsH6aYdyx4R8VBeM4LFUMwc/9M+fo633E=";
   };
   sourceRoot = "source/pal_sea_arm_simulation";
 
@@ -27,6 +29,8 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+  ];
+  buildInputs = [
   ];
   propagatedBuildInputs = [
     pal-sea-arm-gazebo

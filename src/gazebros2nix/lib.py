@@ -1,12 +1,23 @@
 from argparse import ArgumentParser
-from json import load, dump
+from json import load as jload, dump as jdump
 from os import environ
 from pathlib import Path
 from subprocess import check_output
+from yaml import load as yload
 
+try:
+    from yaml import CLoader as Loader
+except ImportError:
+    from yaml import Loader
+
+from github import Github
+
+# spdx to nixpkgs license ids
 LICENSES = {
     "Apache License 2.0": "asl20",
-    "Apache-2.0": "asl20",  # https://github.com/ros-controls/ros2_control_demos
+    "Apache 2.0": "asl20",
+    "Apache-2.0": "asl20",
+    "BSD-2-Clause": "bsd2",
 }
 
 
@@ -58,13 +69,13 @@ class HashesFile:
     def load_hashes(self):
         if self.hashes_file.exists():
             with self.hashes_file.open("r") as f:
-                self.hashes = load(f)
+                self.hashes = jload(f)
         else:
             self.hashes = {}
 
     def dump_hashes(self):
         with self.hashes_file.open("w") as f:
-            dump(self.hashes, f, indent=2, sort_keys=True)
+            jdump(self.hashes, f, indent=2, sort_keys=True)
 
     def get_hash(self, url: str, tag: str = "", patch: bool = False) -> str:
         key = f"{url} {tag}".strip()
@@ -82,3 +93,15 @@ class HashesFile:
                 ).strip()
             self.hashes[key] = hash
         return self.hashes[key]
+
+
+def get_rosdeps(gh: Github) -> dict[str, list[str]]:
+    rosdistro = gh.get_repo("ros/rosdistro")
+    ref = rosdistro.default_branch
+    base = rosdistro.get_contents("rosdep/base.yaml", ref=ref)
+    base_db = yload(base.decoded_content.decode(), Loader=Loader)
+    python = rosdistro.get_contents("rosdep/python.yaml", ref=ref)
+    python_db = yload(python.decoded_content.decode(), Loader=Loader)
+    return {
+        k: v["nixos"] for k, v in [*base_db.items(), *python_db.items()] if "nixos" in v
+    }

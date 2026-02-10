@@ -21,21 +21,103 @@
       '';
     });
     # keep-sorted end
-    pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-      (
-        python-final: _python-prev:
-        final.lib.filesystem.packagesFromDirectoryRecursive {
-          inherit (python-final) callPackage;
-          directory = ./py-pkgs;
-        }
-      )
-    ];
-    qt6 = prev.qt6.overrideScope (
-      qt6-final: _qt6-prev: {
-        qtquickcontrols = qt6-final.qtdeclarative; # TODO
-      }
-    );
+
+    # qt6 = prev.qt6.overrideScope (
+    #   qt6-final: _qt6-prev: {
+    #     qtquickcontrols = qt6-final.qtdeclarative; # TODO
+    #   }
+    # );
+
     gazebo = prev.gazebo // {
+      fortress = prev.gazebo.fortress.overrideScope (
+        _fortress-final: fortress-prev: {
+          dart = final.dartsim;
+
+          # fast and ugly way to compensate the fact that
+          # this version package.xml have no deps info,
+          # so we use latest version package.xml,
+          # but that is the wrong qt version
+          qt6 = final.qt5 // {
+            qt5compat = final.qt5.qtquickcontrols2;
+          };
+
+          ign-gazebo6 = fortress-prev.ign-gazebo6.overrideAttrs {
+            postPatch = ''
+              substituteInPlace src/systems/log/LogRecord.cc \
+                --replace-fail "this->sdfMsg.GetTypeName()" "std::string(this->sdfMsg.GetTypeName())"
+              substituteInPlace src/systems/triggered_publisher/TriggeredPublisher.cc \
+                --replace-fail "info.msgData->GetTypeName()" "std::string(info.msgData->GetTypeName())"
+            '';
+          };
+
+          ign-gui6 = fortress-prev.ign-gui6.overrideAttrs {
+            postPatch = ''
+              substituteInPlace src/plugins/topic_viewer/TopicViewer.cc \
+                --replace-fail "msgField->name()" "std::string(msgField->name())" \
+                --replace-fail "messageType->name()" "std::string(messageType->name())" \
+                --replace-fail "msgField->type_name()" "std::string(msgField->type_name())"
+            '';
+          };
+
+          ign-launch5 = fortress-prev.ign-launch5.overrideAttrs {
+            postPatch = ''
+              substituteInPlace plugins/websocket_server/WebsocketServer.cc \
+                --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
+            '';
+          };
+
+          ign-msgs8 = fortress-prev.ign-msgs8.overrideAttrs {
+            postPatch = ''
+              substituteInPlace src/Generator.cc \
+                --replace-fail '"typedef std::unique_ptr<"' 'std::string("typedef std::unique_ptr<")' \
+                --replace-fail '"typedef std::unique_ptr<const "' 'std::string("typedef std::unique_ptr<const ")' \
+                --replace-fail '"typedef std::shared_ptr<"' 'std::string("typedef std::shared_ptr<")' \
+                --replace-fail '_file->message_type(i)->name()' 'std::string(_file->message_type(i)->name())' \
+                --replace-fail '_file->name()' 'std::string(_file->name())'
+            '';
+          };
+        }
+      );
+
+      harmonic = prev.gazebo.harmonic.overrideScope (
+        _harmonic-final: harmonic-prev: {
+          dart = final.dartsim;
+
+          gz-gui8 = harmonic-prev.gz-gui8.overrideAttrs {
+            postPatch = ''
+              substituteInPlace src/plugins/topic_viewer/TopicViewer.cc \
+                --replace-fail "msgField->name()" "std::string(msgField->name())" \
+                --replace-fail "messageType->full_name()" "std::string(messageType->full_name())" \
+                --replace-fail "msgField->type_name()" "std::string(msgField->type_name())"
+            '';
+          };
+
+          gz-launch7 = harmonic-prev.gz-launch7.overrideAttrs {
+            postPatch = ''
+              substituteInPlace plugins/websocket_server/WebsocketServer.cc \
+                --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
+            '';
+          };
+
+          gz-msgs10 = harmonic-prev.gz-msgs10.overrideAttrs {
+            postPatch = ''
+              substituteInPlace core/generator/Generator.cc \
+                --replace-fail '"typedef std::unique_ptr<"' 'std::string("typedef std::unique_ptr<")' \
+                --replace-fail '"typedef std::unique_ptr<const "' 'std::string("typedef std::unique_ptr<const ")' \
+                --replace-fail '"typedef std::shared_ptr<"' 'std::string("typedef std::shared_ptr<")' \
+                --replace-fail '+ desc->name() +' '+ std::string(desc->name()) +' \
+                --replace-fail 'getNamespaces(_file->package())' 'getNamespaces(std::string(_file->package()))'
+            '';
+          };
+        }
+      );
+
+      ionic = prev.gazebo.ionic.overrideScope (
+        _ionic-final: _ionic-prev: {
+          dart = final.dartsim;
+        }
+      );
+
       jetty = prev.gazebo.jetty.overrideScope (
         _jetty-final: jetty-prev: {
           dart = final.dartsim;
@@ -51,6 +133,7 @@
         }
       );
     };
+
     rosPackages = prev.rosPackages // {
       # noetic = prev.rosPackages.noetic.overrideScope (
       #   _noetic-final: noetic-prev: {
@@ -67,47 +150,19 @@
       #     };
       #   }
       # );
+
       humble = prev.rosPackages.humble.overrideScope (
-        humble-final: humble-prev:
-        {
-          inherit (prev.gazebo.fortress)
-            # keep-sorted start
-            gz-cmake
-            gz-common
-            gz-fuel-tools
-            gz-gui
-            gz-launch
-            gz-math
-            gz-msgs
-            gz-physics
-            gz-plugin
-            gz-rendering
-            gz-sensors
-            gz-sim
-            gz-tools
-            gz-transport
-            gz-utils
-            ign-cmake2
-            ign-common4
-            ign-fuel-tools7
-            ign-gazebo6
-            ign-gui6
-            ign-launch5
-            ign-math6
-            ign-msgs8
-            ign-physics5
-            ign-plugin1
-            ign-rendering6
-            ign-sensors6
-            ign-tools1
-            ign-transport11
-            ign-utils1
-            sdformat
-            sdformat12
-            # keep-sorted end
-            ;
+        humble-final: humble-prev: {
+          gazebo_11 = null;
+          gazebo-planar-move-plugin = null;
           gazebo-ros = humble-prev.gazebo-ros.overrideAttrs (super: {
             buildInputs = (super.buildInputs or [ ]) ++ [ final.qt6.qtbase ];
+          });
+          gazebo-dev = humble-prev.gazebo-dev.overrideAttrs (super: {
+            # Too much EOL
+            meta = super.meta // {
+              broken = true;
+            };
           });
           play-motion2-msgs = humble-prev.play-motion2-msgs.overrideAttrs (_super: rec {
             version = "1.6.1";
@@ -150,58 +205,33 @@
             doCheck = false;
           };
         }
-        // final.lib.filesystem.packagesFromDirectoryRecursive {
-          inherit (humble-final) callPackage;
-          directory = ./ros-pkgs/humble;
+      );
+
+      jazzy = prev.rosPackages.jazzy.overrideScope (
+        _jazzy-final: _jazzy-prev: {
+          # liburdfdom-tools = final.urdfdom; # TODO
         }
       );
-      jazzy = prev.rosPackages.jazzy.overrideScope (
-        jazzy-final: _jazzy-prev:
-        {
-          inherit (prev.gazebo.harmonic)
-            # keep-sorted start
-            gz-cmake
-            gz-cmake3
-            gz-common
-            gz-common5
-            gz-fuel-tools
-            gz-fuel-tools9
-            gz-gui
-            gz-gui8
-            gz-launch
-            gz-launch7
-            gz-math
-            gz-math7
-            gz-msgs
-            gz-msgs10
-            gz-physics
-            gz-physics7
-            gz-plugin
-            gz-plugin2
-            gz-rendering
-            gz-rendering8
-            gz-sensors
-            gz-sensors8
-            gz-sim
-            gz-sim8
-            gz-tools
-            gz-tools2
-            gz-transport
-            gz-transport13
-            gz-utils
-            gz-utils2
-            sdformat
-            sdformat14
-            # keep-sorted end
-            ;
+
+      kilted = prev.rosPackages.kilted.overrideScope (
+        _kilted-final: _kilted-prev: {
         }
-        // final.lib.filesystem.packagesFromDirectoryRecursive {
-          inherit (jazzy-final) callPackage;
-          directory = ./ros-pkgs/jazzy;
+      );
+
+      rolling = prev.rosPackages.rolling.overrideScope (
+        _rolling-final: rolling-prev: {
+          linear-feedback-controller-msgs =
+            rolling-prev.linear-feedback-controller-msgs.overrideAttrs
+              (super: {
+                cmakeFlags = (super.cmakeFlags or [ ]) ++ [
+                  (final.lib.cmakeFeature "CMAKE_CTEST_ARGUMENTS" "--exclude-regex;'flake8_rosidl_generated_py'")
+                ];
+              });
         }
       );
     };
   }
+
   // prev.lib.filesystem.packagesFromDirectoryRecursive {
     inherit (final) callPackage;
     directory = ./pkgs;

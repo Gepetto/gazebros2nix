@@ -19,7 +19,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-sdformat15";
-  version = "15.3.0";
+  version = "15.4.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -27,8 +27,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "sdformat";
-    tag = "sdformat15_15.3.0";
-    hash = "sha256-5EGAypmWiUHvGpAXTIWJi8ChWkafK1li1C0/C1GIfkA=";
+    tag = "sdformat15_15.4.0";
+    hash = "sha256-zMCoWFPUN/Q7J5F6mILoL/Ttgf/KXqenj6umlXqxZ90=";
   };
 
   nativeBuildInputs = [

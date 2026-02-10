@@ -11,6 +11,8 @@
   ign-tools,
   ign-utils,
   libsodium,
+  libzenohc-dev,
+  libzenohcpp-dev,
   pkg-config,
   protobuf,
   python3,
@@ -20,7 +22,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-transport11";
-  version = "11.4.1";
+  version = "11.4.2";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -28,8 +30,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-transport";
-    tag = "ignition-transport11_11.4.1";
-    hash = "sha256-wQ/ugKYopWgSaa6tqPrp8oQexPpnA6fa28L383OGNXM=";
+    tag = "ignition-transport11_11.4.2";
+    hash = "sha256-lYstBoT+o2uza1gRCbF+BWyS2JLSm1E30B1NJsVNArE=";
   };
 
   nativeBuildInputs = [
@@ -45,7 +47,8 @@ stdenv.mkDerivation {
     ign-tools
     ign-utils
     libsodium
-    pkg-config
+    libzenohc-dev
+    libzenohcpp-dev
     protobuf
     python3
     python3Packages.psutil

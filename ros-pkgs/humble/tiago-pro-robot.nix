@@ -6,6 +6,8 @@
   # nativeBuildInputs
   ament-cmake,
 
+  # buildInputs
+
   # propagatedBuildInputs
   tiago-pro-bringup,
   tiago-pro-controller-configuration,
@@ -15,13 +17,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-robot";
-  version = "1.30.0";
+  version = "1.35.2";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_robot";
     tag = version;
-    hash = "sha256-2YoWKZgJoEaEhkpW0nlfoHjKtbFc/GZ0ieQKPhQD7Do=";
+    hash = "sha256-JiDy6l4wlydTgWYaZ8UsUaIgdipcRK/6qnxJ2TxE/k4=";
   };
   sourceRoot = "source/tiago_pro_robot";
 
@@ -29,6 +31,8 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+  ];
+  buildInputs = [
   ];
   propagatedBuildInputs = [
     tiago-pro-bringup

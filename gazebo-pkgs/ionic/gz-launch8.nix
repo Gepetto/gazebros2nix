@@ -39,7 +39,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-launch8";
-  version = "8.0.1";
+  version = "8.0.2";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -47,8 +47,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-launch";
-    tag = "gz-launch8_8.0.1";
-    hash = "sha256-el+4sVBOmeBj8VJqKut8pIhVJeyEyodrt6titunbBF0=";
+    tag = "gz-launch8_8.0.2";
+    hash = "sha256-jxBoYDzF4295tq8t+h+qazQE5PDrwEfL89yXR+e7K6U=";
   };
 
   nativeBuildInputs = [

@@ -19,7 +19,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-sdformat14";
-  version = "14.8.0";
+  version = "14.9.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -27,8 +27,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "sdformat";
-    tag = "sdformat14_14.8.0";
-    hash = "sha256-jnOsO70Cnw106eY5FwKKf9U1fCEa2dZQfN58+SrqmdE=";
+    tag = "sdformat14_14.9.0";
+    hash = "sha256-map9BTLsw68+IonAm0JqHozhd7yVZ/3r9w0KgCa/q+4=";
   };
 
   nativeBuildInputs = [

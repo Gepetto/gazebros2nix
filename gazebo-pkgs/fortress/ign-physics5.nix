@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
 
   bullet,
   cmake,
@@ -19,7 +18,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-physics5";
-  version = "5.3.2";
+  version = "5.4.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -27,16 +26,9 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-physics";
-    tag = "ignition-physics5_5.3.2";
-    hash = "sha256-pvBAdMQJwtWp9mGjcp1Yd0MpyYzwojfoBlQotpPxOHk=";
+    tag = "ignition-physics5_5.4.0";
+    hash = "sha256-nHtxWJtp69iJzojz0G4Cc+vEPOBHQtOdD5N0zR5uBZg=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/gazebosim/gz-physics/pull/768.patch";
-      hash = "sha256-qqqkWb5VWZZ6SCZFp1Md2Sd5zVQkWmlCuE0V4ZnUtUk=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake

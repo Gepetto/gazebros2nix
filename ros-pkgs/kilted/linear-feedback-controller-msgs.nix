@@ -26,7 +26,7 @@
   ament-lint-common,
 }:
 buildRosPackage rec {
-  pname = "ros-humble-linear-feedback-controller-msgs";
+  pname = "ros-kilted-linear-feedback-controller-msgs";
   version = "1.2.0";
 
   src = fetchFromGitHub {

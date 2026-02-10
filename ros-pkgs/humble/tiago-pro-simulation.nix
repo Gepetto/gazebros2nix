@@ -6,6 +6,8 @@
   # nativeBuildInputs
   ament-cmake,
 
+  # buildInputs
+
   # propagatedBuildInputs
   tiago-pro-gazebo,
 
@@ -13,13 +15,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-simulation";
-  version = "1.10.1";
+  version = "1.14.1";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_simulation";
     tag = version;
-    hash = "sha256-qxY8VL6JhEWZtmmnVS309xPFYhGI1RpQjsI/CZivmfk=";
+    hash = "sha256-cjfTsCl/3OGPcYErw19zOXJUWxwXInHsicZTC93f5Hs=";
   };
   sourceRoot = "source/tiago_pro_simulation";
 
@@ -27,6 +29,8 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+  ];
+  buildInputs = [
   ];
   propagatedBuildInputs = [
     tiago-pro-gazebo

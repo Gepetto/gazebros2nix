@@ -5,6 +5,8 @@ packages = {"net_ft_driver" = {native = ["pkg-config"], propagated = ["curl", "c
 [humble."jpgtzg/omni_drive_controller".packages]
 omni_drive_controller = {do_check = false}
 
+[humble."loco-3d/linear-feedback-controller-msgs"]
+
 [humble."pal-robotics/pal_pro_gripper".packages]
 pal_pro_gripper_description = {do_check = false}
 pal_pro_gripper_controller_configuration = {do_check = false}
@@ -46,5 +48,45 @@ tiago_pro_description = {do_check = false}
 [humble."pal-robotics/tiago_pro_simulation".packages]
 tiago_pro_gazebo = {do_check = false}
 
+[jazzy."loco-3d/linear-feedback-controller-msgs"]
+
 [jazzy."ros-controls/ros2_control_demos"]
 branch = "jazzy"
+[jazzy."ros-controls/ros2_control_demos".packages.example_1]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_2]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_3]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_4]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_5]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_6]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_7]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_8]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_9]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_10]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_11]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_12]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_13]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_14]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_15]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_16]
+do_check = false
+[jazzy."ros-controls/ros2_control_demos".packages.example_17]
+do_check = false
+
+[kilted."loco-3d/linear-feedback-controller-msgs"]
+
+[rolling."loco-3d/linear-feedback-controller-msgs"]

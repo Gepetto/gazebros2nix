@@ -6,11 +6,12 @@
   # nativeBuildInputs
   ament-cmake-auto,
 
+  # buildInputs
+
   # propagatedBuildInputs
   ament-index-python,
   diagnostic-updater,
   rclcpp-components,
-  realsense-camera-cfg,
   realsense2-camera,
   ros2launch,
 
@@ -20,13 +21,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-rgbd-sensors";
-  version = "2.13.0";
+  version = "2.14.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_navigation";
     tag = version;
-    hash = "sha256-FT8uHhhBC7Zi+nT1NGA7Lmi36ddRRR9AujXs01PyNco=";
+    hash = "sha256-CWqmbPxE05r7TrQUAqXmk3gEK9QJYxhP9ROmifcQXHY=";
   };
   sourceRoot = "source/tiago_pro_rgbd_sensors";
 
@@ -35,11 +36,12 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake-auto
   ];
+  buildInputs = [
+  ];
   propagatedBuildInputs = [
     ament-index-python
     diagnostic-updater
     rclcpp-components
-    realsense-camera-cfg
     realsense2-camera
     ros2launch
   ];

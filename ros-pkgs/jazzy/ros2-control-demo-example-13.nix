@@ -5,6 +5,8 @@
 
   # nativeBuildInputs
   ament-cmake,
+
+  # buildInputs
   ros2-control-cmake,
 
   # propagatedBuildInputs
@@ -28,8 +30,8 @@
   launch,
   launch-testing,
   launch-testing-ament-cmake,
-  urdfdom,
   rclpy,
+  urdfdom,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-ros2-control-demo-example-13";
@@ -38,8 +40,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control_demos";
-    rev = "7732eec0d301b0544ff4b8a6fe0ed3842c475d86";
-    hash = "sha256-bJxaqS20rEyDHpkkDtOd0rbYeuwrdDK212G8Qw2ZF/k=";
+    rev = "e9602bc2683fd01f76bf5c15d312e216c6db9b26";
+    hash = "sha256-zUoUyk17qfuAnSHJPoig0BHB3Mc9ekm1xAytyHMN6ME=";
   };
   sourceRoot = "source/example_13";
 
@@ -47,6 +49,8 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+  ];
+  buildInputs = [
     ros2-control-cmake
   ];
   propagatedBuildInputs = [
@@ -70,9 +74,11 @@ buildRosPackage rec {
     launch
     launch-testing
     launch-testing-ament-cmake
-    urdfdom
     rclpy
+    urdfdom
   ];
+
+  doCheck = false;
 
   meta = {
     description = "Demo package of `ros2_control` simulation with multiple robots.";

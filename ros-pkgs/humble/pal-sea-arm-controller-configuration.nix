@@ -6,14 +6,14 @@
   # nativeBuildInputs
   ament-cmake-auto,
 
+  # buildInputs
+
   # propagatedBuildInputs
   controller-manager,
-  inertia-shaping-effort-control,
   joint-trajectory-controller,
   launch,
   launch-pal,
   pal-pro-gripper-controller-configuration,
-  sea-state-broadcaster,
 
   # checkInputs
   ament-lint-auto,
@@ -21,13 +21,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm-controller-configuration";
-  version = "1.18.7";
+  version = "1.23.1";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_sea_arm";
     tag = version;
-    hash = "sha256-VoJQepKxkCMTQECaOnYjCdEvfKq+n2zNyhGkgvotkoI=";
+    hash = "sha256-g2ky/HxKPucZJpdFVmkG4iV9Ug6OzsbjKQE7+/b3grM=";
   };
   sourceRoot = "source/pal_sea_arm_controller_configuration";
 
@@ -36,14 +36,14 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake-auto
   ];
+  buildInputs = [
+  ];
   propagatedBuildInputs = [
     controller-manager
-    inertia-shaping-effort-control
     joint-trajectory-controller
     launch
     launch-pal
     pal-pro-gripper-controller-configuration
-    sea-state-broadcaster
   ];
   checkInputs = [
     ament-lint-auto

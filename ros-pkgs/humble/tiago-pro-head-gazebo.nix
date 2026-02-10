@@ -6,6 +6,8 @@
   # nativeBuildInputs
   ament-cmake-auto,
 
+  # buildInputs
+
   # propagatedBuildInputs
   gazebo-plugins,
   gazebo-ros,
@@ -30,7 +32,7 @@ buildRosPackage rec {
     owner = "pal-robotics";
     repo = "tiago_pro_head_simulation";
     tag = version;
-    hash = "sha256-JS+4wBv+vXk/BH3X8gUHB0W+iTO+g5kt1TB47SesI2E=";
+    hash = "sha256-OpL3yPe5dG20oyNdMXnZL0QXUbTszwVf/5JgSqEWP0c=";
   };
   sourceRoot = "source/tiago_pro_head_gazebo";
 
@@ -38,6 +40,8 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake-auto
+  ];
+  buildInputs = [
   ];
   propagatedBuildInputs = [
     gazebo-plugins

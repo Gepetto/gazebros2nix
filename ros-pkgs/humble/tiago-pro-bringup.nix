@@ -6,14 +6,16 @@
   # nativeBuildInputs
   ament-cmake-auto,
 
+  # buildInputs
+
   # propagatedBuildInputs
   ament-index-python,
-  collision-aware-joint-trajectory-wrapper,
   diagnostic-aggregator,
   joy-linux,
   joy-teleop,
   pal-pro-gripper-wrapper,
   play-motion2,
+  play-motion2-cli,
   tiago-pro-controller-configuration,
   tiago-pro-head-bringup,
   twist-mux,
@@ -24,13 +26,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-bringup";
-  version = "1.30.0";
+  version = "1.35.2";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_robot";
     tag = version;
-    hash = "sha256-2YoWKZgJoEaEhkpW0nlfoHjKtbFc/GZ0ieQKPhQD7Do=";
+    hash = "sha256-JiDy6l4wlydTgWYaZ8UsUaIgdipcRK/6qnxJ2TxE/k4=";
   };
   sourceRoot = "source/tiago_pro_bringup";
 
@@ -39,14 +41,16 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake-auto
   ];
+  buildInputs = [
+  ];
   propagatedBuildInputs = [
     ament-index-python
-    collision-aware-joint-trajectory-wrapper
     diagnostic-aggregator
     joy-linux
     joy-teleop
     pal-pro-gripper-wrapper
     play-motion2
+    play-motion2-cli
     tiago-pro-controller-configuration
     tiago-pro-head-bringup
     twist-mux
