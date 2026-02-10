@@ -1,12 +1,15 @@
-pull_request_rules:
-  - name: merge automatically when CI passes and PR is approved
-    conditions:
+queue_rules:
+  - name: default
+    autoqueue: true
+    merge_method: rebase
+    update_method: rebase
+    queue_conditions:
       - check-success = "check-macos-linux-nix"
       - check-success = "pre-commit.ci - pr"
       - or:
+          - approved-reviews-by = nim65s
           - author = dependabot[bot]
+          - author = gepetto-nix-flake-updater[bot]
           - author = github-actions[bot]
           - author = hrp2-14
           - author = pre-commit-ci[bot]
-    actions:
-      merge:
