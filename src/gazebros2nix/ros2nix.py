@@ -19,24 +19,24 @@ from catkin_pkg.package import parse_package_string
 from github import Auth, Github
 from jinja2 import Environment, Template
 
-from .lib import LICENSES, get_parser, HashesFile, get_rosdeps
+from .lib import LICENSES, get_parser, HashesFile, get_rosdeps, SPDX_LICENSES
 
 TEMPLATE = """{
   lib,
   buildRosPackage,
   fetchFromGitHub,
 
-  # nativeBuildInputs{% for dep in native %}
-  {{ dep.split('.')[0] }},{% endfor %}
+  # nativeBuildInputs{% for scope in native_scopes %}
+  {{ scope }},{% endfor %}
 
-  # buildInputs{% for dep in build %}
-  {{ dep }},{% endfor %}
+  # buildInputs{% for scope in build_scopes %}
+  {{ scope }},{% endfor %}
 
-  # propagatedBuildInputs{% for dep in propagated %}
-  {{ dep.split('.')[0] }},{% endfor %}
+  # propagatedBuildInputs{% for scope in propagated_scopes %}
+  {{ scope }},{% endfor %}
 
-  # checkInputs{% for dep in check %}
-  {{ dep.split('.')[0] }},{% endfor %}
+  # checkInputs{% for scope in check_scopes %}
+  {{ scope }},{% endfor %}
 }:
 buildRosPackage rec {
   pname = "ros-{{ distro }}-{{ pkg.name|kebab }}";
@@ -80,6 +80,18 @@ logger = getLogger("ros2nix")
 parser = get_parser(prog="ros2nix", description=__doc__)
 
 
+class Overrides:
+    def __init__(self, data):
+        def default(key, val):
+            return data[key] if key in data else val
+
+        self.native = default("native", [])
+        self.build = default("build", [])
+        self.propagated = default("propagated", [])
+        self.check = default("check", [])
+        self.do_check = default("do_check", True)
+
+
 class Repo(HashesFile):
     def __init__(
         self,
@@ -91,6 +103,7 @@ class Repo(HashesFile):
         branch: str | None = None,
         distro: str | None = None,
         packages: list | None = None,
+        repo_overrides: Overrides | None = None,
     ):
         if isinstance(repo, str):
             repo = repo.removeprefix("https://").removeprefix("github.com/")
@@ -130,25 +143,13 @@ class Repo(HashesFile):
         self.load_hashes()
 
         for package in self.packages:
-            override = package or self.repo.name
-            overrides = Overrides(
-                packages[override] if packages and override in packages else {}
+            pname = package or self.repo.name
+            overrides = repo_overrides or Overrides(
+                packages[pname] if packages and pname in packages else {}
             )
             Package(repo=self, package=package, template=template, overrides=overrides)
 
         self.dump_hashes()
-
-
-class Overrides:
-    def __init__(self, data):
-        def default(key, val):
-            return data[key] if key in data else val
-
-        self.native = default("native", [])
-        self.build = default("build", [])
-        self.propagated = default("propagated", [])
-        self.check = default("check", [])
-        self.do_check = default("do_check", True)
 
 
 class Package:
@@ -161,10 +162,16 @@ class Package:
 
         licenses = []
         for lic in pkg.licenses:
+            if lic not in SPDX_LICENSES:
+                logger.warning(
+                    "Invalid %s %s license: %s", repo.repo.full_name, package, lic
+                )
             if nlic := LICENSES.get(lic):
                 licenses.append(nlic)
             else:
-                logger.warning("Unknown license: %s", lic)
+                logger.warning(
+                    "Unknown %s %s license: %s", repo.repo.full_name, package, lic
+                )
                 licenses.append("unfree")
 
         def rosdep(k: str) -> list[str]:
@@ -175,6 +182,10 @@ class Package:
             deps = {i for d in deps for i in d} | set(overrides)
 
             return sorted(deps - set(blacklist))
+
+        def deps_scopes(deps, blacklist):
+            scopes = {dep.split(".")[0] for dep in deps}
+            return sorted(scopes - set(blacklist))
 
         hash_url = f"{repo.repo.html_url}/archive"
         for tag in repo.repo.get_tags():
@@ -198,12 +209,18 @@ class Package:
             repo.hashes[hash_url] = hash
 
         native = sort_deps(pkg.buildtool_depends, overrides.native, [])
+        native_scopes = deps_scopes(native, [])
         build = sort_deps(pkg.build_depends, overrides.build, native)
+        build_scopes = deps_scopes(build, native_scopes)
         propagated = sort_deps(
             pkg.exec_depends, overrides.propagated, [*native, *build]
         )
+        propagated_scopes = deps_scopes(propagated, [*native_scopes, *build_scopes])
         check = sort_deps(
             pkg.test_depends, overrides.check, [*native, *build, *propagated]
+        )
+        check_scopes = deps_scopes(
+            check, [*native_scopes, *build_scopes, *propagated_scopes]
         )
         nix = template.render(
             pkg=pkg,
@@ -216,6 +233,10 @@ class Package:
             build=build,
             propagated=propagated,
             check=check,
+            native_scopes=native_scopes,
+            build_scopes=build_scopes,
+            propagated_scopes=propagated_scopes,
+            check_scopes=check_scopes,
             do_check=str(overrides.do_check).lower(),
         )
         path = repo.path / f"{kebabcase(pkg.name)}.nix"
@@ -261,6 +282,22 @@ def main():
                     hashes_file=args.hashes_file,
                     branch=repo_conf["branch"] if "branch" in repo_conf else None,
                     packages=repo_conf["packages"] if "packages" in repo_conf else None,
+                    repo_overrides=Overrides(
+                        {
+                            k: v
+                            for k, v in repo_conf.items()
+                            if k
+                            in [
+                                "native",
+                                "build",
+                                "propagated",
+                                "check",
+                                "do_check",
+                            ]
+                        }
+                    )
+                    if "packages" not in repo_conf
+                    else None,
                 )
 
 
