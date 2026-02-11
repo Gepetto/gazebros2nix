@@ -121,7 +121,7 @@
                   ];
                 };
 
-                gz-ionic = pkgs.rosPackages.jazzy.buildEnv {
+                gz-ionic = pkgs.rosPackages.kilted.buildEnv {
                   name = "gz-ionic";
                   paths = with pkgs.gazebo.ionic; [
                     # keep-sorted start
@@ -146,7 +146,7 @@
                   ];
                 };
 
-                gz-jetty = pkgs.rosPackages.jazzy.buildEnv {
+                gz-jetty = pkgs.rosPackages.rolling.buildEnv {
                   name = "gz-jetty";
                   paths = with pkgs.gazebo.jetty; [
                     # keep-sorted start
@@ -170,6 +170,94 @@
                     # keep-sorted end
                   ];
                 };
+
+                ros-humble =
+                  with pkgs.rosPackages.humble;
+                  buildEnv {
+                    name = "ros-humble";
+                    paths = [
+                      # keep-sorted start
+                      agimus-controller
+                      agimus-controller-ros
+                      agimus-franka-description
+                      agimus-libfranka
+                      agimus-msgs
+                      linear-feedback-controller
+                      linear-feedback-controller-msgs
+                      tiago-pro-description
+                      # tiago-pro-gazebo TODO: gazebo-classic
+                      # keep-sorted end
+                    ];
+                  };
+
+                ros-jazzy =
+                  with pkgs.rosPackages.jazzy;
+                  buildEnv {
+                    name = "ros-jazzy";
+                    paths = [
+                      # keep-sorted start
+                      agimus-controller
+                      agimus-controller-ros
+                      agimus-franka-description
+                      agimus-msgs
+                      linear-feedback-controller
+                      linear-feedback-controller-msgs
+                      ros2-control-demo-description
+                      ros2-control-demo-example-1
+                      ros2-control-demo-example-10
+                      ros2-control-demo-example-11
+                      ros2-control-demo-example-12
+                      ros2-control-demo-example-13
+                      ros2-control-demo-example-14
+                      ros2-control-demo-example-15
+                      ros2-control-demo-example-16
+                      # ros2-control-demo-example-17 # error: 'control_msgs' has not been declared
+                      ros2-control-demo-example-2
+                      ros2-control-demo-example-3
+                      ros2-control-demo-example-4
+                      ros2-control-demo-example-5
+                      ros2-control-demo-example-6
+                      ros2-control-demo-example-7
+                      ros2-control-demo-example-8
+                      # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
+                      # ros2-control-demos # need the other ones
+                      # keep-sorted end
+                    ];
+                  };
+
+                ros-kilted =
+                  with pkgs.rosPackages.kilted;
+                  buildEnv {
+                    name = "ros-kilted";
+                    paths = [
+                      # keep-sorted start
+                      agimus-controller
+                      agimus-controller-ros
+                      agimus-franka-description
+                      agimus-msgs
+                      linear-feedback-controller
+                      linear-feedback-controller-msgs
+                      # keep-sorted end
+                    ];
+                  };
+
+                ros-rolling =
+                  with pkgs.rosPackages.rolling;
+                  buildEnv {
+                    name = "ros-rolling";
+                    paths = [
+                      # keep-sorted start
+                      agimus-controller
+                      agimus-controller-ros
+                      agimus-franka-description
+                      agimus-msgs
+                      linear-feedback-controller
+                      linear-feedback-controller-msgs
+                      # keep-sorted end
+
+                    ];
+                  };
+
               }
 
               // {
