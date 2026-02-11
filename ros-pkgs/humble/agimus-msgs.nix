@@ -20,7 +20,7 @@
   ament-lint-common,
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-agimus-msgs";
+  pname = "ros-humble-agimus-msgs";
   version = "0.0.2";
 
   src = fetchFromGitHub {

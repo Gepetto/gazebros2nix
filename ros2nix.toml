@@ -1,3 +1,5 @@
+[humble."agimus-project/agimus_msgs"]
+
 [humble."gbartyzel/ros2_net_ft_driver"]
 branch = "humble"
 packages = {"net_ft_driver" = {native = ["pkg-config"], propagated = ["curl", "curlpp"]}}
@@ -49,6 +51,8 @@ tiago_pro_description = {do_check = false}
 [humble."pal-robotics/tiago_pro_simulation".packages]
 tiago_pro_gazebo = {do_check = false}
 
+[jazzy."agimus-project/agimus_msgs"]
+
 [jazzy."loco-3d/linear-feedback-controller"]
 [jazzy."loco-3d/linear-feedback-controller-msgs"]
 
@@ -89,8 +93,10 @@ do_check = false
 [jazzy."ros-controls/ros2_control_demos".packages.example_17]
 do_check = false
 
+[kilted."agimus-project/agimus_msgs"]
 [kilted."loco-3d/linear-feedback-controller"]
 [kilted."loco-3d/linear-feedback-controller-msgs"]
 
+[rolling."agimus-project/agimus_msgs"]
 [rolling."loco-3d/linear-feedback-controller"]
 [rolling."loco-3d/linear-feedback-controller-msgs"]

@@ -33,7 +33,6 @@
 
   # checkInputs
   ament-lint-auto,
-  example-robot-data,
   gmock-vendor,
   gtest-vendor,
 }:
@@ -81,7 +80,6 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-lint-auto
-    example-robot-data
     gmock-vendor
     gtest-vendor
   ];

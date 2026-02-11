@@ -1,4 +1,5 @@
 {
+  "https://github.com/agimus-project/agimus_msgs/archive/241d82d5bcffac00de83397c29347ab5bce45088.tar.gz": "sha256-gOTxAqOKx7B+tpaDrhEOf+0afWUBQj3RVXeIDZb0+nE=",
   "https://github.com/gazebosim/gz-cmake gz-cmake3_3.5.6": "sha256-S5nBV05So1KjNvI//U01gJKykleqNgi8dIbtQZHIiqA=",
   "https://github.com/gazebosim/gz-cmake gz-cmake4_4.2.1": "sha256-zhpZnvfnWsuyykIbNB4xgHxdO35otmaz0x/VXSdWPNY=",
   "https://github.com/gazebosim/gz-cmake gz-cmake5_5.0.1": "sha256-KkqSwTTcgzZ+mbID9OTSc1Wqa5q7mF9Fve++DmwP9hY=",
@@ -80,6 +81,7 @@
   "https://github.com/pal-robotics/pal_pro_gripper/archive/refs/tags/1.11.2.tar.gz": "sha256-p4aQ8IK6erb85uIpVLA0whfEDSB4gaHzJWhxQrrz7jg=",
   "https://github.com/pal-robotics/pal_pro_gripper/archive/refs/tags/1.11.3.tar.gz": "sha256-fAkXqNQeKPv+/zUKVwzzaEXuQooDZV6Ley8Bw2yJf2Q=",
   "https://github.com/pal-robotics/pal_sea_arm/archive/refs/tags/1.23.1.tar.gz": "sha256-g2ky/HxKPucZJpdFVmkG4iV9Ug6OzsbjKQE7+/b3grM=",
+  "https://github.com/pal-robotics/pal_sea_arm/archive/refs/tags/1.23.2.tar.gz": "sha256-8/N+vUzZFULRbKwE3nuqe4JDJ5O9KAM2jrQIPzkmVN0=",
   "https://github.com/pal-robotics/pal_sea_arm_moveit_config/archive/refs/tags/1.0.5.tar.gz": "sha256-dD6KRaZUgtGatI4NrdF9hrYoZvccYjCl7xVWQKHsPJM=",
   "https://github.com/pal-robotics/pal_sea_arm_simulation/archive/refs/tags/1.0.4.tar.gz": "sha256-o89EOSgSZlLsH6aYdyx4R8VBeM4LFUMwc/9M+fo633E=",
   "https://github.com/pal-robotics/realsense_gazebo_plugin/archive/refs/tags/3.2.0.tar.gz": "sha256-CPXmGao8reIUi1dH5PY5VFFXqHNzZSKyZ4Mo+jjbCuY=",
@@ -90,6 +92,7 @@
   "https://github.com/pal-robotics/tiago_pro_navigation/archive/refs/tags/2.14.0.tar.gz": "sha256-CWqmbPxE05r7TrQUAqXmk3gEK9QJYxhP9ROmifcQXHY=",
   "https://github.com/pal-robotics/tiago_pro_robot/archive/refs/tags/1.35.2.tar.gz": "sha256-JiDy6l4wlydTgWYaZ8UsUaIgdipcRK/6qnxJ2TxE/k4=",
   "https://github.com/pal-robotics/tiago_pro_robot/archive/refs/tags/1.35.3.tar.gz": "sha256-SIR9tIDNAn8hifFaClzDJBOjHIH5hUFcTtT1Kjht7D8=",
+  "https://github.com/pal-robotics/tiago_pro_robot/archive/refs/tags/1.35.4.tar.gz": "sha256-wQyJH1hLA5rmGnKZY3m5OlWWdsSa3qYPkoh4Ad5GOxk=",
   "https://github.com/pal-robotics/tiago_pro_simulation/archive/refs/tags/1.14.1.tar.gz": "sha256-cjfTsCl/3OGPcYErw19zOXJUWxwXInHsicZTC93f5Hs=",
   "https://github.com/ros-controls/ros2_control_demos/archive/e9602bc2683fd01f76bf5c15d312e216c6db9b26.tar.gz": "sha256-VMpoOTSCaWP0eNfFYspKvpren+3nDRP1sgfmFkCUJTM=",
   "https://github.com/wentasah/gz-common/commit/8d18342302b7586b5b34c3cd12f2ef26e148b6ab.patch?full_index=1": "sha256-Jtx1IShjLjaKsQ0x9RmTwPpbd3x07dOrt7bEXMTGnCw="
