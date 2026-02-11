@@ -39,6 +39,7 @@
         perSystem =
           {
             pkgs,
+            self',
             system,
             ...
           }:
@@ -72,192 +73,51 @@
                     --prefix IGN_CONFIG_PATH : "$out/share/ignition"
                     )
                   '';
-                  paths = with pkgs.gazebo.fortress; [
-                    # keep-sorted start
-                    gz-cmake
-                    gz-common
-                    gz-fuel-tools
-                    gz-gui
-                    gz-launch
-                    gz-math
-                    gz-msgs
-                    gz-physics
-                    gz-plugin
-                    gz-rendering
-                    gz-sensors
-                    gz-sim
-                    gz-tools
-                    gz-transport
-                    gz-utils
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-fortress-" n) self'.packages) ++ [
                     pkgs.qt5.qtgraphicaleffects
                     pkgs.qt5.wrapQtAppsHook
-                    sdformat
-                    # keep-sorted end
                   ];
                 };
 
                 gz-harmonic = pkgs.rosPackages.jazzy.buildEnv {
                   name = "gz-harmonic";
-                  paths = with pkgs.gazebo.harmonic; [
-                    # keep-sorted start
-                    gz-cmake
-                    gz-common
-                    gz-fuel-tools
-                    gz-gui
-                    gz-launch
-                    gz-math
-                    gz-msgs
-                    gz-physics
-                    gz-plugin
-                    gz-rendering
-                    gz-sensors
-                    gz-sim
-                    gz-tools
-                    gz-transport
-                    gz-utils
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-harmonic-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
-                    sdformat
-                    # keep-sorted end
                   ];
                 };
 
                 gz-ionic = pkgs.rosPackages.kilted.buildEnv {
                   name = "gz-ionic";
-                  paths = with pkgs.gazebo.ionic; [
-                    # keep-sorted start
-                    gz-cmake
-                    gz-common
-                    gz-fuel-tools
-                    gz-gui
-                    gz-launch
-                    gz-math
-                    gz-msgs
-                    gz-physics
-                    gz-plugin
-                    gz-rendering
-                    gz-sensors
-                    gz-sim
-                    gz-tools
-                    gz-transport
-                    gz-utils
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-ionic-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
-                    sdformat
-                    # keep-sorted end
                   ];
                 };
 
                 gz-jetty = pkgs.rosPackages.rolling.buildEnv {
                   name = "gz-jetty";
-                  paths = with pkgs.gazebo.jetty; [
-                    # keep-sorted start
-                    gz-cmake
-                    gz-common
-                    gz-fuel-tools
-                    gz-gui
-                    gz-launch
-                    gz-math
-                    gz-msgs
-                    gz-physics
-                    gz-plugin
-                    gz-rendering
-                    gz-sensors
-                    gz-sim
-                    gz-tools
-                    gz-transport
-                    gz-utils
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-jetty-" n) self'.packages) ++ [
                     pkgs.qt6.wrapQtAppsHook
-                    sdformat
-                    # keep-sorted end
                   ];
                 };
 
-                ros-humble =
-                  with pkgs.rosPackages.humble;
-                  buildEnv {
-                    name = "ros-humble";
-                    paths = [
-                      # keep-sorted start
-                      agimus-controller
-                      agimus-controller-ros
-                      agimus-franka-description
-                      agimus-libfranka
-                      agimus-msgs
-                      linear-feedback-controller
-                      linear-feedback-controller-msgs
-                      tiago-pro-description
-                      # tiago-pro-gazebo TODO: gazebo-classic
-                      # keep-sorted end
-                    ];
-                  };
+                ros-humble = pkgs.rosPackages.humble.buildEnv {
+                  name = "ros-humble";
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-humble-" n) self'.packages);
+                };
 
-                ros-jazzy =
-                  with pkgs.rosPackages.jazzy;
-                  buildEnv {
-                    name = "ros-jazzy";
-                    paths = [
-                      # keep-sorted start
-                      agimus-controller
-                      agimus-controller-ros
-                      agimus-franka-description
-                      agimus-msgs
-                      linear-feedback-controller
-                      linear-feedback-controller-msgs
-                      ros2-control-demo-description
-                      ros2-control-demo-example-1
-                      ros2-control-demo-example-10
-                      ros2-control-demo-example-11
-                      ros2-control-demo-example-12
-                      ros2-control-demo-example-13
-                      ros2-control-demo-example-14
-                      ros2-control-demo-example-15
-                      ros2-control-demo-example-16
-                      # ros2-control-demo-example-17 # error: 'control_msgs' has not been declared
-                      ros2-control-demo-example-2
-                      ros2-control-demo-example-3
-                      ros2-control-demo-example-4
-                      ros2-control-demo-example-5
-                      ros2-control-demo-example-6
-                      ros2-control-demo-example-7
-                      ros2-control-demo-example-8
-                      # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
-                      # ros2-control-demos # need the other ones
-                      # keep-sorted end
-                    ];
-                  };
+                ros-jazzy = pkgs.rosPackages.jazzy.buildEnv {
+                  name = "ros-jazzy";
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-" n) self'.packages);
+                };
 
-                ros-kilted =
-                  with pkgs.rosPackages.kilted;
-                  buildEnv {
-                    name = "ros-kilted";
-                    paths = [
-                      # keep-sorted start
-                      agimus-controller
-                      agimus-controller-ros
-                      agimus-franka-description
-                      agimus-msgs
-                      linear-feedback-controller
-                      linear-feedback-controller-msgs
-                      # keep-sorted end
-                    ];
-                  };
+                ros-kilted = pkgs.rosPackages.kilted.buildEnv {
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-kilted-" n) self'.packages);
+                };
 
-                ros-rolling =
-                  with pkgs.rosPackages.rolling;
-                  buildEnv {
-                    name = "ros-rolling";
-                    paths = [
-                      # keep-sorted start
-                      agimus-controller
-                      agimus-controller-ros
-                      agimus-franka-description
-                      agimus-msgs
-                      linear-feedback-controller
-                      linear-feedback-controller-msgs
-                      # keep-sorted end
-
-                    ];
-                  };
-
+                ros-rolling = pkgs.rosPackages.rolling.buildEnv {
+                  name = "ros-rolling";
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-rolling-" n) self'.packages);
+                };
               }
 
               // {
