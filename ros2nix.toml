@@ -3,6 +3,9 @@ branch = "fork"
 [humble."agimus-project/agimus_franka_description"]
 branch = "fork"
 do_check = false
+[humble."agimus-project/agimus_libfranka"]
+branch = "fork"
+do_check = false
 [humble."agimus-project/agimus_msgs"]
 
 [humble."gbartyzel/ros2_net_ft_driver"]

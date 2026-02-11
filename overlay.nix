@@ -153,6 +153,14 @@
 
       humble = prev.rosPackages.humble.overrideScope (
         humble-final: humble-prev: {
+          agimus-libfranka = humble-prev.agimus-libfranka.overrideAttrs (super: {
+            src = final.fetchFromGitHub {
+              inherit (super.src) owner repo rev;
+              fetchSubmodules = true;
+              hash = "sha256-LjV2jJxFSbk+6YKx3EqgiTa4FLVFjwfdEovvdIe4434=";
+            };
+          });
+
           gazebo_11 = null;
           gazebo-planar-move-plugin = null;
           gazebo-ros = humble-prev.gazebo-ros.overrideAttrs (super: {
