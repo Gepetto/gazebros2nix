@@ -28,7 +28,7 @@
   ament-pep257,
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-agimus-controller-ros";
+  pname = "ros-kilted-agimus-controller-ros";
   version = "0.0.0";
 
   src = fetchFromGitHub {

@@ -57,11 +57,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1770622967,
-        "narHash": "sha256-1LYjTugPSCa/5NkP6/dcZLH5TQYj3R8mAZ/9dgd7jDM=",
-        "owner": "lopsided98",
+        "lastModified": 1770828694,
+        "narHash": "sha256-TcTHTN3AJN21dzCsLXvBbomNS56iPrFAkrcqFZBjlCA=",
+        "owner": "nim65s",
         "repo": "nix-ros-overlay",
-        "rev": "d1b9f17eba909116356436d46b5192d299c6b49a",
+        "rev": "8a760b1daa420aff4218d61d40bb6e9c37ae97fa",
         "type": "github"
       },
       "original": {
@@ -213,11 +213,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770605395,
-        "narHash": "sha256-jXydlwsCseO9F0YKPBMpPTWTS4JM7QDVIXaHvjfI1hg=",
+        "lastModified": 1770770348,
+        "narHash": "sha256-A2GzkmzdYvdgmMEu5yxW+xhossP+txrYb7RuzRaqhlg=",
         "owner": "pyproject-nix",
         "repo": "uv2nix",
-        "rev": "661dadc1e3ff53142e1554172ab60c667de2c1d5",
+        "rev": "5d1b2cb4fe3158043fbafbbe2e46238abbc954b0",
         "type": "github"
       },
       "original": {

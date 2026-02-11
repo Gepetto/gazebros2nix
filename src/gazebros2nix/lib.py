@@ -18,7 +18,14 @@ LICENSES = {
     "Apache 2.0": "asl20",
     "Apache-2.0": "asl20",
     "BSD-2-Clause": "bsd2",
+    "BSD-3-Clause": "bsd3",
+    "BSD-3-clause": "bsd3",
 }
+SPDX_LICENSES = [
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+]
 
 
 def get_parser(prog: str, description: str) -> ArgumentParser:
