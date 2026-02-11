@@ -286,7 +286,19 @@
                   # keep-sorted start
                   agimus-controller
                   agimus-controller-ros
+                  agimus-franka-bringup
                   agimus-franka-description
+                  agimus-franka-example-controllers
+                  agimus-franka-fr3-moveit-config
+                  agimus-franka-gazebo-bringup
+                  agimus-franka-gripper
+                  agimus-franka-hardware
+                  agimus-franka-ign-ros2-control
+                  agimus-franka-msgs
+                  agimus-franka-robot-state-broadcaster
+                  agimus-franka-ros2
+                  agimus-franka-semantic-components
+                  agimus-integration-launch-testing
                   agimus-libfranka
                   agimus-msgs
                   linear-feedback-controller

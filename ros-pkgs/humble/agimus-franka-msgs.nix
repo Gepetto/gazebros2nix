@@ -8,8 +8,10 @@
 
   # buildInputs
   action-msgs,
+  builtin-interfaces,
   geometry-msgs,
   rosidl-default-generators,
+  sensor-msgs,
   std-msgs,
 
   # propagatedBuildInputs
@@ -20,16 +22,16 @@
   ament-lint-common,
 }:
 buildRosPackage rec {
-  pname = "ros-kilted-agimus-msgs";
-  version = "0.0.2";
+  pname = "ros-humble-agimus-franka-msgs";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "agimus-project";
-    repo = "agimus_msgs";
-    rev = "bda290a8d9f3e0f4d5dab67e6e21a31af3856a68";
-    hash = "sha256-Xniqj0fJvU3zUDSHqk3eP3f8ZLQVbIa+M+LZWd7VCyY=";
+    repo = "agimus_franka_ros2";
+    rev = "9dcef3a781458c65209b5b92f9be7ce1f1f72bfb";
+    hash = "sha256-TsYvxsfGato6K3aJtnNzKhhzAmr+2vf3WDasI06V9iA=";
   };
-  sourceRoot = "source/";
+  sourceRoot = "source/franka_msgs";
 
   buildType = "ament_cmake";
 
@@ -38,8 +40,10 @@ buildRosPackage rec {
   ];
   buildInputs = [
     action-msgs
+    builtin-interfaces
     geometry-msgs
     rosidl-default-generators
+    sensor-msgs
     std-msgs
   ];
   propagatedBuildInputs = [
@@ -50,12 +54,12 @@ buildRosPackage rec {
     ament-lint-common
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
-    description = "Agimus project ROS messages";
-    license = with lib.licenses; [ unfree ];
-    homepage = "https://github.com/agimus-project/agimus_msgs";
+    description = "fork of franka_msgs for franka robots not maintained anymore by franka";
+    license = with lib.licenses; [ asl20 ];
+    homepage = "https://github.com/agimus-project/agimus_franka_ros2";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };
