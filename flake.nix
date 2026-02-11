@@ -339,6 +339,7 @@
                   agimus-controller
                   agimus-controller-ros
                   agimus-franka-description
+                  agimus-libfranka
                   agimus-msgs
                   linear-feedback-controller
                   linear-feedback-controller-msgs
