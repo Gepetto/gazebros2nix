@@ -21,8 +21,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus_libfranka";
-    rev = "fe6e37c49123058c12e27d2802911ca1d246f332";
-    hash = "sha256-/iMJ4XJxuyd92ulMO1CH5AYq5yl/sfccAMqjTK1odeI=";
+    rev = "2121110ec171ebea79849004501bbac19cafac50";
+    hash = "sha256-uF1W0eNV2ihUvrzKUi44Lhx3inWRhsecZHegcxVcn+c=";
   };
   sourceRoot = "source/";
 

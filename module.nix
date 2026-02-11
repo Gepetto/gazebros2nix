@@ -73,7 +73,7 @@
                       directory = ./ros-pkgs/humble;
                     }
                     // {
-                      inherit (prev.gazebo.fortress)
+                      inherit (final.gazebo.fortress)
                         # keep-sorted start
                         gz-cmake
                         gz-common
@@ -120,7 +120,7 @@
                       directory = ./ros-pkgs/jazzy;
                     }
                     // {
-                      inherit (prev.gazebo.harmonic)
+                      inherit (final.gazebo.harmonic)
                         # keep-sorted start
                         gz-cmake
                         gz-cmake3
@@ -167,7 +167,7 @@
                       directory = ./ros-pkgs/kilted;
                     }
                     // {
-                      inherit (prev.gazebo.ionic)
+                      inherit (final.gazebo.ionic)
                         # keep-sorted start
                         gz-cmake
                         gz-cmake4
@@ -213,7 +213,7 @@
                       directory = ./ros-pkgs/rolling;
                     }
                     // {
-                      inherit (prev.gazebo.jetty)
+                      inherit (final.gazebo.jetty)
                         # keep-sorted start
                         gz-cmake
                         gz-cmake5

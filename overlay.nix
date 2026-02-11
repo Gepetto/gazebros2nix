@@ -157,7 +157,7 @@
             src = final.fetchFromGitHub {
               inherit (super.src) owner repo rev;
               fetchSubmodules = true;
-              hash = "sha256-LjV2jJxFSbk+6YKx3EqgiTa4FLVFjwfdEovvdIe4434=";
+              hash = "sha256-d/GG+yu96paIWYYoXK3w8EtdX70lcOFyZnWvVHUnVPw=";
             };
           });
 
@@ -172,6 +172,10 @@
               broken = true;
             };
           });
+
+          # franka-ros2 wrong keys, should be fixed in agimus-franka-ros2
+          ignition-gazebo6 = humble-prev.ign-gazebo6;
+          ignition-plugin = humble-prev.ign-plugin1;
 
           linear-feedback-controller = humble-prev.linear-feedback-controller.overrideAttrs (super: {
             buildInputs = super.buildInputs ++ [
@@ -223,6 +227,8 @@
             env.PYTHONPATH = humble-final.python-with-ament-package;
             meta.platforms = final.lib.platforms.linux;
           });
+
+          ros-gz-sim-demos = null; # wants qt-gui-cpp, where qt5 and python 3.13 are not compatible
 
           topic-tools-interfaces = humble-prev.topic-tools-interfaces.overrideAttrs {
             doCheck = false;
