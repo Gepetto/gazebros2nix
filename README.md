@@ -17,6 +17,7 @@ nix shell .#gz-fortress --command ign gazebo --render-engine ogre tests/fortress
 nix shell .#gz-harmonic --command gz sim tests/harmonic.sdf
 nix shell .#gz-ionic    --command gz sim tests/ionic.sdf
 nix shell .#gz-jetty    --command gz sim tests/ionic.sdf
+nix shell .#ros-humble  --command ros2 launch agimus_demo_03_mpc_dummy_traj bringup.launch.py use_gazebo:=true use_rviz:=true gz_headless:=true
 ```
 
 ## Known issues
