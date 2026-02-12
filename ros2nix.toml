@@ -1,5 +1,7 @@
 [humble."agimus-project/agimus_controller"]
 branch = "fork"
+[humble."agimus-project/agimus-demos"]
+branch = "fork"
 [humble."agimus-project/agimus_franka_description"]
 branch = "fork"
 do_check = false

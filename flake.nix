@@ -70,6 +70,7 @@
                   postBuild = ''
                     rosWrapperArgs+=(
                     --set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt5.qtbase.bin}/lib/qt-${pkgs.qt5.qtbase.version}/plugins/platforms
+                    --set GZ_SIM_RESOURCE_PATH "$out/share"
                     --prefix IGN_CONFIG_PATH : "$out/share/ignition"
                     )
                   '';
@@ -102,21 +103,38 @@
 
                 ros-humble = pkgs.rosPackages.humble.buildEnv {
                   name = "ros-humble";
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-humble-" n) self'.packages);
+                  postBuild = ''
+                    rosWrapperArgs+=(
+                    --set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt5.qtbase.bin}/lib/qt-${pkgs.qt5.qtbase.version}/plugins/platforms
+                    --set GZ_SIM_RESOURCE_PATH "$out/share"
+                    --prefix IGN_CONFIG_PATH : "$out/share/ignition"
+                    )
+                  '';
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-humble-" n) self'.packages) ++ [
+                    pkgs.python3Packages.coal # TODO
+                    pkgs.qt5.qtgraphicaleffects
+                    pkgs.qt5.wrapQtAppsHook
+                  ];
                 };
 
                 ros-jazzy = pkgs.rosPackages.jazzy.buildEnv {
                   name = "ros-jazzy";
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-" n) self'.packages);
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-" n) self'.packages) ++ [
+                    pkgs.qt5.wrapQtAppsHook
+                  ];
                 };
 
                 ros-kilted = pkgs.rosPackages.kilted.buildEnv {
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-kilted-" n) self'.packages);
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-kilted-" n) self'.packages) ++ [
+                    pkgs.qt5.wrapQtAppsHook
+                  ];
                 };
 
                 ros-rolling = pkgs.rosPackages.rolling.buildEnv {
                   name = "ros-rolling";
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-rolling-" n) self'.packages);
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-rolling-" n) self'.packages) ++ [
+                    pkgs.qt6.wrapQtAppsHook
+                  ];
                 };
               }
 
@@ -286,6 +304,21 @@
                   # keep-sorted start
                   agimus-controller
                   agimus-controller-ros
+                  agimus-demo-00-franka-controller
+                  agimus-demo-01-lfc-alone
+                  # agimus-demo-02-simple-pd-plus-tiago-pro TODO: tiago-pro
+                  agimus-demo-02-simple-pd-plus
+                  # agimus-demo-03-mpc-dummy-traj-tiago-pro TODO: tiago-pro
+                  agimus-demo-03-mpc-dummy-traj
+                  # agimus-demo-04-dual-arm-tiago-pro TODO: tiago-pro
+                  agimus-demo-04-visual-servoing
+                  agimus-demo-05-pick-and-place
+                  agimus-demo-06-regrasp
+                  # agimus-demo-07-deburring TODO: pytroller
+                  agimus-demo-08-collision-avoidance
+                  agimus-demos-common
+                  agimus-demos-controllers
+                  # agimus-demos TODO: tiago-pro
                   agimus-franka-bringup
                   agimus-franka-description
                   agimus-franka-example-controllers
