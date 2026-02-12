@@ -153,6 +153,22 @@
 
       humble = prev.rosPackages.humble.overrideScope (
         humble-final: humble-prev: {
+          inherit (humble-final.python3Packages) coal colmpc mim-solvers;
+
+          agimus-controller-ros = humble-prev.agimus-controller-ros.overrideAttrs {
+            # this thing believe we did pass --build-directory or --build-base:
+            # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
+            postPatch = ''
+              substituteInPlace setup.py \
+                --replace-fail \
+                  "from generate_parameter_library_py.setup_helper import generate_parameter_module" \
+                  "from generate_parameter_library_py.generate_python_module import run" \
+                --replace-fail \
+                  "generate_parameter_module(module_name, yaml_file)" \
+                  "run(f\"$out/${humble-final.python3.sitePackages}/agimus_controller_ros/{module_name}.py\", yaml_file)"
+            '';
+          };
+
           agimus-libfranka = humble-prev.agimus-libfranka.overrideAttrs (super: {
             src = final.fetchFromGitHub {
               inherit (super.src) owner repo rev;

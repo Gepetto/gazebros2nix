@@ -151,6 +151,7 @@
               // lib.mapAttrs' (n: lib.nameValuePair "py-${n}") {
                 inherit (pkgs.python3Packages)
                   # keep-sorted start
+                  colmpc
                   gazebros2nix
                   # keep-sorted end
                   ;
