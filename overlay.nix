@@ -187,6 +187,21 @@
             '';
           });
 
+          # that repo somehow has a 0.0.0 tag
+          net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
+            src = final.fetchFromGitHub {
+              inherit (super.src) owner repo;
+              rev = "393960c20c1607bbdeec7bff70ce5b4db01e3ab3";
+              hash = "sha256-ZBIGq/3FHcDgRnOfp1h5ABtj4e7KyqSIx+n6WpgB0qI=";
+            };
+          });
+          net-ft-diagnostic-broadcaster = humble-prev.net-ft-diagnostic-broadcaster.overrideAttrs {
+            src = humble-final.net-ft-description.src;
+          };
+          net-ft-driver = humble-prev.net-ft-driver.overrideAttrs {
+            src = humble-final.net-ft-description.src;
+          };
+
           play-motion2-msgs = humble-prev.play-motion2-msgs.overrideAttrs (_super: rec {
             version = "1.6.1";
             src = final.fetchFromGitHub {
