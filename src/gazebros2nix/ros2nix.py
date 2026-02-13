@@ -148,8 +148,7 @@ class Repo(HashesFile):
                 packages[pname] if packages and pname in packages else {}
             )
             Package(repo=self, package=package, template=template, overrides=overrides)
-
-        self.dump_hashes()
+            self.dump_hashes()
 
 
 class Package:
