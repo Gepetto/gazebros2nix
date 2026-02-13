@@ -21,8 +21,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus_libfranka";
-    rev = "2121110ec171ebea79849004501bbac19cafac50";
-    hash = "sha256-uF1W0eNV2ihUvrzKUi44Lhx3inWRhsecZHegcxVcn+c=";
+    rev = "9324869e87b5988678280194f6a13ecdff266f9a";
+    hash = "sha256-8hkZS7TtjWpOaqHC+532+c5+YIfBMKTqFbcxpRmPxj8=";
   };
   sourceRoot = "source/";
 
@@ -43,7 +43,7 @@ buildRosPackage rec {
   doCheck = false;
 
   meta = {
-    description = "fork of franka_bringup for franka robots not maintained anymore by franka";
+    description = "fork of libfranka for franka robots not maintained anymore by franka";
     license = with lib.licenses; [ asl20 ];
     homepage = "https://github.com/agimus-project/agimus_libfranka";
     platforms = lib.platforms.linux;

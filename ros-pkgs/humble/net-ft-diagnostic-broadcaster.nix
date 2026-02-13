@@ -27,7 +27,7 @@ buildRosPackage rec {
     owner = "gbartyzel";
     repo = "ros2_net_ft_driver";
     tag = "v${version}";
-    hash = "sha256-TbTs7PmP98WyCIslfgdh+TLHi8jZZXgjEiHoFnIQXZw=";
+    hash = "sha256-0gTNXhQiWwHNozPVgHz3wbh74RfkKDgceIHByk77Dcc=";
   };
   sourceRoot = "source/net_ft_diagnostic_broadcaster";
 
