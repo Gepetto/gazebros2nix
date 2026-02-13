@@ -26,8 +26,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus_msgs";
-    rev = "bda290a8d9f3e0f4d5dab67e6e21a31af3856a68";
-    hash = "sha256-Xniqj0fJvU3zUDSHqk3eP3f8ZLQVbIa+M+LZWd7VCyY=";
+    rev = "ff368e6466034cf1a75d816a76960b580752d45d";
+    hash = "sha256-p6VlN6g+Fw+wfh2YX5vesN9wvF2oymFosE1x8vzukgs=";
   };
   sourceRoot = "source/";
 
@@ -54,7 +54,7 @@ buildRosPackage rec {
 
   meta = {
     description = "Agimus project ROS messages";
-    license = with lib.licenses; [ unfree ];
+    license = with lib.licenses; [ bsd2 ];
     homepage = "https://github.com/agimus-project/agimus_msgs";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];

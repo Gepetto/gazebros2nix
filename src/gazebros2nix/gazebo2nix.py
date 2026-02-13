@@ -144,8 +144,7 @@ class GazeboDistro(HashesFile):
             if repo and repo != nick:
                 continue
             self.process_repo(nick, data)
-
-        self.dump_hashes()
+            self.dump_hashes()
 
     def rosdep(self, k: str) -> list[str]:
         return [p for p in self.rosdeps.get(k, [kebabcase(k)])]

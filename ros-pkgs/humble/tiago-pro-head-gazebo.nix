@@ -32,7 +32,7 @@ buildRosPackage rec {
     owner = "pal-robotics";
     repo = "tiago_pro_head_simulation";
     tag = version;
-    hash = "sha256-OpL3yPe5dG20oyNdMXnZL0QXUbTszwVf/5JgSqEWP0c=";
+    hash = "sha256-JS+4wBv+vXk/BH3X8gUHB0W+iTO+g5kt1TB47SesI2E=";
   };
   sourceRoot = "source/tiago_pro_head_gazebo";
 
