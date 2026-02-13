@@ -155,6 +155,22 @@
         humble-final: humble-prev: {
           inherit (humble-final.python3Packages) coal colmpc mim-solvers;
 
+          agimus-demos = humble-prev.agimus-demos.overrideAttrs (super: {
+            # Those are behind a "$PAL_DISTRO == alum" condition
+            propagatedBuildInputs = super.propagatedBuildInputs ++ [
+              humble-final.agimus-demo-02-simple-pd-plus-tiago-pro
+              humble-final.agimus-demo-03-mpc-dummy-traj-tiago-pro
+            ];
+          });
+
+          agimus-demos-common = humble-prev.agimus-demos-common.overrideAttrs (super: {
+            # Those are behind a "$PAL_DISTRO == alum" condition
+            propagatedBuildInputs = super.propagatedBuildInputs ++ [
+              humble-final.tiago-pro-description
+              humble-final.tiago-pro-gazebo
+            ];
+          });
+
           agimus-controller-ros = humble-prev.agimus-controller-ros.overrideAttrs {
             # this thing believe we did pass --build-directory or --build-base:
             # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
@@ -177,17 +193,13 @@
             };
           });
 
+          # EOL January 2025
           gazebo_11 = null;
+          gazebo-dev = null;
+          gazebo-ros = null;
+          gazebo-ros2-control = null;
           gazebo-planar-move-plugin = null;
-          gazebo-ros = humble-prev.gazebo-ros.overrideAttrs (super: {
-            buildInputs = (super.buildInputs or [ ]) ++ [ final.qt6.qtbase ];
-          });
-          gazebo-dev = humble-prev.gazebo-dev.overrideAttrs (super: {
-            # Too much EOL
-            meta = super.meta // {
-              broken = true;
-            };
-          });
+          gazebo-plugins = null;
 
           # franka-ros2 wrong keys, should be fixed in agimus-franka-ros2
           ignition-gazebo6 = humble-prev.ign-gazebo6;
@@ -201,6 +213,11 @@
             preCheck = ''
               export LD_LIBRARY_PATH=.
             '';
+          });
+
+          moveit-task-constructor-core = humble-prev.moveit-task-constructor-core.overrideAttrs (super: {
+            # TODO: unvendor pybind11 upstream
+            cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DPYBIND11_INSTALL=OFF" ];
           });
 
           # that repo somehow has a 0.0.0 tag
@@ -217,6 +234,8 @@
           net-ft-driver = humble-prev.net-ft-driver.overrideAttrs {
             src = humble-final.net-ft-description.src;
           };
+
+          pal-gazebo-plugins = null; # gazebo classic
 
           play-motion2-msgs = humble-prev.play-motion2-msgs.overrideAttrs (_super: rec {
             version = "1.6.1";

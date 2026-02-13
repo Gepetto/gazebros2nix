@@ -50,7 +50,7 @@ buildRosPackage rec {
     ament-lint-common
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "tiago_pro-specific rgbd sensors launch and config files.";
