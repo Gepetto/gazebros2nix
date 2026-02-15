@@ -55,6 +55,7 @@ tiago_pro_moveit_config = {do_check = false}
 [humble."pal-robotics/tiago_pro_navigation".packages]
 tiago_pro_2dnav = {do_check = false}
 tiago_pro_laser_sensors = {do_check = false}
+tiago_pro_rgbd_sensors = {do_check = false}
 
 [humble."pal-robotics/tiago_pro_robot".packages]
 tiago_pro_bringup = {do_check = false}
