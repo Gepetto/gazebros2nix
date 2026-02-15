@@ -38,11 +38,11 @@
     },
     "gepetto-lib": {
       "locked": {
-        "lastModified": 1765936654,
-        "narHash": "sha256-7VLOBhIWmgefGXNcZXGCn6f+Pi0rDOZsaInEJtCNmZQ=",
+        "lastModified": 1770945346,
+        "narHash": "sha256-L88f+oJbpIkMm9Ln1GP9SFyGztMvnOowbdshQHBeGGs=",
         "owner": "Gepetto",
         "repo": "nix-lib",
-        "rev": "572cfb3da8903cbaafddaf6f65e9dfe4c4fcff0a",
+        "rev": "82ef58cdf50514f6b1fde96b9d5b38fd8d3e83f5",
         "type": "github"
       },
       "original": {
