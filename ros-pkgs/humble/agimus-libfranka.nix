@@ -7,12 +7,14 @@
   cmake,
 
   # buildInputs
+  agimus-libfranka-common,
   eigen,
   poco,
 
-# propagatedBuildInputs
+  # propagatedBuildInputs
 
-# checkInputs
+  # checkInputs
+  gtest,
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-libfranka";
@@ -21,8 +23,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus_libfranka";
-    rev = "9324869e87b5988678280194f6a13ecdff266f9a";
-    hash = "sha256-8hkZS7TtjWpOaqHC+532+c5+YIfBMKTqFbcxpRmPxj8=";
+    rev = "786e93e98c323d36d57866cd3f25d1f2851eb2e9";
+    hash = "sha256-xEVVJz2GSSvUN85gjes3vai5HNVOzEpeuSRNv8Vr3qE=";
   };
   sourceRoot = "source/";
 
@@ -32,12 +34,14 @@ buildRosPackage rec {
     cmake
   ];
   buildInputs = [
+    agimus-libfranka-common
     eigen
     poco
   ];
   propagatedBuildInputs = [
   ];
   checkInputs = [
+    gtest
   ];
 
   doCheck = false;
