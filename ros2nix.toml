@@ -10,6 +10,8 @@ branch = "fork"
 do_check = false
 [humble."agimus-project/agimus_libfranka"]
 branch = "fork"
+[humble."agimus-project/agimus-libfranka-common"]
+branch = "fork"
 do_check = false
 [humble."agimus-project/agimus_msgs"]
 

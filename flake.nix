@@ -334,6 +334,7 @@
                   agimus-franka-semantic-components
                   agimus-integration-launch-testing
                   agimus-libfranka
+                  agimus-libfranka-common
                   agimus-msgs
                   linear-feedback-controller
                   linear-feedback-controller-msgs
