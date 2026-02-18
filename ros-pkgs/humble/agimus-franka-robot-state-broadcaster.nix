@@ -11,6 +11,7 @@
   agimus-franka-msgs,
   agimus-franka-semantic-components,
   agimus-libfranka,
+  agimus-libfranka-common,
   backward-ros,
   builtin-interfaces,
   control-msgs,
@@ -40,8 +41,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus_franka_ros2";
-    rev = "dac0a450f2e194daa5d30fbe74b851673991f5a1";
-    hash = "sha256-BGPTtIbayOO/W0ByOI6yK5HLBtWciwq+FirG4JfK4Eo=";
+    rev = "b4450db350c8ea796eef77290e81b09654f766bb";
+    hash = "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=";
   };
   sourceRoot = "source/franka_robot_state_broadcaster";
 
@@ -55,6 +56,7 @@ buildRosPackage rec {
     agimus-franka-msgs
     agimus-franka-semantic-components
     agimus-libfranka
+    agimus-libfranka-common
     backward-ros
     builtin-interfaces
     control-msgs

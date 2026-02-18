@@ -4,4 +4,5 @@ repos:
     rev: v6.0.0
     hooks:
       - id: end-of-file-fixer
+        exclude: hashes.json
       - id: trailing-whitespace

@@ -169,14 +169,6 @@
             '';
           };
 
-          agimus-libfranka = humble-prev.agimus-libfranka.overrideAttrs (super: {
-            src = final.fetchFromGitHub {
-              inherit (super.src) owner repo rev;
-              fetchSubmodules = true;
-              hash = "sha256-d/GG+yu96paIWYYoXK3w8EtdX70lcOFyZnWvVHUnVPw=";
-            };
-          });
-
           gazebo_11 = null;
           gazebo-planar-move-plugin = null;
           gazebo-ros = humble-prev.gazebo-ros.overrideAttrs (super: {
