@@ -1,0 +1,125 @@
+From 8ad180ad16040ef238441267789b53d401884823 Mon Sep 17 00:00:00 2001
+From: Guilhem Saurel <guilhem.saurel@laas.fr>
+Date: Sat, 10 Jan 2026 13:18:06 +0100
+Subject: [PATCH] pinocchio: 3.9.0 -> 3.9.0
+
+---
+ pkgs/by-name/pi/pinocchio/package.nix         | 53 ++++++++++---------
+ .../python-modules/pinocchio/default.nix      |  2 +
+ 2 files changed, 29 insertions(+), 26 deletions(-)
+
+diff --git a/pkgs/by-name/pi/pinocchio/package.nix b/pkgs/by-name/pi/pinocchio/package.nix
+index 54e35f5775bea04b12416097143fea54a31140c5..5144a6af2501414992bfabb8f548c4b0113b7cec 100644
+--- a/pkgs/by-name/pi/pinocchio/package.nix
++++ b/pkgs/by-name/pi/pinocchio/package.nix
+@@ -1,33 +1,43 @@
+ {
++  lib,
++
++  fetchFromGitHub,
++  nix-update-script,
++  stdenv,
++
++  # nativeBuildInputs
++  cmake,
++  doxygen,
++  pkg-config,
++
++  # propagatedBuildInputs
+   boost,
+   casadi,
+-  casadiSupport ? true,
+-  cmake,
+-  collisionSupport ? true,
++  coal,
+   console-bridge,
+-  ctestCheckHook,
+-  doxygen,
+   eigen,
+-  example-robot-data,
+-  fetchFromGitHub,
+-  fetchpatch,
+-  coal,
+   jrl-cmakemodules,
+-  lib,
+-  pkg-config,
+-  stdenv,
+   urdfdom,
++
++  # nativeCheckInputs
++  ctestCheckHook,
++
++  # checkInputs = [
++  example-robot-data,
++
++  casadiSupport ? true,
++  collisionSupport ? true,
+ }:
+ 
+ stdenv.mkDerivation (finalAttrs: {
+   pname = "pinocchio";
+-  version = "3.8.0";
++  version = "3.9.0";
+ 
+   src = fetchFromGitHub {
+     owner = "stack-of-tasks";
+     repo = "pinocchio";
+     rev = "v${finalAttrs.version}";
+-    hash = "sha256-2oMP653fJ7Msk+IB8whRk2L8xkAmRdDeMLPJyyD99OQ=";
++    hash = "sha256-k2lT1I0wb3N/o95ol2oO6HSYHf4wKJ0SFEg8JNxZmpI=";
+   };
+ 
+   outputs = [
+@@ -35,19 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
+     "doc"
+   ];
+ 
+-  patches = [
+-    # ref. https://github.com/stack-of-tasks/pinocchio/pull/2771
+-    (fetchpatch {
+-      name = "fix-viser-path.patch";
+-      url = "https://github.com/stack-of-tasks/pinocchio/commit/36a04bddb6980a7bcd28ebcc55d4e442f7920d87.patch";
+-      hash = "sha256-9oENiMmRqJLU4ZiyGojm7suqdwTDGfk56aS2kcZiGaI=";
+-    })
+-  ];
+-
+   postPatch = ''
+-    # allow package:// uri use in examples
+-    export ROS_PACKAGE_PATH=${example-robot-data}/share
+-
+     # silence matplotlib warning
+     export MPLCONFIGDIR=$(mktemp -d)
+   '';
+@@ -99,9 +97,12 @@ stdenv.mkDerivation (finalAttrs: {
+ 
+   doCheck = true;
+ 
++  passthru.updateScript = nix-update-script { };
++
+   meta = {
+     description = "Fast and flexible implementation of Rigid Body Dynamics algorithms and their analytical derivatives";
+     homepage = "https://github.com/stack-of-tasks/pinocchio";
++    changelog = "https://github.com/stack-of-tasks/pinocchio/blob/devel/CHANGELOG.md";
+     license = lib.licenses.bsd2;
+     maintainers = with lib.maintainers; [
+       nim65s
+diff --git a/pkgs/development/python-modules/pinocchio/default.nix b/pkgs/development/python-modules/pinocchio/default.nix
+index 95bda9dc0959a4a0c86fe872a6aea63eafd12208..9044a4e3153bdcdaeb6ade6652eac0dacd263b73 100644
+--- a/pkgs/development/python-modules/pinocchio/default.nix
++++ b/pkgs/development/python-modules/pinocchio/default.nix
+@@ -9,6 +9,7 @@
+   coal,
+   casadi,
+   matplotlib,
++  pybind11,
+   python,
+ 
+   buildStandalone ? true,
+@@ -35,6 +36,7 @@ toPythonModule (
+ 
+     checkInputs = super.checkInputs ++ [
+       matplotlib
++      pybind11
+     ];
+ 
+     nativeCheckInputs = super.nativeCheckInputs ++ [
