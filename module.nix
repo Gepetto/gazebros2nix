@@ -8,20 +8,46 @@
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
 
-  options.gazebros2nix-pkgs = {
+  options.gazebros2nix = {
     overlays = lib.mkOption {
-      default = [ ];
       description = "Additionnal overlays for gazebros2nix";
+      default = [ ];
     };
     patches = lib.mkOption {
-      default = [ ];
       description = "Additionnal patches for gazebros2nix";
+      default = [ ];
+    };
+    packages = lib.mkOption {
+      description = "attrSet of packages name/override to add in overlay";
+      default = { };
+    };
+    pyPackages = lib.mkOption {
+      description = "attrSet of python packages name/override to add in overlay";
+      default = { };
+    };
+    rosPackages = lib.mkOption {
+      description = "attrSet of ROS packages name/override to add in overlay";
+      default = { };
+    };
+    distros = lib.mkOption {
+      description = "List of ROS distributions to consider for rosPackages overlay";
+      default = [
+        "humble"
+        "jazzy"
+        "kilted"
+        "rolling"
+      ];
     };
   };
 
   config = {
     perSystem =
-      { self', system, ... }:
+      {
+        pkgs,
+        self',
+        system,
+        ...
+      }:
       {
         _module.args.pkgs =
           let
@@ -30,7 +56,7 @@
               pkgsForPatching.applyPatches {
                 name = "gepetto patched nixpkgs";
                 src = inputs.nixpkgs;
-                patches = lib.fileset.toList ./patches/NixOS/nixpkgs ++ config.gazebros2nix-pkgs.patches;
+                patches = lib.fileset.toList ./patches/NixOS/nixpkgs ++ config.gazebros2nix.patches;
               }
             );
           in
@@ -41,8 +67,10 @@
               # SHAME
               "freeimage-3.18.0-unstable-2024-04-18"
             ];
+
             overlays = [
               inputs.nix-ros-overlay.overlays.default
+
               (final: prev: {
                 inherit (inputs) pyproject-build-systems pyproject-nix uv2nix;
                 lib =
@@ -253,16 +281,67 @@
                   );
                 };
               })
+
               (import ./overlay.nix { })
+
+              (
+                final: prev:
+                (lib.mapAttrs (
+                  package: override: prev.${package}.overrideAttrs (override final)
+                ) config.gazebros2nix.packages)
+                // {
+                  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+                    (
+                      python-final: python-prev:
+                      lib.mapAttrs (
+                        package: override: python-prev.${package}.overrideAttrs (override final python-final)
+                      ) config.gazebros2nix.pyPackages
+                    )
+                  ];
+
+                  rosPackages =
+                    prev.rosPackages
+                    // lib.genAttrs config.gazebros2nix.distros (
+                      distro:
+                      prev.rosPackages.${distro}.overrideScope (
+                        ros-final: ros-prev:
+                        lib.mapAttrs (
+                          package: override: ros-prev.${package}.overrideAttrs (override final ros-final)
+                        ) config.gazebros2nix.rosPackages
+                      )
+                    );
+                }
+              )
             ]
-            ++ config.gazebros2nix-pkgs.overlays;
+            ++ config.gazebros2nix.overlays;
           };
+
+        # Build all available packages and devShells. Useful for CI.
         checks =
           let
             devShells = lib.mapAttrs' (n: lib.nameValuePair "devShell-${n}") self'.devShells;
             packages = lib.mapAttrs' (n: lib.nameValuePair "package-${n}") self'.packages;
           in
           lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (devShells // packages);
+
+        # expose packages configured by consumer in gazebros2nix.{packages,pyPackages,rosPackages}
+        packages =
+          (lib.mapAttrs (package: _override: pkgs.${package}) config.gazebros2nix.packages)
+          // (lib.mapAttrs' (
+            package: _override: lib.nameValuePair "py-${package}" pkgs.python3Packages.${package}
+          ) config.gazebros2nix.pyPackages)
+          // (lib.listToAttrs (
+            lib.mapCartesianProduct
+              (
+                { distro, package }:
+                lib.nameValuePair "ros-${distro}-${package}" pkgs.rosPackages.${distro}.${package}
+              )
+              {
+                distro = config.gazebros2nix.distros;
+                package = lib.attrNames config.gazebros2nix.rosPackages;
+              }
+          ));
+
         treefmt = {
           # workaround  https://github.com/numtide/treefmt-nix/issues/352
           pkgs = inputs.nixpkgs.legacyPackages.${system};
