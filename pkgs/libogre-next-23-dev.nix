@@ -1,12 +1,12 @@
 # thanks https://github.com/muellerbernd/gazebo-sim-overlay/blob/main/pkgs/ogre-next/default.nix
 {
   fetchFromGitHub,
+  fetchpatch2,
   stdenv,
   lib,
   cmake,
   libGLU,
   freetype,
-  freeimage,
   zziplib,
   libXaw,
   ninja,
@@ -35,6 +35,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-elSj35LwsLzj1ssDPsk9NW/KSXfiOGYmw9hQSAWdpFM=";
   };
 
+  patches = [
+    # drop freeimage
+    (fetchpatch2 {
+      url = "https://github.com/wentasah/ogre-next/commit/d56e58a8d6db56bf7095f722169cf1a2e4ea9c9c.patch?full_index=1";
+      hash = "sha256-vhxIh/I/WgmOECLddLN8psIE9FrdfvcKbFQTDbvJu/0=";
+    })
+  ];
+
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
     "-DOGRE_USE_NEW_PROJECT_NAME=ON"
@@ -48,6 +56,7 @@ stdenv.mkDerivation rec {
     "-DOGRE_BUILD_COMPONENT_HLMS_UNLIT=ON"
     "-DOGRE_BUILD_TESTS=ON"
     "-DOGRE_INSTALL_SAMPLES_SOURCE=ON"
+    "-DOGRE_CONFIG_ENABLE_STBI=ON"
   ];
 
   nativeBuildInputs = [
@@ -62,7 +71,6 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    freeimage
     freetype
     libXaw
     libXrandr
