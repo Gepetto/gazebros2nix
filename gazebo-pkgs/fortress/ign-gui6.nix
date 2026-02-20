@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
 
   cmake,
   ign-cmake,
@@ -22,7 +21,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-gui6";
-  version = "6.8.0";
+  version = "6.9.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -30,20 +29,9 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-gui";
-    tag = "ignition-gui6_6.8.0";
-    hash = "sha256-58VEAujQEWJfooAJWueTWVGWiPrYlmyYbfVvKU4B0d8=";
+    tag = "ignition-gui6_6.9.0";
+    hash = "sha256-vyz9QQGdQgBnrCe4KjJ601Q9E5JYPYruj7sCoz0zneM=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/gazebosim/gz-gui/pull/544.patch?full_index=1";
-      hash = "sha256-qxPkW5+eofA/Cdta2p3bflebFu1bCVOX7sEps1ezB0E=";
-    })
-    (fetchpatch {
-      url = "https://github.com/gazebosim/gz-gui/pull/696.patch?full_index=1";
-      hash = "sha256-LHoPW5nL4aezVkt6hIYecbQK6Jr6SAcWDkgRJXgIHIw=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake

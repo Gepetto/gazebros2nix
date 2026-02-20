@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
 
   binutils,
   cmake,
@@ -37,7 +36,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-gazebo6";
-  version = "6.17.0";
+  version = "6.17.1";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -45,16 +44,9 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sim";
-    tag = "ignition-gazebo6_6.17.0";
-    hash = "sha256-ITTyehaK73tSRJZK8uXpO0+YjsFI6vFZ4XRy1prnGFc=";
+    tag = "ignition-gazebo6_6.17.1";
+    hash = "sha256-BaeOE00NwJiZgUS/7aUZ/ZY5pJww9t6pCTXDBsu4RTs=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/gazebosim/gz-sim/pull/3022.patch?full_index=1";
-      hash = "sha256-0v0EBaBhVUb5RJ6e80S6guIMcdLPR6TZdg8aEmIE8ac=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake

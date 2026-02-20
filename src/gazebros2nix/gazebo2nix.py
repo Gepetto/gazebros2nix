@@ -31,8 +31,6 @@ TEMPLATE = """{
   lib,
   stdenv,
   fetchFromGitHub,
-  {% if patches %}fetchpatch,
-  {% endif %}
 
   {% for dep in deps %}
   {{ dep }},{% endfor %}
@@ -50,15 +48,6 @@ stdenv.mkDerivation {
     tag = "{{ tag }}";
     hash = "{{ hash }}";
   };
-
-  {% if patches %}
-  patches = [
-      {% for patch in patches %}(fetchpatch {
-        url = "{{ patch.url }}";
-        hash = "{{ patch.hash }}";
-      })
-  {% endfor %}];
-  {% endif %}
 
   nativeBuildInputs = [{% for dep in native %}
     {{ dep }}{% endfor %}
@@ -166,22 +155,15 @@ class GazeboDistro(HashesFile):
         )
 
         do_check = True
-        patches = []
         native = []
         propagated = []
         check = []
 
         if pkg_name in self.conf:
             do_check = self.conf[pkg_name].get("do_check", True)
-            patches = self.conf[pkg_name].get("patches", [])
             native = self.conf[pkg_name].get("native", [])
             propagated = self.conf[pkg_name].get("propagated", [])
             check = self.conf[pkg_name].get("check", [])
-
-        patches = [
-            {"hash": self.get_hash(patch["url"], patch=True), **patch}
-            for patch in patches
-        ]
 
         package = self.main.get_contents(f"{pkg_name}.yaml")
         content = yload(package.decoded_content.decode(), Loader=Loader)
@@ -234,7 +216,6 @@ class GazeboDistro(HashesFile):
             name=name,
             tag=tag_name,
             hash=hash,
-            patches=patches,
             repo=repo,
             native=native,
             propagated=propagated,

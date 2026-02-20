@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
 
   assimp,
   cmake,
@@ -20,7 +19,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-common4";
-  version = "4.7.0";
+  version = "4.8.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -28,16 +27,9 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-common";
-    tag = "ignition-common4_4.7.0";
-    hash = "sha256-y8qp0UVXxSJm0aJeUD64+aG+gfNEboInW7F6tvHYTPI=";
+    tag = "ignition-common4_4.8.0";
+    hash = "sha256-LnxPimXalg0EwIgs/cgqkn/cFYOdWvkQLlAlxXhUZL8=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/gazebosim/gz-common/pull/521.patch?full_index=1";
-      hash = "sha256-pgX2DnpYH10kCTKKjNuo0cGPVBt4y3Sf6uq8kJCqm5A=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake

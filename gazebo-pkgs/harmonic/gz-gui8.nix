@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
 
   cmake,
   gz-cmake,
@@ -41,13 +40,6 @@ stdenv.mkDerivation {
     tag = "gz-gui8_8.4.0";
     hash = "sha256-gf9XZzAX2g6r9ThIA0v2H2X/+uu9VnwvyvrdL5ZazM0=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/gazebosim/gz-gui/pull/676.patch?full_index=1";
-      hash = "sha256-o2eUDkB9zSBkzMwWsbgAOoPEpETR50MRjdzMT5ST+Z0=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake

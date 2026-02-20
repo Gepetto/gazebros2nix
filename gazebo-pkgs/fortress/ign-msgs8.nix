@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
 
   cmake,
   ign-cmake,
@@ -16,7 +15,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-msgs8";
-  version = "8.7.0";
+  version = "8.7.1";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -24,16 +23,9 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-msgs";
-    tag = "ignition-msgs8_8.7.0";
-    hash = "sha256-hG4UJfcq6DsyMqTWIcUQ15UCQNfdzTzwvJBpR9kmu84=";
+    tag = "ignition-msgs8_8.7.1";
+    hash = "sha256-SgB4JvDR/isKzvZrGxML6Si0LYbeoRQ3LP7FAMlo4V0=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch?full_index=1";
-      hash = "sha256-At0+5Gfc3RtbHHwm1W6+o0J2/qf/NhH7U78nuZ57pLw=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake

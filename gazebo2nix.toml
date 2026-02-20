@@ -1,6 +1,5 @@
 [fortress.ign-common4]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-common/pull/521.patch?full_index=1" }]
 propagated = [ "gts" ]
 
 [fortress.ign-fuel-tools7]
@@ -8,17 +7,14 @@ do_check = false
 
 [fortress.ign-gazebo6]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-sim/pull/3022.patch?full_index=1" }]
 
 [fortress.ign-gui6]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/544.patch?full_index=1" }, { url = "https://github.com/gazebosim/gz-gui/pull/696.patch?full_index=1" }]
 
 [fortress.ign-launch5]
 do_check = false
 
 [fortress.ign-msgs8]
-patches = [{ url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch?full_index=1" }]
 
 [fortress.ign-physics5]
 do_check = false
@@ -48,7 +44,6 @@ do_check = false
 
 [harmonic.gz-gui8]
 do_check = false
-patches = [{ url = "https://github.com/gazebosim/gz-gui/pull/676.patch?full_index=1" }]
 
 [harmonic.gz-launch7]
 do_check = false

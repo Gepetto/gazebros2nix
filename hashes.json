@@ -14,7 +14,7 @@
   "https://github.com/gazebosim/gz-common gz-common6_6.3.0": "sha256-9IsV8Mc6evJAO+5tXNdb0j3kmieR96e/OKLNXii3WKk=",
   "https://github.com/gazebosim/gz-common gz-common7_7.1.0": "sha256-CtQL2/ndK+vcNoIzBiGLI+S+GYDH3ID9nC8GxmzcpJ4=",
   "https://github.com/gazebosim/gz-common ignition-common4_4.7.0": "sha256-y8qp0UVXxSJm0aJeUD64+aG+gfNEboInW7F6tvHYTPI=",
-  "https://github.com/gazebosim/gz-common/pull/521.patch?full_index=1": "sha256-pgX2DnpYH10kCTKKjNuo0cGPVBt4y3Sf6uq8kJCqm5A=",
+  "https://github.com/gazebosim/gz-common ignition-common4_4.8.0": "sha256-LnxPimXalg0EwIgs/cgqkn/cFYOdWvkQLlAlxXhUZL8=",
   "https://github.com/gazebosim/gz-fuel-tools gz-fuel-tools10_10.1.0": "sha256-ONo0zmKHSu1i6GAouDzFD5T2PUNXJ4IjhgPSoORRzao=",
   "https://github.com/gazebosim/gz-fuel-tools gz-fuel-tools11_11.0.0": "sha256-IFnaXBURpN5xTCxFjlcZk9n0sCsUnPBr3NUZrf7Xde0=",
   "https://github.com/gazebosim/gz-fuel-tools gz-fuel-tools9_9.1.1": "sha256-XQoBcCtzwzzPypS1kIeTCIbjtxrzaW3JvZLCYbwXAOk=",
@@ -23,9 +23,7 @@
   "https://github.com/gazebosim/gz-gui gz-gui8_8.4.0": "sha256-gf9XZzAX2g6r9ThIA0v2H2X/+uu9VnwvyvrdL5ZazM0=",
   "https://github.com/gazebosim/gz-gui gz-gui9_9.0.2": "sha256-2HA9Ah2QdC9VmYAJdC/36Kiin9lJJbSOT9YlJj3VwU8=",
   "https://github.com/gazebosim/gz-gui ignition-gui6_6.8.0": "sha256-58VEAujQEWJfooAJWueTWVGWiPrYlmyYbfVvKU4B0d8=",
-  "https://github.com/gazebosim/gz-gui/pull/544.patch?full_index=1": "sha256-qxPkW5+eofA/Cdta2p3bflebFu1bCVOX7sEps1ezB0E=",
-  "https://github.com/gazebosim/gz-gui/pull/676.patch?full_index=1": "sha256-o2eUDkB9zSBkzMwWsbgAOoPEpETR50MRjdzMT5ST+Z0=",
-  "https://github.com/gazebosim/gz-gui/pull/696.patch?full_index=1": "sha256-LHoPW5nL4aezVkt6hIYecbQK6Jr6SAcWDkgRJXgIHIw=",
+  "https://github.com/gazebosim/gz-gui ignition-gui6_6.9.0": "sha256-vyz9QQGdQgBnrCe4KjJ601Q9E5JYPYruj7sCoz0zneM=",
   "https://github.com/gazebosim/gz-launch gz-launch7_7.1.1": "sha256-S63DWe/c3cnEztxr3uJc0A4AmuiQk4o6m9yXj0X97Yk=",
   "https://github.com/gazebosim/gz-launch gz-launch8_8.0.2": "sha256-jxBoYDzF4295tq8t+h+qazQE5PDrwEfL89yXR+e7K6U=",
   "https://github.com/gazebosim/gz-launch gz-launch9_9.0.0": "sha256-fRzRFsnhK0IiOLNyB9JrYgX0D2vPXQ7rxp7JXCMd3hQ=",
@@ -38,7 +36,7 @@
   "https://github.com/gazebosim/gz-msgs gz-msgs11_11.1.0": "sha256-M/rzUrL6uzpaRNLWJsGViY6Jk0bLtooEe+0eEEPS7PA=",
   "https://github.com/gazebosim/gz-msgs gz-msgs12_12.0.1": "sha256-XMzokmj6DXiDtbE/FNK+j4qllm7IsmE8vZsQSXEQNIs=",
   "https://github.com/gazebosim/gz-msgs ignition-msgs8_8.7.0": "sha256-hG4UJfcq6DsyMqTWIcUQ15UCQNfdzTzwvJBpR9kmu84=",
-  "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch?full_index=1": "sha256-At0+5Gfc3RtbHHwm1W6+o0J2/qf/NhH7U78nuZ57pLw=",
+  "https://github.com/gazebosim/gz-msgs ignition-msgs8_8.7.1": "sha256-SgB4JvDR/isKzvZrGxML6Si0LYbeoRQ3LP7FAMlo4V0=",
   "https://github.com/gazebosim/gz-physics gz-physics7_7.6.0": "sha256-UF3pdvxGmXKx4tjQw/7mtQW0owes8oJxqS0F3+kBDjk=",
   "https://github.com/gazebosim/gz-physics gz-physics8_8.3.0": "sha256-U02OIZ59IMxxbZeC8bjqmFKmfWTzDTc7F4YO5gsJdYg=",
   "https://github.com/gazebosim/gz-physics gz-physics9_9.1.0": "sha256-9JM/vtDOOfwpmc4cu1XEE0FSgaYBaLAD7dCvqI7MuMY=",
@@ -59,7 +57,7 @@
   "https://github.com/gazebosim/gz-sim gz-sim8_8.10.0": "sha256-XOIwffDOaaToHsMKDn7XTDC5CfqKWsfCSXPLhii3wVw=",
   "https://github.com/gazebosim/gz-sim gz-sim9_9.5.0": "sha256-qUnItGpZkE4HTufhO/gBefX5AfHd2jfnWEwGwYmlKIE=",
   "https://github.com/gazebosim/gz-sim ignition-gazebo6_6.17.0": "sha256-ITTyehaK73tSRJZK8uXpO0+YjsFI6vFZ4XRy1prnGFc=",
-  "https://github.com/gazebosim/gz-sim/pull/3022.patch?full_index=1": "sha256-0v0EBaBhVUb5RJ6e80S6guIMcdLPR6TZdg8aEmIE8ac=",
+  "https://github.com/gazebosim/gz-sim ignition-gazebo6_6.17.1": "sha256-BaeOE00NwJiZgUS/7aUZ/ZY5pJww9t6pCTXDBsu4RTs=",
   "https://github.com/gazebosim/gz-tools gz-tools2_2.0.3": "sha256-xMFJylj7OnDc7zVWiI4a/mvNpu9scz83F3bGopCt8l8=",
   "https://github.com/gazebosim/gz-tools ignition-tools_1.5.0": "sha256-HgYT7MARRnOdUuUllxRn9pl7tsWO5RDIFDObzJQgZpc=",
   "https://github.com/gazebosim/gz-transport gz-transport13_13.5.0": "sha256-JTTlV1WdtLbHxNhLtoWyTnAcW6Hoh78lxxyDl1gLVAo=",
@@ -92,4 +90,3 @@
   "https://github.com/pal-robotics/tiago_pro_simulation/archive/refs/tags/1.14.1.tar.gz": "sha256-cjfTsCl/3OGPcYErw19zOXJUWxwXInHsicZTC93f5Hs=",
   "https://github.com/ros-controls/ros2_control_demos/archive/e9602bc2683fd01f76bf5c15d312e216c6db9b26.tar.gz": "sha256-VMpoOTSCaWP0eNfFYspKvpren+3nDRP1sgfmFkCUJTM="
 }
-
