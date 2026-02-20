@@ -141,7 +141,6 @@
               // {
                 inherit (pkgs)
                   # keep-sorted start
-                  freeimage
                   gazebo2nix
                   ros2nix
                   # keep-sorted end
