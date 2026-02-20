@@ -7,6 +7,7 @@
     freeimage = final.callPackage ./garbage/freeimage/package.nix { };
     libjpeg_turbo-freeimage = final.callPackage ./garbage/libjpeg_turbo-freeimage/package.nix { };
     zenoh-c = prev.zenoh-c.overrideAttrs (super: {
+      # TODO: port https://github.com/eclipse-zenoh/zenoh-cpp/pull/702
       postInstall = super.postInstall + ''
         substituteInPlace $out/lib/cmake/zenohc/zenohcConfig.cmake --replace-fail \
           "$""{PACKAGE_PREFIX_DIR}/lib" \
@@ -14,6 +15,7 @@
       '';
     });
     zenoh-cpp = prev.zenoh-cpp.overrideAttrs (super: {
+      # ref. https://github.com/eclipse-zenoh/zenoh-cpp/pull/702
       postInstall = super.postInstall + ''
         substituteInPlace $out/lib/cmake/zenohcxx/zenohcxxConfig.cmake --replace-fail \
           "$""{_IMPORT_PREFIX}//nix/store" \
@@ -21,12 +23,6 @@
       '';
     });
     # keep-sorted end
-
-    # qt6 = prev.qt6.overrideScope (
-    #   qt6-final: _qt6-prev: {
-    #     qtquickcontrols = qt6-final.qtdeclarative; # TODO
-    #   }
-    # );
 
     gazebo = prev.gazebo // {
       fortress = prev.gazebo.fortress.overrideScope (
@@ -41,39 +37,20 @@
             qt5compat = final.qt5.qtquickcontrols2;
           };
 
-          ign-gazebo6 = fortress-prev.ign-gazebo6.overrideAttrs {
-            postPatch = ''
-              substituteInPlace src/systems/log/LogRecord.cc \
-                --replace-fail "this->sdfMsg.GetTypeName()" "std::string(this->sdfMsg.GetTypeName())"
-              substituteInPlace src/systems/triggered_publisher/TriggeredPublisher.cc \
-                --replace-fail "info.msgData->GetTypeName()" "std::string(info.msgData->GetTypeName())"
-            '';
-          };
-
           ign-gui6 = fortress-prev.ign-gui6.overrideAttrs {
-            postPatch = ''
-              substituteInPlace src/plugins/topic_viewer/TopicViewer.cc \
-                --replace-fail "msgField->name()" "std::string(msgField->name())" \
-                --replace-fail "messageType->name()" "std::string(messageType->name())" \
-                --replace-fail "msgField->type_name()" "std::string(msgField->type_name())"
-            '';
+            patches = [
+              (final.fetchpatch2 {
+                url = "https://github.com/gazebosim/gz-gui/pull/696.patch?full_index=1";
+                hash = "sha256-MCAkRp7unMx9r2WZnR4vbUpJAeU6Bpku2E7IyAmLoIM=";
+              })
+            ];
           };
 
           ign-launch5 = fortress-prev.ign-launch5.overrideAttrs {
+            # TODO: not sure why it was missed in https://github.com/gazebosim/gz-launch/pull/299
             postPatch = ''
               substituteInPlace plugins/websocket_server/WebsocketServer.cc \
                 --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
-            '';
-          };
-
-          ign-msgs8 = fortress-prev.ign-msgs8.overrideAttrs {
-            postPatch = ''
-              substituteInPlace src/Generator.cc \
-                --replace-fail '"typedef std::unique_ptr<"' 'std::string("typedef std::unique_ptr<")' \
-                --replace-fail '"typedef std::unique_ptr<const "' 'std::string("typedef std::unique_ptr<const ")' \
-                --replace-fail '"typedef std::shared_ptr<"' 'std::string("typedef std::shared_ptr<")' \
-                --replace-fail '_file->message_type(i)->name()' 'std::string(_file->message_type(i)->name())' \
-                --replace-fail '_file->name()' 'std::string(_file->name())'
             '';
           };
         }
@@ -84,15 +61,20 @@
           dart = final.dartsim;
 
           gz-gui8 = harmonic-prev.gz-gui8.overrideAttrs {
-            postPatch = ''
-              substituteInPlace src/plugins/topic_viewer/TopicViewer.cc \
-                --replace-fail "msgField->name()" "std::string(msgField->name())" \
-                --replace-fail "messageType->full_name()" "std::string(messageType->full_name())" \
-                --replace-fail "msgField->type_name()" "std::string(msgField->type_name())"
-            '';
+            patches = [
+              (final.fetchpatch2 {
+                url = "https://github.com/gazebosim/gz-gui/pull/677.patch?full_index=1";
+                hash = "sha256-JQgHaNAOv36K4c+i+Fn5+ZRb0LK9E7UExm2SKBYKKFo=";
+              })
+              (final.fetchpatch2 {
+                url = "https://github.com/gazebosim/gz-gui/pull/745.patch?full_index=1";
+                hash = "sha256-38zgigMiHdTYHrcbvd6sc+pt+qQPpZHrcQc8aSSZcP4=";
+              })
+            ];
           };
 
           gz-launch7 = harmonic-prev.gz-launch7.overrideAttrs {
+            # TODO: not sure why it was missed in https://github.com/gazebosim/gz-launch/pull/299
             postPatch = ''
               substituteInPlace plugins/websocket_server/WebsocketServer.cc \
                 --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
@@ -100,14 +82,12 @@
           };
 
           gz-msgs10 = harmonic-prev.gz-msgs10.overrideAttrs {
-            postPatch = ''
-              substituteInPlace core/generator/Generator.cc \
-                --replace-fail '"typedef std::unique_ptr<"' 'std::string("typedef std::unique_ptr<")' \
-                --replace-fail '"typedef std::unique_ptr<const "' 'std::string("typedef std::unique_ptr<const ")' \
-                --replace-fail '"typedef std::shared_ptr<"' 'std::string("typedef std::shared_ptr<")' \
-                --replace-fail '+ desc->name() +' '+ std::string(desc->name()) +' \
-                --replace-fail 'getNamespaces(_file->package())' 'getNamespaces(std::string(_file->package()))'
-            '';
+            patches = [
+              (final.fetchpatch2 {
+                url = "https://github.com/gazebosim/gz-msgs/pull/501.patch?full_index=1";
+                hash = "sha256-0uscwyYZafHfzooxcrrhtcfcxknpDTEcZ6Ie0WWySVw=";
+              })
+            ];
           };
         }
       );
@@ -135,25 +115,14 @@
     };
 
     rosPackages = prev.rosPackages // {
-      # noetic = prev.rosPackages.noetic.overrideScope (
-      #   _noetic-final: noetic-prev: {
-      #     # https://github.com/lopsided98/nix-ros-overlay/blob/develop/distros/noetic/overrides.nix#L206
-      #     # has https://github.com/ros/rosconsole/pull/58.patch
-      #     # but github somehow raises HTTP 429
-      #     rosconsole = noetic-prev.rosconsole.overrideAttrs {
-      #       patches = [ ./patches/ros/rosconsole/58_compatibility-fix-for-liblog4cxx-v011-013.patch ];
-      #     };
-      #     # drop fixed patch
-      #     # ref. https://github.com/lopsided98/nix-ros-overlay/pull/636
-      #     rosgraph = noetic-prev.rosgraph.overrideAttrs {
-      #       patches = [ ];
-      #     };
-      #   }
-      # );
-
       humble = prev.rosPackages.humble.overrideScope (
         humble-final: humble-prev: {
           inherit (humble-final.python3Packages) coal colmpc mim-solvers;
+
+          gazebo_11 = null;
+          gazebo-planar-move-plugin = null;
+          gazebo-ros = null;
+          gazebo-dev = null;
 
           agimus-controller-ros = humble-prev.agimus-controller-ros.overrideAttrs {
             # this thing believe we did pass --build-directory or --build-base:
@@ -168,18 +137,6 @@
                   "run(f\"$out/${humble-final.python3.sitePackages}/agimus_controller_ros/{module_name}.py\", yaml_file)"
             '';
           };
-
-          gazebo_11 = null;
-          gazebo-planar-move-plugin = null;
-          gazebo-ros = humble-prev.gazebo-ros.overrideAttrs (super: {
-            buildInputs = (super.buildInputs or [ ]) ++ [ final.qt6.qtbase ];
-          });
-          gazebo-dev = humble-prev.gazebo-dev.overrideAttrs (super: {
-            # Too much EOL
-            meta = super.meta // {
-              broken = true;
-            };
-          });
 
           # franka-ros2 wrong keys, should be fixed in agimus-franka-ros2
           ignition-gazebo6 = humble-prev.ign-gazebo6;

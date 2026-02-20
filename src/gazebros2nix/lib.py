@@ -87,18 +87,11 @@ class HashesFile:
     def get_hash(self, url: str, tag: str = "", patch: bool = False) -> str:
         key = f"{url} {tag}".strip()
         if key not in self.hashes:
-            if patch:
-                sri = check_output(["nix-prefetch-url", url], text=True).strip()
-                hash = check_output(
-                    ["nix", "hash", "convert", "--hash-algo", "sha256", sri], text=True
-                ).strip()
-            else:
-                hash = check_output(
-                    f"nurl -H {key}".split(),
-                    env={**environ, "GITHUB_TOKEN": self.token},
-                    text=True,
-                ).strip()
-            self.hashes[key] = hash
+            self.hashes[key] = check_output(
+                f"nurl -H {key}".split(),
+                env={**environ, "GITHUB_TOKEN": self.token},
+                text=True,
+            ).strip()
         return self.hashes[key]
 
 
