@@ -101,6 +101,19 @@
       jetty = prev.gazebo.jetty.overrideScope (
         _jetty-final: jetty-prev: {
           dart = final.dartsim;
+          freeimage = null;
+          ogre1_9 = null;
+
+          gz-common7 = jetty-prev.gz-common7.overrideAttrs {
+            patches = [
+              # drop freeimage
+              (final.fetchpatch2 {
+                url = "https://github.com/gazebosim/gz-common/commit/15de7e6dbea90f5b19a0e70ce4704183e17fb6b7.patch?full_index=1";
+                hash = "sha256-VU0gliXcvcJMDlZngGxp327g7CoAFNsPtv2OTBh02p8=";
+              })
+            ];
+          };
+
           gz-sim10 = jetty-prev.gz-sim10.overrideAttrs (super: {
             postPatch = (super.postPatch or "") + ''
               substituteInPlace src/cmd/CMakeLists.txt \
