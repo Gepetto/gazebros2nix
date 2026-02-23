@@ -328,19 +328,55 @@
           in
           lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (devShells // packages);
 
-        devShells.default = lib.mkDefault (
-          pkgs.mkShell {
+        devShells = {
+          default = lib.mkDefault (
+            if (config.gazebros2nix.rosPackages == { }) then
+              self'.devShells.gazebros2nix
+            else
+              self'.devShells.gazebros2nix-ros
+          );
+
+          gazebros2nix = pkgs.mkShell {
+            name = "gazebros2nix default devShell";
             inputsFrom = lib.attrValues (
               lib.filterAttrs (
                 n: _v: (!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n
               ) self'.packages
             );
+          };
+
+          gazebros2nix-rosEnv = pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.buildEnv {
+            paths = lib.filter lib.isDerivation (
+              lib.unique (
+                (self'.devShells.gazebros2nix.buildInputs or [ ])
+                ++ (self'.devShells.gazebros2nix.nativeBuildInputs or [ ])
+                ++ (self'.devShells.gazebros2nix.propagatedNativeBuildInputs or [ ])
+                ++ (self'.devShells.gazebros2nix.propagatedBuildInputs or [ ])
+              )
+            );
+          };
+
+          gazebros2nix-ros = pkgs.mkShell {
+            name = "gazebros2nix default ROS devShell";
+            inputsFrom = [ self'.devShells.gazebros2nix ];
             packages = [ pkgs.colcon ];
             shellHook = ''
+              : ''${GZ_IP:=127.0.0.1}
+              : ''${IGN_IP:=127.0.0.1}
+              export GZ_IP
+              export IGN_IP
+              unset QTWEBKIT_PLUGIN_PATH
+              unset QT_QPA_PLATFORMTHEME
+              unset QML2_IMPORT_PATH
+              unset QT_PLUGIN_PATH
+              unset QT_STYLE_OVERRIDE
+              export AMENT_PREFIX_PATH=${self'.devShells.gazebros2nix-rosEnv}
+              export LD_LIBRARY_PATH=$AMENT_PREFIX_PATH/lib
+              export IGN_CONFIG_PATH=$AMENT_PREFIX_PATH/share/ignition
               test -f install/local_setup.bash && source install/local_setup.bash
             '';
-          }
-        );
+          };
+        };
 
         # expose packages configured by consumer in gazebros2nix.{packages,pyPackages,rosPackages}
         packages =
