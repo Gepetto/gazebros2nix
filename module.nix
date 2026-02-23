@@ -29,7 +29,7 @@
       description = "attrSet of ROS packages name/override to add in overlay";
       default = { };
     };
-    distros = lib.mkOption {
+    rosDistros = lib.mkOption {
       description = "List of ROS distributions to consider for rosPackages overlay";
       default = [
         "humble"
@@ -37,6 +37,10 @@
         "kilted"
         "rolling"
       ];
+    };
+    rosShellDistro = lib.mkOption {
+      description = "The ROS distributions of the default devShell";
+      default = "rolling";
     };
   };
 
@@ -301,7 +305,7 @@
 
                   rosPackages =
                     prev.rosPackages
-                    // lib.genAttrs config.gazebros2nix.distros (
+                    // lib.genAttrs config.gazebros2nix.rosDistros (
                       distro:
                       prev.rosPackages.${distro}.overrideScope (
                         ros-final: ros-prev:
@@ -324,6 +328,20 @@
           in
           lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (devShells // packages);
 
+        devShells.default = lib.mkDefault (
+          pkgs.mkShell {
+            inputsFrom = lib.attrValues (
+              lib.filterAttrs (
+                n: _v: (!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n
+              ) self'.packages
+            );
+            packages = [ pkgs.colcon ];
+            shellHook = ''
+              test -f install/local_setup.bash && source install/local_setup.bash
+            '';
+          }
+        );
+
         # expose packages configured by consumer in gazebros2nix.{packages,pyPackages,rosPackages}
         packages =
           (lib.mapAttrs (package: _override: pkgs.${package}) config.gazebros2nix.packages)
@@ -337,7 +355,7 @@
                 lib.nameValuePair "ros-${distro}-${package}" pkgs.rosPackages.${distro}.${package}
               )
               {
-                distro = config.gazebros2nix.distros;
+                distro = config.gazebros2nix.rosDistros;
                 package = lib.attrNames config.gazebros2nix.rosPackages;
               }
           ));
