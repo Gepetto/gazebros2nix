@@ -9,21 +9,22 @@
   # buildInputs
 
   # propagatedBuildInputs
-  rviz2,
+  pal-gripper-controller-configuration,
+  pal-gripper-description,
 
   # checkInputs
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-ros2-control-demo-description";
-  version = "0.0.0";
+  pname = "ros-jazzy-pal-gripper";
+  version = "3.2.0";
 
   src = fetchFromGitHub {
-    owner = "ros-controls";
-    repo = "ros2_control_demos";
-    rev = "e9602bc2683fd01f76bf5c15d312e216c6db9b26";
-    hash = "sha256-VMpoOTSCaWP0eNfFYspKvpren+3nDRP1sgfmFkCUJTM=";
+    owner = "Tiago-Harmonic";
+    repo = "pal_gripper";
+    rev = "f696b11183cec43fe050778c26fd5043d831eb85";
+    hash = "sha256-rXxnPaxMOB9y3FZEhZ+TuH/d9bPi+dJumCs286b4VK4=";
   };
-  sourceRoot = "source/ros2_control_demo_description";
+  sourceRoot = "source/pal_gripper";
 
   buildType = "ament_cmake";
 
@@ -33,7 +34,8 @@ buildRosPackage rec {
   buildInputs = [
   ];
   propagatedBuildInputs = [
-    rviz2
+    pal-gripper-controller-configuration
+    pal-gripper-description
   ];
   checkInputs = [
   ];
@@ -41,9 +43,9 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Package with URDF and description files of test robots.";
+    description = "The pal_gripper package";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/ros-controls/ros2_control_demos";
+    homepage = "https://github.com/Tiago-Harmonic/pal_gripper";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };
