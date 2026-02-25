@@ -331,14 +331,14 @@
         devShells = {
           default = lib.mkDefault (
             if (config.gazebros2nix.rosPackages == { }) then
-              self'.devShells.gazebros2nix
+              self'.devShells.gazebros2nix-dev
             else
-              self'.devShells.gazebros2nix-ros
+              self'.devShells.gazebros2nix-dev-ros
           );
 
           gazebros2nix = pkgs.mkShell {
-            name = "gazebros2nix default devShell";
-            inputsFrom = lib.attrValues (
+            name = "gazebros2nix default shell";
+            packages = lib.attrValues (
               lib.filterAttrs (
                 n: _v: (!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n
               ) self'.packages
@@ -357,9 +357,11 @@
           };
 
           gazebros2nix-ros = pkgs.mkShell {
-            name = "gazebros2nix default ROS devShell";
-            inputsFrom = [ self'.devShells.gazebros2nix ];
-            packages = [ pkgs.colcon ];
+            name = "gazebros2nix default ROS shell";
+            packages = [
+              self'.devShells.gazebros2nix
+              pkgs.colcon
+            ];
             shellHook = ''
               : ''${GZ_IP:=127.0.0.1}
               : ''${IGN_IP:=127.0.0.1}
@@ -376,25 +378,64 @@
               test -f install/local_setup.bash && source install/local_setup.bash
             '';
           };
+
+          gazebros2nix-dev = pkgs.mkShell {
+            name = "gazebros2nix default devShell";
+            inputsFrom = lib.attrValues (
+              lib.filterAttrs (
+                n: _v: (!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n
+              ) self'.packages
+            );
+          };
+
+          gazebros2nix-dev-rosEnv = pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.buildEnv {
+            paths = lib.filter lib.isDerivation (
+              lib.unique (
+                (self'.devShells.gazebros2nix-dev.buildInputs or [ ])
+                ++ (self'.devShells.gazebros2nix-dev.nativeBuildInputs or [ ])
+                ++ (self'.devShells.gazebros2nix-dev.propagatedNativeBuildInputs or [ ])
+                ++ (self'.devShells.gazebros2nix-dev.propagatedBuildInputs or [ ])
+              )
+            );
+          };
+
+          gazebros2nix-dev-ros = pkgs.mkShell {
+            name = "gazebros2nix default ROS devShell";
+            inputsFrom = [ self'.devShells.gazebros2nix-dev ];
+            packages = [ pkgs.colcon ];
+            shellHook = ''
+              export AMENT_PREFIX_PATH=${self'.devShells.gazebros2nix-dev-rosEnv}
+              export LD_LIBRARY_PATH=$AMENT_PREFIX_PATH/lib
+              export IGN_CONFIG_PATH=$AMENT_PREFIX_PATH/share/ignition
+              test -f install/local_setup.bash && source install/local_setup.bash
+            '';
+          };
         };
 
         # expose packages configured by consumer in gazebros2nix.{packages,pyPackages,rosPackages}
-        packages =
-          (lib.mapAttrs (package: _override: pkgs.${package}) config.gazebros2nix.packages)
-          // (lib.mapAttrs' (
-            package: _override: lib.nameValuePair "py-${package}" pkgs.python3Packages.${package}
-          ) config.gazebros2nix.pyPackages)
-          // (lib.listToAttrs (
-            lib.mapCartesianProduct
-              (
-                { distro, package }:
-                lib.nameValuePair "ros-${distro}-${package}" pkgs.rosPackages.${distro}.${package}
-              )
-              {
-                distro = config.gazebros2nix.rosDistros;
-                package = lib.attrNames config.gazebros2nix.rosPackages;
-              }
-          ));
+        packages = {
+          default = lib.mkDefault (
+            if (config.gazebros2nix.rosPackages == { }) then
+              self'.devShells.gazebros2nix
+            else
+              self'.devShells.gazebros2nix-ros
+          );
+        }
+        // (lib.mapAttrs (package: _override: pkgs.${package}) config.gazebros2nix.packages)
+        // (lib.mapAttrs' (
+          package: _override: lib.nameValuePair "py-${package}" pkgs.python3Packages.${package}
+        ) config.gazebros2nix.pyPackages)
+        // (lib.listToAttrs (
+          lib.mapCartesianProduct
+            (
+              { distro, package }:
+              lib.nameValuePair "ros-${distro}-${package}" pkgs.rosPackages.${distro}.${package}
+            )
+            {
+              distro = config.gazebros2nix.rosDistros;
+              package = lib.attrNames config.gazebros2nix.rosPackages;
+            }
+        ));
 
         treefmt = {
           # workaround  https://github.com/numtide/treefmt-nix/issues/352
