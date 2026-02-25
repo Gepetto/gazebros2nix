@@ -340,7 +340,9 @@
             name = "gazebros2nix default shell";
             packages = lib.attrValues (
               lib.filterAttrs (
-                n: _v: (!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n
+                n: _v:
+                ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n)
+                && (n != "default")
               ) self'.packages
             );
           };
@@ -383,7 +385,9 @@
             name = "gazebros2nix default devShell";
             inputsFrom = lib.attrValues (
               lib.filterAttrs (
-                n: _v: (!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n
+                n: _v:
+                ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n)
+                && (n != "default")
               ) self'.packages
             );
           };
