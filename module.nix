@@ -408,6 +408,15 @@
             inputsFrom = [ self'.devShells.gazebros2nix-dev ];
             packages = [ pkgs.colcon ];
             shellHook = ''
+              : ''${GZ_IP:=127.0.0.1}
+              : ''${IGN_IP:=127.0.0.1}
+              export GZ_IP
+              export IGN_IP
+              unset QTWEBKIT_PLUGIN_PATH
+              unset QT_QPA_PLATFORMTHEME
+              unset QML2_IMPORT_PATH
+              unset QT_PLUGIN_PATH
+              unset QT_STYLE_OVERRIDE
               export AMENT_PREFIX_PATH=${self'.devShells.gazebros2nix-dev-rosEnv}
               export LD_LIBRARY_PATH=$AMENT_PREFIX_PATH/lib
               export IGN_CONFIG_PATH=$AMENT_PREFIX_PATH/share/ignition
