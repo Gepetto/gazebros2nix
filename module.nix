@@ -347,7 +347,7 @@
             );
           };
 
-          gazebros2nix-rosEnv = pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.buildEnv {
+          gazebros2nix-env = pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.buildEnv {
             paths = lib.filter lib.isDerivation (
               lib.unique (
                 (self'.devShells.gazebros2nix.buildInputs or [ ])
@@ -374,7 +374,7 @@
               unset QML2_IMPORT_PATH
               unset QT_PLUGIN_PATH
               unset QT_STYLE_OVERRIDE
-              export AMENT_PREFIX_PATH=${self'.devShells.gazebros2nix-rosEnv}
+              export AMENT_PREFIX_PATH=${self'.devShells.gazebros2nix-env}
               export LD_LIBRARY_PATH=$AMENT_PREFIX_PATH/lib
               export IGN_CONFIG_PATH=$AMENT_PREFIX_PATH/share/ignition
               test -f install/local_setup.bash && source install/local_setup.bash
@@ -392,7 +392,7 @@
             );
           };
 
-          gazebros2nix-dev-rosEnv = pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.buildEnv {
+          gazebros2nix-dev-env = pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.buildEnv {
             paths = lib.filter lib.isDerivation (
               lib.unique (
                 (self'.devShells.gazebros2nix-dev.buildInputs or [ ])
@@ -417,7 +417,7 @@
               unset QML2_IMPORT_PATH
               unset QT_PLUGIN_PATH
               unset QT_STYLE_OVERRIDE
-              export AMENT_PREFIX_PATH=${self'.devShells.gazebros2nix-dev-rosEnv}
+              export AMENT_PREFIX_PATH=${self'.devShells.gazebros2nix-dev-env}
               export LD_LIBRARY_PATH=$AMENT_PREFIX_PATH/lib
               export IGN_CONFIG_PATH=$AMENT_PREFIX_PATH/share/ignition
               test -f install/local_setup.bash && source install/local_setup.bash
@@ -427,12 +427,7 @@
 
         # expose packages configured by consumer in gazebros2nix.{packages,pyPackages,rosPackages}
         packages = {
-          default = lib.mkDefault (
-            if (config.gazebros2nix.rosPackages == { }) then
-              self'.devShells.gazebros2nix
-            else
-              self'.devShells.gazebros2nix-ros
-          );
+          default = lib.mkDefault self'.devShells.gazebros2nix-env;
         }
         // (lib.mapAttrs (package: _override: pkgs.${package}) config.gazebros2nix.packages)
         // (lib.mapAttrs' (
