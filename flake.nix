@@ -48,17 +48,7 @@
               packages = [
                 pkgs.gazebros2nix-venv.passthru.editableVirtualenv
               ];
-              shellHook = ''
-                : ''${GZ_IP:=127.0.0.1}
-                : ''${IGN_IP:=127.0.0.1}
-                export GZ_IP
-                export IGN_IP
-                unset QTWEBKIT_PLUGIN_PATH
-                unset QT_QPA_PLATFORMTHEME
-                unset QML2_IMPORT_PATH
-                unset QT_PLUGIN_PATH
-                unset QT_STYLE_OVERRIDE
-
+              shellHook = self.lib.rosShellHook { } + ''
                 test -f .venv/bin/activate && source .venv/bin/activate
               '';
             };
@@ -67,13 +57,7 @@
               {
                 gz-fortress = pkgs.rosPackages.humble.buildEnv {
                   name = "gz-fortress";
-                  postBuild = ''
-                    rosWrapperArgs+=(
-                    --set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt5.qtbase.bin}/lib/qt-${pkgs.qt5.qtbase.version}/plugins/platforms
-                    --set GZ_SIM_RESOURCE_PATH "$out/share"
-                    --prefix IGN_CONFIG_PATH : "$out/share/ignition"
-                    )
-                  '';
+                  postBuild = self.lib.rosWrapperArgs "humble" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-fortress-" n) self'.packages) ++ [
                     pkgs.qt5.qtgraphicaleffects
                     pkgs.qt5.wrapQtAppsHook
@@ -82,6 +66,7 @@
 
                 gz-harmonic = pkgs.rosPackages.jazzy.buildEnv {
                   name = "gz-harmonic";
+                  postBuild = self.lib.rosWrapperArgs "jazzy" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-harmonic-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -89,6 +74,7 @@
 
                 gz-ionic = pkgs.rosPackages.kilted.buildEnv {
                   name = "gz-ionic";
+                  postBuild = self.lib.rosWrapperArgs "kilted" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-ionic-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -96,6 +82,7 @@
 
                 gz-jetty = pkgs.rosPackages.rolling.buildEnv {
                   name = "gz-jetty";
+                  postBuild = self.lib.rosWrapperArgs "rolling" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-jetty-" n) self'.packages) ++ [
                     pkgs.qt6.wrapQtAppsHook
                   ];
@@ -103,13 +90,7 @@
 
                 ros-humble = pkgs.rosPackages.humble.buildEnv {
                   name = "ros-humble";
-                  postBuild = ''
-                    rosWrapperArgs+=(
-                    --set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt5.qtbase.bin}/lib/qt-${pkgs.qt5.qtbase.version}/plugins/platforms
-                    --set GZ_SIM_RESOURCE_PATH "$out/share"
-                    --prefix IGN_CONFIG_PATH : "$out/share/ignition"
-                    )
-                  '';
+                  postBuild = self.lib.rosWrapperArg "humble" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-humble-" n) self'.packages) ++ [
                     pkgs.python3Packages.coal # TODO
                     pkgs.qt5.qtgraphicaleffects
@@ -119,12 +100,15 @@
 
                 ros-jazzy = pkgs.rosPackages.jazzy.buildEnv {
                   name = "ros-jazzy";
+                  postBuild = self.lib.rosWrapperArg "jazzy" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
                 };
 
                 ros-kilted = pkgs.rosPackages.kilted.buildEnv {
+                  name = "ros-kilted";
+                  postBuild = self.lib.rosWrapperArg "kilted" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-kilted-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -132,6 +116,7 @@
 
                 ros-rolling = pkgs.rosPackages.rolling.buildEnv {
                   name = "ros-rolling";
+                  postBuild = self.lib.rosWrapperArg "rolling" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-rolling-" n) self'.packages) ++ [
                     pkgs.qt6.wrapQtAppsHook
                   ];
@@ -288,17 +273,6 @@
                     ;
                 }
               )
-
-              # // lib.mapAttrs' (n: lib.nameValuePair "ros-noetic-${n}") (
-              #   lib.optionalAttrs (system == "x86_64-linux") {
-              #     inherit (pkgs.rosPackages.noetic)
-              #       # keep-sorted start
-              #       rosbag
-              #       rospy
-              #       # keep-sorted end
-              #       ;
-              #   }
-              # )
 
               // lib.mapAttrs' (n: lib.nameValuePair "ros-humble-${n}") {
                 inherit (pkgs.rosPackages.humble)
