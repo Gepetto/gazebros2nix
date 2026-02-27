@@ -56,6 +56,8 @@
 
             packages = lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (
               {
+                default = pkgs.gazebros2nix-venv.passthru.virtualenv;
+
                 gz-fortress = pkgs.rosPackages.humble.buildEnv {
                   name = "gz-fortress";
                   postBuild = self.lib.rosWrapperArgs "humble" pkgs;
