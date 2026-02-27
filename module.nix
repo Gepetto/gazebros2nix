@@ -198,7 +198,6 @@
                           sdformat12
                           # keep-sorted end
                           ;
-
                       }
                     );
 
@@ -245,7 +244,6 @@
                           sdformat14
                           # keep-sorted end
                           ;
-
                       }
                     );
 

@@ -25,6 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+
   outputs =
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } (
@@ -90,7 +91,7 @@
 
                 ros-humble = pkgs.rosPackages.humble.buildEnv {
                   name = "ros-humble";
-                  postBuild = self.lib.rosWrapperArg "humble" pkgs;
+                  postBuild = self.lib.rosWrapperArgs "humble" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-humble-" n) self'.packages) ++ [
                     pkgs.python3Packages.coal # TODO
                     pkgs.qt5.qtgraphicaleffects
@@ -100,7 +101,7 @@
 
                 ros-jazzy = pkgs.rosPackages.jazzy.buildEnv {
                   name = "ros-jazzy";
-                  postBuild = self.lib.rosWrapperArg "jazzy" pkgs;
+                  postBuild = self.lib.rosWrapperArgs "jazzy" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -108,7 +109,7 @@
 
                 ros-kilted = pkgs.rosPackages.kilted.buildEnv {
                   name = "ros-kilted";
-                  postBuild = self.lib.rosWrapperArg "kilted" pkgs;
+                  postBuild = self.lib.rosWrapperArgs "kilted" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-kilted-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -116,7 +117,7 @@
 
                 ros-rolling = pkgs.rosPackages.rolling.buildEnv {
                   name = "ros-rolling";
-                  postBuild = self.lib.rosWrapperArg "rolling" pkgs;
+                  postBuild = self.lib.rosWrapperArgs "rolling" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-rolling-" n) self'.packages) ++ [
                     pkgs.qt6.wrapQtAppsHook
                   ];
