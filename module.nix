@@ -61,12 +61,14 @@
         + lib.optionalString (distro == "humble") ''
           --set-default IGN_IP 127.0.0.1
           --prefix IGN_CONFIG_PATH : $out/share/ignition
+          --prefix IGN_GAZEBO_RESOURCE_PATH : $out/share
         ''
         + lib.optionalString (distro == "humble" || distro == "jazzy" || distro == "kilted") ''
           --set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt5.qtbase.bin}/lib/qt-${pkgs.qt5.qtbase.version}/plugins/platforms
         ''
         + lib.optionalString (distro != "humble") ''
           --set-default GZ_IP 127.0.0.1
+          --prefix GZ_SIM_RESOURCE_PATH : $out/share
         ''
         + ''
           )
