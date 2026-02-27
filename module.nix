@@ -39,8 +39,12 @@
       ];
     };
     rosShellDistro = lib.mkOption {
-      description = "The ROS distributions of the default devShell";
+      description = "The ROS distribution of the default devShell and env";
       default = "rolling";
+    };
+    filterPackages = lib.mkOption {
+      description = "Function to filter the packages to include in default devShell and env";
+      default = _n: _v: true;
     };
   };
 
@@ -397,9 +401,10 @@
               name = "gazebros2nix default shell";
               packages = lib.attrValues (
                 lib.filterAttrs (
-                  n: _v:
-                  ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n)
-                  && (n != "default")
+                  n: v:
+                  (n != "default")
+                  && (config.gazebros2nix.filterPackages n v)
+                  && ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n)
                 ) self'.packages
               );
             };
@@ -429,9 +434,10 @@
               name = "gazebros2nix default devShell";
               inputsFrom = lib.attrValues (
                 lib.filterAttrs (
-                  n: _v:
-                  ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n)
-                  && (n != "default")
+                  n: v:
+                  (n != "default")
+                  && (config.gazebros2nix.filterPackages n v)
+                  && ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n)
                 ) self'.packages
               );
             };
