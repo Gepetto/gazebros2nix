@@ -35,7 +35,16 @@
       in
       {
         systems = import inputs.systems;
-        imports = [ flakeModule ];
+        imports = [
+          flakeModule
+          {
+            gazebros2nix = {
+              rosShellDistro = "jazzy";
+              filterPackages =
+                n: _v: ((!lib.hasPrefix "gz-" n) || lib.hasPrefix "gz-harmonic-" n) && (!lib.hasPrefix "ign-" n);
+            };
+          }
+        ];
         flake = { inherit flakeModule; };
         perSystem =
           {
@@ -56,8 +65,6 @@
 
             packages = lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (
               {
-                default = pkgs.gazebros2nix-venv.passthru.virtualenv;
-
                 gz-fortress = pkgs.rosPackages.humble.buildEnv {
                   name = "gz-fortress";
                   postBuild = self.lib.rosWrapperArgs "humble" pkgs;
@@ -130,8 +137,6 @@
                 inherit (pkgs)
                   # keep-sorted start
                   freeimage
-                  gazebo2nix
-                  ros2nix
                   # keep-sorted end
                   ;
               }
