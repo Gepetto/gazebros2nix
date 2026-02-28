@@ -1,6 +1,8 @@
 {
   "https://github.com/agimus-project/agimus-demos/archive/29b88ff791fed647cb7cf1c61522a06919ddc9a1.tar.gz": "sha256-ftgLbwij0dh3Pgi8xG+cGHJ1cIVC3xlGJzjCsQhg38g=",
   "https://github.com/agimus-project/agimus-libfranka-common/archive/7f60f2eb9fa98383b8262b8175e9cd4fb6e0dd4a.tar.gz": "sha256-lkqpBdnhvN7p9FnN2j5C+KUloQoKF0p8XZwtica9xxk=",
+  "https://github.com/agimus-project/agimus_controller/archive/4680ed8f43ddc7f9800537e740bb2c05d8276756.tar.gz": "sha256-BQc/RuUYHsjNLI2U/XyITFhVAST8UUsXKRDNAcJKL1A=",
+  "https://github.com/agimus-project/agimus_controller/archive/cf96c9312877477005888af86019fa6d1225b96e.tar.gz": "sha256-rWWhmWUQW/wtbQfHfeRhEsVO07PDhVtvlUTlGQNL4qI=",
   "https://github.com/agimus-project/agimus_controller/archive/f0ac8192ab973c9817f0178b0780f21d87e642e4.tar.gz": "sha256-2/tiTqHEip5D76j3VC5uvzqjFv2wTw0wYQRUO5lspkw=",
   "https://github.com/agimus-project/agimus_franka_description/archive/8d63ecadea100dc681c12691f6fb5f95674da321.tar.gz": "sha256-lwLgRMt1Hhxj2fkWioRSawJ0Ir3pNkDzqDjQXjfv1W8=",
   "https://github.com/agimus-project/agimus_franka_ros2/archive/b4450db350c8ea796eef77290e81b09654f766bb.tar.gz": "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=",
