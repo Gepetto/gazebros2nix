@@ -423,10 +423,8 @@
 
             gazebros2nix-ros = pkgs.mkShell {
               name = "gazebros2nix default ROS shell";
-              packages = [
-                self'.devShells.gazebros2nix
-                pkgs.colcon
-              ];
+              inputsFrom = [ self'.devShells.gazebros2nix ];
+              packages = [ pkgs.colcon ];
               shellHook = rosShellHook { env = self'.devShells.gazebros2nix-env; };
             };
 
