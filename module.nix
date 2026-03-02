@@ -69,9 +69,9 @@
         ''
         + lib.optionalString (distro == "humble" || distro == "jazzy" || distro == "kilted") ''
           --set QT_QPA_PLATFORM_PLUGIN_PATH ${
-            lib.makeSearchPath "lib/qt-${pkgs.qt5.qtbase.version}/plugins/platforms" [
-              pkgs.qt5.qtbase
-              pkgs.qt5.qtwayland
+            lib.makeSearchPath "${pkgs.qt5.qtbase.qtPluginPrefix}/platforms" [
+              pkgs.qt5.qtbase.bin
+              pkgs.qt5.qtwayland.bin
             ]
           }
         ''
