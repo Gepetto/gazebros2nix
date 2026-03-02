@@ -226,6 +226,145 @@
               export LD_LIBRARY_PATH=.
             '';
           });
+
+          # TODO: packages wanted by tiago-harmonic but I don't know where to find them
+          tiago-launch = null;
+          gazebo-planar-move-plugin = null;
+          urdf-test = null;
+          pal-gazebo-plugins = null;
+
+          # typo ?
+          gz-plugins-vendor = jazzy-final.gz-plugin;
+
+          # unvendor
+          gz-cmake-vendor = jazzy-final.gz-cmake;
+          gz-common-vendor = jazzy-final.gz-common;
+          gz-fuel-tools-vendor = jazzy-final.gz-fuel-tools;
+          gz-gui-vendor = jazzy-final.gz-gui;
+          gz-launch-vendor = jazzy-final.gz-launch;
+          gz-math-vendor = jazzy-final.gz-math;
+          gz-msgs-vendor = jazzy-final.gz-msgs;
+          gz-physics-vendor = jazzy-final.gz-physics;
+          gz-plugin-vendor = jazzy-final.gz-plugin;
+          gz-rendering-vendor = jazzy-final.gz-rendering;
+          gz-sensors-vendor = jazzy-final.gz-sensors;
+          gz-sim-vendor = jazzy-final.gz-sim;
+          gz-tools-vendor = jazzy-final.gz-tools;
+          gz-transport-vendor = jazzy-final.gz-transport;
+          gz-utils-vendor = jazzy-final.gz-utils;
+          sdformat-vendor = jazzy-final.sdformat;
+
+          gz-ros2-control = jazzy-prev.gz-ros2-control.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt \
+                --replace-fail "find_package(gz_sim_vendor REQUIRED)" "" \
+                --replace-fail "find_package(gz_plugin_vendor REQUIRED)" "" \
+                --replace-fail \
+                  "find_package(gz-sim REQUIRED)" \
+                  "find_package(gz-sim8 REQUIRED)" \
+                --replace-fail \
+                  "gz-sim::gz-sim" \
+                  "gz-sim8::gz-sim8" \
+                --replace-fail \
+                  "find_package(gz-plugin REQUIRED)" \
+                  "find_package(gz-plugin2 REQUIRED)" \
+                --replace-fail \
+                  "gz-plugin::register" \
+                  "gz-plugin2::register" \
+
+            '';
+          };
+
+          ros-gz-bridge = jazzy-prev.ros-gz-bridge.overrideAttrs {
+            cmakeFlags = [
+              "-DGZ_MSGS_VERSION_FULL=${jazzy-final.gz-msgs.version}"
+            ];
+            postPatch = ''
+              substituteInPlace CMakeLists.txt \
+                --replace-fail "find_package(gz_transport_vendor REQUIRED)" "" \
+                --replace-fail "find_package(gz_msgs_vendor REQUIRED)" "" \
+                --replace-fail "gz-transport::" "gz-transport13::" \
+                --replace-fail "gz-msgs::" "gz-msgs10::" \
+                --replace-fail \
+                  "find_package(gz-transport REQUIRED)" \
+                  "find_package(gz-transport13 REQUIRED)" \
+                --replace-fail \
+                  "find_package(gz-msgs REQUIRED)" \
+                  "find_package(gz-msgs10 REQUIRED)" \
+            '';
+            postFixup = ''
+              substituteInPlace \
+                $out/share/ros_gz_bridge/cmake/ament_cmake_export_dependencies-extras.cmake \
+                --replace-fail "gz_transport_vendor;" "" \
+                --replace-fail "gz_msgs_vendor;" "" \
+                --replace-fail "gz-transport;" "gz-transport13;" \
+                --replace-fail "gz-msgs;" "gz-msgs10;" \
+            '';
+          };
+
+          ros-gz-image = jazzy-prev.ros-gz-image.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt \
+                --replace-fail "find_package(gz_transport_vendor REQUIRED)" "" \
+                --replace-fail "find_package(gz_msgs_vendor REQUIRED)" "" \
+                --replace-fail "gz-transport::" "gz-transport13::" \
+                --replace-fail "gz-msgs::" "gz-msgs10::" \
+                --replace-fail \
+                  "find_package(gz-transport REQUIRED)" \
+                  "find_package(gz-transport13 REQUIRED)" \
+                --replace-fail \
+                  "find_package(gz-msgs REQUIRED)" \
+                  "find_package(gz-msgs10 REQUIRED)" \
+            '';
+          };
+
+          ros-gz-sim = jazzy-prev.ros-gz-sim.overrideAttrs (super: {
+            cmakeFlags = [ "-DGZ_SIM_VER=${final.lib.versions.major jazzy-final.gz-sim.version}" ];
+            postPatch = super.postPatch + ''
+              substituteInPlace CMakeLists.txt \
+                --replace-fail "find_package(gz_transport_vendor REQUIRED)" "" \
+                --replace-fail "find_package(gz_msgs_vendor REQUIRED)" "" \
+                --replace-fail "find_package(gz_math_vendor REQUIRED)" "" \
+                --replace-fail "find_package(gz_sim_vendor REQUIRED)" "" \
+                --replace-fail "gz-transport::" "gz-transport13::" \
+                --replace-fail "gz-msgs::" "gz-msgs10::" \
+                --replace-fail "gz-math::" "gz-math7::" \
+                --replace-fail "gz-sim::" "gz-sim8::" \
+                --replace-fail \
+                  "find_package(gz-transport REQUIRED)" \
+                  "find_package(gz-transport13 REQUIRED)" \
+                --replace-fail \
+                  "find_package(gz-msgs REQUIRED)" \
+                  "find_package(gz-msgs10 REQUIRED)" \
+                --replace-fail \
+                  "find_package(gz-math REQUIRED)" \
+                  "find_package(gz-math7 REQUIRED)" \
+                --replace-fail \
+                  "find_package(gz-sim REQUIRED)" \
+                  "find_package(gz-sim8 REQUIRED)" \
+            '';
+          });
+
+          rviz-default-plugins = jazzy-prev.rviz-default-plugins.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt \
+                --replace-fail "find_package(gz_math_vendor REQUIRED)" "" \
+                --replace-fail "gz-math::" "gz-math7::" \
+                --replace-fail \
+                  "find_package(gz-math REQUIRED)" \
+                  "find_package(gz-math7 REQUIRED)" \
+            '';
+          };
+          sdformat-urdf = jazzy-prev.sdformat-urdf.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt \
+                --replace-fail "find_package(sdformat_vendor REQUIRED)" "" \
+                --replace-fail "sdformat::" "sdformat14::" \
+                --replace-fail \
+                  "find_package(sdformat REQUIRED)" \
+                  "find_package(sdformat14 REQUIRED)" \
+            '';
+          };
         }
       );
 

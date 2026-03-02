@@ -372,6 +372,11 @@
                   ros2-control-demo-example-8
                   # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
                   # ros2-control-demos # need the other ones
+                  tiago-harmonic
+                  tiago-gazebo
+                  br2-gazebo-worlds
+                  gz-sim
+                  twist-stamper
                   # keep-sorted end
                   ;
               }

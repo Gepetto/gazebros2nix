@@ -18,6 +18,7 @@ nix shell .#gz-harmonic --command gz sim tests/harmonic.sdf
 nix shell .#gz-ionic    --command gz sim tests/ionic.sdf
 nix shell .#gz-jetty    --command gz sim tests/ionic.sdf
 nix shell .#ros-humble  --command ros2 launch agimus_demo_03_mpc_dummy_traj bringup.launch.py use_gazebo:=true use_rviz:=true gz_headless:=true
+nix shell .#ros-jazzy   --command ros2 launch tiago_gazebo tiago_gazebo.launch.py is_public_sim:=True world_name:=empty
 ```
 
 ## Known issues

@@ -114,6 +114,54 @@ do_check = false
 [jazzy."ros-controls/ros2_control_demos".packages.example_17]
 do_check = false
 
+[jazzy."Tiago-Harmonic/tiago_harmonic"]
+[jazzy."Tiago-Harmonic/tiago_simulation".packages]
+tiago_gazebo = {do_check = false}
+[jazzy."Tiago-Harmonic/pal_urdf_utils"]
+do_check = false
+[jazzy."Tiago-Harmonic/omni_base_robot".packages]
+omni_base_controller_configuration = {do_check = false}
+omni_base_description = {do_check = false}
+omni_base_bringup = {do_check = false}
+[jazzy."Tiago-Harmonic/tiago_moveit_config"]
+do_check = false
+[jazzy."Tiago-Harmonic/pal_robotiq_gripper".packages]
+pal_robotiq_controller_configuration = {do_check = false}
+pal_robotiq_description = {do_check = false}
+pal_robotiq_gripper = {do_check = false}
+[jazzy."Tiago-Harmonic/pal_gripper".packages]
+pal_gripper_controller_configuration = {do_check = false}
+pal_gripper_description = {do_check = false}
+pal_gripper_simulation = {do_check = false}
+[jazzy."Tiago-Harmonic/pal_hey5".packages]
+pal_hey5_controller_configuration = {do_check = false}
+pal_hey5_description = {do_check = false}
+[jazzy."Tiago-Harmonic/tiago_navigation".packages]
+tiago_2dnav = {do_check = false}
+tiago_laser_sensors = {do_check = false}
+[jazzy."Tiago-Harmonic/tiago_robot".packages]
+tiago_controller_configuration = {do_check = false}
+tiago_description = {do_check = false}
+tiago_bringup = {do_check = false}
+[jazzy."Tiago-Harmonic/pmb2_navigation".packages]
+pmb2_laser_sensors = {do_check = false}
+pmb2_2dnav = {do_check = false}
+[jazzy."Tiago-Harmonic/pmb2_robot".packages]
+pmb2_controller_configuration = {do_check = false}
+pmb2_description = {do_check = false}
+pmb2_bringup = {do_check = false}
+[jazzy."Tiago-Harmonic/play_motion2"]
+do_check = false
+[jazzy."Tiago-Harmonic/br2_gazebo_worlds"]
+do_check = false
+[jazzy."Tiago-Harmonic/tiago_moveitpy"]
+[jazzy."Tiago-Harmonic/twist_mux"]
+do_check = false
+[jazzy."Tiago-Harmonic/pal_maps"]
+[jazzy."Tiago-Harmonic/pal_gazebo_worlds"]
+do_check = false
+[jazzy."Tiago-Harmonic/launch_pal"]
+
 [kilted."agimus-project/agimus_controller"]
 branch = "fork"
 [kilted."agimus-project/agimus_franka_description"]
