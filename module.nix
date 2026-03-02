@@ -68,7 +68,12 @@
           --prefix IGN_GAZEBO_RESOURCE_PATH : $out/share
         ''
         + lib.optionalString (distro == "humble" || distro == "jazzy" || distro == "kilted") ''
-          --set QT_QPA_PLATFORM_PLUGIN_PATH ${pkgs.qt5.qtbase.bin}/lib/qt-${pkgs.qt5.qtbase.version}/plugins/platforms
+          --set QT_QPA_PLATFORM_PLUGIN_PATH ${
+            lib.makeSearchPath "lib/qt-${pkgs.qt5.qtbase.version}/plugins/platforms" [
+              pkgs.qt5.qtbase
+              pkgs.qt5.qtwayland
+            ]
+          }
         ''
         + lib.optionalString (distro != "humble") ''
           --set-default GZ_IP 127.0.0.1
