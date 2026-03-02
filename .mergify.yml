@@ -9,7 +9,7 @@ queue_rules:
       - or:
           - approved-reviews-by = nim65s
           - author = dependabot[bot]
-          - author = gepetto-nix-flake-updater[bot]
+          - author = gepetto-flake-updater[bot]
           - author = github-actions[bot]
           - author = hrp2-14
           - author = pre-commit-ci[bot]
