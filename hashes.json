@@ -5,6 +5,7 @@
   "https://github.com/agimus-project/agimus_controller/archive/cf96c9312877477005888af86019fa6d1225b96e.tar.gz": "sha256-rWWhmWUQW/wtbQfHfeRhEsVO07PDhVtvlUTlGQNL4qI=",
   "https://github.com/agimus-project/agimus_controller/archive/f0ac8192ab973c9817f0178b0780f21d87e642e4.tar.gz": "sha256-2/tiTqHEip5D76j3VC5uvzqjFv2wTw0wYQRUO5lspkw=",
   "https://github.com/agimus-project/agimus_franka_description/archive/8d63ecadea100dc681c12691f6fb5f95674da321.tar.gz": "sha256-lwLgRMt1Hhxj2fkWioRSawJ0Ir3pNkDzqDjQXjfv1W8=",
+  "https://github.com/agimus-project/agimus_franka_description/archive/a729f1103985226d2e51ec9bcf289e6b1e545c52.tar.gz": "sha256-NtTlaSYsn3oHXbGid+w8LRblZmcyScL+W5awYckvYTA=",
   "https://github.com/agimus-project/agimus_franka_ros2/archive/b4450db350c8ea796eef77290e81b09654f766bb.tar.gz": "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=",
   "https://github.com/agimus-project/agimus_libfranka/archive/786e93e98c323d36d57866cd3f25d1f2851eb2e9.tar.gz": "sha256-xEVVJz2GSSvUN85gjes3vai5HNVOzEpeuSRNv8Vr3qE=",
   "https://github.com/agimus-project/agimus_msgs/archive/ff368e6466034cf1a75d816a76960b580752d45d.tar.gz": "sha256-p6VlN6g+Fw+wfh2YX5vesN9wvF2oymFosE1x8vzukgs=",
@@ -90,5 +91,7 @@
   "https://github.com/pal-robotics/tiago_pro_navigation/archive/refs/tags/2.14.0.tar.gz": "sha256-CWqmbPxE05r7TrQUAqXmk3gEK9QJYxhP9ROmifcQXHY=",
   "https://github.com/pal-robotics/tiago_pro_robot/archive/refs/tags/1.35.4.tar.gz": "sha256-wQyJH1hLA5rmGnKZY3m5OlWWdsSa3qYPkoh4Ad5GOxk=",
   "https://github.com/pal-robotics/tiago_pro_simulation/archive/refs/tags/1.14.1.tar.gz": "sha256-cjfTsCl/3OGPcYErw19zOXJUWxwXInHsicZTC93f5Hs=",
+  "https://github.com/ros-controls/ros2_control_demos/archive/0c90fefeccdde9f0dbcb6e081ef1d8bea4d57899.tar.gz": "sha256-dttXCzycrHETWSo88f2TUDwFsRbzzKfz94ivy/J27fs=",
+  "https://github.com/ros-controls/ros2_control_demos/archive/de186a787074b412a205a3f36a6af27e84e6d1a3.tar.gz": "sha256-v+cWLzpyJY3/WiSwyoFydRu60ntReXZJR50ZZDuc8Hc=",
   "https://github.com/ros-controls/ros2_control_demos/archive/e9602bc2683fd01f76bf5c15d312e216c6db9b26.tar.gz": "sha256-VMpoOTSCaWP0eNfFYspKvpren+3nDRP1sgfmFkCUJTM="
 }
