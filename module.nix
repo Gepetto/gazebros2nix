@@ -57,7 +57,6 @@
           --unset QTWEBKIT_PLUGIN_PATH
           --unset QT_QPA_PLATFORMTHEME
           --unset QML2_IMPORT_PATH
-          --unset QT_PLUGIN_PATH
           --unset QT_STYLE_OVERRIDE
           --prefix AMENT_PREFIX_PATH : $out
           --prefix LD_LIBRARY_PATH : $out/lib
@@ -95,7 +94,6 @@
           unset QTWEBKIT_PLUGIN_PATH
           unset QT_QPA_PLATFORMTHEME
           unset QML2_IMPORT_PATH
-          unset QT_PLUGIN_PATH
           unset QT_STYLE_OVERRIDE
         ''
         + lib.optionalString (env != null) ''
