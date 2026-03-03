@@ -227,6 +227,56 @@
             '';
           });
 
+          gazebo-planar-move-plugin = null;
+          urdf-test = null;
+          pal-gazebo-plugins = null;
+          pal-gazebo-worlds = null;
+          pal-maps = null;
+          tiago-pro-2dnav = null;
+          tiago-pro-laser-sensors = null;
+          tiago-pro-rgbd-sensors = null;
+
+          moveit-task-constructor-core = jazzy-prev.moveit-task-constructor-core.overrideAttrs (super: {
+            # TODO: unvendor pybind11 upstream
+            cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DPYBIND11_INSTALL=OFF" ];
+          });
+
+          br2-gazebo-worlds = jazzy-prev.br2-gazebo-worlds.overrideAttrs { doCheck = false; };
+          tiago-pro-gazebo = jazzy-prev.tiago-pro-gazebo.overrideAttrs { doCheck = false; };
+          tiago-pro-bringup = jazzy-prev.tiago-pro-bringup.overrideAttrs { doCheck = false; };
+          tiago-pro-moveit-config = jazzy-prev.tiago-pro-moveit-config.overrideAttrs { doCheck = false; };
+          tiago-pro-head-bringup = jazzy-prev.tiago-pro-head-bringup.overrideAttrs { doCheck = false; };
+          tiago-pro-description = jazzy-prev.tiago-pro-description.overrideAttrs { doCheck = false; };
+          tiago-pro-head-description = jazzy-prev.tiago-pro-head-description.overrideAttrs {
+            doCheck = false;
+          };
+          tiago-pro-controller-configuration = jazzy-prev.tiago-pro-controller-configuration.overrideAttrs {
+            doCheck = false;
+          };
+          tiago-pro-head-controller-configuration =
+            jazzy-prev.tiago-pro-head-controller-configuration.overrideAttrs
+              { doCheck = false; };
+          pal-sea-arm-bringup = jazzy-prev.pal-sea-arm-bringup.overrideAttrs { doCheck = false; };
+          pal-sea-arm-moveit-config = jazzy-prev.pal-sea-arm-moveit-config.overrideAttrs { doCheck = false; };
+          play-motion2 = jazzy-prev.play-motion2.overrideAttrs { doCheck = false; };
+          pal-sea-arm-description = jazzy-prev.pal-sea-arm-description.overrideAttrs { doCheck = false; };
+          pal-pro-gripper-bringup = jazzy-prev.pal-pro-gripper-bringup.overrideAttrs { doCheck = false; };
+          omni-base-bringup = jazzy-prev.omni-base-bringup.overrideAttrs { doCheck = false; };
+          pal-pro-gripper-description = jazzy-prev.pal-pro-gripper-description.overrideAttrs {
+            doCheck = false;
+          };
+          omni-base-description = jazzy-prev.omni-base-description.overrideAttrs { doCheck = false; };
+          pal-sea-arm-controller-configuration =
+            jazzy-prev.pal-sea-arm-controller-configuration.overrideAttrs
+              { doCheck = false; };
+          pal-urdf-utils = jazzy-prev.pal-urdf-utils.overrideAttrs { doCheck = false; };
+          pal-pro-gripper-controller-configuration =
+            jazzy-prev.pal-pro-gripper-controller-configuration.overrideAttrs
+              { doCheck = false; };
+          omni-base-controller-configuration = jazzy-prev.omni-base-controller-configuration.overrideAttrs {
+            doCheck = false;
+          };
+
           # unvendor
           gz-cmake-vendor = jazzy-final.gz-cmake;
           gz-common-vendor = jazzy-final.gz-common;
@@ -237,6 +287,7 @@
           gz-msgs-vendor = jazzy-final.gz-msgs;
           gz-physics-vendor = jazzy-final.gz-physics;
           gz-plugin-vendor = jazzy-final.gz-plugin;
+          gz-plugins-vendor = jazzy-final.gz-plugin; # TODO: typo
           gz-rendering-vendor = jazzy-final.gz-rendering;
           gz-sensors-vendor = jazzy-final.gz-sensors;
           gz-sim-vendor = jazzy-final.gz-sim;

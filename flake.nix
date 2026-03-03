@@ -112,6 +112,7 @@
                   name = "ros-jazzy";
                   postBuild = self.lib.rosWrapperArgs "jazzy" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-" n) self'.packages) ++ [
+                    pkgs.python3Packages.coal # TODO
                     pkgs.qt5.wrapQtAppsHook
                   ];
                 };
@@ -334,6 +335,8 @@
                   agimus-controller-ros
                   agimus-franka-description
                   agimus-msgs
+                  # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
+                  # ros2-control-demos # need the other ones
                   br2-gazebo-worlds
                   launch-pal
                   linear-feedback-controller
@@ -356,6 +359,8 @@
                   play-motion2
                   play-motion2-cli
                   play-motion2-msgs
+                  ros-gz-bridge
+                  ros-gz-image
                   ros2-control-demo-description
                   ros2-control-demo-example-1
                   ros2-control-demo-example-10
@@ -373,9 +378,9 @@
                   ros2-control-demo-example-6
                   ros2-control-demo-example-7
                   ros2-control-demo-example-8
+                  ros2topic
                   # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
                   # ros2-control-demos # need the other ones
-                  ros2topic
                   tiago-pro-bringup
                   tiago-pro-controller-configuration
                   tiago-pro-description
