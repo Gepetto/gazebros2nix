@@ -424,9 +424,11 @@
                     ++ (self'.devShells.gazebros2nix.propagatedNativeBuildInputs or [ ])
                     ++ (self'.devShells.gazebros2nix.propagatedBuildInputs or [ ])
                   )
-                  ++ lib.optional (
-                    distro == "humble" || distro == "jazzy" || distro == "kilted"
-                  ) pkgs.qt5.wrapQtAppsHook
+                  ++ lib.optionals (distro == "humble" || distro == "jazzy" || distro == "kilted") [
+                    pkgs.python3Packages.coal # TODO
+                    pkgs.qt5.wrapQtAppsHook
+                    pkgs.qt5.qtgraphicaleffects
+                  ]
                   ++ lib.optional (distro == "rolling") pkgs.qt6.wrapQtAppsHook
                 );
               postBuild = rosWrapperArgs config.gazebros2nix.rosShellDistro pkgs;
