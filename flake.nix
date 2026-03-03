@@ -39,7 +39,7 @@
           flakeModule
           {
             gazebros2nix = {
-              rosShellDistro = "jazzy";
+              rosShellDistro = "humble";
               filterPackages =
                 n: _v: ((!lib.hasPrefix "gz-" n) || lib.hasPrefix "gz-harmonic-" n) && (!lib.hasPrefix "ign-" n);
             };

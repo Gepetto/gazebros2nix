@@ -413,14 +413,22 @@
             };
 
             gazebros2nix-env = pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.buildEnv {
-              paths = lib.filter lib.isDerivation (
+              paths =
+                let
+                  distro = config.gazebros2nix.rosShellDistro;
+                in
                 lib.unique (
-                  (self'.devShells.gazebros2nix.buildInputs or [ ])
-                  ++ (self'.devShells.gazebros2nix.nativeBuildInputs or [ ])
-                  ++ (self'.devShells.gazebros2nix.propagatedNativeBuildInputs or [ ])
-                  ++ (self'.devShells.gazebros2nix.propagatedBuildInputs or [ ])
-                )
-              );
+                  lib.filter lib.isDerivation (
+                    (self'.devShells.gazebros2nix.buildInputs or [ ])
+                    ++ (self'.devShells.gazebros2nix.nativeBuildInputs or [ ])
+                    ++ (self'.devShells.gazebros2nix.propagatedNativeBuildInputs or [ ])
+                    ++ (self'.devShells.gazebros2nix.propagatedBuildInputs or [ ])
+                  )
+                  ++ lib.optional (
+                    distro == "humble" || distro == "jazzy" || distro == "kilted"
+                  ) pkgs.qt5.wrapQtAppsHook
+                  ++ lib.optional (distro == "rolling") pkgs.qt6.wrapQtAppsHook
+                );
               postBuild = rosWrapperArgs config.gazebros2nix.rosShellDistro pkgs;
             };
 
@@ -444,14 +452,22 @@
             };
 
             gazebros2nix-dev-env = pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.buildEnv {
-              paths = lib.filter lib.isDerivation (
+              paths =
+                let
+                  distro = config.gazebros2nix.rosShellDistro;
+                in
                 lib.unique (
-                  (self'.devShells.gazebros2nix-dev.buildInputs or [ ])
-                  ++ (self'.devShells.gazebros2nix-dev.nativeBuildInputs or [ ])
-                  ++ (self'.devShells.gazebros2nix-dev.propagatedNativeBuildInputs or [ ])
-                  ++ (self'.devShells.gazebros2nix-dev.propagatedBuildInputs or [ ])
-                )
-              );
+                  lib.filter lib.isDerivation (
+                    (self'.devShells.gazebros2nix-dev.buildInputs or [ ])
+                    ++ (self'.devShells.gazebros2nix-dev.nativeBuildInputs or [ ])
+                    ++ (self'.devShells.gazebros2nix-dev.propagatedNativeBuildInputs or [ ])
+                    ++ (self'.devShells.gazebros2nix-dev.propagatedBuildInputs or [ ])
+                  )
+                  ++ lib.optional (
+                    distro == "humble" || distro == "jazzy" || distro == "kilted"
+                  ) pkgs.qt5.wrapQtAppsHook
+                  ++ lib.optional (distro == "rolling") pkgs.qt6.wrapQtAppsHook
+                );
             };
 
             gazebros2nix-dev-ros = pkgs.mkShell {
