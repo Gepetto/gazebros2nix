@@ -334,8 +334,28 @@
                   agimus-controller-ros
                   agimus-franka-description
                   agimus-msgs
+                  br2-gazebo-worlds
+                  launch-pal
                   linear-feedback-controller
                   linear-feedback-controller-msgs
+                  omni-base-bringup
+                  omni-base-controller-configuration
+                  omni-base-description
+                  omni-base-robot
+                  pal-pro-gripper
+                  pal-pro-gripper-bringup
+                  pal-pro-gripper-controller-configuration
+                  pal-pro-gripper-description
+                  pal-pro-gripper-wrapper
+                  pal-sea-arm
+                  pal-sea-arm-bringup
+                  pal-sea-arm-controller-configuration
+                  pal-sea-arm-description
+                  pal-sea-arm-moveit-config
+                  pal-urdf-utils
+                  play-motion2
+                  play-motion2-cli
+                  play-motion2-msgs
                   ros2-control-demo-description
                   ros2-control-demo-example-1
                   ros2-control-demo-example-10
@@ -356,6 +376,18 @@
                   # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
                   # ros2-control-demos # need the other ones
                   ros2topic
+                  tiago-pro-bringup
+                  tiago-pro-controller-configuration
+                  tiago-pro-description
+                  tiago-pro-gazebo
+                  tiago-pro-head-bringup
+                  tiago-pro-head-controller-configuration
+                  tiago-pro-head-description
+                  tiago-pro-head-robot
+                  tiago-pro-lfc-bringup
+                  tiago-pro-moveit-config
+                  tiago-pro-robot
+                  tiago-pro-simulation
                   # keep-sorted end
                   ;
               }
