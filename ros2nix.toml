@@ -114,6 +114,20 @@ do_check = false
 [jazzy."ros-controls/ros2_control_demos".packages.example_17]
 do_check = false
 
+[jazzy."Tiago-Pro-Harmonic/br2_gazebo_worlds"]
+[jazzy."Tiago-Pro-Harmonic/gep_tiago_pro_control_stack"]
+[jazzy."Tiago-Pro-Harmonic/launch_pal"]
+[jazzy."Tiago-Pro-Harmonic/omni_base_robot"]
+[jazzy."Tiago-Pro-Harmonic/pal_pro_gripper"]
+[jazzy."Tiago-Pro-Harmonic/pal_sea_arm"]
+[jazzy."Tiago-Pro-Harmonic/pal_sea_arm_moveit_config"]
+[jazzy."Tiago-Pro-Harmonic/pal_urdf_utils"]
+[jazzy."Tiago-Pro-Harmonic/play_motion2"]
+[jazzy."Tiago-Pro-Harmonic/tiago_pro_head_robot"]
+[jazzy."Tiago-Pro-Harmonic/tiago_pro_moveit_config"]
+[jazzy."Tiago-Pro-Harmonic/tiago_pro_robot"]
+[jazzy."Tiago-Pro-Harmonic/tiago_pro_simulation"]
+
 [kilted."agimus-project/agimus_controller"]
 branch = "fork"
 [kilted."agimus-project/agimus_franka_description"]
