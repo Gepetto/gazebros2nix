@@ -58,7 +58,7 @@
               packages = [
                 pkgs.gazebros2nix-venv.passthru.editableVirtualenv
               ];
-              shellHook = self.lib.rosShellHook { } + ''
+              shellHook = self.lib.rosShellHook { inherit pkgs; } + ''
                 test -f .venv/bin/activate && source .venv/bin/activate
               '';
             };
