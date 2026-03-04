@@ -56,7 +56,6 @@
           rosWrapperArgs+=(
           --unset QTWEBKIT_PLUGIN_PATH
           --unset QT_QPA_PLATFORMTHEME
-          --unset QML2_IMPORT_PATH
           --unset QT_STYLE_OVERRIDE
           --prefix AMENT_PREFIX_PATH : $out
           --prefix LD_LIBRARY_PATH : $out/lib
@@ -67,10 +66,21 @@
           --prefix IGN_GAZEBO_RESOURCE_PATH : $out/share
         ''
         + lib.optionalString (distro == "humble" || distro == "jazzy" || distro == "kilted") ''
+          --set QML2_IMPORT_PATH ${
+            lib.makeSearchPathOutput "bin" pkgs.qt5.qtbase.qtQmlPrefix [
+              pkgs.qt5.qtbase
+              pkgs.qt5.qtdeclarative
+              pkgs.qt5.qtquickcontrols
+              pkgs.qt5.qtquickcontrols2
+              pkgs.qt5.qtgraphicaleffects
+              pkgs.qt5.qtwayland
+              pkgs.qt5.qtwebsockets
+            ]
+          }
           --set QT_QPA_PLATFORM_PLUGIN_PATH ${
-            lib.makeSearchPath "${pkgs.qt5.qtbase.qtPluginPrefix}/platforms" [
-              pkgs.qt5.qtbase.bin
-              pkgs.qt5.qtwayland.bin
+            lib.makeSearchPathOutput "bin" "${pkgs.qt5.qtbase.qtPluginPrefix}/platforms" [
+              pkgs.qt5.qtbase
+              pkgs.qt5.qtwayland
             ]
           }
         ''
@@ -85,21 +95,70 @@
       rosShellHook =
         {
           env ? null,
+          pkgs ? null,
         }:
+        let
+          distro = config.gazebros2nix.rosShellDistro;
+        in
         ''
-          : ''${GZ_IP:=127.0.0.1}
-          : ''${IGN_IP:=127.0.0.1}
-          export GZ_IP
-          export IGN_IP
           unset QTWEBKIT_PLUGIN_PATH
           unset QT_QPA_PLATFORMTHEME
-          unset QML2_IMPORT_PATH
           unset QT_STYLE_OVERRIDE
         ''
         + lib.optionalString (env != null) ''
-          export AMENT_PREFIX_PATH=${env}:''${AMENT_PREFIX_PATH:+:$AMENT_PREFIX_PATH}
-          export LD_LIBRARY_PATH=${env}/lib:''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
-          export IGN_CONFIG_PATH=${env}/share/ignition:''${IGN_CONFIG_PATH:+:$IGN_CONFIG_PATH}
+          AMENT_PREFIX_PATH=${env}:''${AMENT_PREFIX_PATH:+:$AMENT_PREFIX_PATH}
+          LD_LIBRARY_PATH=${env}/lib:''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+          export AMENT_PREFIX_PATH
+          export LD_LIBRARY_PATH
+        ''
+        + lib.optionalString (distro == "humble") ''
+          : ''${IGN_IP:=127.0.0.1}
+          export IGN_IP
+        ''
+        + lib.optionalString (env != null && distro == "humble") ''
+          IGN_CONFIG_PATH=${env}/share/ignition:''${IGN_CONFIG_PATH:+:$IGN_CONFIG_PATH}
+          IGN_GAZEBO_RESOURCE_PATH=${env}/share:''${IGN_GAZEBO_RESOURCE_PATH:+:$IGN_GAZEBO_RESOURCE_PATH}
+          export IGN_CONFIG_PATH
+          export IGN_GAZEBO_RESOURCE_PATH
+        ''
+        +
+          lib.optionalString (pkgs != null && (distro == "humble" || distro == "jazzy" || distro == "kilted"))
+            ''
+              QML2_IMPORT_PATH=${
+                lib.makeSearchPathOutput "bin" pkgs.qt5.qtbase.qtQmlPrefix [
+                  pkgs.qt5.qtbase
+                  pkgs.qt5.qtdeclarative
+                  pkgs.qt5.qtquickcontrols
+                  pkgs.qt5.qtquickcontrols2
+                  pkgs.qt5.qtgraphicaleffects
+                  pkgs.qt5.qtwayland
+                  pkgs.qt5.qtwebsockets
+                ]
+              }
+              QT_PLUGIN_PATH=${
+                lib.makeSearchPathOutput "bin" pkgs.qt5.qtbase.qtPluginPrefix [
+                  pkgs.qt5.qtbase
+                  pkgs.qt5.qtdeclarative
+                  pkgs.qt5.qtwayland
+                ]
+              }
+              QT_QPA_PLATFORM_PLUGIN_PATH=${
+                lib.makeSearchPathOutput "bin" "${pkgs.qt5.qtbase.qtPluginPrefix}/platforms" [
+                  pkgs.qt5.qtbase
+                  pkgs.qt5.qtwayland
+                ]
+              }
+              export QML2_IMPORT_PATH
+              export QT_PLUGIN_PATH
+              export QT_QPA_PLATFORM_PLUGIN_PATH
+            ''
+        + lib.optionalString (distro != "humble") ''
+          : ''${GZ_IP:=127.0.0.1}
+          export GZ_IP
+        ''
+        + lib.optionalString (env != null && distro != "humble") ''
+          GZ_SIM_RESOURCE_PATH=${env}/share:''${GZ_SIM_RESOURCE_PATH:+:$GZ_SIM_RESOURCE_PATH}
+          export GZ_SIM_RESOURCE_PATH
         ''
         + ''
           test -f install/local_setup.bash && source install/local_setup.bash
@@ -441,7 +500,10 @@
                 pkgs.colcon
                 pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.ros2topic
               ];
-              shellHook = rosShellHook { env = self'.devShells.gazebros2nix-env; };
+              shellHook = rosShellHook {
+                inherit pkgs;
+                env = self'.devShells.gazebros2nix-env;
+              };
             };
 
             gazebros2nix-dev = pkgs.mkShell {
@@ -482,7 +544,10 @@
                 pkgs.colcon
                 pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.ros2topic
               ];
-              shellHook = rosShellHook { env = self'.devShells.gazebros2nix-dev-env; };
+              shellHook = rosShellHook {
+                inherit pkgs;
+                env = self'.devShells.gazebros2nix-dev-env;
+              };
             };
           };
 
