@@ -252,7 +252,6 @@
           gz-msgs-vendor = jazzy-final.gz-msgs;
           gz-physics-vendor = jazzy-final.gz-physics;
           gz-plugin-vendor = jazzy-final.gz-plugin;
-          gz-plugins-vendor = jazzy-final.gz-plugin; # https://github.com/Tiago-Pro-Harmonic/tiago_pro_simulation/pull/1
           gz-rendering-vendor = jazzy-final.gz-rendering;
           gz-sensors-vendor = jazzy-final.gz-sensors;
           gz-sim-vendor = jazzy-final.gz-sim;

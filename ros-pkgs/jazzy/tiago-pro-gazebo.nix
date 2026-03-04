@@ -9,7 +9,7 @@
   # buildInputs
 
   # propagatedBuildInputs
-  gz-plugins-vendor,
+  gz-plugin-vendor,
   gz-ros2-control,
   launch,
   launch-pal,
@@ -41,8 +41,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "tiago_pro_simulation";
-    rev = "15a163367ccbbbe598b6bccd19b86d1b30fcbde0";
-    hash = "sha256-PHqTc2B0JjteQbR2OgIcQQS4E//RLHlzqDBk3LLKAe0=";
+    rev = "d6614ff98f6851a7e9a4c810b9fcf0b6fe63970f";
+    hash = "sha256-IvKGUxCHWWwJVRPF9o8xpE9R3+FGxSoaLNuDZQQTdu4=";
   };
   sourceRoot = "source/tiago_pro_gazebo";
 
@@ -54,7 +54,7 @@ buildRosPackage rec {
   buildInputs = [
   ];
   propagatedBuildInputs = [
-    gz-plugins-vendor
+    gz-plugin-vendor
     gz-ros2-control
     launch
     launch-pal
