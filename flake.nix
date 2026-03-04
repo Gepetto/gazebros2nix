@@ -320,6 +320,7 @@
                   agimus-msgs
                   linear-feedback-controller
                   linear-feedback-controller-msgs
+                  ros2topic
                   tiago-pro-description
                   # tiago-pro-gazebo TODO: gazebo-classic
                   # keep-sorted end
@@ -354,6 +355,7 @@
                   ros2-control-demo-example-8
                   # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
                   # ros2-control-demos # need the other ones
+                  ros2topic
                   # keep-sorted end
                   ;
               }
@@ -367,6 +369,7 @@
                   agimus-msgs
                   linear-feedback-controller
                   linear-feedback-controller-msgs
+                  ros2topic
                   # keep-sorted end
                   ;
               }
@@ -380,6 +383,7 @@
                   agimus-msgs
                   linear-feedback-controller
                   linear-feedback-controller-msgs
+                  ros2topic
                   # keep-sorted end
                   ;
               }

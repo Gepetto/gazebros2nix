@@ -437,7 +437,10 @@
             gazebros2nix-ros = pkgs.mkShell {
               name = "gazebros2nix default ROS shell";
               inputsFrom = [ self'.devShells.gazebros2nix ];
-              packages = [ pkgs.colcon ];
+              packages = [
+                pkgs.colcon
+                pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.ros2topic
+              ];
               shellHook = rosShellHook { env = self'.devShells.gazebros2nix-env; };
             };
 
@@ -475,7 +478,10 @@
             gazebros2nix-dev-ros = pkgs.mkShell {
               name = "gazebros2nix default ROS devShell";
               inputsFrom = [ self'.devShells.gazebros2nix-dev ];
-              packages = [ pkgs.colcon ];
+              packages = [
+                pkgs.colcon
+                pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.ros2topic
+              ];
               shellHook = rosShellHook { env = self'.devShells.gazebros2nix-dev-env; };
             };
           };
