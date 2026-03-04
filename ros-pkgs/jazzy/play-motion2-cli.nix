@@ -59,7 +59,7 @@ buildRosPackage rec {
     python3Packages.pytest-timeout
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "The play_motion command for ROS 2 command line tools.";

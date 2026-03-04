@@ -13,7 +13,7 @@
   tiago-pro-controller-configuration,
   tiago-pro-description,
 
-# checkInputs
+  # checkInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-tiago-pro-robot";

@@ -13,7 +13,7 @@
   omni-base-controller-configuration,
   omni-base-description,
 
-# checkInputs
+  # checkInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-omni-base-robot";

@@ -13,7 +13,7 @@
   tiago-pro-head-controller-configuration,
   tiago-pro-head-description,
 
-# checkInputs
+  # checkInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-tiago-pro-head-robot";

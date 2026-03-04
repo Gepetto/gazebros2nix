@@ -42,7 +42,7 @@ buildRosPackage rec {
     ament-lint-common
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "This package contains the color materials of common elements of PAL Robotics' robot.

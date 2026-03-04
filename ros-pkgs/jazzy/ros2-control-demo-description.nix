@@ -11,7 +11,7 @@
   # propagatedBuildInputs
   rviz2,
 
-# checkInputs
+  # checkInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-ros2-control-demo-description";

@@ -12,7 +12,7 @@
   pal-pro-gripper-controller-configuration,
   pal-pro-gripper-description,
 
-# checkInputs
+  # checkInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-pal-pro-gripper";

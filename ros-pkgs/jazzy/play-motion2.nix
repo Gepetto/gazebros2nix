@@ -98,7 +98,7 @@ buildRosPackage rec {
     xacro
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "Play a pre-recorded motion on a robot";

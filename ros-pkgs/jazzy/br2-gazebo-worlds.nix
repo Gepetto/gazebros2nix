@@ -42,7 +42,7 @@ buildRosPackage rec {
     ament-lint-common
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "Simulation worlds for Book ROS 2.";

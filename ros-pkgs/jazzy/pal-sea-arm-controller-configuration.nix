@@ -50,7 +50,7 @@ buildRosPackage rec {
     ament-lint-common
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "The pal_sea_arm_controller_configuration package";

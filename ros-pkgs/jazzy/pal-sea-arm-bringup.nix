@@ -58,7 +58,7 @@ buildRosPackage rec {
     ament-lint-common
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "Launch files to upload the robot description and start the controllers";

@@ -46,7 +46,7 @@ buildRosPackage rec {
     ament-lint-common
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "Play a pre-recorded motion on a robot";

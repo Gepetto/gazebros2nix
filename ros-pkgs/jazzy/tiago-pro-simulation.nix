@@ -11,7 +11,7 @@
   # propagatedBuildInputs
   tiago-pro-gazebo,
 
-# checkInputs
+  # checkInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-tiago-pro-simulation";

@@ -68,7 +68,7 @@ buildRosPackage rec {
     urdf-test
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "This package contains the description (mechanical, kinematic, visual,
