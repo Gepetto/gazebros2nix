@@ -21,20 +21,35 @@ in
       description = "Additionnal patches for gazebros2nix";
       default = [ ];
     };
-    packages = lib.mkOption {
+
+    overrides = lib.mkOption {
       description = "attrSet of packages name/override to add in overlay";
       default = { };
     };
-    pyPackages = lib.mkOption {
+    pyOverrides = lib.mkOption {
       description = "attrSet of python packages name/override to add in overlay";
       default = { };
     };
-    rosPackages = lib.mkOption {
+    rosOverrides = lib.mkOption {
       description = "attrSet of ROS packages name/override to add in overlay";
       default = { };
     };
+
+    packages = lib.mkOption {
+      description = "packages to add in overlay";
+      default = { };
+    };
+    pyPackages = lib.mkOption {
+      description = "python packages to add in overlay";
+      default = { };
+    };
+    rosPackages = lib.mkOption {
+      description = "ROS packages to add in overlay";
+      default = { };
+    };
+
     rosDistros = lib.mkOption {
-      description = "List of ROS distributions to consider for rosPackages overlay";
+      description = "List of ROS distributions to consider for rosOverrides & rosPackages overlay";
       default = [
         "humble"
         "jazzy"
@@ -46,13 +61,20 @@ in
       description = "The ROS distribution of the default devShell and env";
       default = "rolling";
     };
+
     filterPackages = lib.mkOption {
       description = "Function to filter the packages to include in default devShell and env";
       default = _n: _v: true;
     };
+
     overlayName = lib.mkOption {
       description = "Name of the overlay";
       default = "default";
+    };
+
+    checkAll = lib.mkOption {
+      description = "build all packages and devShells in checks";
+      default = false;
     };
   };
 
@@ -181,14 +203,14 @@ in
 
         overlays.${cfg.overlayName} =
           final: prev:
-          (lib.mapAttrs (package: override: prev.${package}.overrideAttrs (override final)) cfg.packages)
+          (lib.mapAttrs (package: override: prev.${package}.overrideAttrs (override final)) cfg.overrides)
           // {
             pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
               (
                 python-final: python-prev:
                 lib.mapAttrs (
                   package: override: python-prev.${package}.overrideAttrs (override final python-final)
-                ) cfg.pyPackages
+                ) cfg.pyOverrides
               )
             ];
 
@@ -200,7 +222,7 @@ in
                   ros-final: ros-prev:
                   lib.mapAttrs (
                     package: override: ros-prev.${package}.overrideAttrs (override final ros-final)
-                  ) cfg.rosPackages
+                  ) cfg.rosOverrides
                 )
               );
           };
@@ -451,14 +473,6 @@ in
               ++ [ self.overlays.${cfg.overlayName} ];
             };
 
-          # Build all available packages and devShells. Useful for CI.
-          checks =
-            let
-              devShells = lib.mapAttrs' (n: lib.nameValuePair "devShell-${n}") self'.devShells;
-              packages = lib.mapAttrs' (n: lib.nameValuePair "package-${n}") self'.packages;
-            in
-            lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (devShells // packages);
-
           devShells = {
             default = lib.mkDefault (
               if (cfg.rosPackages == { }) then
@@ -565,23 +579,20 @@ in
             };
           };
 
-          # expose packages configured by consumer in gazebros2nix.{packages,pyPackages,rosPackages}
+          # expose packages configured by consumer in gazebros2nix.{overrides,pyOverrides,rosOverrides,packages,pyPackages,rosPackages}
           packages = {
             default = lib.mkDefault self'.devShells.gazebros2nix-env;
           }
-          // (lib.mapAttrs (package: _override: pkgs.${package}) cfg.packages)
-          // (lib.mapAttrs' (
-            package: _override: lib.nameValuePair "py-${package}" pkgs.python3Packages.${package}
-          ) cfg.pyPackages)
+          // (lib.mapAttrs (name: _v: pkgs.${name}) (cfg.overrides // cfg.packages))
+          // (lib.mapAttrs' (name: _v: lib.nameValuePair "py-${name}" pkgs.python3Packages.${name}) (
+            cfg.pyOverrides // cfg.pyPackages
+          ))
           // (lib.listToAttrs (
             lib.mapCartesianProduct
-              (
-                { distro, package }:
-                lib.nameValuePair "ros-${distro}-${package}" pkgs.rosPackages.${distro}.${package}
-              )
+              ({ distro, name }: lib.nameValuePair "ros-${distro}-${name}" pkgs.rosOverrides.${distro}.${name})
               {
                 distro = cfg.rosDistros;
-                package = lib.attrNames cfg.rosPackages;
+                name = lib.attrNames (cfg.rosOverrides // cfg.rosPackages);
               }
           ));
 
@@ -594,6 +605,16 @@ in
               nixfmt.enable = true;
             };
           };
+        }
+
+        // lib.optionalAttrs cfg.checkAll {
+          # Build all available packages and devShells. Useful for CI.
+          checks =
+            let
+              devShells = lib.mapAttrs' (n: lib.nameValuePair "devShell-${n}") self'.devShells;
+              packages = lib.mapAttrs' (n: lib.nameValuePair "package-${n}") self'.packages;
+            in
+            lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (devShells // packages);
         };
     };
 }
