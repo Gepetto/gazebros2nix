@@ -13,7 +13,7 @@
   pal-sea-arm-controller-configuration,
   pal-sea-arm-description,
 
-  # checkInputs
+# checkInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-pal-sea-arm";
