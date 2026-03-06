@@ -536,7 +536,7 @@
                   ++ lib.optional (
                     distro == "humble" || distro == "jazzy" || distro == "kilted"
                   ) pkgs.qt5.wrapQtAppsHook
-                  ++ lib.optional (distro == "rolling") [
+                  ++ lib.optionals (distro == "rolling") [
                     pkgs.qt6.wrapQtAppsHook
                     pkgs.qt6.qtbase
                   ]
