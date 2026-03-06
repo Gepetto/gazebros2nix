@@ -3,6 +3,7 @@
   config,
   inputs,
   lib,
+  self,
   ...
 }:
 {
@@ -166,8 +167,38 @@
 
     in
     {
-      flake.lib = {
-        inherit rosWrapperArgs rosShellHook;
+      flake = {
+        lib = {
+          inherit rosWrapperArgs rosShellHook;
+        };
+
+        overlays.default =
+          final: prev:
+          (lib.mapAttrs (
+            package: override: prev.${package}.overrideAttrs (override final)
+          ) config.gazebros2nix.packages)
+          // {
+            pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+              (
+                python-final: python-prev:
+                lib.mapAttrs (
+                  package: override: python-prev.${package}.overrideAttrs (override final python-final)
+                ) config.gazebros2nix.pyPackages
+              )
+            ];
+
+            rosPackages =
+              prev.rosPackages
+              // lib.genAttrs config.gazebros2nix.rosDistros (
+                distro:
+                prev.rosPackages.${distro}.overrideScope (
+                  ros-final: ros-prev:
+                  lib.mapAttrs (
+                    package: override: ros-prev.${package}.overrideAttrs (override final ros-final)
+                  ) config.gazebros2nix.rosPackages
+                )
+              );
+          };
       };
 
       perSystem =
@@ -410,37 +441,9 @@
                 })
 
                 (import ./overlay.nix { })
-
-                (
-                  final: prev:
-                  (lib.mapAttrs (
-                    package: override: prev.${package}.overrideAttrs (override final)
-                  ) config.gazebros2nix.packages)
-                  // {
-                    pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-                      (
-                        python-final: python-prev:
-                        lib.mapAttrs (
-                          package: override: python-prev.${package}.overrideAttrs (override final python-final)
-                        ) config.gazebros2nix.pyPackages
-                      )
-                    ];
-
-                    rosPackages =
-                      prev.rosPackages
-                      // lib.genAttrs config.gazebros2nix.rosDistros (
-                        distro:
-                        prev.rosPackages.${distro}.overrideScope (
-                          ros-final: ros-prev:
-                          lib.mapAttrs (
-                            package: override: ros-prev.${package}.overrideAttrs (override final ros-final)
-                          ) config.gazebros2nix.rosPackages
-                        )
-                      );
-                  }
-                )
               ]
-              ++ config.gazebros2nix.overlays;
+              ++ config.gazebros2nix.overlays
+              ++ [ self.overlays.default ];
             };
 
           # Build all available packages and devShells. Useful for CI.
