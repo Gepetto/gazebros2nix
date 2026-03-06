@@ -3,8 +3,12 @@
   config,
   inputs,
   lib,
+  self,
   ...
 }:
+let
+  cfg = config.gazebros2nix;
+in
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
 
@@ -45,6 +49,10 @@
     filterPackages = lib.mkOption {
       description = "Function to filter the packages to include in default devShell and env";
       default = _n: _v: true;
+    };
+    overlayName = lib.mkOption {
+      description = "Name of the overlay";
+      default = "default";
     };
   };
 
@@ -98,7 +106,7 @@
           pkgs ? null,
         }:
         let
-          distro = config.gazebros2nix.rosShellDistro;
+          distro = cfg.rosShellDistro;
         in
         ''
           unset QTWEBKIT_PLUGIN_PATH
@@ -166,8 +174,36 @@
 
     in
     {
-      flake.lib = {
-        inherit rosWrapperArgs rosShellHook;
+      flake = {
+        lib = {
+          inherit rosWrapperArgs rosShellHook;
+        };
+
+        overlays.${cfg.overlayName} =
+          final: prev:
+          (lib.mapAttrs (package: override: prev.${package}.overrideAttrs (override final)) cfg.packages)
+          // {
+            pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+              (
+                python-final: python-prev:
+                lib.mapAttrs (
+                  package: override: python-prev.${package}.overrideAttrs (override final python-final)
+                ) cfg.pyPackages
+              )
+            ];
+
+            rosPackages =
+              prev.rosPackages
+              // lib.genAttrs cfg.rosDistros (
+                distro:
+                prev.rosPackages.${distro}.overrideScope (
+                  ros-final: ros-prev:
+                  lib.mapAttrs (
+                    package: override: ros-prev.${package}.overrideAttrs (override final ros-final)
+                  ) cfg.rosPackages
+                )
+              );
+          };
       };
 
       perSystem =
@@ -185,7 +221,7 @@
                 pkgsForPatching.applyPatches {
                   name = "gepetto patched nixpkgs";
                   src = inputs.nixpkgs;
-                  patches = lib.fileset.toList ./patches/NixOS/nixpkgs ++ config.gazebros2nix.patches;
+                  patches = lib.fileset.toList ./patches/NixOS/nixpkgs ++ cfg.patches;
                 }
               );
             in
@@ -410,37 +446,9 @@
                 })
 
                 (import ./overlay.nix { })
-
-                (
-                  final: prev:
-                  (lib.mapAttrs (
-                    package: override: prev.${package}.overrideAttrs (override final)
-                  ) config.gazebros2nix.packages)
-                  // {
-                    pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-                      (
-                        python-final: python-prev:
-                        lib.mapAttrs (
-                          package: override: python-prev.${package}.overrideAttrs (override final python-final)
-                        ) config.gazebros2nix.pyPackages
-                      )
-                    ];
-
-                    rosPackages =
-                      prev.rosPackages
-                      // lib.genAttrs config.gazebros2nix.rosDistros (
-                        distro:
-                        prev.rosPackages.${distro}.overrideScope (
-                          ros-final: ros-prev:
-                          lib.mapAttrs (
-                            package: override: ros-prev.${package}.overrideAttrs (override final ros-final)
-                          ) config.gazebros2nix.rosPackages
-                        )
-                      );
-                  }
-                )
               ]
-              ++ config.gazebros2nix.overlays;
+              ++ cfg.overlays
+              ++ [ self.overlays.${cfg.overlayName} ];
             };
 
           # Build all available packages and devShells. Useful for CI.
@@ -453,7 +461,7 @@
 
           devShells = {
             default = lib.mkDefault (
-              if (config.gazebros2nix.rosPackages == { }) then
+              if (cfg.rosPackages == { }) then
                 self'.devShells.gazebros2nix-dev
               else
                 self'.devShells.gazebros2nix-dev-ros
@@ -465,16 +473,16 @@
                 lib.filterAttrs (
                   n: v:
                   (n != "default")
-                  && (config.gazebros2nix.filterPackages n v)
-                  && ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n)
+                  && (cfg.filterPackages n v)
+                  && ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${cfg.rosShellDistro}-" n)
                 ) self'.packages
               );
             };
 
-            gazebros2nix-env = pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.buildEnv {
+            gazebros2nix-env = pkgs.rosPackages.${cfg.rosShellDistro}.buildEnv {
               paths =
                 let
-                  distro = config.gazebros2nix.rosShellDistro;
+                  distro = cfg.rosShellDistro;
                 in
                 lib.unique (
                   lib.filter lib.isDerivation (
@@ -493,7 +501,7 @@
                     pkgs.qt6.wrapQtAppsHook
                   ]
                 );
-              postBuild = rosWrapperArgs config.gazebros2nix.rosShellDistro pkgs;
+              postBuild = rosWrapperArgs cfg.rosShellDistro pkgs;
             };
 
             gazebros2nix-ros = pkgs.mkShell {
@@ -501,7 +509,7 @@
               inputsFrom = [ self'.devShells.gazebros2nix ];
               packages = [
                 pkgs.colcon
-                pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.ros2topic
+                pkgs.rosPackages.${cfg.rosShellDistro}.ros2topic
               ];
               shellHook = rosShellHook {
                 inherit pkgs;
@@ -515,16 +523,16 @@
                 lib.filterAttrs (
                   n: v:
                   (n != "default")
-                  && (config.gazebros2nix.filterPackages n v)
-                  && ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${config.gazebros2nix.rosShellDistro}-" n)
+                  && (cfg.filterPackages n v)
+                  && ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${cfg.rosShellDistro}-" n)
                 ) self'.packages
               );
             };
 
-            gazebros2nix-dev-env = pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.buildEnv {
+            gazebros2nix-dev-env = pkgs.rosPackages.${cfg.rosShellDistro}.buildEnv {
               paths =
                 let
-                  distro = config.gazebros2nix.rosShellDistro;
+                  distro = cfg.rosShellDistro;
                 in
                 lib.unique (
                   lib.filter lib.isDerivation (
@@ -548,7 +556,7 @@
               inputsFrom = [ self'.devShells.gazebros2nix-dev ];
               packages = [
                 pkgs.colcon
-                pkgs.rosPackages.${config.gazebros2nix.rosShellDistro}.ros2topic
+                pkgs.rosPackages.${cfg.rosShellDistro}.ros2topic
               ];
               shellHook = rosShellHook {
                 inherit pkgs;
@@ -561,10 +569,10 @@
           packages = {
             default = lib.mkDefault self'.devShells.gazebros2nix-env;
           }
-          // (lib.mapAttrs (package: _override: pkgs.${package}) config.gazebros2nix.packages)
+          // (lib.mapAttrs (package: _override: pkgs.${package}) cfg.packages)
           // (lib.mapAttrs' (
             package: _override: lib.nameValuePair "py-${package}" pkgs.python3Packages.${package}
-          ) config.gazebros2nix.pyPackages)
+          ) cfg.pyPackages)
           // (lib.listToAttrs (
             lib.mapCartesianProduct
               (
@@ -572,8 +580,8 @@
                 lib.nameValuePair "ros-${distro}-${package}" pkgs.rosPackages.${distro}.${package}
               )
               {
-                distro = config.gazebros2nix.rosDistros;
-                package = lib.attrNames config.gazebros2nix.rosPackages;
+                distro = cfg.rosDistros;
+                package = lib.attrNames cfg.rosPackages;
               }
           ));
 
