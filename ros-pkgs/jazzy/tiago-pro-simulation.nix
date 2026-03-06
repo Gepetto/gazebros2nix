@@ -9,21 +9,21 @@
   # buildInputs
 
   # propagatedBuildInputs
-  rviz2,
+  tiago-pro-gazebo,
 
 # checkInputs
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-ros2-control-demo-description";
-  version = "0.0.0";
+  pname = "ros-jazzy-tiago-pro-simulation";
+  version = "1.14.1";
 
   src = fetchFromGitHub {
-    owner = "ros-controls";
-    repo = "ros2_control_demos";
-    rev = "0c90fefeccdde9f0dbcb6e081ef1d8bea4d57899";
-    hash = "sha256-dttXCzycrHETWSo88f2TUDwFsRbzzKfz94ivy/J27fs=";
+    owner = "Tiago-Pro-Harmonic";
+    repo = "tiago_pro_simulation";
+    rev = "d6614ff98f6851a7e9a4c810b9fcf0b6fe63970f";
+    hash = "sha256-IvKGUxCHWWwJVRPF9o8xpE9R3+FGxSoaLNuDZQQTdu4=";
   };
-  sourceRoot = "source/ros2_control_demo_description";
+  sourceRoot = "source/tiago_pro_simulation";
 
   buildType = "ament_cmake";
 
@@ -33,7 +33,7 @@ buildRosPackage rec {
   buildInputs = [
   ];
   propagatedBuildInputs = [
-    rviz2
+    tiago-pro-gazebo
   ];
   checkInputs = [
   ];
@@ -41,9 +41,9 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Package with URDF and description files of test robots.";
+    description = "The tiago_pro_simulation package";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/ros-controls/ros2_control_demos";
+    homepage = "https://github.com/Tiago-Pro-Harmonic/tiago_pro_simulation";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

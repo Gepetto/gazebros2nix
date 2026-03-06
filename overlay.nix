@@ -227,6 +227,21 @@
             '';
           });
 
+          # TODO: does not seem useful for now, but might bite later
+          gazebo-planar-move-plugin = null;
+          urdf-test = null;
+          pal-gazebo-plugins = null;
+          pal-gazebo-worlds = null;
+          pal-maps = null;
+          tiago-pro-2dnav = null;
+          tiago-pro-laser-sensors = null;
+          tiago-pro-rgbd-sensors = null;
+
+          moveit-task-constructor-core = jazzy-prev.moveit-task-constructor-core.overrideAttrs (super: {
+            # TODO: unvendor pybind11 upstream
+            cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DPYBIND11_INSTALL=OFF" ];
+          });
+
           # unvendor
           gz-cmake-vendor = jazzy-final.gz-cmake;
           gz-common-vendor = jazzy-final.gz-common;
