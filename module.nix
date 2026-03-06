@@ -488,7 +488,10 @@
                     pkgs.qt5.wrapQtAppsHook
                     pkgs.qt5.qtgraphicaleffects
                   ]
-                  ++ lib.optional (distro == "rolling") pkgs.qt6.wrapQtAppsHook
+                  ++ lib.optionals (distro == "rolling") [
+                    pkgs.qt6.qtbase
+                    pkgs.qt6.wrapQtAppsHook
+                  ]
                 );
               postBuild = rosWrapperArgs config.gazebros2nix.rosShellDistro pkgs;
             };
@@ -533,7 +536,10 @@
                   ++ lib.optional (
                     distro == "humble" || distro == "jazzy" || distro == "kilted"
                   ) pkgs.qt5.wrapQtAppsHook
-                  ++ lib.optional (distro == "rolling") pkgs.qt6.wrapQtAppsHook
+                  ++ lib.optional (distro == "rolling") [
+                    pkgs.qt6.wrapQtAppsHook
+                    pkgs.qt6.qtbase
+                  ]
                 );
             };
 
