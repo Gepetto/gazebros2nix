@@ -589,7 +589,7 @@ in
           ))
           // (lib.listToAttrs (
             lib.mapCartesianProduct
-              ({ distro, name }: lib.nameValuePair "ros-${distro}-${name}" pkgs.rosOverrides.${distro}.${name})
+              ({ distro, name }: lib.nameValuePair "ros-${distro}-${name}" pkgs.rosPackages.${distro}.${name})
               {
                 distro = cfg.rosDistros;
                 name = lib.attrNames (cfg.rosOverrides // cfg.rosPackages);
