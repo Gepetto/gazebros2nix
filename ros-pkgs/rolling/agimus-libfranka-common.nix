@@ -13,7 +13,7 @@
 # checkInputs
 }:
 buildRosPackage rec {
-  pname = "ros-humble-agimus-libfranka-common";
+  pname = "ros-rolling-agimus-libfranka-common";
   version = "0.1.0";
 
   src = fetchFromGitHub {
