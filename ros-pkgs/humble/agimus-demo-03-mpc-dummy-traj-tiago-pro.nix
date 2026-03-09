@@ -21,8 +21,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-demos";
-    rev = "29b88ff791fed647cb7cf1c61522a06919ddc9a1";
-    hash = "sha256-ftgLbwij0dh3Pgi8xG+cGHJ1cIVC3xlGJzjCsQhg38g=";
+    rev = "40c897103f651d07bca480dd2a4b5a73270fb454";
+    hash = "sha256-IIsTWCocu65UatuQniHmlt8JBlAck/LXvXlZMURsgtg=";
   };
   sourceRoot = "source/agimus_demo_03_mpc_dummy_traj_tiago_pro";
 

@@ -11,7 +11,7 @@
   # propagatedBuildInputs
   ament-index-python,
   diagnostic-aggregator,
-  joy-linux,
+  joy,
   joy-teleop,
   pal-pro-gripper-wrapper,
   play-motion2,
@@ -26,13 +26,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-bringup";
-  version = "1.35.4";
+  version = "2.0.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_robot";
     tag = version;
-    hash = "sha256-wQyJH1hLA5rmGnKZY3m5OlWWdsSa3qYPkoh4Ad5GOxk=";
+    hash = "sha256-bL79ke7bMKRyu6YUv4+XawZErTUDJeuKoMe8QhBjPsw=";
   };
   sourceRoot = "source/tiago_pro_bringup";
 
@@ -46,7 +46,7 @@ buildRosPackage rec {
   propagatedBuildInputs = [
     ament-index-python
     diagnostic-aggregator
-    joy-linux
+    joy
     joy-teleop
     pal-pro-gripper-wrapper
     play-motion2
