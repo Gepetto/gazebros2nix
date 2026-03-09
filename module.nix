@@ -620,7 +620,12 @@ in
                 distro = cfg.rosDistros;
                 name = lib.attrNames (cfg.rosOverrides // cfg.rosPackages);
               }
-          ));
+          ))
+          // lib.optionalAttrs (cfg.rosPackages != { }) (
+            lib.genAttrs' cfg.rosDistros (
+              distro: lib.nameValuePair "ros-${distro}" (buildGazebros2nixRosEnv distro pkgs self'.packages)
+            )
+          );
 
           treefmt = {
             # workaround  https://github.com/numtide/treefmt-nix/issues/352
