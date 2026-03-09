@@ -194,11 +194,129 @@ in
           test -f install/local_setup.bash && source install/local_setup.bash
         '';
 
+      getRosBasePackages = distro: pkgs: [
+        pkgs.colcon
+        pkgs.rosPackages.${distro}.ros2topic
+      ];
+
+      buildGazebros2nixShell =
+        distro: pkgs: packages:
+        pkgs.mkShell {
+          name = "gazebros2nix default shell";
+          packages = lib.attrValues (
+            lib.filterAttrs (
+              n: v:
+              (n != "default")
+              && (cfg.filterPackages n v)
+              && ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${distro}-" n)
+            ) packages
+          );
+        };
+
+      buildGazebros2nixEnv =
+        distro: pkgs: packages:
+        let
+          shell = buildGazebros2nixShell distro pkgs packages;
+        in
+        pkgs.rosPackages.${distro}.buildEnv {
+          paths = lib.unique (
+            lib.filter lib.isDerivation (
+              (shell.buildInputs or [ ])
+              ++ (shell.nativeBuildInputs or [ ])
+              ++ (shell.propagatedNativeBuildInputs or [ ])
+              ++ (shell.propagatedBuildInputs or [ ])
+            )
+            ++ lib.optionals (distro == "humble" || distro == "jazzy" || distro == "kilted") [
+              pkgs.python3Packages.coal # TODO
+              pkgs.qt5.wrapQtAppsHook
+              pkgs.qt5.qtgraphicaleffects
+            ]
+            ++ lib.optionals (distro == "rolling") [
+              pkgs.qt6.qtbase
+              pkgs.qt6.wrapQtAppsHook
+            ]
+          );
+          postBuild = rosWrapperArgs cfg.rosShellDistro pkgs;
+        };
+
+      buildGazebros2nixDevShell =
+        distro: pkgs: packages:
+        pkgs.mkShell {
+          name = "gazebros2nix default devShell";
+          inputsFrom = lib.attrValues (
+            lib.filterAttrs (
+              n: v:
+              (n != "default")
+              && (cfg.filterPackages n v)
+              && ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${distro}-" n)
+            ) packages
+          );
+        };
+
+      buildGazebros2nixRosShell =
+        distro: pkgs: packages:
+        let
+          shell = buildGazebros2nixShell distro pkgs packages;
+          env = buildGazebros2nixEnv distro pkgs packages;
+        in
+        pkgs.mkShell {
+          name = "gazebros2nix default ROS shell";
+          inputsFrom = [ shell ];
+          packages = getRosBasePackages distro pkgs;
+          shellHook = rosShellHook { inherit env pkgs; };
+        };
+
+      buildGazebros2nixRosEnv =
+        distro: pkgs: packages:
+        let
+          shell = buildGazebros2nixDevShell distro pkgs packages;
+        in
+        pkgs.rosPackages.${distro}.buildEnv {
+          paths = lib.unique (
+            lib.filter lib.isDerivation (
+              (shell.buildInputs or [ ])
+              ++ (shell.nativeBuildInputs or [ ])
+              ++ (shell.propagatedNativeBuildInputs or [ ])
+              ++ (shell.propagatedBuildInputs or [ ])
+            )
+            ++ lib.optional (
+              distro == "humble" || distro == "jazzy" || distro == "kilted"
+            ) pkgs.qt5.wrapQtAppsHook
+            ++ lib.optionals (distro == "rolling") [
+              pkgs.qt6.wrapQtAppsHook
+              pkgs.qt6.qtbase
+            ]
+          );
+        };
+
+      buildGazebros2nixRosDevShell =
+        distro: pkgs: packages:
+        let
+          shell = buildGazebros2nixDevShell distro pkgs packages;
+          env = buildGazebros2nixRosEnv distro pkgs packages;
+        in
+        pkgs.mkShell {
+          name = "gazebros2nix default ROS devShell";
+          inputsFrom = [ shell ];
+          packages = getRosBasePackages distro pkgs;
+          shellHook = rosShellHook { inherit env pkgs; };
+        };
+
     in
     {
       flake = {
         lib = {
-          inherit rosWrapperArgs rosShellHook;
+          inherit
+            rosWrapperArgs
+            rosShellHook
+            getRosBasePackages
+            buildGazebros2nixShell
+            buildGazebros2nixEnv
+            buildGazebros2nixDevShell
+            buildGazebros2nixRosShell
+            buildGazebros2nixRosEnv
+            buildGazebros2nixRosDevShell
+            ;
         };
 
         overlays.${cfg.overlayName} =
@@ -476,112 +594,20 @@ in
           devShells = {
             default = lib.mkDefault (
               if (cfg.rosPackages == { }) then
-                self'.devShells.gazebros2nix-dev
+                (buildGazebros2nixDevShell cfg.rosShellDistro pkgs self'.packages)
               else
-                self'.devShells.gazebros2nix-dev-ros
+                (buildGazebros2nixRosDevShell cfg.rosShellDistro pkgs self'.packages)
             );
-
-            gazebros2nix = pkgs.mkShell {
-              name = "gazebros2nix default shell";
-              packages = lib.attrValues (
-                lib.filterAttrs (
-                  n: v:
-                  (n != "default")
-                  && (cfg.filterPackages n v)
-                  && ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${cfg.rosShellDistro}-" n)
-                ) self'.packages
-              );
-            };
-
-            gazebros2nix-env = pkgs.rosPackages.${cfg.rosShellDistro}.buildEnv {
-              paths =
-                let
-                  distro = cfg.rosShellDistro;
-                in
-                lib.unique (
-                  lib.filter lib.isDerivation (
-                    (self'.devShells.gazebros2nix.buildInputs or [ ])
-                    ++ (self'.devShells.gazebros2nix.nativeBuildInputs or [ ])
-                    ++ (self'.devShells.gazebros2nix.propagatedNativeBuildInputs or [ ])
-                    ++ (self'.devShells.gazebros2nix.propagatedBuildInputs or [ ])
-                  )
-                  ++ lib.optionals (distro == "humble" || distro == "jazzy" || distro == "kilted") [
-                    pkgs.python3Packages.coal # TODO
-                    pkgs.qt5.wrapQtAppsHook
-                    pkgs.qt5.qtgraphicaleffects
-                  ]
-                  ++ lib.optionals (distro == "rolling") [
-                    pkgs.qt6.qtbase
-                    pkgs.qt6.wrapQtAppsHook
-                  ]
-                );
-              postBuild = rosWrapperArgs cfg.rosShellDistro pkgs;
-            };
-
-            gazebros2nix-ros = pkgs.mkShell {
-              name = "gazebros2nix default ROS shell";
-              inputsFrom = [ self'.devShells.gazebros2nix ];
-              packages = [
-                pkgs.colcon
-                pkgs.rosPackages.${cfg.rosShellDistro}.ros2topic
-              ];
-              shellHook = rosShellHook {
-                inherit pkgs;
-                env = self'.devShells.gazebros2nix-env;
-              };
-            };
-
-            gazebros2nix-dev = pkgs.mkShell {
-              name = "gazebros2nix default devShell";
-              inputsFrom = lib.attrValues (
-                lib.filterAttrs (
-                  n: v:
-                  (n != "default")
-                  && (cfg.filterPackages n v)
-                  && ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${cfg.rosShellDistro}-" n)
-                ) self'.packages
-              );
-            };
-
-            gazebros2nix-dev-env = pkgs.rosPackages.${cfg.rosShellDistro}.buildEnv {
-              paths =
-                let
-                  distro = cfg.rosShellDistro;
-                in
-                lib.unique (
-                  lib.filter lib.isDerivation (
-                    (self'.devShells.gazebros2nix-dev.buildInputs or [ ])
-                    ++ (self'.devShells.gazebros2nix-dev.nativeBuildInputs or [ ])
-                    ++ (self'.devShells.gazebros2nix-dev.propagatedNativeBuildInputs or [ ])
-                    ++ (self'.devShells.gazebros2nix-dev.propagatedBuildInputs or [ ])
-                  )
-                  ++ lib.optional (
-                    distro == "humble" || distro == "jazzy" || distro == "kilted"
-                  ) pkgs.qt5.wrapQtAppsHook
-                  ++ lib.optionals (distro == "rolling") [
-                    pkgs.qt6.wrapQtAppsHook
-                    pkgs.qt6.qtbase
-                  ]
-                );
-            };
-
-            gazebros2nix-dev-ros = pkgs.mkShell {
-              name = "gazebros2nix default ROS devShell";
-              inputsFrom = [ self'.devShells.gazebros2nix-dev ];
-              packages = [
-                pkgs.colcon
-                pkgs.rosPackages.${cfg.rosShellDistro}.ros2topic
-              ];
-              shellHook = rosShellHook {
-                inherit pkgs;
-                env = self'.devShells.gazebros2nix-dev-env;
-              };
-            };
           };
 
           # expose packages configured by consumer in gazebros2nix.{overrides,pyOverrides,rosOverrides,packages,pyPackages,rosPackages}
           packages = {
-            default = lib.mkDefault self'.devShells.gazebros2nix-env;
+            default = lib.mkDefault (
+              if (cfg.rosPackages == { }) then
+                (buildGazebros2nixEnv cfg.rosShellDistro pkgs self'.packages)
+              else
+                (buildGazebros2nixRosEnv cfg.rosShellDistro pkgs self'.packages)
+            );
           }
           // (lib.mapAttrs (name: _v: pkgs.${name}) (cfg.overrides // cfg.packages))
           // (lib.mapAttrs' (name: _v: lib.nameValuePair "py-${name}" pkgs.python3Packages.${name}) (
@@ -594,7 +620,12 @@ in
                 distro = cfg.rosDistros;
                 name = lib.attrNames (cfg.rosOverrides // cfg.rosPackages);
               }
-          ));
+          ))
+          // lib.optionalAttrs (cfg.rosPackages != { }) (
+            lib.genAttrs' cfg.rosDistros (
+              distro: lib.nameValuePair "ros-${distro}" (buildGazebros2nixRosEnv distro pkgs self'.packages)
+            )
+          );
 
           treefmt = {
             # workaround  https://github.com/numtide/treefmt-nix/issues/352
