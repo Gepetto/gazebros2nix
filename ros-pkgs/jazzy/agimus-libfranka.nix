@@ -7,7 +7,7 @@
   cmake,
 
   # buildInputs
-  agimus-libagimus-franka-common,
+  agimus-libfranka-common,
   eigen,
   poco,
 
@@ -17,14 +17,14 @@
   gtest,
 }:
 buildRosPackage rec {
-  pname = "ros-rolling-agimus-libagimus-franka";
+  pname = "ros-jazzy-agimus-libfranka";
   version = "0.9.3";
 
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus_libfranka";
-    rev = "6c7814985023d4b66925a788d80a6a58ac34a1a3";
-    hash = "sha256-9H+mmLy5UOmVYkGWpE/FhroZvlAoVXzM2aFyvIMamCQ=";
+    rev = "69c80cdf6ed99a89c31f253a02318eec5a769a84";
+    hash = "sha256-XbuRAvVC3QGrdzxQBQGcuFzrgkb6aA9gRlOPL1ESJyM=";
   };
   sourceRoot = "source/";
 
@@ -34,7 +34,7 @@ buildRosPackage rec {
     cmake
   ];
   buildInputs = [
-    agimus-libagimus-franka-common
+    agimus-libfranka-common
     eigen
     poco
   ];
