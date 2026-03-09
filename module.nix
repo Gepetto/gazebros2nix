@@ -269,7 +269,7 @@ in
       buildGazebros2nixRosEnv =
         distro: pkgs: packages:
         let
-          shell = buildGazebros2nixDevShell distro pkgs packages;
+          shell = buildGazebros2nixRosShell distro pkgs packages;
         in
         pkgs.rosPackages.${distro}.buildEnv {
           paths = lib.unique (
@@ -593,17 +593,22 @@ in
 
           devShells = {
             default = lib.mkDefault (
-              if (cfg.rosPackages == { }) then
+              if (cfg.rosPackages == { } && cfg.rosOverrides == { }) then
                 (buildGazebros2nixDevShell cfg.rosShellDistro pkgs self'.packages)
               else
                 (buildGazebros2nixRosDevShell cfg.rosShellDistro pkgs self'.packages)
             );
-          };
+          }
+          // lib.optionalAttrs (cfg.rosPackages != { } || cfg.rosOverrides != { }) (
+            lib.genAttrs' cfg.rosDistros (
+              distro: lib.nameValuePair "ros-${distro}" (buildGazebros2nixRosDevShell distro pkgs self'.packages)
+            )
+          );
 
           # expose packages configured by consumer in gazebros2nix.{overrides,pyOverrides,rosOverrides,packages,pyPackages,rosPackages}
           packages = {
             default = lib.mkDefault (
-              if (cfg.rosPackages == { }) then
+              if (cfg.rosPackages == { } && cfg.rosOverrides == { }) then
                 (buildGazebros2nixEnv cfg.rosShellDistro pkgs self'.packages)
               else
                 (buildGazebros2nixRosEnv cfg.rosShellDistro pkgs self'.packages)
@@ -621,7 +626,7 @@ in
                 name = lib.attrNames (cfg.rosOverrides // cfg.rosPackages);
               }
           ))
-          // lib.optionalAttrs (cfg.rosPackages != { }) (
+          // lib.optionalAttrs (cfg.rosPackages != { } || cfg.rosOverrides != { }) (
             lib.genAttrs' cfg.rosDistros (
               distro: lib.nameValuePair "ros-${distro}" (buildGazebros2nixRosEnv distro pkgs self'.packages)
             )
