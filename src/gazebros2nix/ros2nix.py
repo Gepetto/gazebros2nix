@@ -19,7 +19,7 @@ from catkin_pkg.package import parse_package_string
 from github import Auth, Github
 from jinja2 import Environment, Template
 
-from .lib import LICENSES, get_parser, HashesFile, get_rosdeps, SPDX_LICENSES
+from .lib import LICENSES, get_parser, HashesFile, get_rosdeps
 
 TEMPLATE = """{
   lib,
@@ -161,10 +161,6 @@ class Package:
 
         licenses = []
         for lic in pkg.licenses:
-            if lic not in SPDX_LICENSES:
-                logger.warning(
-                    "Invalid %s %s license: %s", repo.repo.full_name, package, lic
-                )
             if nlic := LICENSES.get(lic):
                 licenses.append(nlic)
             else:

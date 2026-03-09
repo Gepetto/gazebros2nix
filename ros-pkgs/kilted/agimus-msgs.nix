@@ -26,8 +26,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus_msgs";
-    rev = "ff368e6466034cf1a75d816a76960b580752d45d";
-    hash = "sha256-p6VlN6g+Fw+wfh2YX5vesN9wvF2oymFosE1x8vzukgs=";
+    rev = "817b3dafdc4649b6daf33fca3853d5d43bad67f6";
+    hash = "sha256-YAgE2cwBWyleSgrILYdpRkJ/CRWkLcG9prYg6s046gs=";
   };
   sourceRoot = "source/";
 
