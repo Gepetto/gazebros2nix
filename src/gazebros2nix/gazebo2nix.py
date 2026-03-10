@@ -264,7 +264,7 @@ def main():
         logger.info("Importing rosdeps")
         rosdeps = get_rosdeps(gh)
         for distro, conf in cfg.items():
-            if args.distro and distro != args.distro:
+            if args.distro and args.distro != "all" and distro != args.distro:
                 continue
             GazeboDistro(
                 gh,
