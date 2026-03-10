@@ -269,7 +269,7 @@ in
       buildGazebros2nixRosEnv =
         distro: pkgs: packages:
         let
-          shell = buildGazebros2nixRosShell distro pkgs packages;
+          shell = buildGazebros2nixDevShell distro pkgs packages;
         in
         pkgs.rosPackages.${distro}.buildEnv {
           paths = lib.unique (
@@ -609,9 +609,9 @@ in
           packages = {
             default = lib.mkDefault (
               if (cfg.rosPackages == { } && cfg.rosOverrides == { }) then
-                (buildGazebros2nixEnv cfg.rosShellDistro pkgs self'.packages)
+                (buildGazebros2nixShell cfg.rosShellDistro pkgs self'.packages)
               else
-                (buildGazebros2nixRosEnv cfg.rosShellDistro pkgs self'.packages)
+                (buildGazebros2nixRosShell cfg.rosShellDistro pkgs self'.packages)
             );
           }
           // (lib.mapAttrs (name: _v: pkgs.${name}) (cfg.overrides // cfg.packages))
@@ -628,7 +628,7 @@ in
           ))
           // lib.optionalAttrs (cfg.rosPackages != { } || cfg.rosOverrides != { }) (
             lib.genAttrs' cfg.rosDistros (
-              distro: lib.nameValuePair "ros-${distro}" (buildGazebros2nixRosEnv distro pkgs self'.packages)
+              distro: lib.nameValuePair "ros-${distro}" (buildGazebros2nixRosShell distro pkgs self'.packages)
             )
           );
 
