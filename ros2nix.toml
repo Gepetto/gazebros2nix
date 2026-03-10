@@ -4,13 +4,10 @@ branch = "main"
 branch = "main"
 [humble."agimus-project/agimus_franka_description"]
 branch = "main"
-do_check = false
 [humble."agimus-project/agimus_franka_ros2"]
 branch = "main"
-do_check = false
 [humble."agimus-project/agimus_libfranka"]
 branch = "main"
-do_check = false
 [humble."agimus-project/agimus-libfranka-common"]
 [humble."agimus-project/agimus_msgs"]
 
@@ -71,13 +68,10 @@ branch = "main"
 branch = "main"
 [jazzy."agimus-project/agimus_franka_description"]
 branch = "main"
-do_check = false
 [jazzy."agimus-project/agimus_franka_ros2"]
 branch = "main"
-do_check = false
 [jazzy."agimus-project/agimus_libfranka"]
 branch = "main"
-do_check = false
 [jazzy."agimus-project/agimus-libfranka-common"]
 [jazzy."agimus-project/agimus_msgs"]
 
@@ -165,10 +159,8 @@ branch = "main"
 do_check = false
 [kilted."agimus-project/agimus_franka_ros2"]
 branch = "main"
-do_check = false
 [kilted."agimus-project/agimus_libfranka"]
 branch = "main"
-do_check = false
 [kilted."agimus-project/agimus-libfranka-common"]
 [kilted."agimus-project/agimus_msgs"]
 
@@ -181,13 +173,10 @@ branch = "main"
 branch = "main"
 [rolling."agimus-project/agimus_franka_description"]
 branch = "main"
-do_check = false
 [rolling."agimus-project/agimus_franka_ros2"]
 branch = "main"
-do_check = false
 [rolling."agimus-project/agimus_libfranka"]
 branch = "main"
-do_check = false
 [rolling."agimus-project/agimus-libfranka-common"]
 [rolling."agimus-project/agimus_msgs"]
 
