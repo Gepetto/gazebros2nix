@@ -5,6 +5,7 @@
   {
     # keep-sorted start block=yes
     freeimage = final.callPackage ./garbage/freeimage/package.nix { };
+    gmock = final.gtest; # https://github.com/ros/rosdistro/pull/50205
     libjpeg_turbo-freeimage = final.callPackage ./garbage/libjpeg_turbo-freeimage/package.nix { };
     zenoh-c = prev.zenoh-c.overrideAttrs (super: {
       # TODO: port https://github.com/eclipse-zenoh/zenoh-cpp/pull/702
