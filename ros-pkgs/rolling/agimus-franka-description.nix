@@ -16,8 +16,6 @@
 
   # checkInputs
   ament-cmake-pytest,
-  ament-lint-auto,
-  ament-lint-common,
 }:
 buildRosPackage rec {
   pname = "ros-rolling-agimus-franka-description";
@@ -26,8 +24,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus_franka_description";
-    rev = "a729f1103985226d2e51ec9bcf289e6b1e545c52";
-    hash = "sha256-NtTlaSYsn3oHXbGid+w8LRblZmcyScL+W5awYckvYTA=";
+    rev = "d167e716414ddb186513bd402f8abc80e8f9dbe4";
+    hash = "sha256-xs4JC6UjWMyHs/zN3nyimkByH+DQF5i+3lpCuuABvAY=";
   };
   sourceRoot = "source/";
 
@@ -46,8 +44,6 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-cmake-pytest
-    ament-lint-auto
-    ament-lint-common
   ];
 
   doCheck = true;
