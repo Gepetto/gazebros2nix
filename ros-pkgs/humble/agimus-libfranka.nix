@@ -14,6 +14,7 @@
   # propagatedBuildInputs
 
   # checkInputs
+  gmock,
   gtest,
 }:
 buildRosPackage rec {
@@ -23,8 +24,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus_libfranka";
-    rev = "69c80cdf6ed99a89c31f253a02318eec5a769a84";
-    hash = "sha256-XbuRAvVC3QGrdzxQBQGcuFzrgkb6aA9gRlOPL1ESJyM=";
+    rev = "3204e361ada5960c864426868988d93f1276b2e5";
+    hash = "sha256-iMCDIMvR30FAL8Ussf2bt/VXjftVtRJ/h0v5ybXXhyo=";
   };
   sourceRoot = "source/";
 
@@ -41,10 +42,11 @@ buildRosPackage rec {
   propagatedBuildInputs = [
   ];
   checkInputs = [
+    gmock
     gtest
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of libagimus_franka for agimus_franka robots not maintained anymore by agimus_franka";

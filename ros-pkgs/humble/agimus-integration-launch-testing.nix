@@ -48,7 +48,7 @@ buildRosPackage rec {
     launch-testing
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of integration_launch_testing for franka robots not maintained anymore by franka";

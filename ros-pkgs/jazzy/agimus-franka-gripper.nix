@@ -72,7 +72,7 @@ buildRosPackage rec {
     ament-cmake-xmllint
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_gripper for franka robots not maintained anymore by franka";

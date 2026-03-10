@@ -70,7 +70,7 @@ buildRosPackage rec {
     ament-cmake-xmllint
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_hardware for franka robots not maintained anymore by franka";

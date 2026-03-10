@@ -50,7 +50,7 @@ buildRosPackage rec {
     ament-lint-auto
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_gazebo_bringup for franka robots not maintained anymore by franka";

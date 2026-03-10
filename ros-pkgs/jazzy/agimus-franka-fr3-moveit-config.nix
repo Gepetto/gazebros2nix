@@ -72,7 +72,7 @@ buildRosPackage rec {
     ament-lint-common
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_fr3_moveit_config for franka robots not maintained anymore by franka";

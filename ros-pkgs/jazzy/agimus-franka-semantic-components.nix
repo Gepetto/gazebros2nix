@@ -76,7 +76,7 @@ buildRosPackage rec {
     ament-cmake-xmllint
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_semantic_components for franka robots not maintained anymore by franka";

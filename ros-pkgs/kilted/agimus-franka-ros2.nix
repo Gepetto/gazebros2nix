@@ -62,7 +62,7 @@ buildRosPackage rec {
     ament-lint-common
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_ros2 for franka robots not maintained anymore by franka";

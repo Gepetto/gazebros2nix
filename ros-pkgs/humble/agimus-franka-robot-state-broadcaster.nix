@@ -80,7 +80,7 @@ buildRosPackage rec {
     ros2-control-test-assets
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_robot_state_broadcaster for franka robots not maintained anymore by franka";
