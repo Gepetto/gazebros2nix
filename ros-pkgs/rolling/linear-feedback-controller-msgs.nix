@@ -5,7 +5,6 @@
 
   # nativeBuildInputs
   ament-cmake,
-  eigen3-cmake-module,
   rosidl-default-generators,
 
   # buildInputs
@@ -15,10 +14,10 @@
   jrl-cmakemodules,
   sensor-msgs,
   std-msgs,
-  tf2-eigen,
 
   # propagatedBuildInputs
   rosidl-default-runtime,
+  tf2-eigen,
 
   # checkInputs
   ament-cmake-gtest,
@@ -27,13 +26,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-rolling-linear-feedback-controller-msgs";
-  version = "1.2.0";
+  version = "1.2.1";
 
   src = fetchFromGitHub {
     owner = "loco-3d";
     repo = "linear-feedback-controller-msgs";
     tag = "v${version}";
-    hash = "sha256-EFHYD5PC7HeUVZcLPqisUFfAFLsjpoR7xYqFaOx8bp4=";
+    hash = "sha256-onJMrXvn3jWVNyY/A7utPDG11P3yZ5mtGt5ZnZ3ccxU=";
   };
   sourceRoot = "source/";
 
@@ -41,7 +40,6 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
-    eigen3-cmake-module
     rosidl-default-generators
   ];
   buildInputs = [
@@ -51,10 +49,10 @@ buildRosPackage rec {
     jrl-cmakemodules
     sensor-msgs
     std-msgs
-    tf2-eigen
   ];
   propagatedBuildInputs = [
     rosidl-default-runtime
+    tf2-eigen
   ];
   checkInputs = [
     ament-cmake-gtest

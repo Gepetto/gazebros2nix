@@ -102,6 +102,7 @@
   "https://github.com/gbartyzel/ros2_net_ft_driver/archive/refs/tags/v0.0.0.tar.gz": "sha256-0gTNXhQiWwHNozPVgHz3wbh74RfkKDgceIHByk77Dcc=",
   "https://github.com/jpgtzg/omni_drive_controller/archive/842b49a9562433ca14ecb02c83eecded0fb9047a.tar.gz": "sha256-9IaZ3XtdWD0SeHlHR4tDBmRXOnXKe7gRK3sc7k8Csp0=",
   "https://github.com/loco-3d/linear-feedback-controller-msgs/archive/refs/tags/v1.2.0.tar.gz": "sha256-EFHYD5PC7HeUVZcLPqisUFfAFLsjpoR7xYqFaOx8bp4=",
+  "https://github.com/loco-3d/linear-feedback-controller-msgs/archive/refs/tags/v1.2.1.tar.gz": "sha256-onJMrXvn3jWVNyY/A7utPDG11P3yZ5mtGt5ZnZ3ccxU=",
   "https://github.com/loco-3d/linear-feedback-controller/archive/refs/tags/v3.0.1.tar.gz": "sha256-LeKn8myFQ7e9sS2UrPsmlHGPujTwGptkIHcT9G1wfLc=",
   "https://github.com/pal-robotics/pal_pro_gripper/archive/refs/tags/1.11.4.tar.gz": "sha256-KIa7yHVsW2inx3GchQ77UmvBGk503z0GpCRoyZcRBUU=",
   "https://github.com/pal-robotics/pal_sea_arm/archive/refs/tags/1.23.2.tar.gz": "sha256-8/N+vUzZFULRbKwE3nuqe4JDJ5O9KAM2jrQIPzkmVN0=",
