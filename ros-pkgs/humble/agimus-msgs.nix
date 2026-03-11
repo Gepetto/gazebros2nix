@@ -21,13 +21,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-msgs";
-  version = "0.0.2";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "agimus-project";
-    repo = "agimus_msgs";
-    rev = "a616902997a36ddb95089bb4fdda2a7069418f44";
-    hash = "sha256-+aaUQ+8QDO/UbFgSBZOBtEwLg87T8CHApkw7HANiCys=";
+    repo = "agimus-msgs";
+    tag = "v${version}";
+    hash = "sha256-j1eatFsB4Uek1n7x7gK5tSPi33B67mR8CXBVCDh+RFY=";
   };
   sourceRoot = "source/";
 
@@ -55,7 +55,7 @@ buildRosPackage rec {
   meta = {
     description = "Agimus project ROS messages";
     license = with lib.licenses; [ bsd2 ];
-    homepage = "https://github.com/agimus-project/agimus_msgs";
+    homepage = "https://github.com/agimus-project/agimus-msgs";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };
