@@ -1,1 +1,1 @@
-{ ign-cmake.nix }: ign-cmake.nix
+{ ign-cmake }: ign-cmake

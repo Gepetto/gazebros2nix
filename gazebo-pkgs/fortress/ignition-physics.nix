@@ -1,1 +1,1 @@
-{ ign-physics.nix }: ign-physics.nix
+{ ign-physics }: ign-physics

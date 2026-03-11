@@ -1,1 +1,1 @@
-{ ign-math.nix }: ign-math.nix
+{ ign-math }: ign-math

@@ -1,1 +1,1 @@
-{ ign-launch.nix }: ign-launch.nix
+{ ign-launch }: ign-launch

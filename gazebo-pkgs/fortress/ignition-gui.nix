@@ -1,1 +1,1 @@
-{ ign-gui.nix }: ign-gui.nix
+{ ign-gui }: ign-gui

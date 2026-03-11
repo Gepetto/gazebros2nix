@@ -1,1 +1,1 @@
-{ ign-fuel-tools7.nix }: ign-fuel-tools7.nix
+{ ign-fuel-tools7 }: ign-fuel-tools7

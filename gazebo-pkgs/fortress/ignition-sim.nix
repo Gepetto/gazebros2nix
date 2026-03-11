@@ -1,1 +1,1 @@
-{ ign-sim.nix }: ign-sim.nix
+{ ign-sim }: ign-sim

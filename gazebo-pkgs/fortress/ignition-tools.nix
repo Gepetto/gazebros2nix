@@ -1,1 +1,1 @@
-{ ign-tools.nix }: ign-tools.nix
+{ ign-tools }: ign-tools

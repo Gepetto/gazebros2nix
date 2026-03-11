@@ -1,1 +1,1 @@
-{ ign-common.nix }: ign-common.nix
+{ ign-common }: ign-common

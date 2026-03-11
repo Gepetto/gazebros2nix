@@ -1,1 +1,1 @@
-{ ign-utils.nix }: ign-utils.nix
+{ ign-utils }: ign-utils

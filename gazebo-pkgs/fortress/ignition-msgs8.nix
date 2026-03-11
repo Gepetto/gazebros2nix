@@ -1,1 +1,1 @@
-{ ign-msgs8.nix }: ign-msgs8.nix
+{ ign-msgs8 }: ign-msgs8

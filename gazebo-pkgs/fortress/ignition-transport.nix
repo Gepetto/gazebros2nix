@@ -1,1 +1,1 @@
-{ ign-transport.nix }: ign-transport.nix
+{ ign-transport }: ign-transport

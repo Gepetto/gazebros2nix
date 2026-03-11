@@ -1,1 +1,1 @@
-{ ign-sensors.nix }: ign-sensors.nix
+{ ign-sensors }: ign-sensors

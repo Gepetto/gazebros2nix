@@ -1,1 +1,1 @@
-{ ign-plugin.nix }: ign-plugin.nix
+{ ign-plugin }: ign-plugin

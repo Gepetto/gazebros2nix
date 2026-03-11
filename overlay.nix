@@ -126,7 +126,7 @@
             installCheckTarget = "test";
           };
 
-          linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs (super: {
+          linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs (_super: {
             preCheck = ''
               export LD_LIBRARY_PATH=.
             '';
