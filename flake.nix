@@ -138,7 +138,6 @@
                 inherit (pkgs)
                   # keep-sorted start
                   freeimage
-                  xmllintPackageHook
                   # keep-sorted end
                   ;
               }

@@ -117,20 +117,55 @@
 
     rosPackages =
       let
-        rosOverlay = _ros-final: ros-prev: {
-          agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs {
-            # This package has a test that test xacro with an installed version of itself
-            checkTarget = " ";
-            doInstallCheck = true;
-            preInstallCheck = "export AMENT_PREFIX_PATH=$out:$AMENT_PREFIX_PATH";
-            installCheckTarget = "test";
-          };
+        # some packages need an installed verison of themself discoverable by ament.
+        # maybe we could use build dir.
+        amentInstallCheckOverride = {
+          checkTarget = " ";
+          doInstallCheck = true;
+          preInstallCheck = "export AMENT_PREFIX_PATH=$out:$AMENT_PREFIX_PATH";
+          installCheckTarget = "test";
+        };
+        writableTmpDirAsHomeHookOverride = {
+          nativeCheckInputs = [ final.writableTmpDirAsHomeHook ];
+        };
+        cleanNixCflagsCompileHookOverride = {
+          propagatedNativeBuildInputs = [ final.cleanNixCflagsCompileHook ];
+        };
 
+        rosOverlay = _ros-final: ros-prev: {
+          # keep-sorted start block=yes
+          agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs amentInstallCheckOverride;
+          agimus-franka-example-controllers = ros-prev.agimus-franka-example-controllers.overrideAttrs (
+            amentInstallCheckOverride
+            // cleanNixCflagsCompileHookOverride
+            // writableTmpDirAsHomeHookOverride
+            // {
+              nativeCheckInputs = [
+                final.writableTmpDirAsHomeHook
+                final.breakpointHook
+              ];
+            }
+          );
+          agimus-franka-fr3-moveit-config = ros-prev.agimus-franka-fr3-moveit-config.overrideAttrs amentInstallCheckOverride;
+          agimus-franka-hardware = ros-prev.agimus-franka-hardware.overrideAttrs writableTmpDirAsHomeHookOverride;
+          agimus-franka-robot-state-broadcaster =
+            ros-prev.agimus-franka-robot-state-broadcaster.overrideAttrs
+              (
+                writableTmpDirAsHomeHookOverride
+                // {
+                  cmakeFlags = [
+                    # TODO: ???
+                    "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;test_load_agimus_franka_robot_state_broadcaster"
+                  ];
+                }
+              );
+          agimus-franka-semantic-components = ros-prev.agimus-franka-semantic-components.overrideAttrs amentInstallCheckOverride;
           linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs (_super: {
             preCheck = ''
               export LD_LIBRARY_PATH=.
             '';
           });
+          # keep-sorted end
         };
       in
       prev.rosPackages

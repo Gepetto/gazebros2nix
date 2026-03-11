@@ -26,8 +26,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "ebf734c0dfa09b0fc29cde12b678fed4a099f0db";
-    hash = "sha256-O+xQSbQsqCSVXhj9bcfgJjIgySt7nvNJjLCft6I5TRY=";
+    rev = "f86c1247e95d06dac4d46d8d799290463e8c2651";
+    hash = "sha256-jPphQtp89HZMVdUfLi06cbMUhO8bCcXUquRD6OujJao=";
   };
   sourceRoot = "source/agimus_franka_gazebo/agimus_franka_gazebo_bringup";
 
