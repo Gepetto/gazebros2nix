@@ -36,8 +36,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "40e3f6073cf4cb2e6a990dba367207bdccc7ffeb";
-    hash = "sha256-eZpLyhPiGmxFkS5/zlri4wxL2riTUpf2DR5vUaoAIEU=";
+    rev = "be2d4c91d57c08889bfbeda037658f9bc25c149d";
+    hash = "sha256-gFmqCvtZ8ICcQ3CPCWMFSr7m5Z6qSvxkDPtg99CBjLI=";
   };
   sourceRoot = "source/agimus_franka_hardware";
 
@@ -73,7 +73,7 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "fork of agimus_franka_hardware for agimus_franka robots not maintained anymore by agimus_franka";
+    description = "fork of franka_hardware for franka robots not maintained anymore by agimus_franka";
     license = with lib.licenses; [ asl20 ];
     homepage = "https://github.com/agimus-project/agimus-franka-ros2";
     platforms = lib.platforms.linux;
