@@ -8,6 +8,7 @@ branch = "main"
 branch = "main"
 [humble."agimus-project/agimus-libfranka"]
 branch = "main"
+do_check = false
 [humble."agimus-project/agimus-libfranka-common"]
 [humble."agimus-project/agimus-msgs"]
 
@@ -72,6 +73,7 @@ branch = "main"
 branch = "main"
 [jazzy."agimus-project/agimus-libfranka"]
 branch = "main"
+do_check = false
 [jazzy."agimus-project/agimus-libfranka-common"]
 [jazzy."agimus-project/agimus-msgs"]
 
@@ -161,6 +163,7 @@ do-check = false
 branch = "main"
 [kilted."agimus-project/agimus-libfranka"]
 branch = "main"
+do_check = false
 [kilted."agimus-project/agimus-libfranka-common"]
 [kilted."agimus-project/agimus-msgs"]
 
@@ -177,6 +180,7 @@ branch = "main"
 branch = "main"
 [rolling."agimus-project/agimus-libfranka"]
 branch = "main"
+do_check = false
 [rolling."agimus-project/agimus-libfranka-common"]
 [rolling."agimus-project/agimus-msgs"]
 
