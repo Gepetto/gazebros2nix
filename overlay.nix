@@ -160,6 +160,10 @@
               '';
             };
 
+            agimus-franka-ign-ros2-control = humble-prev.agimus-franka-ign-ros2-control.overrideAttrs {
+              env.IGNITION_VERSION = "fortress";
+            };
+
             # that repo somehow has a 0.0.0 tag
             net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
               src = final.fetchFromGitHub {
@@ -228,6 +232,11 @@
           jazzy-final: jazzy-prev:
           (rosOverlay jazzy-final jazzy-prev)
           // {
+
+            agimus-franka-ign-ros2-control = jazzy-prev.agimus-franka-ign-ros2-control.overrideAttrs {
+              env.GAZEBO_VERSION = "harmonic";
+            };
+
             # TODO: does not seem useful for now, but might bite later
             gazebo-planar-move-plugin = null;
             urdf-test = null;
@@ -379,7 +388,9 @@
           kilted-final: kilted-prev:
           (rosOverlay kilted-final kilted-prev)
           // {
-
+            agimus-franka-ign-ros2-control = kilted-prev.agimus-franka-ign-ros2-control.overrideAttrs {
+              env.GAZEBO_VERSION = "ionic";
+            };
           }
         );
 
@@ -387,6 +398,9 @@
           rolling-final: rolling-prev:
           (rosOverlay rolling-final rolling-prev)
           // {
+            agimus-franka-ign-ros2-control = rolling-prev.agimus-franka-ign-ros2-control.overrideAttrs {
+              env.GAZEBO_VERSION = "jetty";
+            };
             linear-feedback-controller-msgs =
               rolling-prev.linear-feedback-controller-msgs.overrideAttrs
                 (super: {
