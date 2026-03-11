@@ -12,6 +12,7 @@
 
   # propagatedBuildInputs
   agimus-libfranka-common,
+  eigen,
 
   # checkInputs
   gmock,
@@ -24,8 +25,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-libfranka";
-    rev = "652c902b68dc10b8cd9b65cf3c68587e13d09197";
-    hash = "sha256-zwdER+AIiL9BwBDzJgBn43gFuuO7InfedzVUnKBYaqc=";
+    rev = "c669067a902d4e835d68f01a10bbe72a72d47607";
+    hash = "sha256-OHo/TR2Thel6TIxzskQs1D+4uUl9WH3pEV+cvpxbxUI=";
   };
   sourceRoot = "source/";
 
@@ -40,6 +41,7 @@ buildRosPackage rec {
   ];
   propagatedBuildInputs = [
     agimus-libfranka-common
+    eigen
   ];
   checkInputs = [
     gmock
