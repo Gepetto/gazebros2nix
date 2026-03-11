@@ -447,11 +447,14 @@ in
                           ignition-math6
                           ignition-msgs8
                           ignition-physics5
+                          ignition-plugin
                           ignition-plugin1
                           ignition-rendering6
                           ignition-sensors6
+                          ignition-tools
                           ignition-tools1
                           ignition-transport11
+                          ignition-utils
                           ignition-utils1
                           sdformat
                           sdformat12
