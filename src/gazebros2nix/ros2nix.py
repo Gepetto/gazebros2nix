@@ -220,6 +220,8 @@ class Package:
         check = sort_deps(
             pkg.test_depends, overrides.check, [*native, *build, *propagated]
         )
+        if any(dep.name == "ament_cmake_xmllint" for dep in pkg.test_depends):
+            check.append("xmllintPackageHook")
         check_scopes = deps_scopes(
             check, [*native_scopes, *build_scopes, *propagated_scopes]
         )
