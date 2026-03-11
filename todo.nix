@@ -262,9 +262,6 @@ final: prev: {
           agimus-franka-ign-ros2-control = humble-prev.agimus-franka-ign-ros2-control.overrideAttrs {
             env.IGNITION_VERSION = "fortress";
           };
-          # franka-ros2 wrong keys, should be fixed in agimus-franka-ros2
-          ignition-gazebo6 = humble-prev.ign-gazebo6;
-          ignition-plugin = humble-prev.ign-plugin1;
 
           # that repo somehow has a 0.0.0 tag
           net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
