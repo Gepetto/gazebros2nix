@@ -272,7 +272,9 @@ def main():
             environ["ROS_DISTRO"] = distro
             if distro == "humble":
                 environ["IGNITION_VERSION"] = "fortress"
+                environ["GAZEBO_VERSION"] = ""
             else:
+                environ["IGNITION_VERSION"] = ""
                 environ["GAZEBO_VERSION"] = {
                     "jazzy": "harmonic",
                     "kilted": "ionic",
