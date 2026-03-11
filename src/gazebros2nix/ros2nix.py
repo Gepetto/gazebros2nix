@@ -270,6 +270,14 @@ def main():
                 logger.debug("ignore distro %s", distro)
                 continue
             environ["ROS_DISTRO"] = distro
+            if distro == "humble":
+                environ["IGNITION_VERSION"] = "fortress"
+            else:
+                environ["GAZEBO_VERSION"] = {
+                    "jazzy": "harmonic",
+                    "kilted": "ionic",
+                    "rolling": "jetty",
+                }[distro]
             for repo, repo_conf in conf.items():
                 if args.repo and repo != args.repo:
                     logger.debug("ignore repo %s", repo)
