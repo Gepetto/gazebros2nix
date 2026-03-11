@@ -1,15 +1,15 @@
-[humble."agimus-project/agimus_controller"]
+[humble."agimus-project/agimus-controller"]
 branch = "main"
 [humble."agimus-project/agimus-demos"]
 branch = "main"
-[humble."agimus-project/agimus_franka_description"]
+[humble."agimus-project/agimus-franka-description"]
 branch = "main"
-[humble."agimus-project/agimus_franka_ros2"]
+[humble."agimus-project/agimus-franka-ros2"]
 branch = "main"
-[humble."agimus-project/agimus_libfranka"]
+[humble."agimus-project/agimus-libfranka"]
 branch = "main"
 [humble."agimus-project/agimus-libfranka-common"]
-[humble."agimus-project/agimus_msgs"]
+[humble."agimus-project/agimus-msgs"]
 
 [humble."gbartyzel/ros2_net_ft_driver"]
 branch = "humble"
@@ -62,18 +62,18 @@ tiago_pro_description = {do_check = false}
 [humble."pal-robotics/tiago_pro_simulation".packages]
 tiago_pro_gazebo = {do_check = false}
 
-[jazzy."agimus-project/agimus_controller"]
+[jazzy."agimus-project/agimus-controller"]
 branch = "main"
 [jazzy."agimus-project/agimus-demos"]
 branch = "main"
-[jazzy."agimus-project/agimus_franka_description"]
+[jazzy."agimus-project/agimus-franka-description"]
 branch = "main"
-[jazzy."agimus-project/agimus_franka_ros2"]
+[jazzy."agimus-project/agimus-franka-ros2"]
 branch = "main"
-[jazzy."agimus-project/agimus_libfranka"]
+[jazzy."agimus-project/agimus-libfranka"]
 branch = "main"
 [jazzy."agimus-project/agimus-libfranka-common"]
-[jazzy."agimus-project/agimus_msgs"]
+[jazzy."agimus-project/agimus-msgs"]
 
 [jazzy."loco-3d/linear-feedback-controller"]
 [jazzy."loco-3d/linear-feedback-controller-msgs"]
@@ -150,35 +150,35 @@ tiago_pro_controller_configuration = {do_check = false}
 [jazzy."Tiago-Pro-Harmonic/tiago_pro_simulation".packages]
 tiago_pro_gazebo = {do_check = false}
 
-[kilted."agimus-project/agimus_controller"]
+[kilted."agimus-project/agimus-controller"]
 branch = "main"
 [kilted."agimus-project/agimus-demos"]
 branch = "main"
-[kilted."agimus-project/agimus_franka_description"]
+[kilted."agimus-project/agimus-franka-description"]
 branch = "main"
-do_check = false
-[kilted."agimus-project/agimus_franka_ros2"]
+do-check = false
+[kilted."agimus-project/agimus-franka-ros2"]
 branch = "main"
-[kilted."agimus-project/agimus_libfranka"]
+[kilted."agimus-project/agimus-libfranka"]
 branch = "main"
 [kilted."agimus-project/agimus-libfranka-common"]
-[kilted."agimus-project/agimus_msgs"]
+[kilted."agimus-project/agimus-msgs"]
 
 [kilted."loco-3d/linear-feedback-controller"]
 [kilted."loco-3d/linear-feedback-controller-msgs"]
 
-[rolling."agimus-project/agimus_controller"]
+[rolling."agimus-project/agimus-controller"]
 branch = "main"
 [rolling."agimus-project/agimus-demos"]
 branch = "main"
-[rolling."agimus-project/agimus_franka_description"]
+[rolling."agimus-project/agimus-franka-description"]
 branch = "main"
-[rolling."agimus-project/agimus_franka_ros2"]
+[rolling."agimus-project/agimus-franka-ros2"]
 branch = "main"
-[rolling."agimus-project/agimus_libfranka"]
+[rolling."agimus-project/agimus-libfranka"]
 branch = "main"
 [rolling."agimus-project/agimus-libfranka-common"]
-[rolling."agimus-project/agimus_msgs"]
+[rolling."agimus-project/agimus-msgs"]
 
 [rolling."loco-3d/linear-feedback-controller"]
 [rolling."loco-3d/linear-feedback-controller-msgs"]
