@@ -9,7 +9,6 @@
   # buildInputs
   agimus-franka-msgs,
   agimus-libfranka,
-  agimus-libfranka-common,
   hardware-interface,
   pluginlib,
   rclcpp,
@@ -28,6 +27,7 @@
   ament-cmake-lint-cmake,
   ament-cmake-pep257,
   ament-cmake-xmllint,
+  rmw-implementation-cmake,
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-franka-hardware";
@@ -35,11 +35,11 @@ buildRosPackage rec {
 
   src = fetchFromGitHub {
     owner = "agimus-project";
-    repo = "agimus_franka_ros2";
-    rev = "b4450db350c8ea796eef77290e81b09654f766bb";
-    hash = "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=";
+    repo = "agimus-franka-ros2";
+    rev = "40e3f6073cf4cb2e6a990dba367207bdccc7ffeb";
+    hash = "sha256-eZpLyhPiGmxFkS5/zlri4wxL2riTUpf2DR5vUaoAIEU=";
   };
-  sourceRoot = "source/franka_hardware";
+  sourceRoot = "source/agimus_franka_hardware";
 
   buildType = "ament_cmake";
 
@@ -49,7 +49,6 @@ buildRosPackage rec {
   buildInputs = [
     agimus-franka-msgs
     agimus-libfranka
-    agimus-libfranka-common
     hardware-interface
     pluginlib
     rclcpp
@@ -68,14 +67,15 @@ buildRosPackage rec {
     ament-cmake-lint-cmake
     ament-cmake-pep257
     ament-cmake-xmllint
+    rmw-implementation-cmake
   ];
 
   doCheck = true;
 
   meta = {
-    description = "fork of franka_hardware for franka robots not maintained anymore by franka";
+    description = "fork of agimus_franka_hardware for agimus_franka robots not maintained anymore by agimus_franka";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/agimus-project/agimus_franka_ros2";
+    homepage = "https://github.com/agimus-project/agimus-franka-ros2";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

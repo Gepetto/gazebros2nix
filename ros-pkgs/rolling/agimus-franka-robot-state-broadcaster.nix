@@ -11,7 +11,6 @@
   agimus-franka-msgs,
   agimus-franka-semantic-components,
   agimus-libfranka,
-  agimus-libfranka-common,
   backward-ros,
   builtin-interfaces,
   control-msgs,
@@ -29,7 +28,14 @@
   # propagatedBuildInputs
 
   # checkInputs
+  ament-cmake-clang-format,
+  ament-cmake-copyright,
+  ament-cmake-cppcheck,
+  ament-cmake-flake8,
   ament-cmake-gmock,
+  ament-cmake-lint-cmake,
+  ament-cmake-pep257,
+  ament-cmake-xmllint,
   hardware-interface,
   rclcpp,
   ros2-control-test-assets,
@@ -40,11 +46,11 @@ buildRosPackage rec {
 
   src = fetchFromGitHub {
     owner = "agimus-project";
-    repo = "agimus_franka_ros2";
-    rev = "b4450db350c8ea796eef77290e81b09654f766bb";
-    hash = "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=";
+    repo = "agimus-franka-ros2";
+    rev = "40e3f6073cf4cb2e6a990dba367207bdccc7ffeb";
+    hash = "sha256-eZpLyhPiGmxFkS5/zlri4wxL2riTUpf2DR5vUaoAIEU=";
   };
-  sourceRoot = "source/franka_robot_state_broadcaster";
+  sourceRoot = "source/agimus_franka_robot_state_broadcaster";
 
   buildType = "ament_cmake";
 
@@ -56,7 +62,6 @@ buildRosPackage rec {
     agimus-franka-msgs
     agimus-franka-semantic-components
     agimus-libfranka
-    agimus-libfranka-common
     backward-ros
     builtin-interfaces
     control-msgs
@@ -74,7 +79,14 @@ buildRosPackage rec {
   propagatedBuildInputs = [
   ];
   checkInputs = [
+    ament-cmake-clang-format
+    ament-cmake-copyright
+    ament-cmake-cppcheck
+    ament-cmake-flake8
     ament-cmake-gmock
+    ament-cmake-lint-cmake
+    ament-cmake-pep257
+    ament-cmake-xmllint
     hardware-interface
     rclcpp
     ros2-control-test-assets
@@ -83,9 +95,9 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "fork of franka_robot_state_broadcaster for franka robots not maintained anymore by franka";
+    description = "fork of agimus_franka_robot_state_broadcaster for agimus_franka robots not maintained anymore by agimus_franka";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/agimus-project/agimus_franka_ros2";
+    homepage = "https://github.com/agimus-project/agimus-franka-ros2";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };
