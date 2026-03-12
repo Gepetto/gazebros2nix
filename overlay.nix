@@ -135,7 +135,10 @@
         rosOverlay = _ros-final: ros-prev: {
           # keep-sorted start block=yes
           agimus-franka-msgs = ros-prev.agimus-franka-msgs.overrideAttrs (super: {
-            cmakeFlags = [ "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON" ];
+            cmakeFlags = [
+              "-DCMAKE_SKIP_BUILD_RPATH=ON"
+              "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
+            ];
           });
           agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs amentInstallCheckOverride;
           agimus-franka-example-controllers = ros-prev.agimus-franka-example-controllers.overrideAttrs (
