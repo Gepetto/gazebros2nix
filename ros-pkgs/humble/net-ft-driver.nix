@@ -34,6 +34,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/net_ft_driver";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

@@ -35,6 +35,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/play_motion2_cli";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_python";
 
   nativeBuildInputs = [

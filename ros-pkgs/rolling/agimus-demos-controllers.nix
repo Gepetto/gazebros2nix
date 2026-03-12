@@ -36,6 +36,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demos_controllers";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

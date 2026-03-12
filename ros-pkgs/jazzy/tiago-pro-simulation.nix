@@ -25,6 +25,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/tiago_pro_simulation";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

@@ -39,6 +39,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_controller_ros";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_python";
 
   nativeBuildInputs = [

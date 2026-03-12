@@ -46,6 +46,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/tiago_pro_gazebo";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

@@ -28,6 +28,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_00_franka_controller";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

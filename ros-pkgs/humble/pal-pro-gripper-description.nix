@@ -28,6 +28,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/pal_pro_gripper_description";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

@@ -32,6 +32,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_07_deburring";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

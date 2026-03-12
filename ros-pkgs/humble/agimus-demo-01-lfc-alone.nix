@@ -39,6 +39,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_01_lfc_alone";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

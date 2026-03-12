@@ -30,6 +30,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "cmake";
 
   nativeBuildInputs = [

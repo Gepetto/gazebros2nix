@@ -28,6 +28,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_04_visual_servoing";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

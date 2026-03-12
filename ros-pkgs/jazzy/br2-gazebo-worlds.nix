@@ -22,10 +22,13 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "br2_gazebo_worlds";
-    rev = "b9df295cda6fe0dc6392880166a138f2e853cc6a";
+    rev = "2cbf955d3da970291fbc6ab6159a36282b52fe59";
     hash = "sha256-ehRDdpvV+/hK/fVbdzd4RpYLu5vbgzQcFhvkWSVL/jg=";
   };
   sourceRoot = "source/";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 

@@ -27,6 +27,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/tiago_pro_lfc_bringup";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_python";
 
   nativeBuildInputs = [

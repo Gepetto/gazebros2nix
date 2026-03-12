@@ -31,6 +31,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/tiago_pro_head_controller_configuration";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

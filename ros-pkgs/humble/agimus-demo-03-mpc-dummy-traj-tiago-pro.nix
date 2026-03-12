@@ -26,6 +26,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_03_mpc_dummy_traj_tiago_pro";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

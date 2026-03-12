@@ -30,6 +30,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_08_collision_avoidance";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

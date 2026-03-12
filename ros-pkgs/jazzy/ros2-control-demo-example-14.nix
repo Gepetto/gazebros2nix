@@ -43,10 +43,13 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control_demos";
-    rev = "39e4d423efbdeffb8b6a19da61308185146d8af5";
-    hash = "sha256-26xN3DLDpPKmuJpQwg168ZXmi8PxnRyRAgpuEV5vpB8=";
+    rev = "ee26c5a609e86f642ea470206e2f40975c363866";
+    hash = "sha256-1nxaQgj0lwJ68IuSG4+vWAdXcKBSu6rmwQPFrjJSBvc=";
   };
   sourceRoot = "source/example_14";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 

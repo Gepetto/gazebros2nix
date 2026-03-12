@@ -25,10 +25,13 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "pal_pro_gripper";
-    rev = "cf7e2c7c234943cd6a7e7f62737a68e02d8cdb45";
-    hash = "sha256-3K4hFHEhk8n47tgBmcIa3zNm3YZNqbiq1jLp3dmlAiQ=";
+    rev = "52b918ed364e8f033979d6f81bb57072c368f034";
+    hash = "sha256-WZX2cjcm3G2moHeiCIMCW379tLfeSFo7edd2MrklfPw=";
   };
   sourceRoot = "source/pal_pro_gripper_bringup";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 

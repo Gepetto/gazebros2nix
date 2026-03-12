@@ -40,6 +40,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/omni_base_description";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

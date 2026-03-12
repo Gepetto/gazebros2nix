@@ -27,6 +27,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/pal_sea_arm";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

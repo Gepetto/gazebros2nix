@@ -55,6 +55,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/play_motion2";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

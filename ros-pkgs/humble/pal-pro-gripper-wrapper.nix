@@ -33,6 +33,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/pal_pro_gripper_wrapper";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_python";
 
   nativeBuildInputs = [

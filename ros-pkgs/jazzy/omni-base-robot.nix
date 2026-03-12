@@ -27,6 +27,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/omni_base_robot";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

@@ -27,6 +27,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/tiago_pro_2dnav";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

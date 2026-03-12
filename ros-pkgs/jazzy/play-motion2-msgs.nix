@@ -29,6 +29,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/play_motion2_msgs";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

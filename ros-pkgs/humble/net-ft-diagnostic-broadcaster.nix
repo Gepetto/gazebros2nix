@@ -31,6 +31,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/net_ft_diagnostic_broadcaster";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

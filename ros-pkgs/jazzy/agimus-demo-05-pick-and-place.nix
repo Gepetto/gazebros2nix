@@ -30,6 +30,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_05_pick_and_place";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

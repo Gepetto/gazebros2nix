@@ -24,6 +24,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/net_ft_description";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

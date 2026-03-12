@@ -27,6 +27,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_04_dual_arm_tiago_pro";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [

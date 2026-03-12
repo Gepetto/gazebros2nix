@@ -27,6 +27,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_02_simple_pd_plus_tiago_pro";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
