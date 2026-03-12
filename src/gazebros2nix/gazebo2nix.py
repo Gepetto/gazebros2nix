@@ -75,7 +75,7 @@ stdenv.mkDerivation {
   };
 }"""
 
-logger = getLogger("ros2nix")
+logger = getLogger("gazebo2nix")
 parser = get_parser(prog="gazebo2nix", description=__doc__)
 
 
