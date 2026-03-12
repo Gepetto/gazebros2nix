@@ -29,6 +29,9 @@ propagated = [ "boost" ]
 [fortress.ign-sensors6]
 do_check = false
 
+[fortress.ign-tools1]
+do_check = false
+
 [fortress.ign-transport11]
 do_check = false
 propagated = [ "libsodium" ]
