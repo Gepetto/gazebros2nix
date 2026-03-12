@@ -146,6 +146,12 @@
               "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
             ];
           });
+          agimus-msgs = ros-prev.agimus-msgs.overrideAttrs (_super: {
+            cmakeFlags = [
+              "-DCMAKE_SKIP_BUILD_RPATH=ON"
+              "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
+            ];
+          });
           agimus-franka-robot-state-broadcaster =
             ros-prev.agimus-franka-robot-state-broadcaster.overrideAttrs
               (

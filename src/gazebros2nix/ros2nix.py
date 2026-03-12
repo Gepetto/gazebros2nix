@@ -237,7 +237,14 @@ class Package:
             check, [*native_scopes, *build_scopes, *propagated_scopes]
         )
         native_check = []
-        for lint in ["copyright", "flake8", "lint_cmake", "pep257", "xmllint"]:
+        for lint in [
+            "copyright",
+            "cppcheck",
+            "flake8",
+            "lint_cmake",
+            "pep257",
+            "xmllint",
+        ]:
             if any(dep.name == f"ament_cmake_{lint}" for dep in pkg.test_depends):
                 native_check.append(kebabcase(f"ament_{lint}"))
         native_check_scopes = native_check
