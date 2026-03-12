@@ -38,6 +38,8 @@ propagated = [ "libsodium" ]
 
 [fortress.sdformat12]
 do_check = false
+check = [ "python3Packages.psutils" ]
+native = [ "ruby" ]
 
 [harmonic.gz-common5]
 do_check = false

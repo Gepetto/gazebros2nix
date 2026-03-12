@@ -11,6 +11,7 @@
   libxml2,
   pkg-config,
   python3Packages,
+  ruby,
   tinyxml-2,
   urdfdom,
 }:
@@ -34,6 +35,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    ruby
   ];
   propagatedBuildInputs = [
     ign-cmake
@@ -48,6 +50,7 @@ stdenv.mkDerivation {
   checkInputs = [
     libxml2
     python3Packages.psutil
+    python3Packages.psutils
     python3Packages.pytest
   ];
 
