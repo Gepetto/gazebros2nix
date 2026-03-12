@@ -136,15 +136,7 @@
           # keep-sorted start block=yes
           agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs amentInstallCheckOverride;
           agimus-franka-example-controllers = ros-prev.agimus-franka-example-controllers.overrideAttrs (
-            amentInstallCheckOverride
-            // cleanNixCflagsCompileHookOverride
-            // writableTmpDirAsHomeHookOverride
-            // {
-              nativeCheckInputs = [
-                final.writableTmpDirAsHomeHook
-                final.breakpointHook
-              ];
-            }
+            amentInstallCheckOverride // cleanNixCflagsCompileHookOverride // writableTmpDirAsHomeHookOverride
           );
           agimus-franka-fr3-moveit-config = ros-prev.agimus-franka-fr3-moveit-config.overrideAttrs amentInstallCheckOverride;
           agimus-franka-hardware = ros-prev.agimus-franka-hardware.overrideAttrs writableTmpDirAsHomeHookOverride;
