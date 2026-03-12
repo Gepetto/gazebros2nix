@@ -35,6 +35,13 @@
   hardware-interface-testing,
   ros2-control-test-assets,
   xmllintPackageHook,
+
+  # nativeCheckInputs
+  ament-copyright,
+  ament-flake8,
+  ament-lint-cmake,
+  ament-pep257,
+  ament-xmllint,
 }:
 buildRosPackage rec {
   pname = "ros-kilted-agimus-franka-example-controllers";
@@ -43,8 +50,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "1f75782e408473dcdeca577522e0e26300ed3c41";
-    hash = "sha256-sDahBYOj1w1SfIKqbQR/DZKvztq2BPumEuryNCw43XY=";
+    rev = "562d6087298b13ece3d8ee42a0f410246753b31e";
+    hash = "sha256-020nGSNxJL2/yFhEIjjyy850WcUmjMO/+OL1OYU0oIE=";
   };
   sourceRoot = "source/agimus_franka_example_controllers";
 
@@ -61,6 +68,7 @@ buildRosPackage rec {
     agimus-franka-msgs
     agimus-franka-semantic-components
     agimus-libfranka
+    ament-cmake
     controller-interface
     moveit-core
     pinocchio
@@ -85,6 +93,13 @@ buildRosPackage rec {
     hardware-interface-testing
     ros2-control-test-assets
     xmllintPackageHook
+  ];
+  nativeCheckInputs = [
+    ament-copyright
+    ament-flake8
+    ament-lint-cmake
+    ament-pep257
+    ament-xmllint
   ];
 
   doCheck = true;

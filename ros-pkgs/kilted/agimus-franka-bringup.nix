@@ -21,6 +21,8 @@
 
   # checkInputs
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-kilted-agimus-franka-bringup";
@@ -29,8 +31,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "1f75782e408473dcdeca577522e0e26300ed3c41";
-    hash = "sha256-sDahBYOj1w1SfIKqbQR/DZKvztq2BPumEuryNCw43XY=";
+    rev = "562d6087298b13ece3d8ee42a0f410246753b31e";
+    hash = "sha256-020nGSNxJL2/yFhEIjjyy850WcUmjMO/+OL1OYU0oIE=";
   };
   sourceRoot = "source/agimus_franka_bringup";
 
@@ -43,6 +45,7 @@ buildRosPackage rec {
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
   ];
   propagatedBuildInputs = [
     agimus-franka-description
@@ -57,6 +60,8 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

@@ -28,6 +28,13 @@
   ament-cmake-pep257,
   ament-cmake-xmllint,
   xmllintPackageHook,
+
+  # nativeCheckInputs
+  ament-copyright,
+  ament-flake8,
+  ament-lint-cmake,
+  ament-pep257,
+  ament-xmllint,
 }:
 buildRosPackage rec {
   pname = "ros-kilted-agimus-franka-gripper";
@@ -36,8 +43,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "1f75782e408473dcdeca577522e0e26300ed3c41";
-    hash = "sha256-sDahBYOj1w1SfIKqbQR/DZKvztq2BPumEuryNCw43XY=";
+    rev = "562d6087298b13ece3d8ee42a0f410246753b31e";
+    hash = "sha256-020nGSNxJL2/yFhEIjjyy850WcUmjMO/+OL1OYU0oIE=";
   };
   sourceRoot = "source/agimus_franka_gripper";
 
@@ -53,6 +60,7 @@ buildRosPackage rec {
   buildInputs = [
     agimus-franka-msgs
     agimus-libfranka
+    ament-cmake
     control-msgs
     rclcpp
     rclcpp-action
@@ -71,6 +79,13 @@ buildRosPackage rec {
     ament-cmake-pep257
     ament-cmake-xmllint
     xmllintPackageHook
+  ];
+  nativeCheckInputs = [
+    ament-copyright
+    ament-flake8
+    ament-lint-cmake
+    ament-pep257
+    ament-xmllint
   ];
 
   doCheck = true;
