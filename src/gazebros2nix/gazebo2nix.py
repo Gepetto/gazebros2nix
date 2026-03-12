@@ -49,6 +49,9 @@ stdenv.mkDerivation {
     hash = "{{ hash }}";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [{% for dep in native %}
     {{ dep }}{% endfor %}
   ];

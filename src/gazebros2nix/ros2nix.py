@@ -50,6 +50,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/{{ package }}";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "{{ pkg.get_build_type() }}";
 
   nativeBuildInputs = [{% for dep in native %}
