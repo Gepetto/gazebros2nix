@@ -23,6 +23,8 @@
   ament-cmake-gtest,
   ament-cmake-pytest,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-linear-feedback-controller-msgs";
@@ -46,10 +48,12 @@ buildRosPackage rec {
     rosidl-default-generators
   ];
   buildInputs = [
+    ament-cmake
     builtin-interfaces
     eigen
     geometry-msgs
     jrl-cmakemodules
+    rosidl-default-generators
     sensor-msgs
     std-msgs
   ];
@@ -61,6 +65,8 @@ buildRosPackage rec {
     ament-cmake-gtest
     ament-cmake-pytest
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

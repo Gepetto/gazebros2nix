@@ -62,6 +62,7 @@ buildRosPackage rec {
     agimus-franka-msgs
     agimus-libfranka
     ament-cmake
+    ament-cmake-python
     control-msgs
     rclcpp
     rclcpp-action
