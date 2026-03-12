@@ -125,21 +125,21 @@
           preInstallCheck = "export AMENT_PREFIX_PATH=$out:$AMENT_PREFIX_PATH";
           installCheckTarget = "test";
         };
-        writableTmpDirAsHomeHookOverride = {
-          nativeCheckInputs = [ final.writableTmpDirAsHomeHook ];
-        };
-        cleanNixCflagsCompileHookOverride = {
-          propagatedNativeBuildInputs = [ final.cleanNixCflagsCompileHook ];
-        };
 
         rosOverlay = _ros-final: ros-prev: {
           # keep-sorted start block=yes
           agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs amentInstallCheckOverride;
           agimus-franka-example-controllers = ros-prev.agimus-franka-example-controllers.overrideAttrs (
-            amentInstallCheckOverride // cleanNixCflagsCompileHookOverride // writableTmpDirAsHomeHookOverride
+            super:
+            amentInstallCheckOverride
+            // {
+              nativeBuildInputs = super.nativeBuildInputs ++ [ final.writableTmpDirAsHomeHook ];
+            }
           );
           agimus-franka-fr3-moveit-config = ros-prev.agimus-franka-fr3-moveit-config.overrideAttrs amentInstallCheckOverride;
-          agimus-franka-hardware = ros-prev.agimus-franka-hardware.overrideAttrs writableTmpDirAsHomeHookOverride;
+          agimus-franka-hardware = ros-prev.agimus-franka-hardware.overrideAttrs (super: {
+            nativeBuildInputs = super.nativeBuildInputs ++ [ final.writableTmpDirAsHomeHook ];
+          });
           agimus-franka-msgs = ros-prev.agimus-franka-msgs.overrideAttrs (_super: {
             cmakeFlags = [
               "-DCMAKE_SKIP_BUILD_RPATH=ON"
@@ -148,15 +148,13 @@
           });
           agimus-franka-robot-state-broadcaster =
             ros-prev.agimus-franka-robot-state-broadcaster.overrideAttrs
-              (
-                writableTmpDirAsHomeHookOverride
-                // {
-                  cmakeFlags = [
-                    # TODO: ???
-                    "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;test_load_agimus_franka_robot_state_broadcaster"
-                  ];
-                }
-              );
+              (super: {
+                nativeBuildInputs = super.nativeBuildInputs ++ [ final.writableTmpDirAsHomeHook ];
+                cmakeFlags = [
+                  # TODO: ???
+                  "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;test_load_agimus_franka_robot_state_broadcaster"
+                ];
+              });
           agimus-franka-semantic-components = ros-prev.agimus-franka-semantic-components.overrideAttrs amentInstallCheckOverride;
           agimus-msgs = ros-prev.agimus-msgs.overrideAttrs (_super: {
             cmakeFlags = [

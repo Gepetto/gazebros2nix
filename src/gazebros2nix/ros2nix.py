@@ -218,9 +218,12 @@ class Package:
             [],
         )
         native_scopes = deps_scopes(native, [])
-        build = sort_deps(pkg.build_depends, overrides.build, native)
-        if "ament-cmake" in native:
-            build = sorted(["ament-cmake", *build])
+        build = sorted(
+            [
+                *[p for p in native if "cmake" in p or "generator" in p],
+                *sort_deps(pkg.build_depends, overrides.build, native),
+            ]
+        )
         build_scopes = deps_scopes(build, native_scopes)
         propagated = sort_deps(
             pkg.exec_depends + pkg.build_export_depends,
