@@ -321,14 +321,16 @@ in
 
         overlays.${cfg.overlayName} =
           final: prev:
-          (lib.mapAttrs (package: override: prev.${package}.overrideAttrs (override final)) cfg.overrides)
+          (lib.mapAttrs (name: override: prev.${name}.overrideAttrs (override final)) cfg.overrides)
+          // (lib.mapAttrs (_name: package: final.callPackage package) cfg.packages)
           // {
             pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
               (
                 python-final: python-prev:
                 lib.mapAttrs (
-                  package: override: python-prev.${package}.overrideAttrs (override final python-final)
+                  name: override: python-prev.${name}.overrideAttrs (override final python-final)
                 ) cfg.pyOverrides
+                // lib.mapAttrs (_name: package: python-final.callPackage package) cfg.pyOverrides
               )
             ];
 
@@ -339,8 +341,9 @@ in
                 prev.rosPackages.${distro}.overrideScope (
                   ros-final: ros-prev:
                   lib.mapAttrs (
-                    package: override: ros-prev.${package}.overrideAttrs (override final ros-final)
+                    name: override: ros-prev.${name}.overrideAttrs (override final ros-final)
                   ) cfg.rosOverrides
+                  // lib.mapAttrs (_name: package: ros-final.callPackage package) cfg.rosOverrides
                 )
               );
           };
