@@ -42,6 +42,7 @@
 
   # nativeCheckInputs
   ament-copyright,
+  ament-cppcheck,
   ament-flake8,
   ament-lint-cmake,
   ament-pep257,
@@ -104,6 +105,7 @@ buildRosPackage rec {
   ];
   nativeCheckInputs = [
     ament-copyright
+    ament-cppcheck
     ament-flake8
     ament-lint-cmake
     ament-pep257

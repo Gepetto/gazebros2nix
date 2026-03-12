@@ -146,12 +146,6 @@
               "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
             ];
           });
-          agimus-msgs = ros-prev.agimus-msgs.overrideAttrs (_super: {
-            cmakeFlags = [
-              "-DCMAKE_SKIP_BUILD_RPATH=ON"
-              "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
-            ];
-          });
           agimus-franka-robot-state-broadcaster =
             ros-prev.agimus-franka-robot-state-broadcaster.overrideAttrs
               (
@@ -164,6 +158,12 @@
                 }
               );
           agimus-franka-semantic-components = ros-prev.agimus-franka-semantic-components.overrideAttrs amentInstallCheckOverride;
+          agimus-msgs = ros-prev.agimus-msgs.overrideAttrs (_super: {
+            cmakeFlags = [
+              "-DCMAKE_SKIP_BUILD_RPATH=ON"
+              "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
+            ];
+          });
           linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs (_super: {
             preCheck = ''
               export LD_LIBRARY_PATH=.
