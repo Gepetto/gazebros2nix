@@ -37,6 +37,9 @@ TEMPLATE = """{
 
   # checkInputs{% for scope in check_scopes %}
   {{ scope }},{% endfor %}
+
+  # nativeCheckInputs{% for scope in native_check_scopes %}
+  {{ scope }},{% endfor %}
 }:
 buildRosPackage rec {
   pname = "ros-{{ distro }}-{{ pkg.name|kebab }}";
@@ -65,6 +68,9 @@ buildRosPackage rec {
     {{ dep }}{% endfor %}
   ];
   checkInputs = [{% for dep in check %}
+    {{ dep }}{% endfor %}
+  ];
+  nativeCheckInputs = [{% for dep in native_check %}
     {{ dep }}{% endfor %}
   ];
 
@@ -213,6 +219,8 @@ class Package:
         )
         native_scopes = deps_scopes(native, [])
         build = sort_deps(pkg.build_depends, overrides.build, native)
+        if "ament-cmake" in native:
+            build = sorted(["ament-cmake", *build])
         build_scopes = deps_scopes(build, native_scopes)
         propagated = sort_deps(
             pkg.exec_depends + pkg.build_export_depends,
@@ -228,6 +236,11 @@ class Package:
         check_scopes = deps_scopes(
             check, [*native_scopes, *build_scopes, *propagated_scopes]
         )
+        native_check = []
+        for lint in ["copyright", "flake8", "lint_cmake", "pep257", "xmllint"]:
+            if any(dep.name == f"ament_cmake_{lint}" for dep in pkg.test_depends):
+                native_check.append(kebabcase(f"ament_{lint}"))
+        native_check_scopes = native_check
         nix = template.render(
             pkg=pkg,
             rev=rev,
@@ -239,10 +252,12 @@ class Package:
             build=build,
             propagated=propagated,
             check=check,
+            native_check=native_check,
             native_scopes=native_scopes,
             build_scopes=build_scopes,
             propagated_scopes=propagated_scopes,
             check_scopes=check_scopes,
+            native_check_scopes=native_check_scopes,
             do_check=str(overrides.do_check).lower(),
         )
         path = repo.path / f"{kebabcase(pkg.name)}.nix"
