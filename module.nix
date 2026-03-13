@@ -203,6 +203,8 @@ in
         distro: pkgs: packages:
         pkgs.mkShell {
           name = "gazebros2nix default shell";
+          __structuredAttrs = true;
+          strictDeps = true;
           packages = lib.attrValues (
             lib.filterAttrs (
               n: v:
@@ -219,6 +221,8 @@ in
           shell = buildGazebros2nixShell distro pkgs packages;
         in
         pkgs.rosPackages.${distro}.buildEnv {
+          __structuredAttrs = true;
+          strictDeps = true;
           paths = lib.unique (
             lib.filter lib.isDerivation (
               (shell.buildInputs or [ ])
@@ -243,6 +247,8 @@ in
         distro: pkgs: packages:
         pkgs.mkShell {
           name = "gazebros2nix default devShell";
+          __structuredAttrs = true;
+          strictDeps = true;
           inputsFrom = lib.attrValues (
             lib.filterAttrs (
               n: v:
@@ -261,6 +267,8 @@ in
         in
         pkgs.mkShell {
           name = "gazebros2nix default ROS shell";
+          __structuredAttrs = true;
+          strictDeps = true;
           inputsFrom = [ shell ];
           packages = getRosBasePackages distro pkgs;
           shellHook = rosShellHook { inherit env pkgs; };
@@ -272,6 +280,8 @@ in
           shell = buildGazebros2nixDevShell distro pkgs packages;
         in
         pkgs.rosPackages.${distro}.buildEnv {
+          __structuredAttrs = true;
+          strictDeps = true;
           paths = lib.unique (
             lib.filter lib.isDerivation (
               (shell.buildInputs or [ ])
@@ -297,6 +307,8 @@ in
         in
         pkgs.mkShell {
           name = "gazebros2nix default ROS devShell";
+          __structuredAttrs = true;
+          strictDeps = true;
           inputsFrom = [ shell ];
           packages = getRosBasePackages distro pkgs;
           shellHook = rosShellHook { inherit env pkgs; };
