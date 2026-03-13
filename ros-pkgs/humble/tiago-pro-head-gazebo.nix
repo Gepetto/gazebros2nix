@@ -23,6 +23,8 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-head-gazebo";
@@ -45,6 +47,7 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     gazebo-plugins
@@ -61,6 +64,8 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

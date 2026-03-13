@@ -18,6 +18,8 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-msgs";
@@ -41,6 +43,7 @@ buildRosPackage rec {
   ];
   buildInputs = [
     action-msgs
+    ament-cmake
     geometry-msgs
     rosidl-default-generators
     std-msgs
@@ -51,6 +54,8 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

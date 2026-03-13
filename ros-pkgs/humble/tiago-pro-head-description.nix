@@ -23,6 +23,8 @@
   ament-lint-common,
   launch-testing-ament-cmake,
   urdf-test,
+
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-head-description";
@@ -46,6 +48,8 @@ buildRosPackage rec {
     ament-cmake-python
   ];
   buildInputs = [
+    ament-cmake-auto
+    ament-cmake-python
   ];
   propagatedBuildInputs = [
     launch-param-builder
@@ -61,6 +65,8 @@ buildRosPackage rec {
     ament-lint-common
     launch-testing-ament-cmake
     urdf-test
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

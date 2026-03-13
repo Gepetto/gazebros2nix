@@ -20,7 +20,9 @@
   curl,
   curlpp,
 
-# checkInputs
+  # checkInputs
+
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-net-ft-driver";
@@ -44,6 +46,7 @@ buildRosPackage rec {
     pkg-config
   ];
   buildInputs = [
+    ament-cmake
     asio
     asio-cmake-module
     hardware-interface
@@ -57,6 +60,8 @@ buildRosPackage rec {
     curlpp
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

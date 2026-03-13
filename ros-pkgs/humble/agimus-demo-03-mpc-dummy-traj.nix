@@ -15,6 +15,8 @@
 
   # checkInputs
   ament-lint-auto,
+
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-03-mpc-dummy-traj";
@@ -37,6 +39,7 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     agimus-controller-ros
@@ -45,6 +48,8 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-lint-auto
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

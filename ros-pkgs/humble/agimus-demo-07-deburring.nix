@@ -18,7 +18,9 @@
   python3Packages,
   ros2launch,
 
-# checkInputs
+  # checkInputs
+
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-07-deburring";
@@ -39,8 +41,10 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake-auto
+    generate-parameter-library
   ];
   buildInputs = [
+    ament-cmake-auto
     generate-parameter-library
     generate-parameter-library-py
   ];
@@ -53,6 +57,8 @@ buildRosPackage rec {
     ros2launch
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

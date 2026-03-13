@@ -13,6 +13,8 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-omni-drive-controller";
@@ -35,12 +37,15 @@ buildRosPackage rec {
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
   ];
   propagatedBuildInputs = [
   ];
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

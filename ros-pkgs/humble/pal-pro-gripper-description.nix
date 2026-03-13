@@ -15,6 +15,8 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-pro-gripper-description";
@@ -37,6 +39,7 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
     xacro
   ];
   propagatedBuildInputs = [
@@ -45,6 +48,8 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

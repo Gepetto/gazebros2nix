@@ -5,6 +5,7 @@
 
   # nativeBuildInputs
   ament-cmake,
+  writableTmpDirAsHomeHook,
 
   # buildInputs
   agimus-franka-hardware,
@@ -63,6 +64,7 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+    writableTmpDirAsHomeHook
   ];
   buildInputs = [
     agimus-franka-hardware

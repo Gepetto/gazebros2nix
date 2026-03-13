@@ -27,6 +27,8 @@
   ament-lint-common,
   launch-testing-ament-cmake,
   urdf-test,
+
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm-description";
@@ -50,6 +52,8 @@ buildRosPackage rec {
     ament-cmake-python
   ];
   buildInputs = [
+    ament-cmake-auto
+    ament-cmake-python
   ];
   propagatedBuildInputs = [
     joint-state-publisher-gui
@@ -69,6 +73,8 @@ buildRosPackage rec {
     ament-lint-common
     launch-testing-ament-cmake
     urdf-test
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

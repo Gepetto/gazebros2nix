@@ -6,6 +6,10 @@ branch = "main"
 branch = "main"
 [humble."agimus-project/agimus-franka-ros2"]
 branch = "main"
+[humble."agimus-project/agimus-franka-ros2".packages]
+agimus_franka_hardware = {native = ["writableTmpDirAsHomeHook"]}
+agimus_franka_example_controllers = {native = ["writableTmpDirAsHomeHook"]}
+agimus_franka_robot_state_broadcaster = {native = ["generate-parameter-library", "writableTmpDirAsHomeHook"]}
 [humble."agimus-project/agimus-libfranka"]
 branch = "main"
 do_check = false
@@ -21,6 +25,7 @@ omni_drive_controller = {do_check = false}
 
 [humble."loco-3d/linear-feedback-controller"]
 [humble."loco-3d/linear-feedback-controller-msgs"]
+check = ["ament-cmake-cppcheck", "ament-cmake-cpplint", "ament-cmake-uncrustify", "ament-cmake-flake8", "ament-cmake-pep257"]
 
 [humble."pal-robotics/pal_pro_gripper".packages]
 pal_pro_gripper_description = {do_check = false}

@@ -13,7 +13,9 @@
   tiago-pro-controller-configuration,
   tiago-pro-description,
 
-# checkInputs
+  # checkInputs
+
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-robot";
@@ -36,6 +38,7 @@ buildRosPackage rec {
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
   ];
   propagatedBuildInputs = [
     tiago-pro-bringup
@@ -43,6 +46,8 @@ buildRosPackage rec {
     tiago-pro-description
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

@@ -28,7 +28,7 @@
   # checkInputs
   ament-lint-common,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-franka-ign-ros2-control";

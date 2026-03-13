@@ -15,9 +15,11 @@
   rclcpp,
   rclcpp-lifecycle,
 
-# propagatedBuildInputs
+  # propagatedBuildInputs
 
-# checkInputs
+  # checkInputs
+
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-net-ft-diagnostic-broadcaster";
@@ -40,6 +42,7 @@ buildRosPackage rec {
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
     controller-interface
     diagnostic-msgs
     diagnostic-updater
@@ -51,6 +54,8 @@ buildRosPackage rec {
   propagatedBuildInputs = [
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

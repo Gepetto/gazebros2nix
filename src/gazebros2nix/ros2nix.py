@@ -220,10 +220,12 @@ class Package:
         native_scopes = deps_scopes(native, [])
         build = sorted(
             [
-                *[p for p in native if "cmake" in p or "generator" in p],
+                *[p for p in native if "cmake" in p or "generat" in p],
                 *sort_deps(pkg.build_depends, overrides.build, native),
             ]
         )
+        if "generate-parameter-library" in build:
+            native = sorted(["generate-parameter-library", *native])
         build_scopes = deps_scopes(build, native_scopes)
         propagated = sort_deps(
             pkg.exec_depends + pkg.build_export_depends,
@@ -243,13 +245,15 @@ class Package:
         for lint in [
             "copyright",
             "cppcheck",
+            "cpplint",
             "flake8",
-            "lint_cmake",
+            "lint-cmake",
             "pep257",
+            "uncrustify",
             "xmllint",
         ]:
-            if any(dep.name == f"ament_cmake_{lint}" for dep in pkg.test_depends):
-                native_check.append(kebabcase(f"ament_{lint}"))
+            if f"ament-cmake-{lint}" in check:
+                native_check.append(f"ament-{lint}")
         native_check_scopes = native_check
         nix = template.render(
             pkg=pkg,

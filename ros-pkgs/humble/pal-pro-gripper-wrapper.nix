@@ -20,6 +20,8 @@
   ament-lint-common,
   ament-pep257,
   python3Packages,
+
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-pro-gripper-wrapper";
@@ -42,6 +44,7 @@ buildRosPackage rec {
     ament-cmake-python
   ];
   buildInputs = [
+    ament-cmake-python
     rclpy
     sensor-msgs
     trajectory-msgs
@@ -55,6 +58,8 @@ buildRosPackage rec {
     ament-lint-common
     ament-pep257
     python3Packages.pytest
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

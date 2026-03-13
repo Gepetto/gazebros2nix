@@ -128,63 +128,12 @@
 
         rosOverlay = ros-final: ros-prev: {
           # keep-sorted start block=yes
-          libcoal = final.coal.override { inherit (ros-final) octomap; };
-          coal = final.python3Packages.coal.override { coal = ros-final.libcoal; };
-
-          libpinocchio = final.pinocchio.override {
-            inherit (ros-final) urdfdom;
-            coal = ros-final.libcoal;
+          agimus-demos = ros-prev.agimus-demos.overrideAttrs {
+            nativeBuildInputs = [ ros-final.ament-cmake ];
           };
-          pinocchio = ros-prev.pinocchio.override {
-            pinocchio = ros-final.libpinocchio;
-            inherit (ros-final) coal;
-          };
-
-          libcrocoddyl = final.crocoddyl.override { pinocchio = ros-final.libpinocchio; };
-          crocoddyl = final.python3Packages.crocoddyl.override {
-            crocoddyl = ros-final.libcrocoddyl;
-            example-robot-data = ros-final.python3Packages.example-robot-data;
-          };
-
-          libmim-solvers = final.mim-solvers.override { crocoddyl = ros-final.libcrocoddyl; };
-          mim-solvers = final.python3Packages.mim-solvers.override {
-            inherit (ros-final) crocoddyl;
-            mim-solvers = ros-final.libmim-solvers;
-          };
-
-          libcolmpc = final.libcolmpc.override { crocoddyl = ros-final.libcrocoddyl; };
-          colmpc = final.python3Packages.colmpc.override {
-            inherit (ros-final) crocoddyl mim-solvers;
-            libcolmpc = ros-final.libcolmpc;
-          };
-
-          fcl = final.fcl.override { inherit (ros-final) octomap; };
-
-          pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-            (python-final: python-prev: {
-              inherit (ros-final)
-                coal
-                pinocchio
-                crocoddyl
-                mim-solvers
-                colmpc
-                ;
-              example-robot-data = python-prev.example-robot-data.override { inherit (python-final) pinocchio; };
-            })
-          ];
-
           agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs amentInstallCheckOverride;
-          agimus-franka-example-controllers = ros-prev.agimus-franka-example-controllers.overrideAttrs (
-            super:
-            amentInstallCheckOverride
-            // {
-              nativeBuildInputs = super.nativeBuildInputs ++ [ final.writableTmpDirAsHomeHook ];
-            }
-          );
+          agimus-franka-example-controllers = ros-prev.agimus-franka-example-controllers.overrideAttrs amentInstallCheckOverride;
           agimus-franka-fr3-moveit-config = ros-prev.agimus-franka-fr3-moveit-config.overrideAttrs amentInstallCheckOverride;
-          agimus-franka-hardware = ros-prev.agimus-franka-hardware.overrideAttrs (super: {
-            nativeBuildInputs = super.nativeBuildInputs ++ [ final.writableTmpDirAsHomeHook ];
-          });
           agimus-franka-msgs = ros-prev.agimus-franka-msgs.overrideAttrs (_super: {
             cmakeFlags = [
               "-DCMAKE_SKIP_BUILD_RPATH=ON"
@@ -194,24 +143,28 @@
           agimus-franka-robot-state-broadcaster =
             ros-prev.agimus-franka-robot-state-broadcaster.overrideAttrs
               (super: {
-                nativeBuildInputs = super.nativeBuildInputs ++ [ final.writableTmpDirAsHomeHook ];
-                cmakeFlags = [
-                  # TODO: ???
-                  "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;test_load_agimus_franka_robot_state_broadcaster"
-                ];
+                nativeBuildInputs = super.nativeBuildInputs ++ [ final.ctestCheckHook ];
+                disabledTests = [ "test_load_agimus_franka_robot_state_broadcaster" ]; # TODO: ???
               });
           agimus-franka-semantic-components = ros-prev.agimus-franka-semantic-components.overrideAttrs amentInstallCheckOverride;
-          agimus-msgs = ros-prev.agimus-msgs.overrideAttrs (_super: {
+          agimus-msgs = ros-prev.agimus-msgs.overrideAttrs {
             cmakeFlags = [
               "-DCMAKE_SKIP_BUILD_RPATH=ON"
               "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
             ];
-          });
-          linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs (_super: {
+          };
+
+          linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs (super: {
             preCheck = ''
               export LD_LIBRARY_PATH=.
             '';
           });
+          linear-feedback-controller-msgs = ros-prev.linear-feedback-controller-msgs.overrideAttrs {
+            cmakeFlags = [
+              "-DCMAKE_SKIP_BUILD_RPATH=ON"
+              "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
+            ];
+          };
           # keep-sorted end
         };
       in

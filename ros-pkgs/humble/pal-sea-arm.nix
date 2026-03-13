@@ -13,7 +13,9 @@
   pal-sea-arm-controller-configuration,
   pal-sea-arm-description,
 
-# checkInputs
+  # checkInputs
+
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm";
@@ -36,6 +38,7 @@ buildRosPackage rec {
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
   ];
   propagatedBuildInputs = [
     pal-sea-arm-bringup
@@ -43,6 +46,8 @@ buildRosPackage rec {
     pal-sea-arm-description
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

@@ -35,6 +35,7 @@
       in
       {
         systems = import inputs.systems;
+        debug = true;
         imports = [
           flakeModule
           {
