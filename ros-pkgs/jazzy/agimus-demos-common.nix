@@ -40,6 +40,8 @@
   xacro,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-agimus-demos-common";
@@ -61,8 +63,11 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake-auto
     ament-cmake-python
+    generate-parameter-library
   ];
   buildInputs = [
+    ament-cmake-auto
+    ament-cmake-python
     generate-parameter-library
     generate-parameter-library-py
   ];
@@ -95,6 +100,8 @@ buildRosPackage rec {
     xacro
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

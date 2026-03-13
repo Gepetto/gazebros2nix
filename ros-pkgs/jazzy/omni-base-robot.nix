@@ -14,6 +14,8 @@
   omni-base-description,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-omni-base-robot";
@@ -36,6 +38,7 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     omni-base-bringup
@@ -43,6 +46,8 @@ buildRosPackage rec {
     omni-base-description
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

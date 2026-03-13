@@ -11,6 +11,8 @@
 # propagatedBuildInputs
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-rolling-agimus-libfranka-common";
@@ -33,10 +35,13 @@ buildRosPackage rec {
     cmake
   ];
   buildInputs = [
+    cmake
   ];
   propagatedBuildInputs = [
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

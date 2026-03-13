@@ -14,9 +14,9 @@
   controller-manager,
   ros2launch,
 
-  # checkInputs
+# checkInputs
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-00-franka-controller";

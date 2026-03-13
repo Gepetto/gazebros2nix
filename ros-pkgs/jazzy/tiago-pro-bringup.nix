@@ -23,6 +23,8 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-tiago-pro-bringup";
@@ -31,8 +33,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "tiago_pro_robot";
-    rev = "d835dc4d99ba9e6614f5cd232eafc7c243d4c79c";
-    hash = "sha256-NRnr88i8S4dFRy5pp4G5UiC/CPlwuhJoJdM6Q75KW3Y=";
+    rev = "4dbe4b9877e97d93ac6cbc77155d4d811b5691b4";
+    hash = "sha256-U49X5p7D4wnSmNUxDBLGRoTBvD1OCsMGUHXvLoAgBoM=";
   };
   sourceRoot = "source/tiago_pro_bringup";
 
@@ -45,6 +47,7 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     ament-index-python
@@ -61,6 +64,8 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

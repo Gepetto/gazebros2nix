@@ -128,6 +128,7 @@
 
         rosOverlay = ros-final: ros-prev: {
           # keep-sorted start block=yes
+
           agimus-demos = ros-prev.agimus-demos.overrideAttrs {
             nativeBuildInputs = [ ros-final.ament-cmake ];
           };
@@ -153,8 +154,7 @@
               "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
             ];
           };
-
-          linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs (super: {
+          linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs (_super: {
             preCheck = ''
               export LD_LIBRARY_PATH=.
             '';

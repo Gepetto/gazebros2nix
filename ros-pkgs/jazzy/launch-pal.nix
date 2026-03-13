@@ -17,6 +17,8 @@
   ament-copyright,
   ament-flake8,
   ament-pep257,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-launch-pal";
@@ -51,6 +53,8 @@ buildRosPackage rec {
     ament-flake8
     ament-pep257
     python3Packages.pytest
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

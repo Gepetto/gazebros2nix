@@ -11,9 +11,9 @@
   # propagatedBuildInputs
   pal-sea-arm-gazebo,
 
-  # checkInputs
+# checkInputs
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm-simulation";

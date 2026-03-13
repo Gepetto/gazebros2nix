@@ -14,6 +14,8 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-pal-urdf-utils";
@@ -22,8 +24,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "pal_urdf_utils";
-    rev = "5d15b45a4e341eb6b2b5250cbe0f8c6aa14dc31a";
-    hash = "sha256-s3CXg+eM4y+iyw0Il+b4vaCZXWQlmli2EML7zdKW05g=";
+    rev = "dc3d28df80d8b343c1d2bced8e3b173458adf7ac";
+    hash = "sha256-B085HfxFVQ1XHOmV9hIru/F9DrUc5M/1NibPDhO3uCE=";
   };
   sourceRoot = "source/";
 
@@ -36,6 +38,7 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     xacro
@@ -43,6 +46,8 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

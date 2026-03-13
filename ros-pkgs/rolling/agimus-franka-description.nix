@@ -16,6 +16,8 @@
 
   # checkInputs
   ament-cmake-pytest,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-rolling-agimus-franka-description";
@@ -38,6 +40,7 @@ buildRosPackage rec {
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
   ];
   propagatedBuildInputs = [
     joint-state-publisher-gui
@@ -47,6 +50,8 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-cmake-pytest
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

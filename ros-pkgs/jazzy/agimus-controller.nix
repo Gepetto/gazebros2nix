@@ -23,6 +23,8 @@
   ament-flake8,
   ament-index-python,
   ament-pep257,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-agimus-controller";
@@ -63,6 +65,8 @@ buildRosPackage rec {
     ament-pep257
     python3Packages.pytest
     python3Packages.pyyaml
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

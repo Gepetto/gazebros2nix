@@ -24,7 +24,7 @@
   launch-testing-ament-cmake,
   urdf-test,
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-head-description";

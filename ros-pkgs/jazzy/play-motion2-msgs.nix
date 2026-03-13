@@ -16,6 +16,8 @@
 
   # checkInputs
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-play-motion2-msgs";
@@ -39,6 +41,7 @@ buildRosPackage rec {
   ];
   buildInputs = [
     action-msgs
+    ament-cmake
     builtin-interfaces
     rosidl-default-generators
   ];
@@ -47,6 +50,8 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

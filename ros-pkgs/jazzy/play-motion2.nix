@@ -42,6 +42,8 @@
   realtime-tools,
   robot-state-publisher,
   xacro,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-play-motion2";
@@ -65,6 +67,8 @@ buildRosPackage rec {
     ament-cmake-python
   ];
   buildInputs = [
+    ament-cmake-auto
+    ament-cmake-python
     backward-ros
     control-msgs
     controller-manager-msgs
@@ -99,6 +103,8 @@ buildRosPackage rec {
     realtime-tools
     robot-state-publisher
     xacro
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

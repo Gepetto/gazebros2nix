@@ -27,6 +27,8 @@
   ament-lint-common,
   launch-testing-ament-cmake,
   urdf-test,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-pal-sea-arm-description";
@@ -35,8 +37,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "pal_sea_arm";
-    rev = "8aaa9a7b51b3ce88ba64f581a71e7b02af3a1a10";
-    hash = "sha256-aNtpnxqyTlfUjdAB74X1hLoDELSCz+y5kd19WRPJJfs=";
+    rev = "3d02055a3dbe751184c72ef93dfa539b18140246";
+    hash = "sha256-8F38x0jq06DaicuF08jNuawFkD2oKQ5ZegLVuf/AFHQ=";
   };
   sourceRoot = "source/pal_sea_arm_description";
 
@@ -50,6 +52,8 @@ buildRosPackage rec {
     ament-cmake-python
   ];
   buildInputs = [
+    ament-cmake-auto
+    ament-cmake-python
   ];
   propagatedBuildInputs = [
     joint-state-publisher-gui
@@ -69,6 +73,8 @@ buildRosPackage rec {
     ament-lint-common
     launch-testing-ament-cmake
     urdf-test
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

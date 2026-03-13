@@ -23,6 +23,8 @@
 # propagatedBuildInputs
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-kilted-agimus-demos-controllers";
@@ -43,9 +45,11 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake-auto
+    generate-parameter-library
   ];
   buildInputs = [
     agimus-demos
+    ament-cmake-auto
     controller-interface
     eigen
     generate-parameter-library
@@ -61,6 +65,8 @@ buildRosPackage rec {
   propagatedBuildInputs = [
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

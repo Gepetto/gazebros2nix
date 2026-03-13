@@ -67,6 +67,7 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+    generate-parameter-library
   ];
   buildInputs = [
     agimus-franka-hardware

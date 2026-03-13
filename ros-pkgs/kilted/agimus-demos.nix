@@ -16,6 +16,8 @@
   agimus-demos-common,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-kilted-agimus-demos";
@@ -47,6 +49,8 @@ buildRosPackage rec {
     agimus-demos-common
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

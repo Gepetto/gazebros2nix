@@ -18,7 +18,7 @@
   gmock,
   gtest,
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-libfranka";

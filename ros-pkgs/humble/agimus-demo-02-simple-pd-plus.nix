@@ -16,7 +16,7 @@
   # checkInputs
   ament-lint-auto,
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-02-simple-pd-plus";

@@ -12,9 +12,9 @@
   agimus-demos-common,
   ros2launch,
 
-  # checkInputs
+# checkInputs
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-03-mpc-dummy-traj-tiago-pro";

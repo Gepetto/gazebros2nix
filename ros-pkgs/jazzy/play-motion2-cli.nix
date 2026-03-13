@@ -22,6 +22,8 @@
   launch-testing,
   launch-testing-ros,
   python3Packages,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-play-motion2-cli";
@@ -60,6 +62,8 @@ buildRosPackage rec {
     launch-testing-ros
     python3Packages.pytest
     python3Packages.pytest-timeout
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

@@ -28,6 +28,8 @@
   ros2-control-demo-example-9,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-ros2-control-demos";
@@ -50,6 +52,7 @@ buildRosPackage rec {
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
   ];
   propagatedBuildInputs = [
     ros2-control-demo-example-1
@@ -71,6 +74,8 @@ buildRosPackage rec {
     ros2-control-demo-example-9
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

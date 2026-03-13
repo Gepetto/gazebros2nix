@@ -20,9 +20,9 @@
   curl,
   curlpp,
 
-  # checkInputs
+# checkInputs
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-net-ft-driver";

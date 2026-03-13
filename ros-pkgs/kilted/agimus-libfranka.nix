@@ -17,6 +17,8 @@
   # checkInputs
   gmock,
   gtest,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-kilted-agimus-libfranka";
@@ -40,6 +42,7 @@ buildRosPackage rec {
     doxygen
   ];
   buildInputs = [
+    cmake
     poco
   ];
   propagatedBuildInputs = [
@@ -49,6 +52,8 @@ buildRosPackage rec {
   checkInputs = [
     gmock
     gtest
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

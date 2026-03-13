@@ -477,10 +477,10 @@ in
                         inherit (final.pkgsHumble.python3Packages)
                           # keep-sorted start
                           coal
-                          pinocchio
+                          colmpc
                           crocoddyl
                           mim-solvers
-                          colmpc
+                          pinocchio
                           # keep-sorted end
                           ;
                       }
@@ -533,10 +533,10 @@ in
                         inherit (final.pkgsJazzy.python3Packages)
                           # keep-sorted start
                           coal
-                          pinocchio
+                          colmpc
                           crocoddyl
                           mim-solvers
-                          colmpc
+                          pinocchio
                           # keep-sorted end
                           ;
                       }
@@ -589,10 +589,10 @@ in
                         inherit (final.pkgsKilted.python3Packages)
                           # keep-sorted start
                           coal
-                          pinocchio
+                          colmpc
                           crocoddyl
                           mim-solvers
-                          colmpc
+                          pinocchio
                           # keep-sorted end
                           ;
                       }
@@ -645,10 +645,10 @@ in
                         inherit (final.pkgsRolling.python3Packages)
                           # keep-sorted start
                           coal
-                          pinocchio
+                          colmpc
                           crocoddyl
                           mim-solvers
-                          colmpc
+                          pinocchio
                           # keep-sorted end
                           ;
                       }

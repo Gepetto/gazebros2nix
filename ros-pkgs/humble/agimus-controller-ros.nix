@@ -27,7 +27,7 @@
   ament-flake8,
   ament-pep257,
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-controller-ros";

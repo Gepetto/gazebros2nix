@@ -17,7 +17,7 @@
   # checkInputs
   ament-cmake-pytest,
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-franka-description";

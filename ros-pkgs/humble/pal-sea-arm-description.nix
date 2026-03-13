@@ -28,7 +28,7 @@
   launch-testing-ament-cmake,
   urdf-test,
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm-description";

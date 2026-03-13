@@ -6,13 +6,13 @@
   # nativeBuildInputs
   ament-cmake,
 
-  # buildInputs
+# buildInputs
 
-  # propagatedBuildInputs
+# propagatedBuildInputs
 
-  # checkInputs
+# checkInputs
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-net-ft-description";

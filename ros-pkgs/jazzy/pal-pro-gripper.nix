@@ -13,6 +13,8 @@
   pal-pro-gripper-description,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-pal-pro-gripper";
@@ -35,12 +37,15 @@ buildRosPackage rec {
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
   ];
   propagatedBuildInputs = [
     pal-pro-gripper-controller-configuration
     pal-pro-gripper-description
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

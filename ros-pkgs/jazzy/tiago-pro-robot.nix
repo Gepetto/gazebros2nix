@@ -14,6 +14,8 @@
   tiago-pro-description,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-tiago-pro-robot";
@@ -22,8 +24,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "tiago_pro_robot";
-    rev = "d835dc4d99ba9e6614f5cd232eafc7c243d4c79c";
-    hash = "sha256-NRnr88i8S4dFRy5pp4G5UiC/CPlwuhJoJdM6Q75KW3Y=";
+    rev = "4dbe4b9877e97d93ac6cbc77155d4d811b5691b4";
+    hash = "sha256-U49X5p7D4wnSmNUxDBLGRoTBvD1OCsMGUHXvLoAgBoM=";
   };
   sourceRoot = "source/tiago_pro_robot";
 
@@ -36,6 +38,7 @@ buildRosPackage rec {
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
   ];
   propagatedBuildInputs = [
     tiago-pro-bringup
@@ -43,6 +46,8 @@ buildRosPackage rec {
     tiago-pro-description
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

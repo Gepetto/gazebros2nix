@@ -36,6 +36,8 @@
   launch-testing-ament-cmake,
   rclpy,
   urdfdom,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-ros2-control-demo-example-16";
@@ -58,6 +60,7 @@ buildRosPackage rec {
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
     backward-ros
     hardware-interface
     pluginlib
@@ -87,6 +90,8 @@ buildRosPackage rec {
     launch-testing-ament-cmake
     rclpy
     urdfdom
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

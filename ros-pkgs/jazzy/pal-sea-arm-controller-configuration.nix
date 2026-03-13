@@ -18,6 +18,8 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-pal-sea-arm-controller-configuration";
@@ -26,8 +28,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "pal_sea_arm";
-    rev = "8aaa9a7b51b3ce88ba64f581a71e7b02af3a1a10";
-    hash = "sha256-aNtpnxqyTlfUjdAB74X1hLoDELSCz+y5kd19WRPJJfs=";
+    rev = "3d02055a3dbe751184c72ef93dfa539b18140246";
+    hash = "sha256-8F38x0jq06DaicuF08jNuawFkD2oKQ5ZegLVuf/AFHQ=";
   };
   sourceRoot = "source/pal_sea_arm_controller_configuration";
 
@@ -40,6 +42,7 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     controller-manager
@@ -51,6 +54,8 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

@@ -17,6 +17,8 @@
 
   # checkInputs
   ament-lint-auto,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-agimus-demo-08-collision-avoidance";
@@ -37,8 +39,10 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake-auto
+    generate-parameter-library
   ];
   buildInputs = [
+    ament-cmake-auto
     generate-parameter-library
     generate-parameter-library-py
   ];
@@ -49,6 +53,8 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-lint-auto
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

@@ -35,7 +35,7 @@
   gmock-vendor,
   gtest-vendor,
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-linear-feedback-controller";

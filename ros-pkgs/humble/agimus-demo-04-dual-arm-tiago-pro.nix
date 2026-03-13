@@ -13,9 +13,9 @@
   agimus-demos-common,
   ros2launch,
 
-  # checkInputs
+# checkInputs
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-04-dual-arm-tiago-pro";

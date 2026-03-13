@@ -35,6 +35,8 @@
   ament-lint-auto,
   gmock-vendor,
   gtest-vendor,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-linear-feedback-controller";
@@ -56,8 +58,11 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake-auto
     ament-cmake-python
+    generate-parameter-library
   ];
   buildInputs = [
+    ament-cmake-auto
+    ament-cmake-python
     control-toolbox
     controller-interface
     eigen
@@ -85,6 +90,8 @@ buildRosPackage rec {
     ament-lint-auto
     gmock-vendor
     gtest-vendor
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

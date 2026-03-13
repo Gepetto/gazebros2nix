@@ -20,11 +20,11 @@
   std-msgs,
   std-srvs,
 
-  # propagatedBuildInputs
+# propagatedBuildInputs
 
-  # checkInputs
+# checkInputs
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demos-controllers";

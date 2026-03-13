@@ -19,7 +19,7 @@
   # checkInputs
   ament-lint-auto,
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-franka-gazebo-bringup";

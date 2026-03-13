@@ -13,9 +13,9 @@
   linear-feedback-controller,
   ros2launch,
 
-  # checkInputs
+# checkInputs
 
-  # nativeCheckInputs
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-02-simple-pd-plus-tiago-pro";
