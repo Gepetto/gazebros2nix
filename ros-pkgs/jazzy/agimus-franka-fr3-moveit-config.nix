@@ -29,7 +29,7 @@
   ament-cmake-pytest,
   ament-lint-common,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-agimus-franka-fr3-moveit-config";

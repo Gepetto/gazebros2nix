@@ -46,15 +46,18 @@ do_check = false
 
 [harmonic.gz-fuel-tools9]
 do_check = false
+native = [ "python3" ]
 
 [harmonic.gz-gui8]
 do_check = false
+native = [ "python3" ]
 
 [harmonic.gz-launch7]
 do_check = false
 
 [harmonic.gz-msgs10]
 do_check = false
+native = [ "python3" ]
 
 [harmonic.gz-physics7]
 do_check = false
@@ -68,9 +71,11 @@ propagated = [ "boost" ]
 
 [harmonic.gz-sensors8]
 do_check = false
+native = [ "python3" ]
 
 [harmonic.gz-sim8]
 do_check = false
+native = [ "python3" ]
 
 [harmonic.gz-tools2]
 do_check = false
@@ -78,9 +83,11 @@ do_check = false
 [harmonic.gz-transport13]
 do_check = false
 propagated = [ "libsodium" ]
+native = [ "python3" ]
 
 [harmonic.sdformat14]
 do_check = false
+native = [ "python3" ]
 
 [ionic.gz-common6]
 do_check = false

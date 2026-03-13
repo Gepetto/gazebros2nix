@@ -13,6 +13,7 @@
   gz-utils2,
   libxml2,
   pkg-config,
+  python3,
   python3Packages,
   tinyxml-2,
   urdfdom,
@@ -37,6 +38,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     gz-cmake

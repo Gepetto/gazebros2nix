@@ -405,10 +405,10 @@ in
                     _final: _prev: { inherit (final.rosPackages.jazzy) octomap urdfdom urdfdom-headers; }
                   );
                   pkgsKilted = prev.extend (
-                    _final: _prev: { inherit (final.rosPackages.kilted) octomap urdfdom urdfdom-headers; }
+                    _final: _prev: { inherit (final.rosPackages.kilted) urdfdom urdfdom-headers; }
                   );
                   pkgsRolling = prev.extend (
-                    _final: _prev: { inherit (final.rosPackages.rolling) octomap urdfdom urdfdom-headers; }
+                    _final: _prev: { inherit (final.rosPackages.rolling) urdfdom urdfdom-headers; }
                   );
 
                   rosPackages = prev.rosPackages // {

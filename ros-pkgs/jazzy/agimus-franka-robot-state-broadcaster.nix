@@ -5,6 +5,8 @@
 
   # nativeBuildInputs
   ament-cmake,
+  generate-parameter-library,
+  writableTmpDirAsHomeHook,
 
   # buildInputs
   agimus-franka-hardware,
@@ -16,7 +18,6 @@
   control-msgs,
   controller-interface,
   controller-manager,
-  generate-parameter-library,
   pluginlib,
   rclcpp-lifecycle,
   rcutils,
@@ -68,6 +69,8 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake
     generate-parameter-library
+    generate-parameter-library
+    writableTmpDirAsHomeHook
   ];
   buildInputs = [
     agimus-franka-hardware
