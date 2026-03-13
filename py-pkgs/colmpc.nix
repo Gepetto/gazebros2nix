@@ -1,7 +1,7 @@
 {
   lib,
 
-  pkgs,
+  libcolmpc,
 
   toPythonModule,
   pythonImportsCheckHook,
@@ -13,7 +13,7 @@
   numdifftools,
 }:
 toPythonModule (
-  pkgs.colmpc.overrideAttrs (super: {
+  libcolmpc.overrideAttrs (super: {
     pname = "py-${super.pname}";
 
     cmakeFlags = (super.cmakeFlags or [ ]) ++ [
@@ -26,7 +26,7 @@ toPythonModule (
       ++ [
         crocoddyl
       ]
-      ++ lib.optional buildStandalone pkgs.colmpc;
+      ++ lib.optional buildStandalone libcolmpc;
 
     nativeCheckInputs = (super.nativeCheckInputs or [ ]) ++ [
       pythonImportsCheckHook

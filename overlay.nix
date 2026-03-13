@@ -126,8 +126,53 @@
           installCheckTarget = "test";
         };
 
-        rosOverlay = _ros-final: ros-prev: {
+        rosOverlay = ros-final: ros-prev: {
           # keep-sorted start block=yes
+          libcoal = final.coal.override { inherit (ros-final) octomap; };
+          coal = final.python3Packages.coal.override { coal = ros-final.libcoal; };
+
+          libpinocchio = final.pinocchio.override {
+            inherit (ros-final) urdfdom;
+            coal = ros-final.libcoal;
+          };
+          pinocchio = ros-prev.pinocchio.override {
+            pinocchio = ros-final.libpinocchio;
+            inherit (ros-final) coal;
+          };
+
+          libcrocoddyl = final.crocoddyl.override { pinocchio = ros-final.libpinocchio; };
+          crocoddyl = final.python3Packages.crocoddyl.override {
+            crocoddyl = ros-final.libcrocoddyl;
+            example-robot-data = ros-final.python3Packages.example-robot-data;
+          };
+
+          libmim-solvers = final.mim-solvers.override { crocoddyl = ros-final.libcrocoddyl; };
+          mim-solvers = final.python3Packages.mim-solvers.override {
+            inherit (ros-final) crocoddyl;
+            mim-solvers = ros-final.libmim-solvers;
+          };
+
+          libcolmpc = final.libcolmpc.override { crocoddyl = ros-final.libcrocoddyl; };
+          colmpc = final.python3Packages.colmpc.override {
+            inherit (ros-final) crocoddyl mim-solvers;
+            libcolmpc = ros-final.libcolmpc;
+          };
+
+          fcl = final.fcl.override { inherit (ros-final) octomap; };
+
+          pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+            (python-final: python-prev: {
+              inherit (ros-final)
+                coal
+                pinocchio
+                crocoddyl
+                mim-solvers
+                colmpc
+                ;
+              example-robot-data = python-prev.example-robot-data.override { inherit (python-final) pinocchio; };
+            })
+          ];
+
           agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs amentInstallCheckOverride;
           agimus-franka-example-controllers = ros-prev.agimus-franka-example-controllers.overrideAttrs (
             super:
@@ -176,8 +221,6 @@
           humble-final: humble-prev:
           (rosOverlay humble-final humble-prev)
           // {
-            inherit (humble-final.python3Packages) coal colmpc mim-solvers;
-
             gazebo_11 = null;
             gazebo-planar-move-plugin = null;
             gazebo-ros = null;
