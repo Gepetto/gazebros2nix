@@ -17,6 +17,10 @@ in
       description = "Additionnal overlays for gazebros2nix";
       default = [ ];
     };
+    gazebros2nixPatches = lib.mkOption {
+      description = "apply gazebros2nix patches to nixpkgs";
+      default = true;
+    };
     patches = lib.mkOption {
       description = "Additionnal patches for gazebros2nix";
       default = [ ];
@@ -322,7 +326,7 @@ in
         overlays.${cfg.overlayName} =
           final: prev:
           (lib.mapAttrs (name: override: prev.${name}.overrideAttrs (override final)) cfg.overrides)
-          // (lib.mapAttrs (_name: package: final.callPackage package) cfg.packages)
+          // (lib.mapAttrs (_name: package: final.callPackage package { }) cfg.packages)
           // {
             pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
               (
@@ -330,7 +334,7 @@ in
                 lib.mapAttrs (
                   name: override: python-prev.${name}.overrideAttrs (override final python-final)
                 ) cfg.pyOverrides
-                // lib.mapAttrs (_name: package: python-final.callPackage package) cfg.pyOverrides
+                // lib.mapAttrs (_name: package: python-final.callPackage package { }) cfg.pyPackages
               )
             ];
 
@@ -343,7 +347,7 @@ in
                   lib.mapAttrs (
                     name: override: ros-prev.${name}.overrideAttrs (override final ros-final)
                   ) cfg.rosOverrides
-                  // lib.mapAttrs (_name: package: ros-final.callPackage package) cfg.rosOverrides
+                  // lib.mapAttrs (_name: package: ros-final.callPackage package { }) cfg.rosPackages
                 )
               );
           };
@@ -364,7 +368,8 @@ in
                 pkgsForPatching.applyPatches {
                   name = "gepetto patched nixpkgs";
                   src = inputs.nixpkgs;
-                  patches = lib.fileset.toList ./patches/NixOS/nixpkgs ++ cfg.patches;
+                  patches =
+                    lib.optionals cfg.gazebros2nixPatches (lib.fileset.toList ./patches/NixOS/nixpkgs) ++ cfg.patches;
                 }
               );
             in
