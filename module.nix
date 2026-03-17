@@ -410,19 +410,6 @@ in
                     )
                   ];
 
-                  pkgsHumble = prev.extend (
-                    _final: _prev: { inherit (final.rosPackages.humble) octomap urdfdom urdfdom-headers; }
-                  );
-                  pkgsJazzy = prev.extend (
-                    _final: _prev: { inherit (final.rosPackages.jazzy) octomap urdfdom urdfdom-headers; }
-                  );
-                  pkgsKilted = prev.extend (
-                    _final: _prev: { inherit (final.rosPackages.kilted) octomap urdfdom urdfdom-headers; }
-                  );
-                  pkgsRolling = prev.extend (
-                    _final: _prev: { inherit (final.rosPackages.rolling) octomap urdfdom urdfdom-headers; }
-                  );
-
                   rosPackages = prev.rosPackages // {
                     humble = prev.rosPackages.humble.overrideScope (
                       humble-final: _humble-prev:
@@ -485,16 +472,6 @@ in
                           sdformat12
                           # keep-sorted end
                           ;
-                        inherit (final.pkgsHumble) dartsim fcl;
-                        inherit (final.pkgsHumble.python3Packages)
-                          # keep-sorted start
-                          coal
-                          colmpc
-                          crocoddyl
-                          mim-solvers
-                          pinocchio
-                          # keep-sorted end
-                          ;
                       }
                     );
 
@@ -539,16 +516,6 @@ in
                           gz-utils2
                           sdformat
                           sdformat14
-                          # keep-sorted end
-                          ;
-                        inherit (final.pkgsJazzy) dartsim fcl;
-                        inherit (final.pkgsJazzy.python3Packages)
-                          # keep-sorted start
-                          coal
-                          colmpc
-                          crocoddyl
-                          mim-solvers
-                          pinocchio
                           # keep-sorted end
                           ;
                       }
@@ -597,16 +564,6 @@ in
                           sdformat15
                           # keep-sorted end
                           ;
-                        inherit (final.pkgsKilted) dartsim fcl;
-                        inherit (final.pkgsKilted.python3Packages)
-                          # keep-sorted start
-                          coal
-                          colmpc
-                          crocoddyl
-                          mim-solvers
-                          pinocchio
-                          # keep-sorted end
-                          ;
                       }
                     );
 
@@ -651,16 +608,6 @@ in
                           gz-utils4
                           sdformat
                           sdformat16
-                          # keep-sorted end
-                          ;
-                        inherit (final.pkgsRolling) dartsim fcl;
-                        inherit (final.pkgsRolling.python3Packages)
-                          # keep-sorted start
-                          coal
-                          colmpc
-                          crocoddyl
-                          mim-solvers
-                          pinocchio
                           # keep-sorted end
                           ;
                       }

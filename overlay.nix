@@ -28,8 +28,8 @@
     gazebo = prev.gazebo // {
       fortress = prev.gazebo.fortress.overrideScope (
         fortress-final: fortress-prev: {
-          inherit (final.rosPackages.humble) dartsim urdfdom-headers urdfdom;
-          dart = fortress-final.dartsim;
+          inherit (final) dartsim urdfdom-headers urdfdom;
+          dart = final.dartsim;
 
           # fast and ugly way to compensate the fact that
           # this version package.xml have no deps info,
@@ -60,8 +60,8 @@
 
       harmonic = prev.gazebo.harmonic.overrideScope (
         harmonic-final: harmonic-prev: {
-          inherit (final.rosPackages.jazzy) dartsim urdfdom-headers urdfdom;
-          dart = harmonic-final.dartsim;
+          inherit (final) dartsim urdfdom-headers urdfdom;
+          dart = final.dartsim;
 
           gz-gui8 = harmonic-prev.gz-gui8.overrideAttrs {
             patches = [
@@ -97,15 +97,15 @@
 
       ionic = prev.gazebo.ionic.overrideScope (
         ionic-final: _ionic-prev: {
-          inherit (final.rosPackages.kilted) dartsim urdfdom-headers urdfdom;
-          dart = ionic-final.dartsim;
+          inherit (final) dartsim urdfdom-headers urdfdom;
+          dart = final.dartsim;
         }
       );
 
       jetty = prev.gazebo.jetty.overrideScope (
         jetty-final: jetty-prev: {
-          inherit (final.rosPackages.rolling) dartsim urdfdom-headers urdfdom;
-          dart = jetty-final.dartsim;
+          inherit (final) dartsim urdfdom-headers urdfdom;
+          dart = final.dartsim;
 
           gz-sim10 = jetty-prev.gz-sim10.overrideAttrs (super: {
             postPatch = (super.postPatch or "") + ''
@@ -133,6 +133,13 @@
 
         rosOverlay = ros-final: ros-prev: {
           # keep-sorted start block=yes
+          inherit (final)
+            dartsim
+            fcl
+            urdfdom-headers
+            urdfdom
+            octomap
+            ;
 
           agimus-demos = ros-prev.agimus-demos.overrideAttrs {
             nativeBuildInputs = [ ros-final.ament-cmake ];
@@ -183,6 +190,14 @@
             gazebo-planar-move-plugin = null;
             gazebo-ros = null;
             gazebo-dev = null;
+
+            geometric-shapes = humble-prev.geometric-shapes.overrideAttrs {
+              postPatch = ''
+                substituteInPlace CMakeLists.txt --replace-fail \
+                  "find_package(octomap 1.9.7...<1.10.0 REQUIRED)" \
+                  "find_package(octomap REQUIRED)"
+              '';
+            };
 
             agimus-controller-ros = humble-prev.agimus-controller-ros.overrideAttrs {
               # this thing believe we did pass --build-directory or --build-base:
