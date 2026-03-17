@@ -417,10 +417,10 @@ in
                     _final: _prev: { inherit (final.rosPackages.jazzy) octomap urdfdom urdfdom-headers; }
                   );
                   pkgsKilted = prev.extend (
-                    _final: _prev: { inherit (final.rosPackages.kilted) urdfdom urdfdom-headers; }
+                    _final: _prev: { inherit (final.rosPackages.kilted) octomap urdfdom urdfdom-headers; }
                   );
                   pkgsRolling = prev.extend (
-                    _final: _prev: { inherit (final.rosPackages.rolling) urdfdom urdfdom-headers; }
+                    _final: _prev: { inherit (final.rosPackages.rolling) octomap urdfdom urdfdom-headers; }
                   );
 
                   rosPackages = prev.rosPackages // {
@@ -485,7 +485,7 @@ in
                           sdformat12
                           # keep-sorted end
                           ;
-                        inherit (final.pkgsHumble) fcl;
+                        inherit (final.pkgsHumble) dartsim fcl;
                         inherit (final.pkgsHumble.python3Packages)
                           # keep-sorted start
                           coal
@@ -541,7 +541,7 @@ in
                           sdformat14
                           # keep-sorted end
                           ;
-                        inherit (final.pkgsJazzy) fcl;
+                        inherit (final.pkgsJazzy) dartsim fcl;
                         inherit (final.pkgsJazzy.python3Packages)
                           # keep-sorted start
                           coal
@@ -597,7 +597,7 @@ in
                           sdformat15
                           # keep-sorted end
                           ;
-                        inherit (final.pkgsKilted) fcl;
+                        inherit (final.pkgsKilted) dartsim fcl;
                         inherit (final.pkgsKilted.python3Packages)
                           # keep-sorted start
                           coal
@@ -653,7 +653,7 @@ in
                           sdformat16
                           # keep-sorted end
                           ;
-                        inherit (final.pkgsRolling) fcl;
+                        inherit (final.pkgsRolling) dartsim fcl;
                         inherit (final.pkgsRolling.python3Packages)
                           # keep-sorted start
                           coal

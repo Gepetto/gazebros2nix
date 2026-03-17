@@ -27,8 +27,9 @@
 
     gazebo = prev.gazebo // {
       fortress = prev.gazebo.fortress.overrideScope (
-        _fortress-final: fortress-prev: {
-          dart = final.dartsim;
+        fortress-final: fortress-prev: {
+          inherit (final.rosPackages.humble) dartsim urdfdom-headers urdfdom;
+          dart = fortress-final.dartsim;
 
           # fast and ugly way to compensate the fact that
           # this version package.xml have no deps info,
@@ -58,8 +59,9 @@
       );
 
       harmonic = prev.gazebo.harmonic.overrideScope (
-        _harmonic-final: harmonic-prev: {
-          dart = final.dartsim;
+        harmonic-final: harmonic-prev: {
+          inherit (final.rosPackages.jazzy) dartsim urdfdom-headers urdfdom;
+          dart = harmonic-final.dartsim;
 
           gz-gui8 = harmonic-prev.gz-gui8.overrideAttrs {
             patches = [
@@ -94,14 +96,17 @@
       );
 
       ionic = prev.gazebo.ionic.overrideScope (
-        _ionic-final: _ionic-prev: {
-          dart = final.dartsim;
+        ionic-final: _ionic-prev: {
+          inherit (final.rosPackages.kilted) dartsim urdfdom-headers urdfdom;
+          dart = ionic-final.dartsim;
         }
       );
 
       jetty = prev.gazebo.jetty.overrideScope (
-        _jetty-final: jetty-prev: {
-          dart = final.dartsim;
+        jetty-final: jetty-prev: {
+          inherit (final.rosPackages.rolling) dartsim urdfdom-headers urdfdom;
+          dart = jetty-final.dartsim;
+
           gz-sim10 = jetty-prev.gz-sim10.overrideAttrs (super: {
             postPatch = (super.postPatch or "") + ''
               substituteInPlace src/cmd/CMakeLists.txt \

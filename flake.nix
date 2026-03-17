@@ -103,7 +103,7 @@
                   name = "ros-humble";
                   postBuild = self.lib.rosWrapperArgs "humble" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-humble-" n) self'.packages) ++ [
-                    pkgs.python3Packages.coal # TODO
+                    pkgs.pkgsHumble.python3Packages.coal # TODO
                     pkgs.qt5.qtgraphicaleffects
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -113,7 +113,7 @@
                   name = "ros-jazzy";
                   postBuild = self.lib.rosWrapperArgs "jazzy" pkgs;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-" n) self'.packages) ++ [
-                    pkgs.python3Packages.coal # TODO
+                    pkgs.pkgsJazzy.python3Packages.coal # TODO
                     pkgs.qt5.wrapQtAppsHook
                   ];
                 };
