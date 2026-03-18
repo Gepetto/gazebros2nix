@@ -1,10 +1,12 @@
 {
   inputs = {
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    gepetto-lib.url = "github:Gepetto/nix-lib";
-    nix-ros-overlay.url = "github:lopsided98/nix-ros-overlay/develop";
-    nixpkgs.follows = "nix-ros-overlay/nixpkgs";
-    systems.follows = "nix-ros-overlay/flake-utils/systems";
+    flakoboros.url = "github:gepetto/flakoboros";
+    flake-parts.follows = "flakoboros/flake-parts";
+    nix-ros-overlay.follows = "flakoboros/nix-ros-overlay";
+    nixpkgs.follows = "flakoboros/nixpkgs";
+    systems.follows = "flakoboros/systems";
+    treefmt-nix.follows = "flakoboros/treefmt-nix";
+
     pyproject-build-systems = {
       url = "github:pyproject-nix/build-system-pkgs";
       inputs.pyproject-nix.follows = "pyproject-nix";
@@ -13,10 +15,6 @@
     };
     pyproject-nix = {
       url = "github:pyproject-nix/pyproject.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     uv2nix = {
@@ -31,7 +29,9 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } (
       { self, lib, ... }:
       let
-        flakeModule = inputs.flake-parts.lib.importApply ./module.nix { localFlake = self; };
+        flakeModule = inputs.flake-parts.lib.importApply ./module.nix {
+          inherit (inputs) nixpkgs nix-ros-overlay;
+        };
       in
       {
         systems = import inputs.systems;
@@ -39,7 +39,15 @@
         imports = [
           flakeModule
           {
-            gazebros2nix = {
+            flakoboros = {
+              overlays = [
+                (final: prev: {
+                  inherit (inputs) pyproject-build-systems pyproject-nix uv2nix;
+                  lib = prev.lib // {
+                    inherit (inputs.flakoboros.lib) pythonVersion;
+                  };
+                })
+              ];
               rosShellDistro = "humble";
               filterPackages =
                 n: _v: ((!lib.hasPrefix "gz-" n) || lib.hasPrefix "gz-harmonic-" n) && (!lib.hasPrefix "ign-" n);
