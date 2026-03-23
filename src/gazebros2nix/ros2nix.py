@@ -300,7 +300,7 @@ def main():
     with Github(auth=auth) as gh:
         rosdeps = get_rosdeps(gh)
         for distro, conf in cfg.items():
-            if args.distro and args.distro != "all" and distro != args.distro:
+            if args.distro and args.distro != "all" and distro not in args.distro:
                 logger.debug("ignore distro %s", distro)
                 continue
             environ["ROS_DISTRO"] = distro
