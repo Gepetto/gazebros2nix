@@ -387,7 +387,7 @@
                   ros2-control-demo-example-1
                   ros2-control-demo-example-10
                   ros2-control-demo-example-11
-                  ros2-control-demo-example-12
+                  # ros2-control-demo-example-12
                   ros2-control-demo-example-13
                   ros2-control-demo-example-14
                   ros2-control-demo-example-15
