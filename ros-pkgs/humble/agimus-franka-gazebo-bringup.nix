@@ -19,7 +19,7 @@
   # checkInputs
   ament-lint-auto,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-franka-gazebo-bringup";
@@ -28,8 +28,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "562d6087298b13ece3d8ee42a0f410246753b31e";
-    hash = "sha256-020nGSNxJL2/yFhEIjjyy850WcUmjMO/+OL1OYU0oIE=";
+    rev = "927a0393961fb4b27c9d1e5815955e132b7bf3b3";
+    hash = "sha256-nVPTHD6i5i+UfAXnyCPe29OmdCnWJw5dlDKGu0CjghU=";
   };
   sourceRoot = "source/agimus_franka_gazebo/agimus_franka_gazebo_bringup";
 
