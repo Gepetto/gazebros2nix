@@ -138,9 +138,14 @@ final: prev: {
           ;
         # keep-sorted start block=yes
 
-        agimus-demos = ros-prev.agimus-demos.overrideAttrs {
-          nativeBuildInputs = [ ros-final.ament-cmake ];
-        };
+        agimus-demos = ros-prev.agimus-demos.overrideAttrs (super: {
+          nativeBuildInputs = (super.nativeBuildInputs or [ ]) ++ [ ros-final.ament-cmake ];
+        });
+        agimus-demos-common = ros-prev.agimus-demos-common.overrideAttrs (super: {
+          propagatedBuildInputs = (super.propagatedBuildInputs or [ ]) ++ [
+            ros-final.agimus-franka-gazebo-bringup
+          ];
+        });
         agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs amentInstallCheckOverride;
         agimus-franka-example-controllers = ros-prev.agimus-franka-example-controllers.overrideAttrs amentInstallCheckOverride;
         agimus-franka-fr3-moveit-config = ros-prev.agimus-franka-fr3-moveit-config.overrideAttrs amentInstallCheckOverride;
