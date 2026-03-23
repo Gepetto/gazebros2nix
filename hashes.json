@@ -24,6 +24,7 @@
   "https://github.com/agimus-project/agimus-libfranka-common/archive/8f5f4ff8f391a0299d3098d8ade630a7e4a3a696.tar.gz": "sha256-DWGr+IBerTuQt3Jv2EL4MV+gHYp+lNvPRh0tIoZZB+o=",
   "https://github.com/agimus-project/agimus-libfranka/archive/c669067a902d4e835d68f01a10bbe72a72d47607.tar.gz": "sha256-OHo/TR2Thel6TIxzskQs1D+4uUl9WH3pEV+cvpxbxUI=",
   "https://github.com/agimus-project/agimus-msgs/archive/refs/tags/v1.0.0.tar.gz": "sha256-j1eatFsB4Uek1n7x7gK5tSPi33B67mR8CXBVCDh+RFY=",
+  "https://github.com/agimus-project/agimus_controller/archive/5f96b6a5688416b14ef7f93cfe10b8cd5d21ff19.tar.gz": "sha256-xcnLYdGaAkVTRUlSiyMnjYHDgMpa6nr6N401QP3NQpc=",
   "https://github.com/agimus-project/agimus_controller/archive/cf96c9312877477005888af86019fa6d1225b96e.tar.gz": "sha256-rWWhmWUQW/wtbQfHfeRhEsVO07PDhVtvlUTlGQNL4qI=",
   "https://github.com/gazebosim/gz-cmake gz-cmake3_3.5.6": "sha256-S5nBV05So1KjNvI//U01gJKykleqNgi8dIbtQZHIiqA=",
   "https://github.com/gazebosim/gz-cmake gz-cmake4_4.2.1": "sha256-zhpZnvfnWsuyykIbNB4xgHxdO35otmaz0x/VXSdWPNY=",
