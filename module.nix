@@ -1,6 +1,5 @@
 {
   nix-ros-overlay,
-  nixpkgs,
   ...
 }:
 {
@@ -56,8 +55,6 @@ in
 
     perSystem =
       {
-        pkgs,
-        self',
         system,
         ...
       }:

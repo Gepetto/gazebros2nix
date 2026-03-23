@@ -40,7 +40,7 @@
           {
             flakoboros = {
               overlays = [
-                (final: prev: {
+                (_final: prev: {
                   inherit (inputs) pyproject-build-systems pyproject-nix uv2nix;
                   lib = prev.lib // {
                     inherit (inputs.flakoboros.lib) pythonVersion;

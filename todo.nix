@@ -20,7 +20,7 @@ final: prev: {
 
   gazebo = prev.gazebo // {
     fortress = prev.gazebo.fortress.overrideScope (
-      fortress-final: fortress-prev: {
+      _fortress-final: fortress-prev: {
         inherit (final) dartsim urdfdom-headers urdfdom;
         dart = final.dartsim;
 
@@ -52,7 +52,7 @@ final: prev: {
     );
 
     harmonic = prev.gazebo.harmonic.overrideScope (
-      harmonic-final: harmonic-prev: {
+      _harmonic-final: harmonic-prev: {
         inherit (final) dartsim urdfdom-headers urdfdom;
         dart = final.dartsim;
 
@@ -89,14 +89,14 @@ final: prev: {
     );
 
     ionic = prev.gazebo.ionic.overrideScope (
-      ionic-final: _ionic-prev: {
+      _ionic-final: _ionic-prev: {
         inherit (final) dartsim urdfdom-headers urdfdom;
         dart = final.dartsim;
       }
     );
 
     jetty = prev.gazebo.jetty.overrideScope (
-      jetty-final: jetty-prev: {
+      _jetty-final: jetty-prev: {
         inherit (final) dartsim urdfdom-headers urdfdom;
         dart = final.dartsim;
 
@@ -125,7 +125,6 @@ final: prev: {
       };
 
       rosOverlay = ros-final: ros-prev: {
-        # keep-sorted start block=yes
         inherit (final)
           dartsim
           fcl
@@ -133,6 +132,7 @@ final: prev: {
           urdfdom
           octomap
           ;
+        # keep-sorted start block=yes
 
         agimus-demos = ros-prev.agimus-demos.overrideAttrs {
           nativeBuildInputs = [ ros-final.ament-cmake ];
