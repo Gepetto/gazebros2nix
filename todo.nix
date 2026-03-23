@@ -134,6 +134,7 @@ final: prev: {
           ;
         # keep-sorted start block=yes
 
+        agimus-controller = ros-prev.agimus-controller.override { inherit (final.python3Packages) colmpc; };
         agimus-demos = ros-prev.agimus-demos.overrideAttrs {
           nativeBuildInputs = [ ros-final.ament-cmake ];
         };
