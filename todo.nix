@@ -266,6 +266,12 @@ final: prev: {
             meta.platforms = final.lib.platforms.linux;
           });
 
+          ros-gz-sim = humble-prev.ros-gz-sim.overrideAttrs (super: {
+            propagatedNativeBuildInputs = (super.propagatedNativeBuildInputs or [ ]) ++ [
+              humble-final.gz-tools
+            ];
+          });
+
           ros-gz-sim-demos = null; # wants qt-gui-cpp, where qt5 and python 3.13 are not compatible
 
           topic-tools-interfaces = humble-prev.topic-tools-interfaces.overrideAttrs {
