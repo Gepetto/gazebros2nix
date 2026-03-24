@@ -158,6 +158,7 @@ final: prev: {
             "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
           ];
         };
+        # keep-sorted end
       };
     in
     prev.rosPackages
