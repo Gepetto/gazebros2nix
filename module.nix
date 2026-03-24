@@ -1,4 +1,7 @@
-{ localFlake }:
+{
+  nix-ros-overlay,
+  ...
+}:
 {
   config,
   inputs,
@@ -10,655 +13,82 @@ let
   cfg = config.gazebros2nix;
 in
 {
-  imports = [ inputs.treefmt-nix.flakeModule ];
+  imports = [
+    inputs.treefmt-nix.flakeModule
+    inputs.flakoboros.flakeModule
+    {
+      flakoboros = {
+        overlays = [ self.overlays.gazebros2nix ];
+        nixpkgsConfig = {
+          allowUnfree = true;
+          permittedInsecurePackages = [
+            # SHAME
+            "freeimage-3.18.0-unstable-2024-04-18"
+          ];
+        };
+        pkgs = false;
+      };
+    }
+  ];
 
   options.gazebros2nix = {
-    overlays = lib.mkOption {
-      description = "Additionnal overlays for gazebros2nix";
-      default = [ ];
-    };
-    gazebros2nixPatches = lib.mkOption {
-      description = "apply gazebros2nix patches to nixpkgs";
-      default = true;
-    };
     patches = lib.mkOption {
-      description = "Additionnal patches for gazebros2nix";
+      description = "Additionnal patches for gazebros2nix pkgs";
       default = [ ];
     };
 
-    overrides = lib.mkOption {
-      description = "attrSet of packages name/override to add in overlay";
-      default = { };
-    };
-    pyOverrides = lib.mkOption {
-      description = "attrSet of python packages name/override to add in overlay";
-      default = { };
-    };
-    rosOverrides = lib.mkOption {
-      description = "attrSet of ROS packages name/override to add in overlay";
-      default = { };
-    };
-
-    packages = lib.mkOption {
-      description = "packages to add in overlay";
-      default = { };
-    };
-    pyPackages = lib.mkOption {
-      description = "python packages to add in overlay";
-      default = { };
-    };
-    rosPackages = lib.mkOption {
-      description = "ROS packages to add in overlay";
-      default = { };
-    };
-
-    rosDistros = lib.mkOption {
-      description = "List of ROS distributions to consider for rosOverrides & rosPackages overlay";
-      default = [
-        "humble"
-        "jazzy"
-        "kilted"
-        "rolling"
-      ];
-    };
-    rosShellDistro = lib.mkOption {
-      description = "The ROS distribution of the default devShell and env";
-      default = "rolling";
-    };
-
-    filterPackages = lib.mkOption {
-      description = "Function to filter the packages to include in default devShell and env";
-      default = _n: _v: true;
-    };
-
-    overlayName = lib.mkOption {
-      description = "Name of the overlay";
-      default = "default";
-    };
-
-    checkAll = lib.mkOption {
-      description = "build all packages and devShells in checks";
-      default = false;
+    pkgs = lib.mkOption {
+      type = lib.types.bool;
+      description = "define pkgs from nixpkgs with overlays from nix-ros-overlay, flakoboros, gazebros2nix and overlays";
+      default = true;
     };
   };
 
-  config =
-    let
-      rosWrapperArgs =
-        distro: pkgs:
-        ''
-          rosWrapperArgs+=(
-          --unset QTWEBKIT_PLUGIN_PATH
-          --unset QT_QPA_PLATFORMTHEME
-          --unset QT_STYLE_OVERRIDE
-          --prefix AMENT_PREFIX_PATH : $out
-          --prefix LD_LIBRARY_PATH : $out/lib
-        ''
-        + lib.optionalString (distro == "humble") ''
-          --set-default IGN_IP 127.0.0.1
-          --prefix IGN_CONFIG_PATH : $out/share/ignition
-          --prefix IGN_GAZEBO_RESOURCE_PATH : $out/share
-        ''
-        + lib.optionalString (distro == "humble" || distro == "jazzy" || distro == "kilted") ''
-          --set QML2_IMPORT_PATH ${
-            lib.makeSearchPathOutput "bin" pkgs.qt5.qtbase.qtQmlPrefix [
-              pkgs.qt5.qtbase
-              pkgs.qt5.qtdeclarative
-              pkgs.qt5.qtquickcontrols
-              pkgs.qt5.qtquickcontrols2
-              pkgs.qt5.qtgraphicaleffects
-              pkgs.qt5.qtwayland
-              pkgs.qt5.qtwebsockets
-            ]
-          }
-          --set QT_QPA_PLATFORM_PLUGIN_PATH ${
-            lib.makeSearchPathOutput "bin" "${pkgs.qt5.qtbase.qtPluginPrefix}/platforms" [
-              pkgs.qt5.qtbase
-              pkgs.qt5.qtwayland
-            ]
-          }
-        ''
-        + lib.optionalString (distro != "humble") ''
-          --set-default GZ_IP 127.0.0.1
-          --prefix GZ_SIM_RESOURCE_PATH : $out/share
-        ''
-        + ''
-          )
-        '';
+  config = {
+    flake.overlays.gazebros2nix = lib.composeManyExtensions [
+      (import ./garbage)
+      (import ./generated.nix)
+      (import ./todo.nix)
+    ];
 
-      rosShellHook =
-        {
-          env ? null,
-          pkgs ? null,
-        }:
-        let
-          distro = cfg.rosShellDistro;
-        in
-        ''
-          unset QTWEBKIT_PLUGIN_PATH
-          unset QT_QPA_PLATFORMTHEME
-          unset QT_STYLE_OVERRIDE
-        ''
-        + lib.optionalString (env != null) ''
-          AMENT_PREFIX_PATH=${env}:''${AMENT_PREFIX_PATH:+:$AMENT_PREFIX_PATH}
-          LD_LIBRARY_PATH=${env}/lib:''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
-          export AMENT_PREFIX_PATH
-          export LD_LIBRARY_PATH
-        ''
-        + lib.optionalString (distro == "humble") ''
-          : ''${IGN_IP:=127.0.0.1}
-          export IGN_IP
-        ''
-        + lib.optionalString (env != null && distro == "humble") ''
-          IGN_CONFIG_PATH=${env}/share/ignition:''${IGN_CONFIG_PATH:+:$IGN_CONFIG_PATH}
-          IGN_GAZEBO_RESOURCE_PATH=${env}/share:''${IGN_GAZEBO_RESOURCE_PATH:+:$IGN_GAZEBO_RESOURCE_PATH}
-          export IGN_CONFIG_PATH
-          export IGN_GAZEBO_RESOURCE_PATH
-        ''
-        +
-          lib.optionalString (pkgs != null && (distro == "humble" || distro == "jazzy" || distro == "kilted"))
-            ''
-              QML2_IMPORT_PATH=${
-                lib.makeSearchPathOutput "bin" pkgs.qt5.qtbase.qtQmlPrefix [
-                  pkgs.qt5.qtbase
-                  pkgs.qt5.qtdeclarative
-                  pkgs.qt5.qtquickcontrols
-                  pkgs.qt5.qtquickcontrols2
-                  pkgs.qt5.qtgraphicaleffects
-                  pkgs.qt5.qtwayland
-                  pkgs.qt5.qtwebsockets
-                ]
+    perSystem =
+      {
+        system,
+        ...
+      }:
+      {
+        treefmt = {
+          # workaround  https://github.com/numtide/treefmt-nix/issues/352
+          pkgs = inputs.nixpkgs.legacyPackages.${system};
+          programs = {
+            deadnix.enable = true;
+            keep-sorted.enable = true;
+            nixfmt.enable = true;
+          };
+        };
+      }
+
+      // lib.optionalAttrs cfg.pkgs {
+        _module.args.pkgs =
+          let
+            pkgsForPatching = inputs.nixpkgs.legacyPackages.${system};
+            patchedNixpkgs = (
+              pkgsForPatching.applyPatches {
+                name = "gepetto patched nixpkgs";
+                src = inputs.nixpkgs;
+                patches = lib.fileset.toList ./patches/NixOS/nixpkgs ++ cfg.patches;
               }
-              QT_PLUGIN_PATH=${
-                lib.makeSearchPathOutput "bin" pkgs.qt5.qtbase.qtPluginPrefix [
-                  pkgs.qt5.qtbase
-                  pkgs.qt5.qtdeclarative
-                  pkgs.qt5.qtwayland
-                ]
-              }
-              QT_QPA_PLATFORM_PLUGIN_PATH=${
-                lib.makeSearchPathOutput "bin" "${pkgs.qt5.qtbase.qtPluginPrefix}/platforms" [
-                  pkgs.qt5.qtbase
-                  pkgs.qt5.qtwayland
-                ]
-              }
-              export QML2_IMPORT_PATH
-              export QT_PLUGIN_PATH
-              export QT_QPA_PLATFORM_PLUGIN_PATH
-            ''
-        + lib.optionalString (distro != "humble") ''
-          : ''${GZ_IP:=127.0.0.1}
-          export GZ_IP
-        ''
-        + lib.optionalString (env != null && distro != "humble") ''
-          GZ_SIM_RESOURCE_PATH=${env}/share:''${GZ_SIM_RESOURCE_PATH:+:$GZ_SIM_RESOURCE_PATH}
-          export GZ_SIM_RESOURCE_PATH
-        ''
-        + ''
-          test -f install/local_setup.bash && source install/local_setup.bash
-        '';
-
-      getRosBasePackages = distro: pkgs: [
-        pkgs.colcon
-        pkgs.rosPackages.${distro}.ros2topic
-      ];
-
-      buildGazebros2nixShell =
-        distro: pkgs: packages:
-        pkgs.mkShell {
-          name = "gazebros2nix default shell";
-          packages = lib.attrValues (
-            lib.filterAttrs (
-              n: v:
-              (n != "default")
-              && (cfg.filterPackages n v)
-              && ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${distro}-" n)
-            ) packages
-          );
-        };
-
-      buildGazebros2nixEnv =
-        distro: pkgs: packages:
-        let
-          shell = buildGazebros2nixShell distro pkgs packages;
-        in
-        pkgs.rosPackages.${distro}.buildEnv {
-          paths = lib.unique (
-            lib.filter lib.isDerivation (
-              (shell.buildInputs or [ ])
-              ++ (shell.nativeBuildInputs or [ ])
-              ++ (shell.propagatedNativeBuildInputs or [ ])
-              ++ (shell.propagatedBuildInputs or [ ])
-            )
-            ++ lib.optionals (distro == "humble" || distro == "jazzy" || distro == "kilted") [
-              pkgs.python3Packages.coal # TODO
-              pkgs.qt5.wrapQtAppsHook
-              pkgs.qt5.qtgraphicaleffects
+            );
+          in
+          import patchedNixpkgs {
+            inherit system;
+            config = config.flakoboros.nixpkgsConfig;
+            overlays = [
+              nix-ros-overlay.overlays.default
+              self.overlays.default
             ]
-            ++ lib.optionals (distro == "rolling") [
-              pkgs.qt6.qtbase
-              pkgs.qt6.wrapQtAppsHook
-            ]
-          );
-          postBuild = rosWrapperArgs cfg.rosShellDistro pkgs;
-        };
-
-      buildGazebros2nixDevShell =
-        distro: pkgs: packages:
-        pkgs.mkShell {
-          name = "gazebros2nix default devShell";
-          inputsFrom = lib.attrValues (
-            lib.filterAttrs (
-              n: v:
-              (n != "default")
-              && (cfg.filterPackages n v)
-              && ((!lib.hasPrefix "ros-" n) || lib.hasPrefix "ros-${distro}-" n)
-            ) packages
-          );
-        };
-
-      buildGazebros2nixRosShell =
-        distro: pkgs: packages:
-        let
-          shell = buildGazebros2nixShell distro pkgs packages;
-          env = buildGazebros2nixEnv distro pkgs packages;
-        in
-        pkgs.mkShell {
-          name = "gazebros2nix default ROS shell";
-          inputsFrom = [ shell ];
-          packages = getRosBasePackages distro pkgs;
-          shellHook = rosShellHook { inherit env pkgs; };
-        };
-
-      buildGazebros2nixRosEnv =
-        distro: pkgs: packages:
-        let
-          shell = buildGazebros2nixRosShell distro pkgs packages;
-        in
-        pkgs.rosPackages.${distro}.buildEnv {
-          paths = lib.unique (
-            lib.filter lib.isDerivation (
-              (shell.buildInputs or [ ])
-              ++ (shell.nativeBuildInputs or [ ])
-              ++ (shell.propagatedNativeBuildInputs or [ ])
-              ++ (shell.propagatedBuildInputs or [ ])
-            )
-            ++ lib.optional (
-              distro == "humble" || distro == "jazzy" || distro == "kilted"
-            ) pkgs.qt5.wrapQtAppsHook
-            ++ lib.optionals (distro == "rolling") [
-              pkgs.qt6.wrapQtAppsHook
-              pkgs.qt6.qtbase
-            ]
-          );
-        };
-
-      buildGazebros2nixRosDevShell =
-        distro: pkgs: packages:
-        let
-          shell = buildGazebros2nixDevShell distro pkgs packages;
-          env = buildGazebros2nixRosEnv distro pkgs packages;
-        in
-        pkgs.mkShell {
-          name = "gazebros2nix default ROS devShell";
-          inputsFrom = [ shell ];
-          packages = getRosBasePackages distro pkgs;
-          shellHook = rosShellHook { inherit env pkgs; };
-        };
-
-    in
-    {
-      flake = {
-        lib = {
-          inherit
-            rosWrapperArgs
-            rosShellHook
-            getRosBasePackages
-            buildGazebros2nixShell
-            buildGazebros2nixEnv
-            buildGazebros2nixDevShell
-            buildGazebros2nixRosShell
-            buildGazebros2nixRosEnv
-            buildGazebros2nixRosDevShell
-            ;
-        };
-
-        overlays.${cfg.overlayName} =
-          final: prev:
-          (lib.mapAttrs (name: override: prev.${name}.overrideAttrs (override final)) cfg.overrides)
-          // (lib.mapAttrs (_name: package: final.callPackage package { }) cfg.packages)
-          // {
-            pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-              (
-                python-final: python-prev:
-                lib.mapAttrs (
-                  name: override: python-prev.${name}.overrideAttrs (override final python-final)
-                ) cfg.pyOverrides
-                // lib.mapAttrs (_name: package: python-final.callPackage package { }) cfg.pyPackages
-              )
-            ];
-
-            rosPackages =
-              prev.rosPackages
-              // lib.genAttrs cfg.rosDistros (
-                distro:
-                prev.rosPackages.${distro}.overrideScope (
-                  ros-final: ros-prev:
-                  lib.mapAttrs (
-                    name: override: ros-prev.${name}.overrideAttrs (override final ros-final)
-                  ) cfg.rosOverrides
-                  // lib.mapAttrs (_name: package: ros-final.callPackage package { }) cfg.rosPackages
-                )
-              );
+            ++ config.flakoboros.overlays;
           };
       };
-
-      perSystem =
-        {
-          pkgs,
-          self',
-          system,
-          ...
-        }:
-        {
-          _module.args.pkgs =
-            let
-              pkgsForPatching = inputs.nixpkgs.legacyPackages.${system};
-              patchedNixpkgs = (
-                pkgsForPatching.applyPatches {
-                  name = "gepetto patched nixpkgs";
-                  src = inputs.nixpkgs;
-                  patches =
-                    lib.optionals cfg.gazebros2nixPatches (lib.fileset.toList ./patches/NixOS/nixpkgs) ++ cfg.patches;
-                }
-              );
-            in
-            import patchedNixpkgs {
-              inherit system;
-              config.allowUnfree = true;
-              config.permittedInsecurePackages = [
-                # SHAME
-                "freeimage-3.18.0-unstable-2024-04-18"
-              ];
-
-              overlays = [
-                inputs.nix-ros-overlay.overlays.default
-
-                (final: prev: {
-                  inherit (inputs) pyproject-build-systems pyproject-nix uv2nix;
-                  lib =
-                    prev.lib
-                    // (prev.lib.mapAttrs (_name: value: value final) ({
-                      inherit (localFlake.inputs.gepetto-lib.lib) pythonVersion rosVersion;
-                    }));
-                  gazebo = prev.lib.filesystem.packagesFromDirectoryRecursive {
-                    inherit (final) callPackage newScope;
-                    directory = ./gazebo-pkgs;
-                  };
-
-                  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-                    (
-                      python-final: _python-prev:
-                      final.lib.filesystem.packagesFromDirectoryRecursive {
-                        inherit (python-final) callPackage;
-                        directory = ./py-pkgs;
-                      }
-                    )
-                  ];
-
-                  rosPackages = prev.rosPackages // {
-                    humble = prev.rosPackages.humble.overrideScope (
-                      humble-final: _humble-prev:
-                      final.lib.filesystem.packagesFromDirectoryRecursive {
-                        inherit (humble-final) callPackage;
-                        directory = ./ros-pkgs/humble;
-                      }
-                      // {
-                        inherit (final.gazebo.fortress)
-                          # keep-sorted start
-                          gz-cmake
-                          gz-common
-                          gz-fuel-tools
-                          gz-gui
-                          gz-launch
-                          gz-math
-                          gz-msgs
-                          gz-physics
-                          gz-plugin
-                          gz-rendering
-                          gz-sensors
-                          gz-sim
-                          gz-tools
-                          gz-transport
-                          gz-utils
-                          ign-cmake2
-                          ign-common4
-                          ign-fuel-tools7
-                          ign-gazebo6
-                          ign-gui6
-                          ign-launch5
-                          ign-math6
-                          ign-msgs8
-                          ign-physics5
-                          ign-plugin1
-                          ign-rendering6
-                          ign-sensors6
-                          ign-tools1
-                          ign-transport11
-                          ign-utils1
-                          sdformat
-                          sdformat12
-                          # keep-sorted end
-                          ;
-                      }
-                    );
-
-                    jazzy = prev.rosPackages.jazzy.overrideScope (
-                      jazzy-final: _jazzy-prev:
-                      final.lib.filesystem.packagesFromDirectoryRecursive {
-                        inherit (jazzy-final) callPackage;
-                        directory = ./ros-pkgs/jazzy;
-                      }
-                      // {
-                        inherit (final.gazebo.harmonic)
-                          # keep-sorted start
-                          gz-cmake
-                          gz-cmake3
-                          gz-common
-                          gz-common5
-                          gz-fuel-tools
-                          gz-fuel-tools9
-                          gz-gui
-                          gz-gui8
-                          gz-launch
-                          gz-launch7
-                          gz-math
-                          gz-math7
-                          gz-msgs
-                          gz-msgs10
-                          gz-physics
-                          gz-physics7
-                          gz-plugin
-                          gz-plugin2
-                          gz-rendering
-                          gz-rendering8
-                          gz-sensors
-                          gz-sensors8
-                          gz-sim
-                          gz-sim8
-                          gz-tools
-                          gz-tools2
-                          gz-transport
-                          gz-transport13
-                          gz-utils
-                          gz-utils2
-                          sdformat
-                          sdformat14
-                          # keep-sorted end
-                          ;
-                      }
-                    );
-
-                    kilted = prev.rosPackages.kilted.overrideScope (
-                      kilted-final: _kilted-prev:
-                      final.lib.filesystem.packagesFromDirectoryRecursive {
-                        inherit (kilted-final) callPackage;
-                        directory = ./ros-pkgs/kilted;
-                      }
-                      // {
-                        inherit (final.gazebo.ionic)
-                          # keep-sorted start
-                          gz-cmake
-                          gz-cmake4
-                          gz-common
-                          gz-common6
-                          gz-fuel-tools
-                          gz-fuel-tools10
-                          gz-gui
-                          gz-gui9
-                          gz-launch
-                          gz-launch8
-                          gz-math
-                          gz-math8
-                          gz-msgs
-                          gz-msgs11
-                          gz-physics
-                          gz-physics8
-                          gz-plugin
-                          gz-plugin3
-                          gz-rendering
-                          gz-rendering9
-                          gz-sensors
-                          gz-sensors9
-                          gz-sim
-                          gz-sim9
-                          gz-tools
-                          gz-tools2
-                          gz-transport
-                          gz-transport14
-                          gz-utils
-                          gz-utils3
-                          sdformat
-                          sdformat15
-                          # keep-sorted end
-                          ;
-                      }
-                    );
-
-                    rolling = prev.rosPackages.rolling.overrideScope (
-                      rolling-final: _rolling-prev:
-                      final.lib.filesystem.packagesFromDirectoryRecursive {
-                        inherit (rolling-final) callPackage;
-                        directory = ./ros-pkgs/rolling;
-                      }
-                      // {
-                        inherit (final.gazebo.jetty)
-                          # keep-sorted start
-                          gz-cmake
-                          gz-cmake5
-                          gz-common
-                          gz-common7
-                          gz-fuel-tools
-                          gz-fuel-tools11
-                          gz-gui
-                          gz-gui10
-                          gz-launch
-                          gz-launch9
-                          gz-math
-                          gz-math9
-                          gz-msgs
-                          gz-msgs12
-                          gz-physics
-                          gz-physics9
-                          gz-plugin
-                          gz-plugin4
-                          gz-rendering
-                          gz-rendering10
-                          gz-sensors
-                          gz-sensors10
-                          gz-sim
-                          gz-sim10
-                          gz-tools
-                          gz-tools2
-                          gz-transport
-                          gz-transport15
-                          gz-utils
-                          gz-utils4
-                          sdformat
-                          sdformat16
-                          # keep-sorted end
-                          ;
-                      }
-                    );
-                  };
-                })
-
-                (import ./overlay.nix { })
-              ]
-              ++ cfg.overlays
-              ++ [ self.overlays.${cfg.overlayName} ];
-            };
-
-          devShells = {
-            default = lib.mkDefault (
-              if (cfg.rosPackages == { } && cfg.rosOverrides == { }) then
-                (buildGazebros2nixDevShell cfg.rosShellDistro pkgs self'.packages)
-              else
-                (buildGazebros2nixRosDevShell cfg.rosShellDistro pkgs self'.packages)
-            );
-          }
-          // lib.optionalAttrs (cfg.rosPackages != { } || cfg.rosOverrides != { }) (
-            lib.genAttrs' cfg.rosDistros (
-              distro: lib.nameValuePair "ros-${distro}" (buildGazebros2nixRosDevShell distro pkgs self'.packages)
-            )
-          );
-
-          # expose packages configured by consumer in gazebros2nix.{overrides,pyOverrides,rosOverrides,packages,pyPackages,rosPackages}
-          packages = {
-            default = lib.mkDefault (
-              if (cfg.rosPackages == { } && cfg.rosOverrides == { }) then
-                (buildGazebros2nixEnv cfg.rosShellDistro pkgs self'.packages)
-              else
-                (buildGazebros2nixRosEnv cfg.rosShellDistro pkgs self'.packages)
-            );
-          }
-          // (lib.mapAttrs (name: _v: pkgs.${name}) (cfg.overrides // cfg.packages))
-          // (lib.mapAttrs' (name: _v: lib.nameValuePair "py-${name}" pkgs.python3Packages.${name}) (
-            cfg.pyOverrides // cfg.pyPackages
-          ))
-          // (lib.listToAttrs (
-            lib.mapCartesianProduct
-              ({ distro, name }: lib.nameValuePair "ros-${distro}-${name}" pkgs.rosPackages.${distro}.${name})
-              {
-                distro = cfg.rosDistros;
-                name = lib.attrNames (cfg.rosOverrides // cfg.rosPackages);
-              }
-          ))
-          // lib.optionalAttrs (cfg.rosPackages != { } || cfg.rosOverrides != { }) (
-            lib.genAttrs' cfg.rosDistros (
-              distro: lib.nameValuePair "ros-${distro}" (buildGazebros2nixRosEnv distro pkgs self'.packages)
-            )
-          );
-
-          treefmt = {
-            # workaround  https://github.com/numtide/treefmt-nix/issues/352
-            pkgs = inputs.nixpkgs.legacyPackages.${system};
-            programs = {
-              deadnix.enable = true;
-              keep-sorted.enable = true;
-              nixfmt.enable = true;
-            };
-          };
-        }
-
-        // lib.optionalAttrs cfg.checkAll {
-          # Build all available packages and devShells. Useful for CI.
-          checks =
-            let
-              devShells = lib.mapAttrs' (n: lib.nameValuePair "devShell-${n}") self'.devShells;
-              packages = lib.mapAttrs' (n: lib.nameValuePair "package-${n}") self'.packages;
-            in
-            lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (devShells // packages);
-        };
-    };
+  };
 }
