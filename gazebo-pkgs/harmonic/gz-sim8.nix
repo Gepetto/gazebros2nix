@@ -65,6 +65,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     freeglut
@@ -98,7 +99,6 @@ stdenv.mkDerivation {
     gz-utils
     gz-utils2
     protobuf
-    python3
     python3Packages.pybind11
     qt5.qtbase
     qt5.qtdeclarative

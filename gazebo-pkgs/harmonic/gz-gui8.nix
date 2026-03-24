@@ -23,6 +23,7 @@
   gz-utils2,
   pkg-config,
   protobuf,
+  python3,
   qt5,
   tinyxml-2,
   xorg,
@@ -47,6 +48,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     gz-cmake

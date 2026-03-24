@@ -32,6 +32,7 @@
   libwebsockets,
   libyaml,
   pkg-config,
+  python3,
   sdformat,
   tinyxml-2,
   util-linux,
@@ -57,6 +58,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     binutils
