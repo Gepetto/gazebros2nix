@@ -22,6 +22,8 @@
   launch-testing,
   launch-testing-ros,
   python3Packages,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-play-motion2-cli";
@@ -34,6 +36,9 @@ buildRosPackage rec {
     hash = "sha256-Cq3r+KePWMpTvuo7Z4U7NQNyvhfffUTNymYkauqcYFA=";
   };
   sourceRoot = "source/play_motion2_cli";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_python";
 
@@ -57,6 +62,8 @@ buildRosPackage rec {
     launch-testing-ros
     python3Packages.pytest
     python3Packages.pytest-timeout
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

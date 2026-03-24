@@ -11,6 +11,8 @@
 # propagatedBuildInputs
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-net-ft-description";
@@ -24,16 +26,22 @@ buildRosPackage rec {
   };
   sourceRoot = "source/net_ft_description";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
   ];
   propagatedBuildInputs = [
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

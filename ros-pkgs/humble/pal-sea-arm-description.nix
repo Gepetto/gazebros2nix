@@ -27,18 +27,23 @@
   ament-lint-common,
   launch-testing-ament-cmake,
   urdf-test,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm-description";
-  version = "1.24.0";
+  version = "1.25.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_sea_arm";
     tag = version;
-    hash = "sha256-ngqJIWUjmo5m519Vakm0hKVrbDmk7D2KktC+dw0bxxc=";
+    hash = "sha256-j42FZUWPmE9IU0sm4on9G+jXMr3e0tY9L1apIdi/SiQ=";
   };
   sourceRoot = "source/pal_sea_arm_description";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 
@@ -47,6 +52,8 @@ buildRosPackage rec {
     ament-cmake-python
   ];
   buildInputs = [
+    ament-cmake-auto
+    ament-cmake-python
   ];
   propagatedBuildInputs = [
     joint-state-publisher-gui
@@ -66,6 +73,8 @@ buildRosPackage rec {
     ament-lint-common
     launch-testing-ament-cmake
     urdf-test
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

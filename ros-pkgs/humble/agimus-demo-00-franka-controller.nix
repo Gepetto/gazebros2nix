@@ -15,6 +15,8 @@
   ros2launch,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-00-franka-controller";
@@ -28,12 +30,16 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_00_franka_controller";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     agimus-demos-common
@@ -42,6 +48,8 @@ buildRosPackage rec {
     ros2launch
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

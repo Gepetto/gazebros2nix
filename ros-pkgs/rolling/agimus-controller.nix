@@ -23,6 +23,8 @@
   ament-flake8,
   ament-index-python,
   ament-pep257,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-rolling-agimus-controller";
@@ -35,6 +37,9 @@ buildRosPackage rec {
     hash = "sha256-rWWhmWUQW/wtbQfHfeRhEsVO07PDhVtvlUTlGQNL4qI=";
   };
   sourceRoot = "source/agimus_controller";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_python";
 
@@ -60,6 +65,8 @@ buildRosPackage rec {
     ament-pep257
     python3Packages.pytest
     python3Packages.pyyaml
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

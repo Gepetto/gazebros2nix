@@ -12,6 +12,8 @@
   tiago-pro-gazebo,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-tiago-pro-simulation";
@@ -20,10 +22,13 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "tiago_pro_simulation";
-    rev = "d6614ff98f6851a7e9a4c810b9fcf0b6fe63970f";
-    hash = "sha256-IvKGUxCHWWwJVRPF9o8xpE9R3+FGxSoaLNuDZQQTdu4=";
+    rev = "0b0bcf5cb8cf3ca91a76a75856da58f43284786e";
+    hash = "sha256-yEc5BrIPcu08v66up0d0PN7M0PWygHyie5h9j4YqQXk=";
   };
   sourceRoot = "source/tiago_pro_simulation";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 
@@ -31,11 +36,14 @@ buildRosPackage rec {
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
   ];
   propagatedBuildInputs = [
     tiago-pro-gazebo
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

@@ -14,6 +14,8 @@
   omni-base-description,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-omni-base-robot";
@@ -27,12 +29,16 @@ buildRosPackage rec {
   };
   sourceRoot = "source/omni_base_robot";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     omni-base-bringup
@@ -40,6 +46,8 @@ buildRosPackage rec {
     omni-base-description
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

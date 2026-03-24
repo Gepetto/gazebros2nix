@@ -38,6 +38,9 @@ stdenv.mkDerivation {
     hash = "sha256-5zqEHt7+69Qbp6I+JcY7h2CYzLKnvl1HHcnM3BYpqr4=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     cmake
     pkg-config

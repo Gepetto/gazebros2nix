@@ -25,18 +25,23 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-moveit-config";
-  version = "1.4.1";
+  version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_moveit_config";
     tag = version;
-    hash = "sha256-aAnR+3y6MXhZy4rKtLMFWvX3kCus/cBAXVmTKI5XVqw=";
+    hash = "sha256-p984t6tdLYzqwKF9JjSGocc1/UwXdCn2P7P+/c93wpk=";
   };
   sourceRoot = "source/";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 
@@ -44,6 +49,7 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     launch-pal
@@ -62,6 +68,8 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

@@ -23,6 +23,8 @@
   ament-lint-common,
   launch-testing-ament-cmake,
   urdf-test,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-tiago-pro-head-description";
@@ -36,6 +38,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/tiago_pro_head_description";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
@@ -43,6 +48,8 @@ buildRosPackage rec {
     ament-cmake-python
   ];
   buildInputs = [
+    ament-cmake-auto
+    ament-cmake-python
   ];
   propagatedBuildInputs = [
     launch-param-builder
@@ -58,6 +65,8 @@ buildRosPackage rec {
     ament-lint-common
     launch-testing-ament-cmake
     urdf-test
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

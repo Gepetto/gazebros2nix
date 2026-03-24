@@ -4,22 +4,24 @@
   fetchFromGitHub,
 
   # nativeBuildInputs
+  ament-cmake,
 
   # buildInputs
+  gz-ros2-control,
+  hardware-interface,
+  nav-msgs,
+  pluginlib,
+  rclcpp,
 
-  # propagatedBuildInputs
+# propagatedBuildInputs
 
-  # checkInputs
-  ament-copyright,
-  ament-flake8,
-  ament-pep257,
-  python3Packages,
+# checkInputs
 
 # nativeCheckInputs
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-tiago-pro-lfc-bringup";
-  version = "0.0.0";
+  pname = "ros-jazzy-odometry-gz-hw-interface";
+  version = "0.0.1";
 
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
@@ -27,24 +29,27 @@ buildRosPackage rec {
     rev = "29b10a5ad7319d0bc8434743b53e03a58c79aa7c";
     hash = "sha256-QhDoJUtSkn5uRYl6vbCkBn5etUZnkph6GowHWPIPk0k=";
   };
-  sourceRoot = "source/tiago_pro_lfc_bringup";
+  sourceRoot = "source/odometry_gz_hw_interface";
 
   __structuredAttrs = true;
   strictDeps = true;
 
-  buildType = "ament_python";
+  buildType = "ament_cmake";
 
   nativeBuildInputs = [
+    ament-cmake
   ];
   buildInputs = [
+    ament-cmake
+    gz-ros2-control
+    hardware-interface
+    nav-msgs
+    pluginlib
+    rclcpp
   ];
   propagatedBuildInputs = [
   ];
   checkInputs = [
-    ament-copyright
-    ament-flake8
-    ament-pep257
-    python3Packages.pytest
   ];
   nativeCheckInputs = [
   ];
@@ -52,8 +57,8 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Starting Linear Feedback Controllers for Tiago-pro";
-    license = with lib.licenses; [ unfree ];
+    description = "Custom gz_ros2_control GazeboSimSystemInterface reading an Odometry topic.";
+    license = with lib.licenses; [ asl20 ];
     homepage = "https://github.com/Tiago-Pro-Harmonic/gep_tiago_pro_control_stack";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];

@@ -18,18 +18,23 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-kilted-agimus-msgs";
-  version = "0.0.2";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "agimus-project";
-    repo = "agimus_msgs";
-    rev = "817b3dafdc4649b6daf33fca3853d5d43bad67f6";
-    hash = "sha256-YAgE2cwBWyleSgrILYdpRkJ/CRWkLcG9prYg6s046gs=";
+    repo = "agimus-msgs";
+    tag = "v${version}";
+    hash = "sha256-j1eatFsB4Uek1n7x7gK5tSPi33B67mR8CXBVCDh+RFY=";
   };
   sourceRoot = "source/";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 
@@ -38,6 +43,7 @@ buildRosPackage rec {
   ];
   buildInputs = [
     action-msgs
+    ament-cmake
     geometry-msgs
     rosidl-default-generators
     std-msgs
@@ -49,13 +55,15 @@ buildRosPackage rec {
     ament-lint-auto
     ament-lint-common
   ];
+  nativeCheckInputs = [
+  ];
 
   doCheck = true;
 
   meta = {
     description = "Agimus project ROS messages";
     license = with lib.licenses; [ bsd2 ];
-    homepage = "https://github.com/agimus-project/agimus_msgs";
+    homepage = "https://github.com/agimus-project/agimus-msgs";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

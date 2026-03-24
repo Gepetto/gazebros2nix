@@ -40,6 +40,8 @@
   xacro,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demos-common";
@@ -53,13 +55,19 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demos_common";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake-auto
     ament-cmake-python
+    generate-parameter-library
   ];
   buildInputs = [
+    ament-cmake-auto
+    ament-cmake-python
     generate-parameter-library
     generate-parameter-library-py
   ];
@@ -92,6 +100,8 @@ buildRosPackage rec {
     xacro
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;
