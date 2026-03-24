@@ -38,13 +38,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-linear-feedback-controller";
-  version = "3.0.1";
+  version = "3.1.0";
 
   src = fetchFromGitHub {
     owner = "loco-3d";
     repo = "linear-feedback-controller";
     tag = "v${version}";
-    hash = "sha256-LeKn8myFQ7e9sS2UrPsmlHGPujTwGptkIHcT9G1wfLc=";
+    hash = "sha256-fMklYwoRlKVNdWJmuqw9MaEA9NWjFNBdf+j0OMJ5HD0=";
   };
   sourceRoot = "source/";
 

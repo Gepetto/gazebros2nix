@@ -208,7 +208,9 @@ class Package:
         build = sort_deps(pkg.build_depends, overrides.build, native)
         build_scopes = deps_scopes(build, native_scopes)
         propagated = sort_deps(
-            pkg.exec_depends, overrides.propagated, [*native, *build]
+            pkg.exec_depends + pkg.build_export_depends,
+            overrides.propagated,
+            [*native, *build],
         )
         propagated_scopes = deps_scopes(propagated, [*native_scopes, *build_scopes])
         check = sort_deps(
