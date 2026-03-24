@@ -17,7 +17,7 @@ nix shell .#gz-fortress --command ign gazebo --render-engine ogre tests/fortress
 nix shell .#gz-harmonic --command gz sim tests/harmonic.sdf
 nix shell .#gz-ionic    --command gz sim tests/ionic.sdf
 nix shell .#gz-jetty    --command gz sim tests/ionic.sdf
-nix shell .#ros-humble  --command ros2 launch agimus_demo_03_mpc_dummy_traj bringup.launch.py use_gazebo:=true use_rviz:=true gz_headless:=true
+nix shell .#ros-humble  --command ros2 launch agimus_demo_03_mpc_dummy_traj bringup.launch.py use_gazebo:=true use_rviz:=true
 nix shell .#ros-jazzy   --command ros2 launch tiago_pro_gazebo tiago_pro_gazebo.launch.py is_public_sim:=True world_name:=empty arm_type_left:=no-arm end_effector_right:=no-end-effector end_effector_left:=no-end-effector tuck_arm:=False gazebo_version:=gazebo
 ```
 
@@ -29,7 +29,7 @@ OGRE & Gazebo depend on `freeimage`, which is not maintained and has a ton of CV
 
 Therefore in this repo we use `permittedInsecurePackages` and copy-paste packages from obsolete nixpkgs in the `garbage/` directory.
 
-We don't see any good solution to this issue, which has to be fixed in OGRE & gazebo upstream.
+Work lead by @wentasah is currently replacing `freeimage` with `stb` in newer OGRE and Gazebo version, so hopefuly this won't last forever.
 
 ### Gazebo Classic
 
