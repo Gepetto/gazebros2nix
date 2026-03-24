@@ -32,6 +32,7 @@
   libwebsockets,
   libyaml,
   pkg-config,
+  python3,
   sdformat,
   tinyxml-2,
   util-linux,
@@ -51,9 +52,13 @@ stdenv.mkDerivation {
     hash = "sha256-jxBoYDzF4295tq8t+h+qazQE5PDrwEfL89yXR+e7K6U=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     binutils

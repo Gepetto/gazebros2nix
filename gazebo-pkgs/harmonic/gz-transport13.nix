@@ -36,9 +36,13 @@ stdenv.mkDerivation {
     hash = "sha256-JTTlV1WdtLbHxNhLtoWyTnAcW6Hoh78lxxyDl1gLVAo=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     cppzmq
@@ -53,7 +57,6 @@ stdenv.mkDerivation {
     gz-utils2
     libsodium
     protobuf
-    python3
     python3Packages.psutil
     python3Packages.pybind11
     python3Packages.pytest

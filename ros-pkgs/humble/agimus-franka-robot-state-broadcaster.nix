@@ -33,6 +33,8 @@
   hardware-interface,
   rclcpp,
   ros2-control-test-assets,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-franka-robot-state-broadcaster";
@@ -40,16 +42,20 @@ buildRosPackage rec {
 
   src = fetchFromGitHub {
     owner = "agimus-project";
-    repo = "agimus_franka_ros2";
+    repo = "agimus-franka-ros2";
     rev = "b4450db350c8ea796eef77290e81b09654f766bb";
     hash = "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=";
   };
   sourceRoot = "source/franka_robot_state_broadcaster";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake
+    generate-parameter-library
   ];
   buildInputs = [
     agimus-franka-hardware
@@ -57,6 +63,7 @@ buildRosPackage rec {
     agimus-franka-semantic-components
     agimus-libfranka
     agimus-libfranka-common
+    ament-cmake
     backward-ros
     builtin-interfaces
     control-msgs
@@ -79,13 +86,15 @@ buildRosPackage rec {
     rclcpp
     ros2-control-test-assets
   ];
+  nativeCheckInputs = [
+  ];
 
   doCheck = false;
 
   meta = {
     description = "fork of franka_robot_state_broadcaster for franka robots not maintained anymore by franka";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/agimus-project/agimus_franka_ros2";
+    homepage = "https://github.com/agimus-project/agimus-franka-ros2";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

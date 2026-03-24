@@ -18,6 +18,8 @@
 
   # checkInputs
   ament-lint-auto,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-franka-gazebo-bringup";
@@ -25,11 +27,14 @@ buildRosPackage rec {
 
   src = fetchFromGitHub {
     owner = "agimus-project";
-    repo = "agimus_franka_ros2";
+    repo = "agimus-franka-ros2";
     rev = "b4450db350c8ea796eef77290e81b09654f766bb";
     hash = "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=";
   };
   sourceRoot = "source/franka_gazebo/franka_gazebo_bringup";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 
@@ -39,6 +44,7 @@ buildRosPackage rec {
   buildInputs = [
     agimus-franka-description
     agimus-franka-ign-ros2-control
+    ament-cmake
     joint-state-publisher-gui
     ros-gz
     sdformat-urdf
@@ -49,13 +55,15 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
   ];
+  nativeCheckInputs = [
+  ];
 
   doCheck = false;
 
   meta = {
     description = "fork of franka_gazebo_bringup for franka robots not maintained anymore by franka";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/agimus-project/agimus_franka_ros2";
+    homepage = "https://github.com/agimus-project/agimus-franka-ros2";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

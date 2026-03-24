@@ -23,6 +23,7 @@
   gz-utils3,
   pkg-config,
   protobuf,
+  python3,
   qt5,
   tinyxml-2,
   xorg,
@@ -41,9 +42,13 @@ stdenv.mkDerivation {
     hash = "sha256-2HA9Ah2QdC9VmYAJdC/36Kiin9lJJbSOT9YlJj3VwU8=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     gz-cmake

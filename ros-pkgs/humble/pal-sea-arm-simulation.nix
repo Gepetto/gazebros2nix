@@ -12,6 +12,8 @@
   pal-sea-arm-gazebo,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm-simulation";
@@ -25,17 +27,23 @@ buildRosPackage rec {
   };
   sourceRoot = "source/pal_sea_arm_simulation";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
   ];
   propagatedBuildInputs = [
     pal-sea-arm-gazebo
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

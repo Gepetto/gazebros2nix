@@ -28,6 +28,13 @@
   ament-cmake-pytest,
   ament-cmake-uncrustify,
   ament-lint-common,
+
+  # nativeCheckInputs
+  ament-cppcheck,
+  ament-cpplint,
+  ament-flake8,
+  ament-pep257,
+  ament-uncrustify,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-linear-feedback-controller-msgs";
@@ -41,6 +48,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
@@ -48,10 +58,12 @@ buildRosPackage rec {
     rosidl-default-generators
   ];
   buildInputs = [
+    ament-cmake
     builtin-interfaces
     eigen
     geometry-msgs
     jrl-cmakemodules
+    rosidl-default-generators
     sensor-msgs
     std-msgs
   ];
@@ -68,6 +80,13 @@ buildRosPackage rec {
     ament-cmake-pytest
     ament-cmake-uncrustify
     ament-lint-common
+  ];
+  nativeCheckInputs = [
+    ament-cppcheck
+    ament-cpplint
+    ament-flake8
+    ament-pep257
+    ament-uncrustify
   ];
 
   doCheck = true;

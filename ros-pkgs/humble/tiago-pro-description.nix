@@ -23,18 +23,23 @@
   ament-lint-common,
   launch-testing-ament-cmake,
   urdf-test,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-description";
-  version = "2.0.0";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_robot";
     tag = version;
-    hash = "sha256-bL79ke7bMKRyu6YUv4+XawZErTUDJeuKoMe8QhBjPsw=";
+    hash = "sha256-oBKqkn23B3gldzZZ3LyAHt1uXSKJdspKkBhbN3VZj0Y=";
   };
   sourceRoot = "source/tiago_pro_description";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 
@@ -43,6 +48,8 @@ buildRosPackage rec {
     ament-cmake-python
   ];
   buildInputs = [
+    ament-cmake-auto
+    ament-cmake-python
   ];
   propagatedBuildInputs = [
     omni-base-description
@@ -58,6 +65,8 @@ buildRosPackage rec {
     ament-lint-common
     launch-testing-ament-cmake
     urdf-test
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

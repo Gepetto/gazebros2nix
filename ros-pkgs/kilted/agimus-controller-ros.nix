@@ -26,6 +26,8 @@
   ament-copyright,
   ament-flake8,
   ament-pep257,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-kilted-agimus-controller-ros";
@@ -39,9 +41,13 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_controller_ros";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_python";
 
   nativeBuildInputs = [
+    generate-parameter-library
   ];
   buildInputs = [
     builtin-interfaces
@@ -65,6 +71,8 @@ buildRosPackage rec {
     ament-flake8
     ament-pep257
     python3Packages.pytest
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

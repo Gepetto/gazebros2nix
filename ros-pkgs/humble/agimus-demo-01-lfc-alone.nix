@@ -26,6 +26,8 @@
 
   # checkInputs
   ament-lint-auto,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-01-lfc-alone";
@@ -39,12 +41,16 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_01_lfc_alone";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
     control-toolbox
     controller-interface
     eigen3-cmake-module
@@ -64,6 +70,8 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-lint-auto
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

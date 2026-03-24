@@ -17,6 +17,8 @@
 
   # checkInputs
   ament-lint-auto,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-05-pick-and-place";
@@ -30,12 +32,16 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_05_pick_and_place";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     agimus-demos-common
@@ -46,6 +52,8 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-lint-auto
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

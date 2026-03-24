@@ -113,277 +113,319 @@ final: prev: {
     );
   };
 
-  rosPackages = prev.rosPackages // {
-    humble = prev.rosPackages.humble.overrideScope (
-      humble-final: humble-prev: {
-        inherit (humble-final.python3Packages) coal colmpc mim-solvers;
+  rosPackages =
+    let
+      rosOverlay = _ros-final: ros-prev: {
+        inherit (final)
+          dartsim
+          fcl
+          urdfdom-headers
+          urdfdom
+          octomap
+          ;
+        inherit (final.python3Packages)
+          colmpc
+          mim-solvers
+          ;
+        # keep-sorted start block=yes
 
-        gazebo_11 = null;
-        gazebo-planar-move-plugin = null;
-        gazebo-ros = null;
-        gazebo-dev = null;
-
-        agimus-controller-ros = humble-prev.agimus-controller-ros.overrideAttrs {
-          # this thing believe we did pass --build-directory or --build-base:
-          # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
-          postPatch = ''
-            substituteInPlace setup.py \
-              --replace-fail \
-                "from generate_parameter_library_py.setup_helper import generate_parameter_module" \
-                "from generate_parameter_library_py.generate_python_module import run" \
-              --replace-fail \
-                "generate_parameter_module(module_name, yaml_file)" \
-                "run(f\"$out/${humble-final.python3.sitePackages}/agimus_controller_ros/{module_name}.py\", yaml_file)"
-          '';
-        };
-
-        # franka-ros2 wrong keys, should be fixed in agimus-franka-ros2
-        ignition-gazebo6 = humble-prev.ign-gazebo6;
-        ignition-plugin = humble-prev.ign-plugin1;
-
-        linear-feedback-controller = humble-prev.linear-feedback-controller.overrideAttrs {
-          preCheck = ''
-            export LD_LIBRARY_PATH=.
-          '';
-        };
-
-        # that repo somehow has a 0.0.0 tag
-        net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
-          src = final.fetchFromGitHub {
-            inherit (super.src) owner repo;
-            rev = "393960c20c1607bbdeec7bff70ce5b4db01e3ab3";
-            hash = "sha256-ZBIGq/3FHcDgRnOfp1h5ABtj4e7KyqSIx+n6WpgB0qI=";
-          };
-        });
-        net-ft-diagnostic-broadcaster = humble-prev.net-ft-diagnostic-broadcaster.overrideAttrs {
-          src = humble-final.net-ft-description.src;
-        };
-        net-ft-driver = humble-prev.net-ft-driver.overrideAttrs {
-          src = humble-final.net-ft-description.src;
-        };
-
-        play-motion2-msgs = humble-prev.play-motion2-msgs.overrideAttrs (_super: rec {
-          version = "1.6.1";
-          src = final.fetchFromGitHub {
-            owner = "pal-robotics";
-            repo = "play_motion2";
-            tag = version;
-            hash = "sha256-gUlwPuMBpKftCj9lKLuqmXAOFAFQocWmLdgwazUz2ls=";
-          };
-          sourceRoot = "source/play_motion2_msgs";
-        });
-
-        play-motion2 = humble-prev.play-motion2.overrideAttrs (super: rec {
-          version = "1.6.1";
-          src = final.fetchFromGitHub {
-            owner = "pal-robotics";
-            repo = "play_motion2";
-            tag = version;
-            hash = "sha256-gUlwPuMBpKftCj9lKLuqmXAOFAFQocWmLdgwazUz2ls=";
-          };
-          sourceRoot = "source/play_motion2";
-          # fix for rclcpp < 17.1.0 (#2018). we currently have 16.0.12.
-          postPatch = (super.postPatch or "") + ''
-            sed -i "1i #include <functional>" src/utils/motion_loader.*
-          '';
-        });
-
-        python-with-ament-package =
-          let
-            # TODO: this make no sense
-            python = humble-final.python3.withPackages (p: [
-              humble-final.ament-package
-              p.catkin-pkg
-            ]);
-          in
-          "${python}/${python.sitePackages}";
-
-        ros-gz = humble-prev.ros-gz.overrideAttrs (_super: {
-          env.PYTHONPATH = humble-final.python-with-ament-package;
-          meta.platforms = final.lib.platforms.linux;
-        });
-
-        ros-gz-sim-demos = null; # wants qt-gui-cpp, where qt5 and python 3.13 are not compatible
-
-        topic-tools-interfaces = humble-prev.topic-tools-interfaces.overrideAttrs {
-          doCheck = false;
-        };
-      }
-    );
-
-    jazzy = prev.rosPackages.jazzy.overrideScope (
-      jazzy-final: jazzy-prev: {
-        linear-feedback-controller = jazzy-prev.linear-feedback-controller.overrideAttrs {
-          preCheck = ''
-            export LD_LIBRARY_PATH=.
-          '';
-        };
-
-        # TODO: does not seem useful for now, but might bite later
-        gazebo-planar-move-plugin = null;
-        urdf-test = null;
-        pal-gazebo-plugins = null;
-        pal-gazebo-worlds = null;
-        pal-maps = null;
-        tiago-pro-2dnav = null;
-        tiago-pro-laser-sensors = null;
-        tiago-pro-rgbd-sensors = null;
-
-        moveit-task-constructor-core = jazzy-prev.moveit-task-constructor-core.overrideAttrs (super: {
-          # TODO: unvendor pybind11 upstream
-          cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DPYBIND11_INSTALL=OFF" ];
-        });
-
-        # unvendor
-        gz-cmake-vendor = jazzy-final.gz-cmake;
-        gz-common-vendor = jazzy-final.gz-common;
-        gz-fuel-tools-vendor = jazzy-final.gz-fuel-tools;
-        gz-gui-vendor = jazzy-final.gz-gui;
-        gz-launch-vendor = jazzy-final.gz-launch;
-        gz-math-vendor = jazzy-final.gz-math;
-        gz-msgs-vendor = jazzy-final.gz-msgs;
-        gz-physics-vendor = jazzy-final.gz-physics;
-        gz-plugin-vendor = jazzy-final.gz-plugin;
-        gz-rendering-vendor = jazzy-final.gz-rendering;
-        gz-sensors-vendor = jazzy-final.gz-sensors;
-        gz-sim-vendor = jazzy-final.gz-sim;
-        gz-tools-vendor = jazzy-final.gz-tools;
-        gz-transport-vendor = jazzy-final.gz-transport;
-        gz-utils-vendor = jazzy-final.gz-utils;
-        sdformat-vendor = jazzy-final.sdformat;
-
-        gz-ros2-control = jazzy-prev.gz-ros2-control.overrideAttrs {
-          postPatch = ''
-            substituteInPlace CMakeLists.txt \
-              --replace-fail "find_package(gz_sim_vendor REQUIRED)" "" \
-              --replace-fail "find_package(gz_plugin_vendor REQUIRED)" "" \
-              --replace-fail \
-                "find_package(gz-sim REQUIRED)" \
-                "find_package(gz-sim8 REQUIRED)" \
-              --replace-fail \
-                "gz-sim::gz-sim" \
-                "gz-sim8::gz-sim8" \
-              --replace-fail \
-                "find_package(gz-plugin REQUIRED)" \
-                "find_package(gz-plugin2 REQUIRED)" \
-              --replace-fail \
-                "gz-plugin::register" \
-                "gz-plugin2::register" \
-
-          '';
-        };
-
-        ros-gz-bridge = jazzy-prev.ros-gz-bridge.overrideAttrs {
-          cmakeFlags = [
-            "-DGZ_MSGS_VERSION_FULL=${jazzy-final.gz-msgs.version}"
+        agimus-demos = ros-prev.agimus-demos.overrideAttrs (super: {
+          nativeBuildInputs = (super.nativeBuildInputs or [ ]) ++ [
+            final.cmake
+            final.python3
           ];
-          postPatch = ''
-            substituteInPlace CMakeLists.txt \
-              --replace-fail "find_package(gz_transport_vendor REQUIRED)" "" \
-              --replace-fail "find_package(gz_msgs_vendor REQUIRED)" "" \
-              --replace-fail "gz-transport::" "gz-transport13::" \
-              --replace-fail "gz-msgs::" "gz-msgs10::" \
-              --replace-fail \
-                "find_package(gz-transport REQUIRED)" \
-                "find_package(gz-transport13 REQUIRED)" \
-              --replace-fail \
-                "find_package(gz-msgs REQUIRED)" \
-                "find_package(gz-msgs10 REQUIRED)" \
-          '';
-          postFixup = ''
-            substituteInPlace \
-              $out/share/ros_gz_bridge/cmake/ament_cmake_export_dependencies-extras.cmake \
-              --replace-fail "gz_transport_vendor;" "" \
-              --replace-fail "gz_msgs_vendor;" "" \
-              --replace-fail "gz-transport;" "gz-transport13;" \
-              --replace-fail "gz-msgs;" "gz-msgs10;" \
-          '';
-        };
-
-        ros-gz-image = jazzy-prev.ros-gz-image.overrideAttrs {
-          postPatch = ''
-            substituteInPlace CMakeLists.txt \
-              --replace-fail "find_package(gz_transport_vendor REQUIRED)" "" \
-              --replace-fail "find_package(gz_msgs_vendor REQUIRED)" "" \
-              --replace-fail "gz-transport::" "gz-transport13::" \
-              --replace-fail "gz-msgs::" "gz-msgs10::" \
-              --replace-fail \
-                "find_package(gz-transport REQUIRED)" \
-                "find_package(gz-transport13 REQUIRED)" \
-              --replace-fail \
-                "find_package(gz-msgs REQUIRED)" \
-                "find_package(gz-msgs10 REQUIRED)" \
-          '';
-        };
-
-        ros-gz-sim = jazzy-prev.ros-gz-sim.overrideAttrs (super: {
-          cmakeFlags = [ "-DGZ_SIM_VER=${final.lib.versions.major jazzy-final.gz-sim.version}" ];
-          postPatch = super.postPatch + ''
-            substituteInPlace CMakeLists.txt \
-              --replace-fail "find_package(gz_transport_vendor REQUIRED)" "" \
-              --replace-fail "find_package(gz_msgs_vendor REQUIRED)" "" \
-              --replace-fail "find_package(gz_math_vendor REQUIRED)" "" \
-              --replace-fail "find_package(gz_sim_vendor REQUIRED)" "" \
-              --replace-fail "gz-transport::" "gz-transport13::" \
-              --replace-fail "gz-msgs::" "gz-msgs10::" \
-              --replace-fail "gz-math::" "gz-math7::" \
-              --replace-fail "gz-sim::" "gz-sim8::" \
-              --replace-fail \
-                "find_package(gz-transport REQUIRED)" \
-                "find_package(gz-transport13 REQUIRED)" \
-              --replace-fail \
-                "find_package(gz-msgs REQUIRED)" \
-                "find_package(gz-msgs10 REQUIRED)" \
-              --replace-fail \
-                "find_package(gz-math REQUIRED)" \
-                "find_package(gz-math7 REQUIRED)" \
-              --replace-fail \
-                "find_package(gz-sim REQUIRED)" \
-                "find_package(gz-sim8 REQUIRED)" \
-          '';
         });
-
-        rviz-default-plugins = jazzy-prev.rviz-default-plugins.overrideAttrs {
-          postPatch = ''
-            substituteInPlace CMakeLists.txt \
-              --replace-fail "find_package(gz_math_vendor REQUIRED)" "" \
-              --replace-fail "gz-math::" "gz-math7::" \
-              --replace-fail \
-                "find_package(gz-math REQUIRED)" \
-                "find_package(gz-math7 REQUIRED)" \
-          '';
+        agimus-franka-msgs = ros-prev.agimus-franka-msgs.overrideAttrs {
+          cmakeFlags = [
+            "-DCMAKE_SKIP_BUILD_RPATH=ON"
+            "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
+          ];
         };
-        sdformat-urdf = jazzy-prev.sdformat-urdf.overrideAttrs {
-          postPatch = ''
-            substituteInPlace CMakeLists.txt \
-              --replace-fail "find_package(sdformat_vendor REQUIRED)" "" \
-              --replace-fail "sdformat::" "sdformat14::" \
-              --replace-fail \
-                "find_package(sdformat REQUIRED)" \
-                "find_package(sdformat14 REQUIRED)" \
-          '';
+        agimus-msgs = ros-prev.agimus-msgs.overrideAttrs {
+          cmakeFlags = [
+            "-DCMAKE_SKIP_BUILD_RPATH=ON"
+            "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
+          ];
         };
-      }
-    );
-
-    kilted = prev.rosPackages.kilted.overrideScope (
-      _kilted-final: kilted-prev: {
-        linear-feedback-controller = kilted-prev.linear-feedback-controller.overrideAttrs {
+        linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs {
           preCheck = ''
             export LD_LIBRARY_PATH=.
           '';
         };
-      }
-    );
-
-    rolling = prev.rosPackages.rolling.overrideScope (
-      _rolling-final: rolling-prev: {
-        linear-feedback-controller = rolling-prev.linear-feedback-controller.overrideAttrs {
-          preCheck = ''
-            export LD_LIBRARY_PATH=.
-          '';
+        linear-feedback-controller-msgs = ros-prev.linear-feedback-controller-msgs.overrideAttrs {
+          cmakeFlags = [
+            "-DCMAKE_SKIP_BUILD_RPATH=ON"
+            "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
+          ];
         };
-      }
-    );
-  };
+        # keep-sorted end
+      };
+    in
+    prev.rosPackages
+    // {
+      humble = prev.rosPackages.humble.overrideScope (
+        humble-final: humble-prev:
+        (rosOverlay humble-final humble-prev)
+        // {
+          gazebo_11 = null;
+          gazebo-planar-move-plugin = null;
+          gazebo-ros = null;
+          gazebo-dev = null;
+
+          geometric-shapes = humble-prev.geometric-shapes.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt --replace-fail \
+                "find_package(octomap 1.9.7...<1.10.0 REQUIRED)" \
+                "find_package(octomap REQUIRED)"
+            '';
+          };
+
+          agimus-controller-ros = humble-prev.agimus-controller-ros.overrideAttrs {
+            # this thing believe we did pass --build-directory or --build-base:
+            # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
+            postPatch = ''
+              substituteInPlace setup.py \
+                --replace-fail \
+                  "from generate_parameter_library_py.setup_helper import generate_parameter_module" \
+                  "from generate_parameter_library_py.generate_python_module import run" \
+                --replace-fail \
+                  "generate_parameter_module(module_name, yaml_file)" \
+                  "run(f\"$out/${humble-final.python3.sitePackages}/agimus_controller_ros/{module_name}.py\", yaml_file)"
+            '';
+          };
+
+          # franka-ros2 wrong keys, should be fixed in agimus-franka-ros2
+          ignition-gazebo6 = humble-prev.ign-gazebo6;
+          ignition-plugin = humble-prev.ign-plugin1;
+
+          # that repo somehow has a 0.0.0 tag
+          net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
+            src = final.fetchFromGitHub {
+              inherit (super.src) owner repo;
+              rev = "393960c20c1607bbdeec7bff70ce5b4db01e3ab3";
+              hash = "sha256-ZBIGq/3FHcDgRnOfp1h5ABtj4e7KyqSIx+n6WpgB0qI=";
+            };
+          });
+          net-ft-diagnostic-broadcaster = humble-prev.net-ft-diagnostic-broadcaster.overrideAttrs {
+            src = humble-final.net-ft-description.src;
+          };
+          net-ft-driver = humble-prev.net-ft-driver.overrideAttrs {
+            src = humble-final.net-ft-description.src;
+          };
+
+          play-motion2-msgs = humble-prev.play-motion2-msgs.overrideAttrs (_super: rec {
+            version = "1.6.1";
+            src = final.fetchFromGitHub {
+              owner = "pal-robotics";
+              repo = "play_motion2";
+              tag = version;
+              hash = "sha256-gUlwPuMBpKftCj9lKLuqmXAOFAFQocWmLdgwazUz2ls=";
+            };
+            sourceRoot = "source/play_motion2_msgs";
+          });
+
+          play-motion2 = humble-prev.play-motion2.overrideAttrs (super: rec {
+            version = "1.6.1";
+            src = final.fetchFromGitHub {
+              owner = "pal-robotics";
+              repo = "play_motion2";
+              tag = version;
+              hash = "sha256-gUlwPuMBpKftCj9lKLuqmXAOFAFQocWmLdgwazUz2ls=";
+            };
+            sourceRoot = "source/play_motion2";
+            # fix for rclcpp < 17.1.0 (#2018). we currently have 16.0.12.
+            postPatch = (super.postPatch or "") + ''
+              sed -i "1i #include <functional>" src/utils/motion_loader.*
+            '';
+          });
+
+          python-with-ament-package =
+            let
+              # TODO: this make no sense
+              python = humble-final.python3.withPackages (p: [
+                humble-final.ament-package
+                p.catkin-pkg
+              ]);
+            in
+            "${python}/${python.sitePackages}";
+
+          ros-gz = humble-prev.ros-gz.overrideAttrs (_super: {
+            env.PYTHONPATH = humble-final.python-with-ament-package;
+            meta.platforms = final.lib.platforms.linux;
+          });
+
+          ros-gz-sim-demos = null; # wants qt-gui-cpp, where qt5 and python 3.13 are not compatible
+
+          topic-tools-interfaces = humble-prev.topic-tools-interfaces.overrideAttrs {
+            doCheck = false;
+          };
+        }
+      );
+
+      jazzy = prev.rosPackages.jazzy.overrideScope (
+        jazzy-final: jazzy-prev:
+        (rosOverlay jazzy-final jazzy-prev)
+        // {
+
+          # TODO: does not seem useful for now, but might bite later
+          gazebo-planar-move-plugin = null;
+          urdf-test = null;
+          pal-gazebo-plugins = null;
+          pal-gazebo-worlds = null;
+          pal-maps = null;
+          tiago-pro-2dnav = null;
+          tiago-pro-laser-sensors = null;
+          tiago-pro-rgbd-sensors = null;
+
+          moveit-task-constructor-core = jazzy-prev.moveit-task-constructor-core.overrideAttrs (super: {
+            # TODO: unvendor pybind11 upstream
+            cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DPYBIND11_INSTALL=OFF" ];
+          });
+
+          # unvendor
+          gz-cmake-vendor = jazzy-final.gz-cmake;
+          gz-common-vendor = jazzy-final.gz-common;
+          gz-fuel-tools-vendor = jazzy-final.gz-fuel-tools;
+          gz-gui-vendor = jazzy-final.gz-gui;
+          gz-launch-vendor = jazzy-final.gz-launch;
+          gz-math-vendor = jazzy-final.gz-math;
+          gz-msgs-vendor = jazzy-final.gz-msgs;
+          gz-physics-vendor = jazzy-final.gz-physics;
+          gz-plugin-vendor = jazzy-final.gz-plugin;
+          gz-rendering-vendor = jazzy-final.gz-rendering;
+          gz-sensors-vendor = jazzy-final.gz-sensors;
+          gz-sim-vendor = jazzy-final.gz-sim;
+          gz-tools-vendor = jazzy-final.gz-tools;
+          gz-transport-vendor = jazzy-final.gz-transport;
+          gz-utils-vendor = jazzy-final.gz-utils;
+          sdformat-vendor = jazzy-final.sdformat;
+
+          gz-ros2-control = jazzy-prev.gz-ros2-control.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt \
+                --replace-fail "find_package(gz_sim_vendor REQUIRED)" "" \
+                --replace-fail "find_package(gz_plugin_vendor REQUIRED)" "" \
+                --replace-fail \
+                  "find_package(gz-sim REQUIRED)" \
+                  "find_package(gz-sim8 REQUIRED)" \
+                --replace-fail \
+                  "gz-sim::gz-sim" \
+                  "gz-sim8::gz-sim8" \
+                --replace-fail \
+                  "find_package(gz-plugin REQUIRED)" \
+                  "find_package(gz-plugin2 REQUIRED)" \
+                --replace-fail \
+                  "gz-plugin::register" \
+                  "gz-plugin2::register" \
+
+            '';
+          };
+
+          ros-gz-bridge = jazzy-prev.ros-gz-bridge.overrideAttrs {
+            cmakeFlags = [
+              "-DGZ_MSGS_VERSION_FULL=${jazzy-final.gz-msgs.version}"
+            ];
+            postPatch = ''
+              substituteInPlace CMakeLists.txt \
+                --replace-fail "find_package(gz_transport_vendor REQUIRED)" "" \
+                --replace-fail "find_package(gz_msgs_vendor REQUIRED)" "" \
+                --replace-fail "gz-transport::" "gz-transport13::" \
+                --replace-fail "gz-msgs::" "gz-msgs10::" \
+                --replace-fail \
+                  "find_package(gz-transport REQUIRED)" \
+                  "find_package(gz-transport13 REQUIRED)" \
+                --replace-fail \
+                  "find_package(gz-msgs REQUIRED)" \
+                  "find_package(gz-msgs10 REQUIRED)" \
+            '';
+            postFixup = ''
+              substituteInPlace \
+                $out/share/ros_gz_bridge/cmake/ament_cmake_export_dependencies-extras.cmake \
+                --replace-fail "gz_transport_vendor;" "" \
+                --replace-fail "gz_msgs_vendor;" "" \
+                --replace-fail "gz-transport;" "gz-transport13;" \
+                --replace-fail "gz-msgs;" "gz-msgs10;" \
+            '';
+          };
+
+          ros-gz-image = jazzy-prev.ros-gz-image.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt \
+                --replace-fail "find_package(gz_transport_vendor REQUIRED)" "" \
+                --replace-fail "find_package(gz_msgs_vendor REQUIRED)" "" \
+                --replace-fail "gz-transport::" "gz-transport13::" \
+                --replace-fail "gz-msgs::" "gz-msgs10::" \
+                --replace-fail \
+                  "find_package(gz-transport REQUIRED)" \
+                  "find_package(gz-transport13 REQUIRED)" \
+                --replace-fail \
+                  "find_package(gz-msgs REQUIRED)" \
+                  "find_package(gz-msgs10 REQUIRED)" \
+            '';
+          };
+
+          ros-gz-sim = jazzy-prev.ros-gz-sim.overrideAttrs (super: {
+            cmakeFlags = [ "-DGZ_SIM_VER=${final.lib.versions.major jazzy-final.gz-sim.version}" ];
+            postPatch = super.postPatch + ''
+              substituteInPlace CMakeLists.txt \
+                --replace-fail "find_package(gz_transport_vendor REQUIRED)" "" \
+                --replace-fail "find_package(gz_msgs_vendor REQUIRED)" "" \
+                --replace-fail "find_package(gz_math_vendor REQUIRED)" "" \
+                --replace-fail "find_package(gz_sim_vendor REQUIRED)" "" \
+                --replace-fail "gz-transport::" "gz-transport13::" \
+                --replace-fail "gz-msgs::" "gz-msgs10::" \
+                --replace-fail "gz-math::" "gz-math7::" \
+                --replace-fail "gz-sim::" "gz-sim8::" \
+                --replace-fail \
+                  "find_package(gz-transport REQUIRED)" \
+                  "find_package(gz-transport13 REQUIRED)" \
+                --replace-fail \
+                  "find_package(gz-msgs REQUIRED)" \
+                  "find_package(gz-msgs10 REQUIRED)" \
+                --replace-fail \
+                  "find_package(gz-math REQUIRED)" \
+                  "find_package(gz-math7 REQUIRED)" \
+                --replace-fail \
+                  "find_package(gz-sim REQUIRED)" \
+                  "find_package(gz-sim8 REQUIRED)" \
+            '';
+          });
+
+          rviz-default-plugins = jazzy-prev.rviz-default-plugins.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt \
+                --replace-fail "find_package(gz_math_vendor REQUIRED)" "" \
+                --replace-fail "gz-math::" "gz-math7::" \
+                --replace-fail \
+                  "find_package(gz-math REQUIRED)" \
+                  "find_package(gz-math7 REQUIRED)" \
+            '';
+          };
+          sdformat-urdf = jazzy-prev.sdformat-urdf.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt \
+                --replace-fail "find_package(sdformat_vendor REQUIRED)" "" \
+                --replace-fail "sdformat::" "sdformat14::" \
+                --replace-fail \
+                  "find_package(sdformat REQUIRED)" \
+                  "find_package(sdformat14 REQUIRED)" \
+            '';
+          };
+        }
+      );
+
+      kilted = prev.rosPackages.kilted.overrideScope (
+        kilted-final: kilted-prev:
+        (rosOverlay kilted-final kilted-prev)
+        // {
+        }
+      );
+
+      rolling = prev.rosPackages.rolling.overrideScope (
+        rolling-final: rolling-prev:
+        (rosOverlay rolling-final rolling-prev)
+        // {
+        }
+      );
+    };
 }

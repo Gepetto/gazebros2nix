@@ -13,6 +13,8 @@
   ros2launch,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-03-mpc-dummy-traj-tiago-pro";
@@ -26,18 +28,24 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_03_mpc_dummy_traj_tiago_pro";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     agimus-demos-common
     ros2launch
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

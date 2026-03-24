@@ -17,6 +17,8 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-omni-base-controller-configuration";
@@ -30,12 +32,16 @@ buildRosPackage rec {
   };
   sourceRoot = "source/omni_base_controller_configuration";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     controller-manager
@@ -46,6 +52,8 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

@@ -34,6 +34,8 @@
   ament-lint-auto,
   gmock-vendor,
   gtest-vendor,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-linear-feedback-controller";
@@ -47,13 +49,19 @@ buildRosPackage rec {
   };
   sourceRoot = "source/";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake-auto
     ament-cmake-python
+    generate-parameter-library
   ];
   buildInputs = [
+    ament-cmake-auto
+    ament-cmake-python
     control-toolbox
     controller-interface
     eigen
@@ -80,6 +88,8 @@ buildRosPackage rec {
     ament-lint-auto
     gmock-vendor
     gtest-vendor
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

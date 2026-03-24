@@ -18,6 +18,8 @@
 # propagatedBuildInputs
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-net-ft-diagnostic-broadcaster";
@@ -31,12 +33,16 @@ buildRosPackage rec {
   };
   sourceRoot = "source/net_ft_diagnostic_broadcaster";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
     controller-interface
     diagnostic-msgs
     diagnostic-updater
@@ -48,6 +54,8 @@ buildRosPackage rec {
   propagatedBuildInputs = [
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

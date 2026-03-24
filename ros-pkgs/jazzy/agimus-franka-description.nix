@@ -18,6 +18,8 @@
   ament-cmake-pytest,
   ament-lint-auto,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-agimus-franka-description";
@@ -25,11 +27,14 @@ buildRosPackage rec {
 
   src = fetchFromGitHub {
     owner = "agimus-project";
-    repo = "agimus_franka_description";
+    repo = "agimus-franka-description";
     rev = "a729f1103985226d2e51ec9bcf289e6b1e545c52";
     hash = "sha256-NtTlaSYsn3oHXbGid+w8LRblZmcyScL+W5awYckvYTA=";
   };
   sourceRoot = "source/";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 
@@ -37,6 +42,7 @@ buildRosPackage rec {
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
   ];
   propagatedBuildInputs = [
     joint-state-publisher-gui
@@ -49,13 +55,15 @@ buildRosPackage rec {
     ament-lint-auto
     ament-lint-common
   ];
+  nativeCheckInputs = [
+  ];
 
   doCheck = false;
 
   meta = {
     description = "fork of franka_description with URDF files and meshes of Franka robots not maintained anymore by franka";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/agimus-project/agimus_franka_description";
+    homepage = "https://github.com/agimus-project/agimus-franka-description";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

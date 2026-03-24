@@ -18,22 +18,28 @@
   pal-sea-arm-description,
   play-motion2,
   play-motion2-cli,
+  play-motion2-msgs,
 
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm-bringup";
-  version = "1.24.0";
+  version = "1.25.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_sea_arm";
     tag = version;
-    hash = "sha256-ngqJIWUjmo5m519Vakm0hKVrbDmk7D2KktC+dw0bxxc=";
+    hash = "sha256-j42FZUWPmE9IU0sm4on9G+jXMr3e0tY9L1apIdi/SiQ=";
   };
   sourceRoot = "source/pal_sea_arm_bringup";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 
@@ -41,6 +47,7 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     joint-state-broadcaster
@@ -52,10 +59,13 @@ buildRosPackage rec {
     pal-sea-arm-description
     play-motion2
     play-motion2-cli
+    play-motion2-msgs
   ];
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

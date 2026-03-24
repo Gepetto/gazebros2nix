@@ -20,6 +20,7 @@
   gz-transport13,
   gz-utils,
   pkg-config,
+  python3,
   sdformat,
   sdformat14,
   xorg,
@@ -38,9 +39,13 @@ stdenv.mkDerivation {
     hash = "sha256-TRDMCMesJXVSVGA3bnRngtXTi4VVf0y12AJQ79EEMiI=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     gz-cmake

@@ -7,9 +7,12 @@
   ament-cmake,
 
   # buildInputs
+  hardware-interface,
+  nav-msgs,
+  pluginlib,
+  rclcpp,
 
   # propagatedBuildInputs
-  tiago-pro-head-gazebo,
 
   # checkInputs
   ament-lint-auto,
@@ -18,16 +21,16 @@
 # nativeCheckInputs
 }:
 buildRosPackage rec {
-  pname = "ros-humble-tiago-pro-head-simulation";
-  version = "1.0.2";
+  pname = "ros-jazzy-odometry-hardware-interface";
+  version = "0.0.0";
 
   src = fetchFromGitHub {
-    owner = "pal-robotics";
-    repo = "tiago_pro_head_simulation";
-    tag = version;
-    hash = "sha256-JS+4wBv+vXk/BH3X8gUHB0W+iTO+g5kt1TB47SesI2E=";
+    owner = "Tiago-Pro-Harmonic";
+    repo = "gep_tiago_pro_control_stack";
+    rev = "29b10a5ad7319d0bc8434743b53e03a58c79aa7c";
+    hash = "sha256-QhDoJUtSkn5uRYl6vbCkBn5etUZnkph6GowHWPIPk0k=";
   };
-  sourceRoot = "source/tiago_pro_head_simulation";
+  sourceRoot = "source/odometry_hardware_interface";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -39,9 +42,12 @@ buildRosPackage rec {
   ];
   buildInputs = [
     ament-cmake
+    hardware-interface
+    nav-msgs
+    pluginlib
+    rclcpp
   ];
   propagatedBuildInputs = [
-    tiago-pro-head-gazebo
   ];
   checkInputs = [
     ament-lint-auto
@@ -53,9 +59,9 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "The tiago_pro_head_simulation package";
-    license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/pal-robotics/tiago_pro_head_simulation";
+    description = "TODO: Package description";
+    license = with lib.licenses; [ unfree ];
+    homepage = "https://github.com/Tiago-Pro-Harmonic/gep_tiago_pro_control_stack";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

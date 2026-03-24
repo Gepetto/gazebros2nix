@@ -36,6 +36,7 @@
   gz-utils3,
   pkg-config,
   protobuf,
+  python3,
   python3Packages,
   qt5,
   sdformat,
@@ -58,9 +59,13 @@ stdenv.mkDerivation {
     hash = "sha256-qUnItGpZkE4HTufhO/gBefX5AfHd2jfnWEwGwYmlKIE=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     freeglut

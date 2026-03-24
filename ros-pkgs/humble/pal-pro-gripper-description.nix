@@ -15,18 +15,23 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-pro-gripper-description";
-  version = "1.11.4";
+  version = "1.11.5";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_pro_gripper";
     tag = version;
-    hash = "sha256-KIa7yHVsW2inx3GchQ77UmvBGk503z0GpCRoyZcRBUU=";
+    hash = "sha256-cvPOdGp7sZYHLKH54vvSrviqWZ2DOL1uX0M7mFrKKbY=";
   };
   sourceRoot = "source/pal_pro_gripper_description";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 
@@ -34,6 +39,7 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
     xacro
   ];
   propagatedBuildInputs = [
@@ -42,6 +48,8 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

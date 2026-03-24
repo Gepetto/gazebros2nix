@@ -11,6 +11,7 @@
   gz-utils,
   libxml2,
   pkg-config,
+  python3,
   python3Packages,
   tinyxml-2,
   urdfdom,
@@ -29,9 +30,13 @@ stdenv.mkDerivation {
     hash = "sha256-WhbPVzlR8p89bqtzqGjfGJbTjOHjdlm7mMxhvyHmZjA=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     gz-cmake

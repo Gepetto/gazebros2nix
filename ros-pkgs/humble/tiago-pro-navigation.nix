@@ -14,6 +14,8 @@
   tiago-pro-rgbd-sensors,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-navigation";
@@ -27,12 +29,16 @@ buildRosPackage rec {
   };
   sourceRoot = "source/tiago_pro_navigation";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     tiago-pro-2dnav
@@ -40,6 +46,8 @@ buildRosPackage rec {
     tiago-pro-rgbd-sensors
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

@@ -23,18 +23,23 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-bringup";
-  version = "2.0.0";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_robot";
     tag = version;
-    hash = "sha256-bL79ke7bMKRyu6YUv4+XawZErTUDJeuKoMe8QhBjPsw=";
+    hash = "sha256-oBKqkn23B3gldzZZ3LyAHt1uXSKJdspKkBhbN3VZj0Y=";
   };
   sourceRoot = "source/tiago_pro_bringup";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 
@@ -42,6 +47,7 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     ament-index-python
@@ -58,6 +64,8 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

@@ -21,6 +21,7 @@
   libyaml,
   libzip,
   pkg-config,
+  python3,
   tinyxml-2,
 }:
 stdenv.mkDerivation {
@@ -37,9 +38,13 @@ stdenv.mkDerivation {
     hash = "sha256-XQoBcCtzwzzPypS1kIeTCIbjtxrzaW3JvZLCYbwXAOk=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     curl

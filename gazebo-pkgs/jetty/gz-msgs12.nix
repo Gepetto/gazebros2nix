@@ -29,9 +29,13 @@ stdenv.mkDerivation {
     hash = "sha256-XMzokmj6DXiDtbE/FNK+j4qllm7IsmE8vZsQSXEQNIs=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     gz-cmake
@@ -40,7 +44,6 @@ stdenv.mkDerivation {
     gz-tools2
     gz-utils
     protobuf
-    python3
     python3Packages.protobuf
     tinyxml-2
   ];

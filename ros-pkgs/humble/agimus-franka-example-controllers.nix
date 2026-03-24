@@ -36,6 +36,15 @@
   controller-manager,
   hardware-interface-testing,
   ros2-control-test-assets,
+  xmllintPackageHook,
+
+  # nativeCheckInputs
+  ament-copyright,
+  ament-cppcheck,
+  ament-flake8,
+  ament-lint-cmake,
+  ament-pep257,
+  ament-xmllint,
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-franka-example-controllers";
@@ -43,11 +52,14 @@ buildRosPackage rec {
 
   src = fetchFromGitHub {
     owner = "agimus-project";
-    repo = "agimus_franka_ros2";
+    repo = "agimus-franka-ros2";
     rev = "b4450db350c8ea796eef77290e81b09654f766bb";
     hash = "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=";
   };
   sourceRoot = "source/franka_example_controllers";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 
@@ -60,6 +72,7 @@ buildRosPackage rec {
     agimus-franka-semantic-components
     agimus-libfranka
     agimus-libfranka-common
+    ament-cmake
     controller-interface
     moveit-core
     pinocchio
@@ -84,6 +97,15 @@ buildRosPackage rec {
     controller-manager
     hardware-interface-testing
     ros2-control-test-assets
+    xmllintPackageHook
+  ];
+  nativeCheckInputs = [
+    ament-copyright
+    ament-cppcheck
+    ament-flake8
+    ament-lint-cmake
+    ament-pep257
+    ament-xmllint
   ];
 
   doCheck = false;
@@ -91,7 +113,7 @@ buildRosPackage rec {
   meta = {
     description = "fork of franka_example_controllers for franka robots not maintained anymore by franka";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/agimus-project/agimus_franka_ros2";
+    homepage = "https://github.com/agimus-project/agimus-franka-ros2";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

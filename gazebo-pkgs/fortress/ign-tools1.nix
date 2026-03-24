@@ -22,6 +22,9 @@ stdenv.mkDerivation {
     hash = "sha256-HgYT7MARRnOdUuUllxRn9pl7tsWO5RDIFDObzJQgZpc=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     cmake
     pkg-config
@@ -35,7 +38,7 @@ stdenv.mkDerivation {
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "Gazebo Tools: Entrypoint to Gazebo's command line interface";

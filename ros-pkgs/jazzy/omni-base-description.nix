@@ -27,6 +27,8 @@
   ament-lint-common,
   launch-testing-ament-cmake,
   urdf-test,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-omni-base-description";
@@ -40,6 +42,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/omni_base_description";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
@@ -47,6 +52,8 @@ buildRosPackage rec {
     ament-cmake-python
   ];
   buildInputs = [
+    ament-cmake-auto
+    ament-cmake-python
   ];
   propagatedBuildInputs = [
     gazebo-planar-move-plugin
@@ -66,6 +73,8 @@ buildRosPackage rec {
     ament-lint-common
     launch-testing-ament-cmake
     urdf-test
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

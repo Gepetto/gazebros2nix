@@ -16,6 +16,8 @@
   agimus-demos-common,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demos";
@@ -28,6 +30,9 @@ buildRosPackage rec {
     hash = "sha256-IIsTWCocu65UatuQniHmlt8JBlAck/LXvXlZMURsgtg=";
   };
   sourceRoot = "source/agimus_demos";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 
@@ -44,6 +49,8 @@ buildRosPackage rec {
     agimus-demos-common
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

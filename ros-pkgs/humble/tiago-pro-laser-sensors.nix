@@ -14,6 +14,8 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-laser-sensors";
@@ -27,12 +29,16 @@ buildRosPackage rec {
   };
   sourceRoot = "source/tiago_pro_laser_sensors";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     omni-base-laser-sensors
@@ -40,6 +46,8 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

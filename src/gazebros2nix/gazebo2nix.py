@@ -49,6 +49,9 @@ stdenv.mkDerivation {
     hash = "{{ hash }}";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [{% for dep in native %}
     {{ dep }}{% endfor %}
   ];
@@ -72,7 +75,7 @@ stdenv.mkDerivation {
   };
 }"""
 
-logger = getLogger("ros2nix")
+logger = getLogger("gazebo2nix")
 parser = get_parser(prog="gazebo2nix", description=__doc__)
 
 
@@ -264,7 +267,7 @@ def main():
         logger.info("Importing rosdeps")
         rosdeps = get_rosdeps(gh)
         for distro, conf in cfg.items():
-            if args.distro and distro != args.distro:
+            if args.distro and args.distro != "all" and distro not in args.distro:
                 continue
             GazeboDistro(
                 gh,

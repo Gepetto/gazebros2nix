@@ -26,6 +26,8 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm-gazebo";
@@ -39,12 +41,16 @@ buildRosPackage rec {
   };
   sourceRoot = "source/pal_sea_arm_gazebo";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake-auto
   ];
   buildInputs = [
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
     gazebo-plugins
@@ -64,6 +70,8 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

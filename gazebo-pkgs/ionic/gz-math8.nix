@@ -9,6 +9,7 @@
   gz-utils,
   gz-utils3,
   pkg-config,
+  python3,
   python3Packages,
 }:
 stdenv.mkDerivation {
@@ -25,9 +26,13 @@ stdenv.mkDerivation {
     hash = "sha256-kdkSZSO7guPJbc0CjS7e42b0DkTJ7GoFpSa7fwVauU4=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     eigen

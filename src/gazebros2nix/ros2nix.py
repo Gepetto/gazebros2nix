@@ -37,6 +37,9 @@ TEMPLATE = """{
 
   # checkInputs{% for scope in check_scopes %}
   {{ scope }},{% endfor %}
+
+  # nativeCheckInputs{% for scope in native_check_scopes %}
+  {{ scope }},{% endfor %}
 }:
 buildRosPackage rec {
   pname = "ros-{{ distro }}-{{ pkg.name|kebab }}";
@@ -50,6 +53,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/{{ package }}";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "{{ pkg.get_build_type() }}";
 
   nativeBuildInputs = [{% for dep in native %}
@@ -62,6 +68,9 @@ buildRosPackage rec {
     {{ dep }}{% endfor %}
   ];
   checkInputs = [{% for dep in check %}
+    {{ dep }}{% endfor %}
+  ];
+  nativeCheckInputs = [{% for dep in native_check %}
     {{ dep }}{% endfor %}
   ];
 
@@ -203,9 +212,20 @@ class Package:
             hash = check_output(["nurl", "-H", hash_url], text=True).strip()
             repo.hashes[hash_url] = hash
 
-        native = sort_deps(pkg.buildtool_depends, overrides.native, [])
+        native = sort_deps(
+            pkg.buildtool_depends + pkg.buildtool_export_depends + pkg.doc_depends,
+            overrides.native,
+            [],
+        )
         native_scopes = deps_scopes(native, [])
-        build = sort_deps(pkg.build_depends, overrides.build, native)
+        build = sorted(
+            [
+                *[p for p in native if "cmake" in p or "generat" in p],
+                *sort_deps(pkg.build_depends, overrides.build, native),
+            ]
+        )
+        if "generate-parameter-library" in build:
+            native = sorted(["generate-parameter-library", *native])
         build_scopes = deps_scopes(build, native_scopes)
         propagated = sort_deps(
             pkg.exec_depends + pkg.build_export_depends,
@@ -216,9 +236,25 @@ class Package:
         check = sort_deps(
             pkg.test_depends, overrides.check, [*native, *build, *propagated]
         )
+        if any(dep.name == "ament_cmake_xmllint" for dep in pkg.test_depends):
+            check.append("xmllintPackageHook")
         check_scopes = deps_scopes(
             check, [*native_scopes, *build_scopes, *propagated_scopes]
         )
+        native_check = []
+        for lint in [
+            "copyright",
+            "cppcheck",
+            "cpplint",
+            "flake8",
+            "lint-cmake",
+            "pep257",
+            "uncrustify",
+            "xmllint",
+        ]:
+            if f"ament-cmake-{lint}" in check:
+                native_check.append(f"ament-{lint}")
+        native_check_scopes = native_check
         nix = template.render(
             pkg=pkg,
             rev=rev,
@@ -230,10 +266,12 @@ class Package:
             build=build,
             propagated=propagated,
             check=check,
+            native_check=native_check,
             native_scopes=native_scopes,
             build_scopes=build_scopes,
             propagated_scopes=propagated_scopes,
             check_scopes=check_scopes,
+            native_check_scopes=native_check_scopes,
             do_check=str(overrides.do_check).lower(),
         )
         path = repo.path / f"{kebabcase(pkg.name)}.nix"
@@ -262,10 +300,20 @@ def main():
     with Github(auth=auth) as gh:
         rosdeps = get_rosdeps(gh)
         for distro, conf in cfg.items():
-            if args.distro and distro != args.distro:
+            if args.distro and args.distro != "all" and distro not in args.distro:
                 logger.debug("ignore distro %s", distro)
                 continue
             environ["ROS_DISTRO"] = distro
+            if distro == "humble":
+                environ["IGNITION_VERSION"] = "fortress"
+                environ["GAZEBO_VERSION"] = ""
+            else:
+                environ["IGNITION_VERSION"] = ""
+                environ["GAZEBO_VERSION"] = {
+                    "jazzy": "harmonic",
+                    "kilted": "ionic",
+                    "rolling": "jetty",
+                }[distro]
             for repo, repo_conf in conf.items():
                 if args.repo and repo != args.repo:
                     logger.debug("ignore repo %s", repo)

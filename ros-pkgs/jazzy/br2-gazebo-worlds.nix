@@ -14,6 +14,8 @@
   # checkInputs
   ament-lint-auto,
   ament-lint-common,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-br2-gazebo-worlds";
@@ -22,10 +24,13 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "br2_gazebo_worlds";
-    rev = "b9df295cda6fe0dc6392880166a138f2e853cc6a";
-    hash = "sha256-ehRDdpvV+/hK/fVbdzd4RpYLu5vbgzQcFhvkWSVL/jg=";
+    rev = "06b159ab0ac93862c271bf547aaa89e872001324";
+    hash = "sha256-5LiutalVo2H+j3+kI8CedbFb23VWVuVwskC9wL2FVqE=";
   };
   sourceRoot = "source/";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildType = "ament_cmake";
 
@@ -33,6 +38,7 @@ buildRosPackage rec {
     ament-cmake
   ];
   buildInputs = [
+    ament-cmake
     ament-cmake-auto
   ];
   propagatedBuildInputs = [
@@ -40,6 +46,8 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = false;

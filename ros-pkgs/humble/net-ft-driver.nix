@@ -21,6 +21,8 @@
   curlpp,
 
 # checkInputs
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-net-ft-driver";
@@ -34,6 +36,9 @@ buildRosPackage rec {
   };
   sourceRoot = "source/net_ft_driver";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
@@ -41,6 +46,7 @@ buildRosPackage rec {
     pkg-config
   ];
   buildInputs = [
+    ament-cmake
     asio
     asio-cmake-module
     hardware-interface
@@ -54,6 +60,8 @@ buildRosPackage rec {
     curlpp
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;

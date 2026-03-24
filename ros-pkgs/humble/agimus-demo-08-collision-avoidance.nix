@@ -17,6 +17,8 @@
 
   # checkInputs
   ament-lint-auto,
+
+# nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-08-collision-avoidance";
@@ -30,12 +32,17 @@ buildRosPackage rec {
   };
   sourceRoot = "source/agimus_demo_08_collision_avoidance";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
     ament-cmake-auto
+    generate-parameter-library
   ];
   buildInputs = [
+    ament-cmake-auto
     generate-parameter-library
     generate-parameter-library-py
   ];
@@ -46,6 +53,8 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-lint-auto
+  ];
+  nativeCheckInputs = [
   ];
 
   doCheck = true;
