@@ -141,15 +141,11 @@ final: prev: {
         ignition-gazebo6 = humble-prev.ign-gazebo6;
         ignition-plugin = humble-prev.ign-plugin1;
 
-        linear-feedback-controller = humble-prev.linear-feedback-controller.overrideAttrs (super: {
-          buildInputs = super.buildInputs ++ [
-            humble-final.eigen3-cmake-module
-            humble-final.tf2-eigen
-          ];
+        linear-feedback-controller = humble-prev.linear-feedback-controller.overrideAttrs {
           preCheck = ''
             export LD_LIBRARY_PATH=.
           '';
-        });
+        };
 
         # that repo somehow has a 0.0.0 tag
         net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
@@ -217,14 +213,11 @@ final: prev: {
 
     jazzy = prev.rosPackages.jazzy.overrideScope (
       jazzy-final: jazzy-prev: {
-        linear-feedback-controller = jazzy-prev.linear-feedback-controller.overrideAttrs (super: {
-          buildInputs = super.buildInputs ++ [
-            jazzy-final.tf2-eigen
-          ];
+        linear-feedback-controller = jazzy-prev.linear-feedback-controller.overrideAttrs {
           preCheck = ''
             export LD_LIBRARY_PATH=.
           '';
-        });
+        };
 
         # TODO: does not seem useful for now, but might bite later
         gazebo-planar-move-plugin = null;
@@ -374,53 +367,22 @@ final: prev: {
     );
 
     kilted = prev.rosPackages.kilted.overrideScope (
-      kilted-final: kilted-prev: {
-        linear-feedback-controller = kilted-prev.linear-feedback-controller.overrideAttrs (super: {
-          buildInputs = super.buildInputs ++ [
-            kilted-final.tf2-eigen
-          ];
+      _kilted-final: kilted-prev: {
+        linear-feedback-controller = kilted-prev.linear-feedback-controller.overrideAttrs {
           preCheck = ''
             export LD_LIBRARY_PATH=.
           '';
-        });
+        };
       }
     );
 
     rolling = prev.rosPackages.rolling.overrideScope (
-      rolling-final: rolling-prev: {
-        linear-feedback-controller = rolling-prev.linear-feedback-controller.overrideAttrs (super: {
-          buildInputs = super.buildInputs ++ [
-            rolling-final.eigen3-cmake-module
-            rolling-final.tf2-eigen
-          ];
-          postPatch = ''
-            substituteInPlace CMakeLists.txt \
-              --replace-warn \
-                "ament_target_dependencies($""{PROJECT_NAME} Eigen3)" \
-                "target_link_libraries($""{PROJECT_NAME} Eigen3::Eigen message_filters::message_filters)"
-            substituteInPlace include/linear_feedback_controller/linear_feedback_controller_ros.hpp \
-              --replace-warn \
-                "message_filters/subscriber.h" \
-                "message_filters/subscriber.hpp" \
-              --replace-warn \
-                "message_filters/time_synchronizer.h" \
-                "message_filters/time_synchronizer.hpp"
-            substituteInPlace src/joint_state_estimator.cpp \
-              --replace-warn \
-                "state_ordered_interfaces_[i].get().get_value()" \
-                "state_ordered_interfaces_[i].get().get_optional().value()"
-          '';
+      _rolling-final: rolling-prev: {
+        linear-feedback-controller = rolling-prev.linear-feedback-controller.overrideAttrs {
           preCheck = ''
             export LD_LIBRARY_PATH=.
           '';
-        });
-        linear-feedback-controller-msgs =
-          rolling-prev.linear-feedback-controller-msgs.overrideAttrs
-            (super: {
-              cmakeFlags = (super.cmakeFlags or [ ]) ++ [
-                (final.lib.cmakeFeature "CMAKE_CTEST_ARGUMENTS" "--exclude-regex;'flake8_rosidl_generated_py'")
-              ];
-            });
+        };
       }
     );
   };
