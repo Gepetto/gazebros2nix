@@ -23,13 +23,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm-controller-configuration";
-  version = "1.24.0";
+  version = "1.25.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_sea_arm";
     tag = version;
-    hash = "sha256-ngqJIWUjmo5m519Vakm0hKVrbDmk7D2KktC+dw0bxxc=";
+    hash = "sha256-j42FZUWPmE9IU0sm4on9G+jXMr3e0tY9L1apIdi/SiQ=";
   };
   sourceRoot = "source/pal_sea_arm_controller_configuration";
 

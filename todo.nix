@@ -149,12 +149,12 @@ final: prev: {
         agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs amentInstallCheckOverride;
         agimus-franka-example-controllers = ros-prev.agimus-franka-example-controllers.overrideAttrs amentInstallCheckOverride;
         agimus-franka-fr3-moveit-config = ros-prev.agimus-franka-fr3-moveit-config.overrideAttrs amentInstallCheckOverride;
-        agimus-franka-msgs = ros-prev.agimus-franka-msgs.overrideAttrs (_super: {
+        agimus-franka-msgs = ros-prev.agimus-franka-msgs.overrideAttrs {
           cmakeFlags = [
             "-DCMAKE_SKIP_BUILD_RPATH=ON"
             "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
           ];
-        });
+        };
         agimus-franka-robot-state-broadcaster =
           ros-prev.agimus-franka-robot-state-broadcaster.overrideAttrs
             (super: {
@@ -168,11 +168,11 @@ final: prev: {
             "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
           ];
         };
-        linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs (_super: {
+        linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs {
           preCheck = ''
             export LD_LIBRARY_PATH=.
           '';
-        });
+        };
         linear-feedback-controller-msgs = ros-prev.linear-feedback-controller-msgs.overrideAttrs {
           cmakeFlags = [
             "-DCMAKE_SKIP_BUILD_RPATH=ON"
@@ -218,6 +218,9 @@ final: prev: {
           agimus-franka-ign-ros2-control = humble-prev.agimus-franka-ign-ros2-control.overrideAttrs {
             env.IGNITION_VERSION = "fortress";
           };
+          # franka-ros2 wrong keys, should be fixed in agimus-franka-ros2
+          ignition-gazebo6 = humble-prev.ign-gazebo6;
+          ignition-plugin = humble-prev.ign-plugin1;
 
           # that repo somehow has a 0.0.0 tag
           net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
@@ -293,7 +296,6 @@ final: prev: {
         jazzy-final: jazzy-prev:
         (rosOverlay jazzy-final jazzy-prev)
         // {
-
           agimus-franka-ign-ros2-control = jazzy-prev.agimus-franka-ign-ros2-control.overrideAttrs {
             env.GAZEBO_VERSION = "harmonic";
           };
@@ -462,13 +464,6 @@ final: prev: {
           agimus-franka-ign-ros2-control = rolling-prev.agimus-franka-ign-ros2-control.overrideAttrs {
             env.GAZEBO_VERSION = "jetty";
           };
-          linear-feedback-controller-msgs =
-            rolling-prev.linear-feedback-controller-msgs.overrideAttrs
-              (super: {
-                cmakeFlags = (super.cmakeFlags or [ ]) ++ [
-                  (final.lib.cmakeFeature "CMAKE_CTEST_ARGUMENTS" "--exclude-regex;'flake8_rosidl_generated_py'")
-                ];
-              });
         }
       );
     };

@@ -20,11 +20,21 @@
   tf2-eigen,
 
   # checkInputs
+  ament-cmake-cppcheck,
+  ament-cmake-cpplint,
+  ament-cmake-flake8,
   ament-cmake-gtest,
+  ament-cmake-pep257,
   ament-cmake-pytest,
+  ament-cmake-uncrustify,
   ament-lint-common,
 
-# nativeCheckInputs
+  # nativeCheckInputs
+  ament-cppcheck,
+  ament-cpplint,
+  ament-flake8,
+  ament-pep257,
+  ament-uncrustify,
 }:
 buildRosPackage rec {
   pname = "ros-kilted-linear-feedback-controller-msgs";
@@ -62,11 +72,21 @@ buildRosPackage rec {
     tf2-eigen
   ];
   checkInputs = [
+    ament-cmake-cppcheck
+    ament-cmake-cpplint
+    ament-cmake-flake8
     ament-cmake-gtest
+    ament-cmake-pep257
     ament-cmake-pytest
+    ament-cmake-uncrustify
     ament-lint-common
   ];
   nativeCheckInputs = [
+    ament-cppcheck
+    ament-cpplint
+    ament-flake8
+    ament-pep257
+    ament-uncrustify
   ];
 
   doCheck = true;

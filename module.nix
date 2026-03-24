@@ -45,13 +45,11 @@ in
   };
 
   config = {
-    flake.overlays.gazebros2nix =
-      final: prev:
-      lib.foldr lib.composeExtensions (_: _: { }) [
-        (import ./garbage)
-        (import ./generated.nix)
-        (import ./todo.nix)
-      ] final prev;
+    flake.overlays.gazebros2nix = lib.composeManyExtensions [
+      (import ./garbage)
+      (import ./generated.nix)
+      (import ./todo.nix)
+    ];
 
     perSystem =
       {

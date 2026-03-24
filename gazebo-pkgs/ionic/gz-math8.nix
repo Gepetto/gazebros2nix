@@ -9,6 +9,7 @@
   gz-utils,
   gz-utils3,
   pkg-config,
+  python3,
   python3Packages,
 }:
 stdenv.mkDerivation {
@@ -31,6 +32,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     eigen

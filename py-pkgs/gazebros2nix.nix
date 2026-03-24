@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  pythonVersion,
 
   # build-system
   hatchling,
@@ -15,7 +16,7 @@
 }:
 buildPythonPackage {
   pname = "gazebros2nix";
-  version = lib.pythonVersion ../pyproject.toml;
+  version = pythonVersion ../pyproject.toml;
   pyproject = true;
 
   src = lib.fileset.toSource {

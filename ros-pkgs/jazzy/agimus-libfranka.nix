@@ -15,7 +15,6 @@
   eigen,
 
   # checkInputs
-  gmock,
   gtest,
 
 # nativeCheckInputs
@@ -50,7 +49,6 @@ buildRosPackage rec {
     eigen
   ];
   checkInputs = [
-    gmock
     gtest
   ];
   nativeCheckInputs = [

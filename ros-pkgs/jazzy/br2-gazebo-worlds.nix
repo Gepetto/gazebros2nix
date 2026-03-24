@@ -24,8 +24,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "br2_gazebo_worlds";
-    rev = "2cbf955d3da970291fbc6ab6159a36282b52fe59";
-    hash = "sha256-ehRDdpvV+/hK/fVbdzd4RpYLu5vbgzQcFhvkWSVL/jg=";
+    rev = "06b159ab0ac93862c271bf547aaa89e872001324";
+    hash = "sha256-5LiutalVo2H+j3+kI8CedbFb23VWVuVwskC9wL2FVqE=";
   };
   sourceRoot = "source/";
 

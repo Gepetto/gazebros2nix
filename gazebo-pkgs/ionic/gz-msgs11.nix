@@ -36,6 +36,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     gz-cmake
@@ -45,7 +46,6 @@ stdenv.mkDerivation {
     gz-tools2
     gz-utils
     protobuf
-    python3
     python3Packages.protobuf
     tinyxml-2
   ];
