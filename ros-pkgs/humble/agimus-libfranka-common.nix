@@ -21,8 +21,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-libfranka-common";
-    rev = "7f60f2eb9fa98383b8262b8175e9cd4fb6e0dd4a";
-    hash = "sha256-lkqpBdnhvN7p9FnN2j5C+KUloQoKF0p8XZwtica9xxk=";
+    rev = "8f5f4ff8f391a0299d3098d8ade630a7e4a3a696";
+    hash = "sha256-DWGr+IBerTuQt3Jv2EL4MV+gHYp+lNvPRh0tIoZZB+o=";
   };
   sourceRoot = "source/";
 
@@ -44,7 +44,7 @@ buildRosPackage rec {
   nativeCheckInputs = [
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of libfranka-common for franka robots not maintained anymore by franka";

@@ -59,12 +59,16 @@
             system,
             ...
           }:
+          let
+            rosShellHook' = self.lib.rosShellHook pkgs;
+            rosWrapperArgs' = self.lib.rosWrapperArgs pkgs;
+          in
           {
             devShells.default = pkgs.mkShell {
               packages = [
                 pkgs.gazebros2nix-venv.passthru.editableVirtualenv
               ];
-              shellHook = self.lib.rosShellHook { inherit pkgs; } + ''
+              shellHook = rosShellHook' null + ''
                 test -f .venv/bin/activate && source .venv/bin/activate
               '';
             };
@@ -73,7 +77,7 @@
               {
                 gz-fortress = pkgs.rosPackages.humble.buildEnv {
                   name = "gz-fortress";
-                  postBuild = self.lib.rosWrapperArgs "humble" pkgs;
+                  postBuild = rosWrapperArgs' "humble";
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-fortress-" n) self'.packages) ++ [
                     pkgs.qt5.qtgraphicaleffects
                     pkgs.qt5.wrapQtAppsHook
@@ -82,7 +86,7 @@
 
                 gz-harmonic = pkgs.rosPackages.jazzy.buildEnv {
                   name = "gz-harmonic";
-                  postBuild = self.lib.rosWrapperArgs "jazzy" pkgs;
+                  postBuild = rosWrapperArgs' "jazzy";
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-harmonic-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -90,7 +94,7 @@
 
                 gz-ionic = pkgs.rosPackages.kilted.buildEnv {
                   name = "gz-ionic";
-                  postBuild = self.lib.rosWrapperArgs "kilted" pkgs;
+                  postBuild = rosWrapperArgs' "kilted";
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-ionic-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -98,7 +102,7 @@
 
                 gz-jetty = pkgs.rosPackages.rolling.buildEnv {
                   name = "gz-jetty";
-                  postBuild = self.lib.rosWrapperArgs "rolling" pkgs;
+                  postBuild = rosWrapperArgs' "rolling";
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-jetty-" n) self'.packages) ++ [
                     pkgs.qt6.wrapQtAppsHook
                   ];
@@ -106,7 +110,7 @@
 
                 ros-humble = pkgs.rosPackages.humble.buildEnv {
                   name = "ros-humble";
-                  postBuild = self.lib.rosWrapperArgs "humble" pkgs;
+                  postBuild = rosWrapperArgs' "humble";
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-humble-" n) self'.packages) ++ [
                     pkgs.python3Packages.coal # TODO
                     pkgs.qt5.qtgraphicaleffects
@@ -116,7 +120,7 @@
 
                 ros-jazzy = pkgs.rosPackages.jazzy.buildEnv {
                   name = "ros-jazzy";
-                  postBuild = self.lib.rosWrapperArgs "jazzy" pkgs;
+                  postBuild = rosWrapperArgs' "jazzy";
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-" n) self'.packages) ++ [
                     pkgs.python3Packages.coal # TODO
                     pkgs.qt5.wrapQtAppsHook
@@ -125,7 +129,7 @@
 
                 ros-kilted = pkgs.rosPackages.kilted.buildEnv {
                   name = "ros-kilted";
-                  postBuild = self.lib.rosWrapperArgs "kilted" pkgs;
+                  postBuild = rosWrapperArgs' "kilted";
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-kilted-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -133,7 +137,7 @@
 
                 ros-rolling = pkgs.rosPackages.rolling.buildEnv {
                   name = "ros-rolling";
-                  postBuild = self.lib.rosWrapperArgs "rolling" pkgs;
+                  postBuild = rosWrapperArgs' "rolling";
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-rolling-" n) self'.packages) ++ [
                     pkgs.qt6.wrapQtAppsHook
                   ];
@@ -327,7 +331,6 @@
                   agimus-msgs
                   linear-feedback-controller
                   linear-feedback-controller-msgs
-                  ros2topic
                   tiago-pro-description
                   # tiago-pro-gazebo TODO: gazebo-classic
                   # keep-sorted end
@@ -339,7 +342,36 @@
                   # keep-sorted start
                   agimus-controller
                   agimus-controller-ros
+                  agimus-demo-00-franka-controller
+                  agimus-demo-01-lfc-alone
+                  # agimus-demo-02-simple-pd-plus-tiago-pro TODO: tiago-pro
+                  agimus-demo-02-simple-pd-plus
+                  # agimus-demo-03-mpc-dummy-traj-tiago-pro TODO: tiago-pro
+                  agimus-demo-03-mpc-dummy-traj
+                  # agimus-demo-04-dual-arm-tiago-pro TODO: tiago-pro
+                  agimus-demo-04-visual-servoing
+                  agimus-demo-05-pick-and-place
+                  agimus-demo-06-regrasp
+                  # agimus-demo-07-deburring TODO: pytroller
+                  agimus-demo-08-collision-avoidance
+                  agimus-demos-common
+                  agimus-demos-controllers
+                  # agimus-demos TODO: tiago-pro
+                  agimus-franka-bringup
                   agimus-franka-description
+                  agimus-franka-example-controllers
+                  agimus-franka-fr3-moveit-config
+                  agimus-franka-gazebo-bringup
+                  agimus-franka-gripper
+                  agimus-franka-hardware
+                  agimus-franka-ign-ros2-control
+                  agimus-franka-msgs
+                  agimus-franka-robot-state-broadcaster
+                  agimus-franka-ros2
+                  agimus-franka-semantic-components
+                  agimus-integration-launch-testing
+                  agimus-libfranka
+                  agimus-libfranka-common
                   agimus-msgs
                   # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
                   # ros2-control-demos # need the other ones
@@ -384,7 +416,6 @@
                   ros2-control-demo-example-6
                   ros2-control-demo-example-7
                   ros2-control-demo-example-8
-                  ros2topic
                   # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
                   # ros2-control-demos # need the other ones
                   tiago-pro-bringup
@@ -412,7 +443,6 @@
                   agimus-msgs
                   linear-feedback-controller
                   linear-feedback-controller-msgs
-                  ros2topic
                   # keep-sorted end
                   ;
               }
@@ -426,7 +456,6 @@
                   agimus-msgs
                   linear-feedback-controller
                   linear-feedback-controller-msgs
-                  ros2topic
                   # keep-sorted end
                   ;
               }

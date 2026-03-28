@@ -5,13 +5,13 @@
 
   # nativeBuildInputs
   ament-cmake,
+  writableTmpDirAsHomeHook,
 
   # buildInputs
   agimus-franka-hardware,
   agimus-franka-msgs,
   agimus-franka-semantic-components,
   agimus-libfranka,
-  agimus-libfranka-common,
   controller-interface,
   moveit-core,
   pinocchio,
@@ -24,7 +24,6 @@
   # propagatedBuildInputs
 
   # checkInputs
-  ament-cmake-clang-format,
   ament-cmake-clang-tidy,
   ament-cmake-copyright,
   ament-cmake-cppcheck,
@@ -53,10 +52,10 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "b4450db350c8ea796eef77290e81b09654f766bb";
-    hash = "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=";
+    rev = "927a0393961fb4b27c9d1e5815955e132b7bf3b3";
+    hash = "sha256-nVPTHD6i5i+UfAXnyCPe29OmdCnWJw5dlDKGu0CjghU=";
   };
-  sourceRoot = "source/franka_example_controllers";
+  sourceRoot = "source/agimus_franka_example_controllers";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -65,13 +64,13 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+    writableTmpDirAsHomeHook
   ];
   buildInputs = [
     agimus-franka-hardware
     agimus-franka-msgs
     agimus-franka-semantic-components
     agimus-libfranka
-    agimus-libfranka-common
     ament-cmake
     controller-interface
     moveit-core
@@ -85,7 +84,6 @@ buildRosPackage rec {
   propagatedBuildInputs = [
   ];
   checkInputs = [
-    ament-cmake-clang-format
     ament-cmake-clang-tidy
     ament-cmake-copyright
     ament-cmake-cppcheck
@@ -108,7 +106,7 @@ buildRosPackage rec {
     ament-xmllint
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_example_controllers for franka robots not maintained anymore by franka";

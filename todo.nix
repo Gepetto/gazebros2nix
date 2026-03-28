@@ -115,7 +115,16 @@ final: prev: {
 
   rosPackages =
     let
-      rosOverlay = _ros-final: ros-prev: {
+      # some packages need an installed verison of themself discoverable by ament.
+      # maybe we could use build dir.
+      amentInstallCheckOverride = {
+        checkTarget = " ";
+        doInstallCheck = true;
+        preInstallCheck = "export AMENT_PREFIX_PATH=$out:$AMENT_PREFIX_PATH";
+        installCheckTarget = "test";
+      };
+
+      rosOverlay = ros-final: ros-prev: {
         inherit (final)
           dartsim
           fcl
@@ -130,17 +139,29 @@ final: prev: {
         # keep-sorted start block=yes
 
         agimus-demos = ros-prev.agimus-demos.overrideAttrs (super: {
-          nativeBuildInputs = (super.nativeBuildInputs or [ ]) ++ [
-            final.cmake
-            final.python3
+          nativeBuildInputs = (super.nativeBuildInputs or [ ]) ++ [ ros-final.ament-cmake ];
+        });
+        agimus-demos-common = ros-prev.agimus-demos-common.overrideAttrs (super: {
+          propagatedBuildInputs = (super.propagatedBuildInputs or [ ]) ++ [
+            ros-final.agimus-franka-gazebo-bringup
           ];
         });
+        agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs amentInstallCheckOverride;
+        agimus-franka-example-controllers = ros-prev.agimus-franka-example-controllers.overrideAttrs amentInstallCheckOverride;
+        agimus-franka-fr3-moveit-config = ros-prev.agimus-franka-fr3-moveit-config.overrideAttrs amentInstallCheckOverride;
         agimus-franka-msgs = ros-prev.agimus-franka-msgs.overrideAttrs {
           cmakeFlags = [
             "-DCMAKE_SKIP_BUILD_RPATH=ON"
             "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
           ];
         };
+        agimus-franka-robot-state-broadcaster =
+          ros-prev.agimus-franka-robot-state-broadcaster.overrideAttrs
+            (super: {
+              nativeBuildInputs = super.nativeBuildInputs ++ [ final.ctestCheckHook ];
+              disabledTests = [ "test_load_agimus_franka_robot_state_broadcaster" ]; # TODO: ???
+            });
+        agimus-franka-semantic-components = ros-prev.agimus-franka-semantic-components.overrideAttrs amentInstallCheckOverride;
         agimus-msgs = ros-prev.agimus-msgs.overrideAttrs {
           cmakeFlags = [
             "-DCMAKE_SKIP_BUILD_RPATH=ON"
@@ -194,6 +215,9 @@ final: prev: {
             '';
           };
 
+          agimus-franka-ign-ros2-control = humble-prev.agimus-franka-ign-ros2-control.overrideAttrs {
+            env.IGNITION_VERSION = "fortress";
+          };
           # franka-ros2 wrong keys, should be fixed in agimus-franka-ros2
           ignition-gazebo6 = humble-prev.ign-gazebo6;
           ignition-plugin = humble-prev.ign-plugin1;
@@ -254,6 +278,12 @@ final: prev: {
             meta.platforms = final.lib.platforms.linux;
           });
 
+          ros-gz-sim = humble-prev.ros-gz-sim.overrideAttrs (super: {
+            propagatedNativeBuildInputs = (super.propagatedNativeBuildInputs or [ ]) ++ [
+              humble-final.gz-tools
+            ];
+          });
+
           ros-gz-sim-demos = null; # wants qt-gui-cpp, where qt5 and python 3.13 are not compatible
 
           topic-tools-interfaces = humble-prev.topic-tools-interfaces.overrideAttrs {
@@ -266,6 +296,9 @@ final: prev: {
         jazzy-final: jazzy-prev:
         (rosOverlay jazzy-final jazzy-prev)
         // {
+          agimus-franka-ign-ros2-control = jazzy-prev.agimus-franka-ign-ros2-control.overrideAttrs {
+            env.GAZEBO_VERSION = "harmonic";
+          };
 
           # TODO: does not seem useful for now, but might bite later
           gazebo-planar-move-plugin = null;
@@ -418,6 +451,9 @@ final: prev: {
         kilted-final: kilted-prev:
         (rosOverlay kilted-final kilted-prev)
         // {
+          agimus-franka-ign-ros2-control = kilted-prev.agimus-franka-ign-ros2-control.overrideAttrs {
+            env.GAZEBO_VERSION = "ionic";
+          };
         }
       );
 
@@ -425,6 +461,9 @@ final: prev: {
         rolling-final: rolling-prev:
         (rosOverlay rolling-final rolling-prev)
         // {
+          agimus-franka-ign-ros2-control = rolling-prev.agimus-franka-ign-ros2-control.overrideAttrs {
+            env.GAZEBO_VERSION = "jetty";
+          };
         }
       );
     };

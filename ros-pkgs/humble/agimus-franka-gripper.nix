@@ -10,7 +10,6 @@
   # buildInputs
   agimus-franka-msgs,
   agimus-libfranka,
-  agimus-libfranka-common,
   control-msgs,
   rclcpp,
   rclcpp-action,
@@ -22,7 +21,6 @@
   # propagatedBuildInputs
 
   # checkInputs
-  ament-cmake-clang-format,
   ament-cmake-copyright,
   ament-cmake-cppcheck,
   ament-cmake-flake8,
@@ -46,10 +44,10 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "b4450db350c8ea796eef77290e81b09654f766bb";
-    hash = "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=";
+    rev = "927a0393961fb4b27c9d1e5815955e132b7bf3b3";
+    hash = "sha256-nVPTHD6i5i+UfAXnyCPe29OmdCnWJw5dlDKGu0CjghU=";
   };
-  sourceRoot = "source/franka_gripper";
+  sourceRoot = "source/agimus_franka_gripper";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -63,7 +61,6 @@ buildRosPackage rec {
   buildInputs = [
     agimus-franka-msgs
     agimus-libfranka
-    agimus-libfranka-common
     ament-cmake
     ament-cmake-python
     control-msgs
@@ -77,7 +74,6 @@ buildRosPackage rec {
   propagatedBuildInputs = [
   ];
   checkInputs = [
-    ament-cmake-clang-format
     ament-cmake-copyright
     ament-cmake-cppcheck
     ament-cmake-flake8
@@ -95,7 +91,7 @@ buildRosPackage rec {
     ament-xmllint
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_gripper for franka robots not maintained anymore by franka";

@@ -9,7 +9,6 @@
   # buildInputs
   agimus-franka-hardware,
   agimus-libfranka,
-  agimus-libfranka-common,
   ament-index-cpp,
   controller-manager,
   hardware-interface,
@@ -27,7 +26,6 @@
   # propagatedBuildInputs
 
   # checkInputs
-  ament-lint-auto,
   ament-lint-common,
 
 # nativeCheckInputs
@@ -39,10 +37,10 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "b4450db350c8ea796eef77290e81b09654f766bb";
-    hash = "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=";
+    rev = "927a0393961fb4b27c9d1e5815955e132b7bf3b3";
+    hash = "sha256-nVPTHD6i5i+UfAXnyCPe29OmdCnWJw5dlDKGu0CjghU=";
   };
-  sourceRoot = "source/franka_gazebo/franka_ign_ros2_control";
+  sourceRoot = "source/agimus_franka_gazebo/agimus_franka_ign_ros2_control";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -55,7 +53,6 @@ buildRosPackage rec {
   buildInputs = [
     agimus-franka-hardware
     agimus-libfranka
-    agimus-libfranka-common
     ament-cmake
     ament-index-cpp
     controller-manager
@@ -74,13 +71,12 @@ buildRosPackage rec {
   propagatedBuildInputs = [
   ];
   checkInputs = [
-    ament-lint-auto
     ament-lint-common
   ];
   nativeCheckInputs = [
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_ign_ros2_control for franka robots not maintained anymore by franka";

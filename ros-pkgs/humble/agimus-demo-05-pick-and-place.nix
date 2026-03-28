@@ -27,8 +27,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-demos";
-    rev = "40c897103f651d07bca480dd2a4b5a73270fb454";
-    hash = "sha256-IIsTWCocu65UatuQniHmlt8JBlAck/LXvXlZMURsgtg=";
+    rev = "8bb84651288dca5bd786bff7c26b913fbac5d850";
+    hash = "sha256-jEyOUZB7nYR/32gPkibsTkm90oppGVS5L3OYLOFLBBs=";
   };
   sourceRoot = "source/agimus_demo_05_pick_and_place";
 
