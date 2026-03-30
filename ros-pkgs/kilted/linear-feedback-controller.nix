@@ -36,7 +36,7 @@
   gmock-vendor,
   gtest-vendor,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-kilted-linear-feedback-controller";

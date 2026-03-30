@@ -17,7 +17,7 @@
   # checkInputs
   ament-lint-common,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-play-motion2-msgs";

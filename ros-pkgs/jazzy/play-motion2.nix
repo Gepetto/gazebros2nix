@@ -43,7 +43,7 @@
   robot-state-publisher,
   xacro,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-play-motion2";

@@ -39,9 +39,9 @@
   rviz2,
   xacro,
 
-# checkInputs
+  # checkInputs
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demos-common";

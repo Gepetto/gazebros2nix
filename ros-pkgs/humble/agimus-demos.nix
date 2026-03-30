@@ -15,9 +15,9 @@
   agimus-demo-05-pick-and-place,
   agimus-demos-common,
 
-# checkInputs
+  # checkInputs
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demos";
