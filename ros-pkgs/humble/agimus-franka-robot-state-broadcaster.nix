@@ -34,7 +34,7 @@
   rclcpp,
   ros2-control-test-assets,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-franka-robot-state-broadcaster";

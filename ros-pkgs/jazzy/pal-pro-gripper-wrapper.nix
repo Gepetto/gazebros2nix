@@ -21,7 +21,7 @@
   ament-pep257,
   python3Packages,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-pal-pro-gripper-wrapper";

@@ -11,9 +11,9 @@
   # propagatedBuildInputs
   tiago-pro-gazebo,
 
-# checkInputs
+  # checkInputs
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-simulation";

@@ -15,11 +15,11 @@
   rclcpp,
   rclcpp-lifecycle,
 
-# propagatedBuildInputs
+  # propagatedBuildInputs
 
-# checkInputs
+  # checkInputs
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-net-ft-diagnostic-broadcaster";

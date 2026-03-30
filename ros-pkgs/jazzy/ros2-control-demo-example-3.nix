@@ -38,7 +38,7 @@
   rclpy,
   urdfdom,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-ros2-control-demo-example-3";

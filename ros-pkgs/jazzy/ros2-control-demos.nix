@@ -27,9 +27,9 @@
   ros2-control-demo-example-8,
   ros2-control-demo-example-9,
 
-# checkInputs
+  # checkInputs
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-ros2-control-demos";
