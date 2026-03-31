@@ -54,11 +54,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1774913668,
-        "narHash": "sha256-spSfZ8N9Eh7lqwWl2vMop36wELyzqb0AYtdYFMampHg=",
+        "lastModified": 1774947096,
+        "narHash": "sha256-raUE3Gva/EHe0ISwCB8+nzUfwZfyL38iBpnFjTRqLyk=",
         "owner": "gepetto",
         "repo": "flakoboros",
-        "rev": "e19574a3c511a52d4e567f91cad29a7b38f298f6",
+        "rev": "21ae913618528c145dd828a785108e1126a6e8bc",
         "type": "github"
       },
       "original": {
@@ -75,7 +75,7 @@
       "locked": {
         "lastModified": 1774913253,
         "narHash": "sha256-uSAUajMLMUqnQ7IIVWcsuya8aSdbY8uH1nrZ3VCPjcI=",
-        "owner": "nim65s",
+        "owner": "wentasah",
         "repo": "nix-ros-overlay",
         "rev": "734d5ce69676a802ced6384c12139ef6933b3242",
         "type": "github"
@@ -238,11 +238,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1774705889,
-        "narHash": "sha256-TRTIM18gP3ccBj3m8bV1zx82xeYweNYp8/lgcdR4Zz0=",
+        "lastModified": 1774929536,
+        "narHash": "sha256-dMTjy8hu4XFAdNHdcLtCryN3SHqSUFHHqDLep+3b2v4=",
         "owner": "pyproject-nix",
         "repo": "uv2nix",
-        "rev": "28355ed75b466a15ff324e1baa151b550619fe67",
+        "rev": "5d0e883867b1cf53263fcf1bfd34542d40abf5a9",
         "type": "github"
       },
       "original": {
