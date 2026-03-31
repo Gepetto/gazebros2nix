@@ -18,7 +18,6 @@ in
     inputs.flakoboros.flakeModule
     {
       flakoboros = {
-        overlays = [ self.overlays.gazebros2nix ];
         nixpkgsConfig = {
           allowUnfree = true;
           permittedInsecurePackages = [
@@ -85,7 +84,8 @@ in
             config = config.flakoboros.nixpkgsConfig;
             overlays = [
               nix-ros-overlay.overlays.default
-              self.overlays.default
+              self.overlays.flakoboros
+              self.overlays.gazebros2nix
             ]
             ++ config.flakoboros.overlays;
           };
