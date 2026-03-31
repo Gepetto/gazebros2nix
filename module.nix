@@ -84,8 +84,8 @@ in
             config = config.flakoboros.nixpkgsConfig;
             overlays = [
               nix-ros-overlay.overlays.default
-              self.overlays.flakoboros
               self.overlays.gazebros2nix
+              self.overlays.flakoboros
             ]
             ++ config.flakoboros.overlays;
           };
