@@ -54,11 +54,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1774947096,
-        "narHash": "sha256-raUE3Gva/EHe0ISwCB8+nzUfwZfyL38iBpnFjTRqLyk=",
+        "lastModified": 1774961332,
+        "narHash": "sha256-Ww2qM0ylzeRDp+14W1fWck5mUY1wMyAy1SAnGmiWQXU=",
         "owner": "gepetto",
         "repo": "flakoboros",
-        "rev": "21ae913618528c145dd828a785108e1126a6e8bc",
+        "rev": "a37d9b53109d37ea9adb83ebe0ba8bb0fcda97d0",
         "type": "github"
       },
       "original": {
