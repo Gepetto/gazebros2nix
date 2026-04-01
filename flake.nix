@@ -327,6 +327,7 @@
                   agimus-msgs
                   linear-feedback-controller
                   linear-feedback-controller-msgs
+                  net-ft-driver
                   ros2topic
                   tiago-pro-description
                   # tiago-pro-gazebo TODO: gazebo-classic

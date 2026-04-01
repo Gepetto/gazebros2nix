@@ -201,9 +201,10 @@ final: prev: {
           # that repo somehow has a 0.0.0 tag
           net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
             src = final.fetchFromGitHub {
-              inherit (super.src) owner repo;
-              rev = "393960c20c1607bbdeec7bff70ce5b4db01e3ab3";
-              hash = "sha256-ZBIGq/3FHcDgRnOfp1h5ABtj4e7KyqSIx+n6WpgB0qI=";
+              inherit (super.src) repo;
+              owner = "nim65s"; # ref https://github.com/gbartyzel/ros2_net_ft_driver/pull/26
+              rev = "042b7885a7d1ca01f0adb153859fd7c6ace6ed41";
+              hash = "sha256-A+A9c1N/2QShCk9z65PbBT4KvM4C+85X1Suai5bGGWM=";
             };
           });
           net-ft-diagnostic-broadcaster = humble-prev.net-ft-diagnostic-broadcaster.overrideAttrs {
