@@ -24,15 +24,17 @@
   libXrandr,
   libxcb,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ogre-next";
   version = "2.3.3";
 
   src = fetchFromGitHub {
-    owner = "OGRECave";
+    # owner = "OGRECave";
+    owner = "nim65s"; # ref. https://github.com/OGRECave/ogre-next/pull/564
     repo = "ogre-next";
-    rev = "v${version}";
-    sha256 = "sha256-elSj35LwsLzj1ssDPsk9NW/KSXfiOGYmw9hQSAWdpFM=";
+    # rev = "v${finalAttrs.version}";
+    rev = "a29bd710e08e6503142b643d11a2d1e37b2cd028";
+    hash = "sha256-0+NKWKqoQ+Zqx9hj8LQDQ1qRXyBHUcKhY+uYDRVXlnw=";
   };
 
   cmakeFlags = [
@@ -84,4 +86,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     license = licenses.mit;
   };
-}
+})

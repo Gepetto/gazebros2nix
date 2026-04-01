@@ -32,6 +32,15 @@ final: prev: {
           qt5compat = final.qt5.qtquickcontrols2;
         };
 
+        ign-common4 = fortress-prev.ign-common4.overrideAttrs {
+          patches = [
+            (final.fetchpatch {
+              url = "https://github.com/nim65s/gz-common/commit/4efc4456686229e58e7b5af15810d0dfaff3fc1d.patch?full_index=1";
+              hash = "sha256-98JIk5VJq1nUk38kww2rhXTacsbsFzDvpqf+VHQksgA=";
+            })
+          ];
+        };
+
         ign-gui6 = fortress-prev.ign-gui6.overrideAttrs {
           patches = [
             (final.fetchpatch2 {
@@ -46,6 +55,14 @@ final: prev: {
           postPatch = ''
             substituteInPlace plugins/websocket_server/WebsocketServer.cc \
               --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
+          '';
+        };
+
+        ign-tools1 = fortress-prev.ign-tools1.overrideAttrs {
+          postPatch = ''
+            substituteInPlace CMakeLists.txt --replace-fail \
+              "cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)" \
+              "cmake_minimum_required(VERSION 3.10 FATAL_ERROR)"
           '';
         };
       }
@@ -256,6 +273,15 @@ final: prev: {
           });
 
           ros-gz-sim-demos = null; # wants qt-gui-cpp, where qt5 and python 3.13 are not compatible
+
+          sdformat-urdf = humble-prev.sdformat-urdf.overrideAttrs {
+            # ref. https://github.com/ros/sdformat_urdf/pull/41
+            postPatch = ''
+              substituteInPlace CMakeLists.txt --replace-fail \
+                "find_package(urdfdom_headers 1.0.6 REQUIRED)" \
+                "find_package(urdfdom_headers REQUIRED)"
+            '';
+          };
 
           topic-tools-interfaces = humble-prev.topic-tools-interfaces.overrideAttrs {
             doCheck = false;

@@ -144,6 +144,8 @@
                 inherit (pkgs)
                   # keep-sorted start
                   freeimage
+                  libogre-next-23-dev
+                  ogre1_9
                   # keep-sorted end
                   ;
               }
