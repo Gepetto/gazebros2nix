@@ -31,11 +31,6 @@ in
   ];
 
   options.gazebros2nix = {
-    patches = lib.mkOption {
-      description = "Additionnal patches for gazebros2nix pkgs";
-      default = [ ];
-    };
-
     pkgs = lib.mkOption {
       type = lib.types.bool;
       description = "define pkgs from nixpkgs with overlays from nix-ros-overlay, flakoboros, gazebros2nix and overlays";
@@ -68,27 +63,16 @@ in
       }
 
       // lib.optionalAttrs cfg.pkgs {
-        _module.args.pkgs =
-          let
-            pkgsForPatching = inputs.nixpkgs.legacyPackages.${system};
-            patchedNixpkgs = (
-              pkgsForPatching.applyPatches {
-                name = "gepetto patched nixpkgs";
-                src = inputs.nixpkgs;
-                patches = lib.fileset.toList ./patches/NixOS/nixpkgs ++ cfg.patches;
-              }
-            );
-          in
-          import patchedNixpkgs {
-            inherit system;
-            config = config.flakoboros.nixpkgsConfig;
-            overlays = [
-              nix-ros-overlay.overlays.default
-              self.overlays.gazebros2nix
-              self.overlays.flakoboros
-            ]
-            ++ config.flakoboros.overlays;
-          };
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          config = config.flakoboros.nixpkgsConfig;
+          overlays = [
+            nix-ros-overlay.overlays.default
+            self.overlays.gazebros2nix
+            self.overlays.flakoboros
+          ]
+          ++ config.flakoboros.overlays;
+        };
       };
   };
 }
