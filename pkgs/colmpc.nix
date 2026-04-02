@@ -3,6 +3,7 @@
   stdenv,
 
   fetchFromGitHub,
+  fetchpatch,
 
   # nativeBuildInputs
   cmake,
@@ -26,6 +27,13 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-x64bhA9ukmRf34PMNgVlwzdazwkIP8VBfG9W/KUVVBE=";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/nim65s/colmpc/commit/f07292462ac16280d77f1bfd91353a4c0a4bbedd.patch?full_index=1";
+      hash = "sha256-BBMXg1PBLIZ4CFFh558ebWAU+6QOvon1vI4c8QkNOGc=";
+    })
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-DCOAL_DISABLE_HPP_FCL_WARNINGS";
 

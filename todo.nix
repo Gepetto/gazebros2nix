@@ -1,5 +1,23 @@
 final: prev: {
   # keep-sorted start block=yes
+
+  crocoddyl = prev.crocoddyl.overrideAttrs {
+    patches = [
+      (final.fetchpatch {
+        name = "croco-pin4.patch";
+        url = "https://github.com/loco-3d/crocoddyl/commit/62eed112bd103a32723de76d6ae3a0be792b4b0a.patch?full_index=1";
+        hash = "sha256-REVA0+d4Yo+w394zBwkO7JpUsC39oJcMAoUzc3mdmJ4=";
+      })
+    ];
+  };
+  pinocchio = prev.pinocchio.overrideAttrs {
+    src = final.fetchFromGitHub {
+      owner = "Simple-Robotics";
+      repo = "pinocchio";
+      rev = "39fdb5c9bdea820e982b16cca40df9336408f000";
+      hash = "sha256-ewvDrg7pW0I252Zbw2jrTQ/dufi/F5B0337i1jd8jQQ=";
+    };
+  };
   zenoh-c = prev.zenoh-c.overrideAttrs (super: {
     # TODO: port https://github.com/eclipse-zenoh/zenoh-cpp/pull/702
     postInstall = super.postInstall + ''
@@ -73,6 +91,15 @@ final: prev: {
         inherit (final) dartsim urdfdom-headers urdfdom;
         dart = final.dartsim;
 
+        gz-common5 = harmonic-prev.gz-common5.overrideAttrs {
+          patches = [
+            (final.fetchpatch {
+              url = "https://github.com/nim65s/gz-common/commit/d21c3dfce2bbe463f888ed0ede37c6d483b8a49f.patch?full_index=1";
+              hash = "sha256-uWNzRcbEg8b7ApJ3jKQqMQSUSGFAyJ9U18dCPzDwJhI=";
+            })
+          ];
+        };
+
         gz-gui8 = harmonic-prev.gz-gui8.overrideAttrs {
           patches = [
             (final.fetchpatch2 {
@@ -99,6 +126,15 @@ final: prev: {
             (final.fetchpatch2 {
               url = "https://github.com/gazebosim/gz-msgs/pull/501.patch?full_index=1";
               hash = "sha256-0uscwyYZafHfzooxcrrhtcfcxknpDTEcZ6Ie0WWySVw=";
+            })
+          ];
+        };
+
+        gz-rendering8 = harmonic-prev.gz-rendering8.overrideAttrs {
+          patches = [
+            (final.fetchpatch {
+              url = "https://github.com/nim65s/gz-rendering/commit/6fe42659215193823e1ffd52cb63344415dfc4ad.patch?full_index=1";
+              hash = "sha256-ekKz8p2YBLLakVijhGS6+e6x98Zl8kx4Hg3PRJDkM5M=";
             })
           ];
         };
@@ -293,6 +329,14 @@ final: prev: {
         jazzy-final: jazzy-prev:
         (rosOverlay jazzy-final jazzy-prev)
         // {
+          br2-gazebo-worlds = jazzy-prev.br2-gazebo-worlds.overrideAttrs {
+            # ref https://github.com/Tiago-Pro-Harmonic/br2_gazebo_worlds/pull/1
+            postPatch = ''
+              substituteInPlace CMakeLists.txt --replace-fail \
+                "cmake_minimum_required(VERSION 3.4.0)" \
+                "cmake_minimum_required(VERSION 3.10)"
+            '';
+          };
 
           # TODO: does not seem useful for now, but might bite later
           gazebo-planar-move-plugin = null;
@@ -435,7 +479,12 @@ final: prev: {
                 --replace-fail "sdformat::" "sdformat14::" \
                 --replace-fail \
                   "find_package(sdformat REQUIRED)" \
-                  "find_package(sdformat14 REQUIRED)" \
+                  "find_package(sdformat14 REQUIRED)"
+
+              # ref. https://github.com/ros/sdformat_urdf/pull/42
+                substituteInPlace CMakeLists.txt --replace-fail \
+                  "find_package(urdfdom_headers 1.0.6 REQUIRED)" \
+                  "find_package(urdfdom_headers REQUIRED)"
             '';
           };
         }
