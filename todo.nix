@@ -1,5 +1,23 @@
 final: prev: {
   # keep-sorted start block=yes
+
+  crocoddyl = prev.crocoddyl.overrideAttrs {
+    patches = [
+      (final.fetchpatch {
+        name = "croco-pin4.patch";
+        url = "https://github.com/loco-3d/crocoddyl/commit/62eed112bd103a32723de76d6ae3a0be792b4b0a.patch?full_index=1";
+        hash = "sha256-REVA0+d4Yo+w394zBwkO7JpUsC39oJcMAoUzc3mdmJ4=";
+      })
+    ];
+  };
+  pinocchio = prev.pinocchio.overrideAttrs {
+    src = final.fetchFromGitHub {
+      owner = "Simple-Robotics";
+      repo = "pinocchio";
+      rev = "39fdb5c9bdea820e982b16cca40df9336408f000";
+      hash = "sha256-ewvDrg7pW0I252Zbw2jrTQ/dufi/F5B0337i1jd8jQQ=";
+    };
+  };
   zenoh-c = prev.zenoh-c.overrideAttrs (super: {
     # TODO: port https://github.com/eclipse-zenoh/zenoh-cpp/pull/702
     postInstall = super.postInstall + ''
