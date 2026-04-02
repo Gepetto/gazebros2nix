@@ -319,6 +319,21 @@ final: prev: {
         jazzy-final: jazzy-prev:
         (rosOverlay jazzy-final jazzy-prev)
         // {
+          agimus-franka-hardware = jazzy-prev.agimus-franka-hardware.overrideAttrs {
+            doCheck = false; # TODO
+          };
+          agimus-franka-ign-ros2-control = jazzy-prev.agimus-franka-ign-ros2-control.overrideAttrs {
+            env.GAZEBO_VERSION = "harmonic";
+          };
+
+          br2-gazebo-worlds = jazzy-prev.br2-gazebo-worlds.overrideAttrs {
+            patches = [
+              (final.fetchpatch {
+                url = "https://github.com/nim65s/br2_gazebo_worlds/commit/8a2bf334bc3b286ed4187fe9ffcd723113794d0b.patch?full_index=1";
+                hash = "sha256-1j2RgxBOXYitRXeVJt3MJQXGq6H70GgvBB6Cu40/63M=";
+              })
+            ];
+          };
 
           # TODO: does not seem useful for now, but might bite later
           gazebo-planar-move-plugin = null;

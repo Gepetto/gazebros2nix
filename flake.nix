@@ -350,6 +350,7 @@
                   launch-pal
                   linear-feedback-controller
                   linear-feedback-controller-msgs
+                  net-ft-driver
                   omni-base-bringup
                   omni-base-controller-configuration
                   omni-base-description
