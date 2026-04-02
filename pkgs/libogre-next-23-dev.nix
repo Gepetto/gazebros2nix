@@ -24,7 +24,7 @@
   libXrandr,
   libxcb,
 }:
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (_finalAttrs: {
   pname = "ogre-next";
   version = "2.3.3";
 

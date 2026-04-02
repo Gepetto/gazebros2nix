@@ -73,6 +73,15 @@ final: prev: {
         inherit (final) dartsim urdfdom-headers urdfdom;
         dart = final.dartsim;
 
+        gz-common5 = harmonic-prev.gz-common5.overrideAttrs {
+          patches = [
+            (final.fetchpatch {
+              url = "https://github.com/nim65s/gz-common/commit/d21c3dfce2bbe463f888ed0ede37c6d483b8a49f.patch?full_index=1";
+              hash = "sha256-uWNzRcbEg8b7ApJ3jKQqMQSUSGFAyJ9U18dCPzDwJhI=";
+            })
+          ];
+        };
+
         gz-gui8 = harmonic-prev.gz-gui8.overrideAttrs {
           patches = [
             (final.fetchpatch2 {
@@ -99,6 +108,15 @@ final: prev: {
             (final.fetchpatch2 {
               url = "https://github.com/gazebosim/gz-msgs/pull/501.patch?full_index=1";
               hash = "sha256-0uscwyYZafHfzooxcrrhtcfcxknpDTEcZ6Ie0WWySVw=";
+            })
+          ];
+        };
+
+        gz-rendering8 = harmonic-prev.gz-rendering8.overrideAttrs {
+          patches = [
+            (final.fetchpatch {
+              url = "https://github.com/gazebosim/gz-rendering/commit/80b6a05e535cc818d6f8590bc86f6a823f35e471.patch?full_index=1";
+              hash = "sha256-ekKz8p2YBLLakVijhGS6+e6x98Zl8kx4Hg3PRJDkM5M=";
             })
           ];
         };
@@ -132,6 +150,9 @@ final: prev: {
 
   rosPackages =
     let
+      # some packages need an installed verison of themself discoverable by ament.
+      # maybe we could use build dir.
+
       rosOverlay = _ros-final: ros-prev: {
         inherit (final)
           dartsim
@@ -348,6 +369,21 @@ final: prev: {
             '';
           };
 
+          net-ft-description = jazzy-prev.net-ft-description.overrideAttrs (super: {
+            src = final.fetchFromGitHub {
+              inherit (super.src) repo;
+              owner = "nim65s"; # ref https://github.com/gbartyzel/ros1_net_ft_driver/pull/26
+              rev = "a2770efe5d4ec3560fd35b4672a3b59d15c37d30";
+              hash = "sha256-9kjfo4We1OQLgi5g9cMz3ync1vp4HiJPbE1NnQqA96A=";
+            };
+          });
+          net-ft-diagnostic-broadcaster = jazzy-prev.net-ft-diagnostic-broadcaster.overrideAttrs {
+            src = jazzy-final.net-ft-description.src;
+          };
+          net-ft-driver = jazzy-prev.net-ft-driver.overrideAttrs {
+            src = jazzy-final.net-ft-description.src;
+          };
+
           ros-gz-bridge = jazzy-prev.ros-gz-bridge.overrideAttrs {
             cmakeFlags = [
               "-DGZ_MSGS_VERSION_FULL=${jazzy-final.gz-msgs.version}"
@@ -435,7 +471,12 @@ final: prev: {
                 --replace-fail "sdformat::" "sdformat14::" \
                 --replace-fail \
                   "find_package(sdformat REQUIRED)" \
-                  "find_package(sdformat14 REQUIRED)" \
+                  "find_package(sdformat14 REQUIRED)"
+
+              # ref. https://github.com/ros/sdformat_urdf/pull/42
+              substituteInPlace CMakeLists.txt --replace-fail \
+                "find_package(urdfdom_headers 1.0.6 REQUIRED)" \
+                "find_package(urdfdom_headers REQUIRED)"
             '';
           };
         }
@@ -445,6 +486,13 @@ final: prev: {
         kilted-final: kilted-prev:
         (rosOverlay kilted-final kilted-prev)
         // {
+          sdformat-urdf = kilted-prev.sdformat-urdf.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt --replace-fail \
+                "find_package(urdfdom_headers 1.0.6 REQUIRED)" \
+                "find_package(urdfdom_headers REQUIRED)"
+            '';
+          };
         }
       );
 
