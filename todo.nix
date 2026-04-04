@@ -261,6 +261,10 @@ final: prev: {
 
           agimus-franka-ign-ros2-control = humble-prev.agimus-franka-ign-ros2-control.overrideAttrs {
             env.IGNITION_VERSION = "fortress";
+            postPatch = ''
+              substituteInPlace CMakeLists.txt --replace-fail "find_package(gz_ros2_control REQUIRED)" ""
+              substituteInPlace CMakeLists.txt --replace-fail "gz_ros2_control" ""
+            '';
           };
 
           # that repo somehow has a 0.0.0 tag
@@ -340,6 +344,9 @@ final: prev: {
           topic-tools-interfaces = humble-prev.topic-tools-interfaces.overrideAttrs {
             doCheck = false;
           };
+
+          _unresolved_ignition-gazebo6 = humble-final.ignition-gazebo6;
+          _unresolved_ignition-plugin = humble-final.ignition-plugin;
         }
       );
 
