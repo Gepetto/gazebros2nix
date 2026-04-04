@@ -50,6 +50,7 @@ buildRosPackage rec {
     trajectory-msgs
   ];
   propagatedBuildInputs = [
+    rclpy
   ];
   checkInputs = [
     ament-copyright

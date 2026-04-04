@@ -69,7 +69,13 @@ buildRosPackage rec {
     tf2-eigen
   ];
   propagatedBuildInputs = [
+    builtin-interfaces
+    eigen
+    geometry-msgs
     rosidl-default-runtime
+    sensor-msgs
+    std-msgs
+    tf2-eigen
   ];
   checkInputs = [
     ament-cmake-cppcheck

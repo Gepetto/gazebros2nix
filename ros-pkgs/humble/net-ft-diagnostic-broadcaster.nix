@@ -52,6 +52,13 @@ buildRosPackage rec {
     rclcpp-lifecycle
   ];
   propagatedBuildInputs = [
+    controller-interface
+    diagnostic-msgs
+    diagnostic-updater
+    hardware-interface
+    pluginlib
+    rclcpp
+    rclcpp-lifecycle
   ];
   checkInputs = [
   ];

@@ -71,12 +71,17 @@ buildRosPackage rec {
     ros2-control-cmake
   ];
   propagatedBuildInputs = [
+    backward-ros
     controller-manager
     forward-command-controller
     gz-ros2-control
+    hardware-interface
     joint-state-broadcaster
     joint-state-publisher-gui
     joint-trajectory-controller
+    pluginlib
+    rclcpp
+    rclcpp-lifecycle
     robot-state-publisher
     ros-gz-bridge
     ros-gz-sim

@@ -63,6 +63,16 @@ buildRosPackage rec {
     std-srvs
   ];
   propagatedBuildInputs = [
+    agimus-demos
+    controller-interface
+    hardware-interface
+    pinocchio
+    pluginlib
+    rclcpp
+    rclcpp-lifecycle
+    realtime-tools
+    std-msgs
+    std-srvs
   ];
   checkInputs = [
   ];

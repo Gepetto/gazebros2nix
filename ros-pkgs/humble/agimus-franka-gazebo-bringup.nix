@@ -50,7 +50,12 @@ buildRosPackage rec {
     sdformat-urdf
   ];
   propagatedBuildInputs = [
+    agimus-franka-description
+    agimus-franka-ign-ros2-control
+    joint-state-publisher-gui
+    ros-gz
     ros2controlcli
+    sdformat-urdf
   ];
   checkInputs = [
     ament-lint-auto

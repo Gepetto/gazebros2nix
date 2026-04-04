@@ -44,6 +44,7 @@ buildRosPackage rec {
   ];
   propagatedBuildInputs = [
     pal-urdf-utils
+    xacro
   ];
   checkInputs = [
     ament-lint-auto

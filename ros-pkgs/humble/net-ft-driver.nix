@@ -56,8 +56,15 @@ buildRosPackage rec {
     tinyxml-2
   ];
   propagatedBuildInputs = [
+    asio
+    asio-cmake-module
     curl
     curlpp
+    hardware-interface
+    pluginlib
+    rclcpp
+    rclcpp-lifecycle
+    tinyxml-2
   ];
   checkInputs = [
   ];

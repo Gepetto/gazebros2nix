@@ -70,16 +70,22 @@ buildRosPackage rec {
     std-msgs
   ];
   propagatedBuildInputs = [
+    backward-ros
     controller-manager
     forward-command-controller
+    hardware-interface
     joint-state-broadcaster
     joint-state-publisher-gui
     joint-trajectory-controller
+    pluginlib
+    rclcpp
+    rclcpp-lifecycle
     robot-state-publisher
     ros2-control-demo-description
     ros2-controllers-test-nodes
     ros2controlcli
     rviz2
+    std-msgs
     xacro
   ];
   checkInputs = [

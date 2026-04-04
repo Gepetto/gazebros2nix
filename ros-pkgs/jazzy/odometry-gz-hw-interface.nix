@@ -48,6 +48,11 @@ buildRosPackage rec {
     rclcpp
   ];
   propagatedBuildInputs = [
+    gz-ros2-control
+    hardware-interface
+    nav-msgs
+    pluginlib
+    rclcpp
   ];
   checkInputs = [
   ];

@@ -83,6 +83,22 @@ buildRosPackage rec {
     sensor-msgs
   ];
   propagatedBuildInputs = [
+    control-toolbox
+    controller-interface
+    eigen
+    generate-parameter-library
+    hardware-interface
+    linear-feedback-controller-msgs
+    message-filters
+    nav-msgs
+    pal-statistics
+    pinocchio
+    pluginlib
+    rcl
+    rclcpp
+    rclcpp-lifecycle
+    realtime-tools
+    sensor-msgs
   ];
   checkInputs = [
     ament-lint-auto

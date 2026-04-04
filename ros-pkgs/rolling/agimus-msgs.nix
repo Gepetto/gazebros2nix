@@ -49,7 +49,10 @@ buildRosPackage rec {
     std-msgs
   ];
   propagatedBuildInputs = [
+    action-msgs
+    geometry-msgs
     rosidl-default-runtime
+    std-msgs
   ];
   checkInputs = [
     ament-lint-auto

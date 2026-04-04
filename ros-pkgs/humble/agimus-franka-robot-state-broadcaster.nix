@@ -79,6 +79,23 @@ buildRosPackage rec {
     visualization-msgs
   ];
   propagatedBuildInputs = [
+    agimus-franka-hardware
+    agimus-franka-msgs
+    agimus-franka-semantic-components
+    agimus-libfranka
+    backward-ros
+    builtin-interfaces
+    control-msgs
+    controller-interface
+    controller-manager
+    generate-parameter-library
+    pluginlib
+    rclcpp-lifecycle
+    rcutils
+    realtime-tools
+    sensor-msgs
+    urdf
+    visualization-msgs
   ];
   checkInputs = [
     ament-cmake-gmock

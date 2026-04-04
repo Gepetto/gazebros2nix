@@ -61,10 +61,16 @@ buildRosPackage rec {
   propagatedBuildInputs = [
     agimus-controller
     agimus-msgs
+    builtin-interfaces
+    geometry-msgs
     launch
     launch-ros
+    linear-feedback-controller-msgs
     pinocchio
     python3Packages.numpy
+    rclpy
+    std-msgs
+    xacro
   ];
   checkInputs = [
     ament-copyright

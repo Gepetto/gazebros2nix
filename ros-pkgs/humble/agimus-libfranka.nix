@@ -47,6 +47,7 @@ buildRosPackage rec {
     poco
   ];
   propagatedBuildInputs = [
+    poco
   ];
   checkInputs = [
     gtest

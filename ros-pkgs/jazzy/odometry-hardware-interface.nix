@@ -48,6 +48,10 @@ buildRosPackage rec {
     rclcpp
   ];
   propagatedBuildInputs = [
+    hardware-interface
+    nav-msgs
+    pluginlib
+    rclcpp
   ];
   checkInputs = [
     ament-lint-auto

@@ -46,6 +46,8 @@ buildRosPackage rec {
     rosidl-default-generators
   ];
   propagatedBuildInputs = [
+    action-msgs
+    builtin-interfaces
     rosidl-default-runtime
   ];
   checkInputs = [

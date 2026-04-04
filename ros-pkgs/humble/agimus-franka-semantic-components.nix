@@ -76,6 +76,15 @@ buildRosPackage rec {
     urdf
   ];
   propagatedBuildInputs = [
+    agimus-franka-hardware
+    agimus-franka-msgs
+    agimus-libfranka
+    controller-interface
+    geometry-msgs
+    hardware-interface
+    rclcpp
+    sensor-msgs
+    urdf
   ];
   checkInputs = [
     ament-cmake-clang-format

@@ -78,16 +78,26 @@ buildRosPackage rec {
     trajectory-msgs
   ];
   propagatedBuildInputs = [
+    backward-ros
+    control-msgs
+    controller-interface
     controller-manager
+    hardware-interface
     joint-state-broadcaster
     joint-state-publisher-gui
+    kdl-parser
     launch
     launch-ros
+    pluginlib
+    rclcpp
+    rclcpp-lifecycle
+    realtime-tools
     robot-state-publisher
     ros2-control-demo-description
     ros2controlcli
     ros2launch
     rviz2
+    trajectory-msgs
     urdf
     xacro
   ];

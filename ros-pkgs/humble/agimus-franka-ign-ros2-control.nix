@@ -72,6 +72,21 @@ buildRosPackage rec {
     yaml-cpp-vendor
   ];
   propagatedBuildInputs = [
+    agimus-franka-hardware
+    agimus-libfranka
+    ament-index-cpp
+    controller-manager
+    hardware-interface
+    ignition-gazebo6
+    ignition-plugin
+    kdl-parser
+    pluginlib
+    rclcpp
+    rclcpp-lifecycle
+    tf2-eigen
+    tf2-geometry-msgs
+    urdf
+    yaml-cpp-vendor
   ];
   checkInputs = [
     ament-lint-auto

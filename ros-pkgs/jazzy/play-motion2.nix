@@ -84,8 +84,21 @@ buildRosPackage rec {
     trajectory-msgs
   ];
   propagatedBuildInputs = [
+    backward-ros
+    control-msgs
+    controller-manager-msgs
     launch
     launch-ros
+    lifecycle-msgs
+    moveit-ros-planning-interface
+    play-motion2-msgs
+    rclcpp
+    rclcpp-action
+    rclcpp-components
+    rclcpp-lifecycle
+    sensor-msgs
+    std-msgs
+    trajectory-msgs
   ];
   checkInputs = [
     ament-cmake-gtest
