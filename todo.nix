@@ -32,14 +32,15 @@ final: prev: {
           qt5compat = final.qt5.qtquickcontrols2;
         };
 
-        ign-common4 = fortress-prev.ign-common4.overrideAttrs {
+        ign-common4 = fortress-prev.ign-common4.overrideAttrs (super: {
           patches = [
             (final.fetchpatch {
               url = "https://github.com/nim65s/gz-common/commit/4efc4456686229e58e7b5af15810d0dfaff3fc1d.patch?full_index=1";
               hash = "sha256-98JIk5VJq1nUk38kww2rhXTacsbsFzDvpqf+VHQksgA=";
             })
           ];
-        };
+          propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
+        });
 
         ign-gui6 = fortress-prev.ign-gui6.overrideAttrs {
           patches = [
@@ -57,6 +58,10 @@ final: prev: {
               --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
           '';
         };
+
+        ign-rendering6 = fortress-prev.ign-rendering6.overrideAttrs (super: {
+          propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
+        });
 
         ign-tools1 = fortress-prev.ign-tools1.overrideAttrs {
           postPatch = ''
