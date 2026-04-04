@@ -11,7 +11,7 @@
   case-converter,
   catkin-pkg,
   jinja2,
-  PyGithub,
+  pygithub,
   pyyaml,
 }:
 buildPythonPackage {
@@ -37,7 +37,7 @@ buildPythonPackage {
     case-converter
     catkin-pkg
     jinja2
-    PyGithub
+    pygithub
     pyyaml
   ];
 

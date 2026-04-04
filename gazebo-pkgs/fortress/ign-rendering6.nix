@@ -6,7 +6,6 @@
   boost,
   cmake,
   freeglut,
-  freeimage,
   glew,
   ign-cmake,
   ign-common,
@@ -44,7 +43,6 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [
     boost
     freeglut
-    freeimage
     glew
     ign-cmake
     ign-common

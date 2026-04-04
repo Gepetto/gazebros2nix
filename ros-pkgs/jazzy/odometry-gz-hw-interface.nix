@@ -13,11 +13,11 @@
   pluginlib,
   rclcpp,
 
-# propagatedBuildInputs
+  # propagatedBuildInputs
 
-# checkInputs
+  # checkInputs
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-odometry-gz-hw-interface";
@@ -48,6 +48,11 @@ buildRosPackage rec {
     rclcpp
   ];
   propagatedBuildInputs = [
+    gz-ros2-control
+    hardware-interface
+    nav-msgs
+    pluginlib
+    rclcpp
   ];
   checkInputs = [
   ];

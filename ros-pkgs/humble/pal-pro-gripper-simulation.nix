@@ -9,7 +9,10 @@
   # buildInputs
 
   # propagatedBuildInputs
-  xacro,
+  launch-pal,
+  pal-gazebo-worlds,
+  pal-pro-gripper-controller-configuration,
+  pal-pro-gripper-description,
 
   # checkInputs
   ament-lint-auto,
@@ -18,16 +21,16 @@
   # nativeCheckInputs
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-pal-urdf-utils";
-  version = "2.5.4";
+  pname = "ros-humble-pal-pro-gripper-simulation";
+  version = "1.11.4";
 
   src = fetchFromGitHub {
-    owner = "Tiago-Pro-Harmonic";
-    repo = "pal_urdf_utils";
-    rev = "dc3d28df80d8b343c1d2bced8e3b173458adf7ac";
-    hash = "sha256-B085HfxFVQ1XHOmV9hIru/F9DrUc5M/1NibPDhO3uCE=";
+    owner = "pal-robotics";
+    repo = "pal_pro_gripper";
+    tag = version;
+    hash = "sha256-KIa7yHVsW2inx3GchQ77UmvBGk503z0GpCRoyZcRBUU=";
   };
-  sourceRoot = "source/";
+  sourceRoot = "source/pal_pro_gripper_simulation";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -41,7 +44,10 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   propagatedBuildInputs = [
-    xacro
+    launch-pal
+    pal-gazebo-worlds
+    pal-pro-gripper-controller-configuration
+    pal-pro-gripper-description
   ];
   checkInputs = [
     ament-lint-auto
@@ -50,15 +56,12 @@ buildRosPackage rec {
   nativeCheckInputs = [
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
-    description = "This package contains the color materials of common elements of PAL Robotics' robot.
-      The files in this package are parsed and used by
-      a variety of other components.  Most users will not interact directly
-      with this package.";
+    description = "The pal_pro_gripper_simulation package";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/Tiago-Pro-Harmonic/pal_urdf_utils";
+    homepage = "https://github.com/pal-robotics/pal_pro_gripper";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

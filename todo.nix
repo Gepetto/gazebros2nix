@@ -32,6 +32,16 @@ final: prev: {
           qt5compat = final.qt5.qtquickcontrols2;
         };
 
+        ign-common4 = fortress-prev.ign-common4.overrideAttrs (super: {
+          patches = [
+            (final.fetchpatch {
+              url = "https://github.com/nim65s/gz-common/commit/4efc4456686229e58e7b5af15810d0dfaff3fc1d.patch?full_index=1";
+              hash = "sha256-98JIk5VJq1nUk38kww2rhXTacsbsFzDvpqf+VHQksgA=";
+            })
+          ];
+          propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
+        });
+
         ign-gui6 = fortress-prev.ign-gui6.overrideAttrs {
           patches = [
             (final.fetchpatch2 {
@@ -48,6 +58,18 @@ final: prev: {
               --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
           '';
         };
+
+        ign-rendering6 = fortress-prev.ign-rendering6.overrideAttrs (super: {
+          propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
+        });
+
+        ign-tools1 = fortress-prev.ign-tools1.overrideAttrs {
+          postPatch = ''
+            substituteInPlace CMakeLists.txt --replace-fail \
+              "cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)" \
+              "cmake_minimum_required(VERSION 3.10 FATAL_ERROR)"
+          '';
+        };
       }
     );
 
@@ -55,6 +77,15 @@ final: prev: {
       _harmonic-final: harmonic-prev: {
         inherit (final) dartsim urdfdom-headers urdfdom;
         dart = final.dartsim;
+
+        gz-common5 = harmonic-prev.gz-common5.overrideAttrs {
+          patches = [
+            (final.fetchpatch {
+              url = "https://github.com/nim65s/gz-common/commit/d21c3dfce2bbe463f888ed0ede37c6d483b8a49f.patch?full_index=1";
+              hash = "sha256-uWNzRcbEg8b7ApJ3jKQqMQSUSGFAyJ9U18dCPzDwJhI=";
+            })
+          ];
+        };
 
         gz-gui8 = harmonic-prev.gz-gui8.overrideAttrs {
           patches = [
@@ -82,6 +113,15 @@ final: prev: {
             (final.fetchpatch2 {
               url = "https://github.com/gazebosim/gz-msgs/pull/501.patch?full_index=1";
               hash = "sha256-0uscwyYZafHfzooxcrrhtcfcxknpDTEcZ6Ie0WWySVw=";
+            })
+          ];
+        };
+
+        gz-rendering8 = harmonic-prev.gz-rendering8.overrideAttrs {
+          patches = [
+            (final.fetchpatch {
+              url = "https://github.com/gazebosim/gz-rendering/commit/80b6a05e535cc818d6f8590bc86f6a823f35e471.patch?full_index=1";
+              hash = "sha256-ekKz8p2YBLLakVijhGS6+e6x98Zl8kx4Hg3PRJDkM5M=";
             })
           ];
         };
@@ -115,6 +155,9 @@ final: prev: {
 
   rosPackages =
     let
+      # some packages need an installed verison of themself discoverable by ament.
+      # maybe we could use build dir.
+
       rosOverlay = _ros-final: ros-prev: {
         inherit (final)
           dartsim
@@ -201,9 +244,10 @@ final: prev: {
           # that repo somehow has a 0.0.0 tag
           net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
             src = final.fetchFromGitHub {
-              inherit (super.src) owner repo;
-              rev = "393960c20c1607bbdeec7bff70ce5b4db01e3ab3";
-              hash = "sha256-ZBIGq/3FHcDgRnOfp1h5ABtj4e7KyqSIx+n6WpgB0qI=";
+              inherit (super.src) repo;
+              owner = "nim65s"; # ref https://github.com/gbartyzel/ros2_net_ft_driver/pull/26
+              rev = "042b7885a7d1ca01f0adb153859fd7c6ace6ed41";
+              hash = "sha256-A+A9c1N/2QShCk9z65PbBT4KvM4C+85X1Suai5bGGWM=";
             };
           });
           net-ft-diagnostic-broadcaster = humble-prev.net-ft-diagnostic-broadcaster.overrideAttrs {
@@ -256,6 +300,15 @@ final: prev: {
 
           ros-gz-sim-demos = null; # wants qt-gui-cpp, where qt5 and python 3.13 are not compatible
 
+          sdformat-urdf = humble-prev.sdformat-urdf.overrideAttrs {
+            # ref. https://github.com/ros/sdformat_urdf/pull/41
+            postPatch = ''
+              substituteInPlace CMakeLists.txt --replace-fail \
+                "find_package(urdfdom_headers 1.0.6 REQUIRED)" \
+                "find_package(urdfdom_headers REQUIRED)"
+            '';
+          };
+
           topic-tools-interfaces = humble-prev.topic-tools-interfaces.overrideAttrs {
             doCheck = false;
           };
@@ -266,6 +319,21 @@ final: prev: {
         jazzy-final: jazzy-prev:
         (rosOverlay jazzy-final jazzy-prev)
         // {
+          agimus-franka-hardware = jazzy-prev.agimus-franka-hardware.overrideAttrs {
+            doCheck = false; # TODO
+          };
+          agimus-franka-ign-ros2-control = jazzy-prev.agimus-franka-ign-ros2-control.overrideAttrs {
+            env.GAZEBO_VERSION = "harmonic";
+          };
+
+          br2-gazebo-worlds = jazzy-prev.br2-gazebo-worlds.overrideAttrs {
+            patches = [
+              (final.fetchpatch {
+                url = "https://github.com/nim65s/br2_gazebo_worlds/commit/8a2bf334bc3b286ed4187fe9ffcd723113794d0b.patch?full_index=1";
+                hash = "sha256-1j2RgxBOXYitRXeVJt3MJQXGq6H70GgvBB6Cu40/63M=";
+              })
+            ];
+          };
 
           # TODO: does not seem useful for now, but might bite later
           gazebo-planar-move-plugin = null;
@@ -319,6 +387,21 @@ final: prev: {
                   "gz-plugin2::register" \
 
             '';
+          };
+
+          net-ft-description = jazzy-prev.net-ft-description.overrideAttrs (super: {
+            src = final.fetchFromGitHub {
+              inherit (super.src) repo;
+              owner = "nim65s"; # ref https://github.com/gbartyzel/ros1_net_ft_driver/pull/26
+              rev = "a2770efe5d4ec3560fd35b4672a3b59d15c37d30";
+              hash = "sha256-9kjfo4We1OQLgi5g9cMz3ync1vp4HiJPbE1NnQqA96A=";
+            };
+          });
+          net-ft-diagnostic-broadcaster = jazzy-prev.net-ft-diagnostic-broadcaster.overrideAttrs {
+            src = jazzy-final.net-ft-description.src;
+          };
+          net-ft-driver = jazzy-prev.net-ft-driver.overrideAttrs {
+            src = jazzy-final.net-ft-description.src;
           };
 
           ros-gz-bridge = jazzy-prev.ros-gz-bridge.overrideAttrs {
@@ -408,7 +491,12 @@ final: prev: {
                 --replace-fail "sdformat::" "sdformat14::" \
                 --replace-fail \
                   "find_package(sdformat REQUIRED)" \
-                  "find_package(sdformat14 REQUIRED)" \
+                  "find_package(sdformat14 REQUIRED)"
+
+              # ref. https://github.com/ros/sdformat_urdf/pull/42
+              substituteInPlace CMakeLists.txt --replace-fail \
+                "find_package(urdfdom_headers 1.0.6 REQUIRED)" \
+                "find_package(urdfdom_headers REQUIRED)"
             '';
           };
         }
@@ -418,6 +506,13 @@ final: prev: {
         kilted-final: kilted-prev:
         (rosOverlay kilted-final kilted-prev)
         // {
+          sdformat-urdf = kilted-prev.sdformat-urdf.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt --replace-fail \
+                "find_package(urdfdom_headers 1.0.6 REQUIRED)" \
+                "find_package(urdfdom_headers REQUIRED)"
+            '';
+          };
         }
       );
 

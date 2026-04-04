@@ -19,7 +19,7 @@
   ament-lint-auto,
   ament-lint-common,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-agimus-msgs";
@@ -49,7 +49,10 @@ buildRosPackage rec {
     std-msgs
   ];
   propagatedBuildInputs = [
+    action-msgs
+    geometry-msgs
     rosidl-default-runtime
+    std-msgs
   ];
   checkInputs = [
     ament-lint-auto

@@ -18,7 +18,7 @@
   ament-lint-auto,
   ament-lint-common,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-odometry-hardware-interface";
@@ -48,6 +48,10 @@ buildRosPackage rec {
     rclcpp
   ];
   propagatedBuildInputs = [
+    hardware-interface
+    nav-msgs
+    pluginlib
+    rclcpp
   ];
   checkInputs = [
     ament-lint-auto

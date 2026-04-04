@@ -21,7 +21,7 @@
   ament-pep257,
   python3Packages,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-pro-gripper-wrapper";
@@ -50,6 +50,7 @@ buildRosPackage rec {
     trajectory-msgs
   ];
   propagatedBuildInputs = [
+    rclpy
   ];
   checkInputs = [
     ament-copyright

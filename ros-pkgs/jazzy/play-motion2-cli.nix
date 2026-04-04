@@ -23,7 +23,7 @@
   launch-testing-ros,
   python3Packages,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-play-motion2-cli";

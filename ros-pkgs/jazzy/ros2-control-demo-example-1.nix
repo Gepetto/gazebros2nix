@@ -38,7 +38,7 @@
   rclpy,
   urdfdom,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-ros2-control-demo-example-1";
@@ -47,8 +47,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control_demos";
-    rev = "ee26c5a609e86f642ea470206e2f40975c363866";
-    hash = "sha256-1nxaQgj0lwJ68IuSG4+vWAdXcKBSu6rmwQPFrjJSBvc=";
+    rev = "4c24fcd03c94acf986c229396124ea245ece54d7";
+    hash = "sha256-nNeAelZbtH2Jgxcsg2xRW2jxup46zO4+fiv5Zw4rUys=";
   };
   sourceRoot = "source/example_1";
 
@@ -70,11 +70,16 @@ buildRosPackage rec {
     ros2-control-cmake
   ];
   propagatedBuildInputs = [
+    backward-ros
     controller-manager
     forward-command-controller
+    hardware-interface
     joint-state-broadcaster
     joint-state-publisher-gui
     joint-trajectory-controller
+    pluginlib
+    rclcpp
+    rclcpp-lifecycle
     robot-state-publisher
     ros2-control-demo-description
     ros2-controllers-test-nodes

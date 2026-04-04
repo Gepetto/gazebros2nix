@@ -13,9 +13,9 @@
   tiago-pro-laser-sensors,
   tiago-pro-rgbd-sensors,
 
-# checkInputs
+  # checkInputs
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-navigation";

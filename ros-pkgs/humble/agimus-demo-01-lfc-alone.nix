@@ -27,7 +27,7 @@
   # checkInputs
   ament-lint-auto,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-01-lfc-alone";
@@ -66,7 +66,20 @@ buildRosPackage rec {
     tf2-eigen
   ];
   propagatedBuildInputs = [
+    control-toolbox
+    controller-interface
+    eigen3-cmake-module
+    hardware-interface
+    linear-feedback-controller
+    linear-feedback-controller-msgs
+    message-filters
+    nav-msgs
+    pal-statistics
+    pinocchio
+    pluginlib
+    realtime-tools
     ros2launch
+    tf2-eigen
   ];
   checkInputs = [
     ament-lint-auto

@@ -21,7 +21,7 @@
   ament-lint-auto,
   ament-lint-common,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-franka-msgs";
@@ -53,7 +53,12 @@ buildRosPackage rec {
     std-msgs
   ];
   propagatedBuildInputs = [
+    action-msgs
+    builtin-interfaces
+    geometry-msgs
     rosidl-default-runtime
+    sensor-msgs
+    std-msgs
   ];
   checkInputs = [
     ament-lint-auto

@@ -16,7 +16,7 @@
   ament-lint-auto,
   ament-lint-common,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-pro-gripper-description";
@@ -44,6 +44,7 @@ buildRosPackage rec {
   ];
   propagatedBuildInputs = [
     pal-urdf-utils
+    xacro
   ];
   checkInputs = [
     ament-lint-auto

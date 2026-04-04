@@ -70,6 +70,13 @@ buildRosPackage rec {
     rclcpp-components
   ];
   propagatedBuildInputs = [
+    agimus-franka-msgs
+    agimus-libfranka
+    hardware-interface
+    pluginlib
+    rclcpp
+    rclcpp-action
+    rclcpp-components
   ];
   checkInputs = [
     ament-cmake-clang-format

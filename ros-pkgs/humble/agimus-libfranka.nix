@@ -17,7 +17,7 @@
   # checkInputs
   gtest,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-libfranka";
@@ -47,6 +47,7 @@ buildRosPackage rec {
     poco
   ];
   propagatedBuildInputs = [
+    poco
   ];
   checkInputs = [
     gtest

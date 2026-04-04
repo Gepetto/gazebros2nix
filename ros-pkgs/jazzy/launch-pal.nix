@@ -18,7 +18,7 @@
   ament-flake8,
   ament-pep257,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-launch-pal";
@@ -47,6 +47,11 @@ buildRosPackage rec {
     python3Packages.pyyaml
   ];
   propagatedBuildInputs = [
+    ament-index-python
+    launch
+    launch-ros
+    python3Packages.jinja2
+    python3Packages.pyyaml
   ];
   checkInputs = [
     ament-copyright

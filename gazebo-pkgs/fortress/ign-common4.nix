@@ -6,7 +6,6 @@
   assimp,
   cmake,
   ffmpeg,
-  freeimage,
   gdal,
   gts,
   ign-cmake,
@@ -41,7 +40,6 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [
     assimp
     ffmpeg
-    freeimage
     gdal
     gts
     ign-cmake

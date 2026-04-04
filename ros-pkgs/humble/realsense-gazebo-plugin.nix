@@ -20,7 +20,7 @@
   ament-lint-auto,
   ament-lint-common,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-realsense-gazebo-plugin";
@@ -52,6 +52,12 @@ buildRosPackage rec {
     sensor-msgs
   ];
   propagatedBuildInputs = [
+    camera-info-manager
+    gazebo-ros
+    image-transport
+    point-cloud-transport
+    rclcpp
+    sensor-msgs
   ];
   checkInputs = [
     ament-lint-auto

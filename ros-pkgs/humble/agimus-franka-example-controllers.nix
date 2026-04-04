@@ -83,6 +83,18 @@ buildRosPackage rec {
     std-srvs
   ];
   propagatedBuildInputs = [
+    agimus-franka-hardware
+    agimus-franka-msgs
+    agimus-franka-semantic-components
+    agimus-libfranka
+    controller-interface
+    moveit-core
+    pinocchio
+    pluginlib
+    rclcpp
+    rclcpp-lifecycle
+    sensor-msgs
+    std-srvs
   ];
   checkInputs = [
     ament-cmake-clang-format

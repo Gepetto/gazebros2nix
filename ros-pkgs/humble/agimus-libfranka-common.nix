@@ -6,13 +6,13 @@
   # nativeBuildInputs
   cmake,
 
-# buildInputs
+  # buildInputs
 
-# propagatedBuildInputs
+  # propagatedBuildInputs
 
-# checkInputs
+  # checkInputs
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-libfranka-common";

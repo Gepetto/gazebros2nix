@@ -10,6 +10,7 @@
   # buildInputs
   asio,
   asio-cmake-module,
+  curlpp,
   hardware-interface,
   pluginlib,
   rclcpp,
@@ -18,14 +19,14 @@
 
   # propagatedBuildInputs
   curl,
-  curlpp,
 
   # checkInputs
+  ament-lint-auto,
 
   # nativeCheckInputs
 }:
 buildRosPackage rec {
-  pname = "ros-humble-net-ft-driver";
+  pname = "ros-jazzy-net-ft-driver";
   version = "0.0.0";
 
   src = fetchFromGitHub {
@@ -49,6 +50,7 @@ buildRosPackage rec {
     ament-cmake
     asio
     asio-cmake-module
+    curlpp
     hardware-interface
     pluginlib
     rclcpp
@@ -67,6 +69,7 @@ buildRosPackage rec {
     tinyxml-2
   ];
   checkInputs = [
+    ament-lint-auto
   ];
   nativeCheckInputs = [
   ];

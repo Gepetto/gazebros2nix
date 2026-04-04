@@ -43,6 +43,9 @@ stdenv.mkDerivation rec {
   # https://github.com/OGRECave/ogre-next/issues/132 suggests it isn't
   # needed anyway.
   postPatch = ''
+    substituteInPlace CMakeLists.txt --replace-fail \
+      "cmake_minimum_required(VERSION 2.6.2)" \
+      "cmake_minimum_required(VERSION 3.10)"
     substituteInPlace OgreMain/src/OgrePlatformInformation.cpp \
       --replace-fail '#include <sys/sysctl.h>' ""
   '';

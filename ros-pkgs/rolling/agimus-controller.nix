@@ -24,7 +24,7 @@
   ament-index-python,
   ament-pep257,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-rolling-agimus-controller";

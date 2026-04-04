@@ -14,10 +14,10 @@
   jrl-cmakemodules,
   sensor-msgs,
   std-msgs,
+  tf2-eigen,
 
   # propagatedBuildInputs
   rosidl-default-runtime,
-  tf2-eigen,
 
   # checkInputs
   ament-cmake-cppcheck,
@@ -66,9 +66,15 @@ buildRosPackage rec {
     rosidl-default-generators
     sensor-msgs
     std-msgs
+    tf2-eigen
   ];
   propagatedBuildInputs = [
+    builtin-interfaces
+    eigen
+    geometry-msgs
     rosidl-default-runtime
+    sensor-msgs
+    std-msgs
     tf2-eigen
   ];
   checkInputs = [

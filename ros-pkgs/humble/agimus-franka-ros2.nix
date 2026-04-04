@@ -25,7 +25,7 @@
   ament-lint-auto,
   ament-lint-common,
 
-# nativeCheckInputs
+  # nativeCheckInputs
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-franka-ros2";
@@ -62,6 +62,16 @@ buildRosPackage rec {
     ament-cmake
   ];
   propagatedBuildInputs = [
+    agimus-franka-bringup
+    agimus-franka-description
+    agimus-franka-example-controllers
+    agimus-franka-fr3-moveit-config
+    agimus-franka-gazebo-bringup
+    agimus-franka-gripper
+    agimus-franka-hardware
+    agimus-franka-ign-ros2-control
+    agimus-franka-msgs
+    agimus-libfranka
   ];
   checkInputs = [
     ament-lint-auto
