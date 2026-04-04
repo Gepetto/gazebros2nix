@@ -74,6 +74,9 @@ branch = "fork"
 do_check = false
 [jazzy."agimus-project/agimus-msgs"]
 
+[jazzy."gbartyzel/ros2_net_ft_driver"]
+packages = {"net_ft_driver" = {check = ["ament-lint-auto"], native = ["pkg-config"], propagated = ["curl", "curlpp"]}}
+
 [jazzy."loco-3d/linear-feedback-controller"]
 [jazzy."loco-3d/linear-feedback-controller-msgs"]
 
