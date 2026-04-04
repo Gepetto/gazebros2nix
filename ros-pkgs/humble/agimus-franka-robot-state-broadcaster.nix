@@ -5,19 +5,19 @@
 
   # nativeBuildInputs
   ament-cmake,
+  generate-parameter-library,
+  writableTmpDirAsHomeHook,
 
   # buildInputs
   agimus-franka-hardware,
   agimus-franka-msgs,
   agimus-franka-semantic-components,
   agimus-libfranka,
-  agimus-libfranka-common,
   backward-ros,
   builtin-interfaces,
   control-msgs,
   controller-interface,
   controller-manager,
-  generate-parameter-library,
   pluginlib,
   rclcpp-lifecycle,
   rcutils,
@@ -29,12 +29,25 @@
   # propagatedBuildInputs
 
   # checkInputs
+  ament-cmake-copyright,
+  ament-cmake-cppcheck,
+  ament-cmake-flake8,
   ament-cmake-gmock,
+  ament-cmake-lint-cmake,
+  ament-cmake-pep257,
+  ament-cmake-xmllint,
   hardware-interface,
   rclcpp,
   ros2-control-test-assets,
+  xmllintPackageHook,
 
   # nativeCheckInputs
+  ament-copyright,
+  ament-cppcheck,
+  ament-flake8,
+  ament-lint-cmake,
+  ament-pep257,
+  ament-xmllint,
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-franka-robot-state-broadcaster";
@@ -43,10 +56,10 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "b4450db350c8ea796eef77290e81b09654f766bb";
-    hash = "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=";
+    rev = "c6609fcd10b4a9fcad84a93c8c92af7e66c78405";
+    hash = "sha256-+A03A5j+b75v9E+sLBOc5KvJ8tuBDUGCVQmFOskqYhY=";
   };
-  sourceRoot = "source/franka_robot_state_broadcaster";
+  sourceRoot = "source/agimus_franka_robot_state_broadcaster";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -56,13 +69,14 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake
     generate-parameter-library
+    generate-parameter-library
+    writableTmpDirAsHomeHook
   ];
   buildInputs = [
     agimus-franka-hardware
     agimus-franka-msgs
     agimus-franka-semantic-components
     agimus-libfranka
-    agimus-libfranka-common
     ament-cmake
     backward-ros
     builtin-interfaces
@@ -98,15 +112,28 @@ buildRosPackage rec {
     visualization-msgs
   ];
   checkInputs = [
+    ament-cmake-copyright
+    ament-cmake-cppcheck
+    ament-cmake-flake8
     ament-cmake-gmock
+    ament-cmake-lint-cmake
+    ament-cmake-pep257
+    ament-cmake-xmllint
     hardware-interface
     rclcpp
     ros2-control-test-assets
+    xmllintPackageHook
   ];
   nativeCheckInputs = [
+    ament-copyright
+    ament-cppcheck
+    ament-flake8
+    ament-lint-cmake
+    ament-pep257
+    ament-xmllint
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_robot_state_broadcaster for franka robots not maintained anymore by franka";

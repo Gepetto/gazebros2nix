@@ -10,7 +10,6 @@
   agimus-franka-hardware,
   agimus-franka-msgs,
   agimus-libfranka,
-  agimus-libfranka-common,
   controller-interface,
   eigen,
   geometry-msgs,
@@ -22,7 +21,6 @@
   # propagatedBuildInputs
 
   # checkInputs
-  ament-cmake-clang-format,
   ament-cmake-clang-tidy,
   ament-cmake-copyright,
   ament-cmake-cppcheck,
@@ -48,10 +46,10 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "b4450db350c8ea796eef77290e81b09654f766bb";
-    hash = "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=";
+    rev = "c6609fcd10b4a9fcad84a93c8c92af7e66c78405";
+    hash = "sha256-+A03A5j+b75v9E+sLBOc5KvJ8tuBDUGCVQmFOskqYhY=";
   };
-  sourceRoot = "source/franka_semantic_components";
+  sourceRoot = "source/agimus_franka_semantic_components";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -65,7 +63,6 @@ buildRosPackage rec {
     agimus-franka-hardware
     agimus-franka-msgs
     agimus-libfranka
-    agimus-libfranka-common
     ament-cmake
     controller-interface
     eigen
@@ -87,7 +84,6 @@ buildRosPackage rec {
     urdf
   ];
   checkInputs = [
-    ament-cmake-clang-format
     ament-cmake-clang-tidy
     ament-cmake-copyright
     ament-cmake-cppcheck
@@ -107,7 +103,7 @@ buildRosPackage rec {
     ament-xmllint
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_semantic_components for franka robots not maintained anymore by franka";

@@ -157,8 +157,14 @@ final: prev: {
     let
       # some packages need an installed verison of themself discoverable by ament.
       # maybe we could use build dir.
+      amentInstallCheckOverride = {
+        checkTarget = " ";
+        doInstallCheck = true;
+        preInstallCheck = "export AMENT_PREFIX_PATH=$out:$AMENT_PREFIX_PATH";
+        installCheckTarget = "test";
+      };
 
-      rosOverlay = _ros-final: ros-prev: {
+      rosOverlay = ros-final: ros-prev: {
         inherit (final)
           dartsim
           fcl
@@ -174,16 +180,32 @@ final: prev: {
 
         agimus-demos = ros-prev.agimus-demos.overrideAttrs (super: {
           nativeBuildInputs = (super.nativeBuildInputs or [ ]) ++ [
+            ros-final.ament-cmake
             final.cmake
             final.python3
           ];
         });
+        agimus-demos-common = ros-prev.agimus-demos-common.overrideAttrs (super: {
+          propagatedBuildInputs = (super.propagatedBuildInputs or [ ]) ++ [
+            ros-final.agimus-franka-gazebo-bringup
+          ];
+        });
+        agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs amentInstallCheckOverride;
+        agimus-franka-example-controllers = ros-prev.agimus-franka-example-controllers.overrideAttrs amentInstallCheckOverride;
+        agimus-franka-fr3-moveit-config = ros-prev.agimus-franka-fr3-moveit-config.overrideAttrs amentInstallCheckOverride;
         agimus-franka-msgs = ros-prev.agimus-franka-msgs.overrideAttrs {
           cmakeFlags = [
             "-DCMAKE_SKIP_BUILD_RPATH=ON"
             "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
           ];
         };
+        agimus-franka-robot-state-broadcaster =
+          ros-prev.agimus-franka-robot-state-broadcaster.overrideAttrs
+            (super: {
+              nativeBuildInputs = super.nativeBuildInputs ++ [ final.ctestCheckHook ];
+              disabledTests = [ "test_load_agimus_franka_robot_state_broadcaster" ]; # TODO: ???
+            });
+        agimus-franka-semantic-components = ros-prev.agimus-franka-semantic-components.overrideAttrs amentInstallCheckOverride;
         agimus-msgs = ros-prev.agimus-msgs.overrideAttrs {
           cmakeFlags = [
             "-DCMAKE_SKIP_BUILD_RPATH=ON"
@@ -237,6 +259,9 @@ final: prev: {
             '';
           };
 
+          agimus-franka-ign-ros2-control = humble-prev.agimus-franka-ign-ros2-control.overrideAttrs {
+            env.IGNITION_VERSION = "fortress";
+          };
           # franka-ros2 wrong keys, should be fixed in agimus-franka-ros2
           ignition-gazebo6 = humble-prev.ign-gazebo6;
           ignition-plugin = humble-prev.ign-plugin1;
@@ -298,6 +323,12 @@ final: prev: {
             meta.platforms = final.lib.platforms.linux;
           });
 
+          ros-gz-sim = humble-prev.ros-gz-sim.overrideAttrs (super: {
+            propagatedNativeBuildInputs = (super.propagatedNativeBuildInputs or [ ]) ++ [
+              humble-final.gz-tools
+            ];
+          });
+
           ros-gz-sim-demos = null; # wants qt-gui-cpp, where qt5 and python 3.13 are not compatible
 
           sdformat-urdf = humble-prev.sdformat-urdf.overrideAttrs {
@@ -322,9 +353,8 @@ final: prev: {
           agimus-franka-hardware = jazzy-prev.agimus-franka-hardware.overrideAttrs {
             doCheck = false; # TODO
           };
-          agimus-franka-ign-ros2-control = jazzy-prev.agimus-franka-ign-ros2-control.overrideAttrs {
-            env.GAZEBO_VERSION = "harmonic";
-          };
+          agimus-franka-ign-ros2-control = null;
+          agimus-franka-gazebo-bringup = null;
 
           br2-gazebo-worlds = jazzy-prev.br2-gazebo-worlds.overrideAttrs {
             patches = [
@@ -506,6 +536,9 @@ final: prev: {
         kilted-final: kilted-prev:
         (rosOverlay kilted-final kilted-prev)
         // {
+          agimus-franka-ign-ros2-control = null;
+          agimus-franka-gazebo-bringup = null;
+
           sdformat-urdf = kilted-prev.sdformat-urdf.overrideAttrs {
             postPatch = ''
               substituteInPlace CMakeLists.txt --replace-fail \
@@ -520,6 +553,8 @@ final: prev: {
         rolling-final: rolling-prev:
         (rosOverlay rolling-final rolling-prev)
         // {
+          agimus-franka-ign-ros2-control = null;
+          agimus-franka-gazebo-bringup = null;
         }
       );
     };
