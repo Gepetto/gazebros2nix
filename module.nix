@@ -1,10 +1,12 @@
 {
+  flakoboros,
   nix-ros-overlay,
+  nixpkgs,
+  treefmt-nix,
   ...
 }:
 {
   config,
-  inputs,
   lib,
   self,
   ...
@@ -14,8 +16,8 @@ let
 in
 {
   imports = [
-    inputs.treefmt-nix.flakeModule
-    inputs.flakoboros.flakeModule
+    treefmt-nix.flakeModule
+    flakoboros.flakeModule
     {
       flakoboros = {
         nixpkgsConfig = {
@@ -53,7 +55,7 @@ in
       {
         treefmt = {
           # workaround  https://github.com/numtide/treefmt-nix/issues/352
-          pkgs = inputs.nixpkgs.legacyPackages.${system};
+          pkgs = nixpkgs.legacyPackages.${system};
           programs = {
             deadnix.enable = true;
             keep-sorted.enable = true;
@@ -63,7 +65,7 @@ in
       }
 
       // lib.optionalAttrs cfg.pkgs {
-        _module.args.pkgs = import inputs.nixpkgs {
+        _module.args.pkgs = import nixpkgs {
           inherit system;
           config = config.flakoboros.nixpkgsConfig;
           overlays = [
