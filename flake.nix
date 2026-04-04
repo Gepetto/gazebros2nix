@@ -1,6 +1,6 @@
 {
   inputs = {
-    flakoboros.url = "github:gepetto/flakoboros";
+    flakoboros.url = "github:gepetto/flakoboros/nixos-unstable";
     flake-parts.follows = "flakoboros/flake-parts";
     nix-ros-overlay.follows = "flakoboros/nix-ros-overlay";
     nixpkgs.follows = "flakoboros/nixpkgs";
@@ -347,7 +347,34 @@
                   # keep-sorted start
                   agimus-controller
                   agimus-controller-ros
+                  agimus-demo-00-franka-controller
+                  agimus-demo-01-lfc-alone
+                  # agimus-demo-02-simple-pd-plus-tiago-pro TODO: tiago-pro
+                  agimus-demo-02-simple-pd-plus
+                  # agimus-demo-03-mpc-dummy-traj-tiago-pro TODO: tiago-pro
+                  agimus-demo-03-mpc-dummy-traj
+                  # agimus-demo-04-dual-arm-tiago-pro TODO: tiago-pro
+                  agimus-demo-04-visual-servoing
+                  agimus-demo-05-pick-and-place
+                  agimus-demo-06-regrasp
+                  # agimus-demo-07-deburring TODO: pytroller
+                  agimus-demo-08-collision-avoidance
+                  agimus-demos-common
+                  agimus-demos-controllers
+                  # agimus-demos TODO: tiago-pro
+                  agimus-franka-bringup
                   agimus-franka-description
+                  agimus-franka-example-controllers
+                  agimus-franka-fr3-moveit-config
+                  agimus-franka-gripper
+                  agimus-franka-hardware
+                  agimus-franka-msgs
+                  agimus-franka-robot-state-broadcaster
+                  agimus-franka-ros2
+                  agimus-franka-semantic-components
+                  agimus-integration-launch-testing
+                  agimus-libfranka
+                  agimus-libfranka-common
                   agimus-msgs
                   # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
                   # ros2-control-demos # need the other ones

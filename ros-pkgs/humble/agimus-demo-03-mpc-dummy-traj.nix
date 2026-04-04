@@ -25,8 +25,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-demos";
-    rev = "40c897103f651d07bca480dd2a4b5a73270fb454";
-    hash = "sha256-IIsTWCocu65UatuQniHmlt8JBlAck/LXvXlZMURsgtg=";
+    rev = "7fee3010b7112236c5cb7bc2592c1f3c16af676e";
+    hash = "sha256-+ziFTYWWKrhyLwY3qlpltieePkbwCXN5ftd2i4rQ3lo=";
   };
   sourceRoot = "source/agimus_demo_03_mpc_dummy_traj";
 
