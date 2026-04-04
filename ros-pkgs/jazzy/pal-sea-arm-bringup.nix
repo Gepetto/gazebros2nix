@@ -32,8 +32,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "pal_sea_arm";
-    rev = "3d02055a3dbe751184c72ef93dfa539b18140246";
-    hash = "sha256-8F38x0jq06DaicuF08jNuawFkD2oKQ5ZegLVuf/AFHQ=";
+    rev = "f1db30173d6af46d53c65b28b0fc8e67c9785378";
+    hash = "sha256-nYmR/m/aQgDtIRRVOcmU8hux6RzwoHHVN6sh1y3vKbQ=";
   };
   sourceRoot = "source/pal_sea_arm_bringup";
 

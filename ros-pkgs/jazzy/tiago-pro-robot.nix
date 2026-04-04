@@ -24,8 +24,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "tiago_pro_robot";
-    rev = "e600f63f46ddeaa01bbcd8fcde3ed3d69cef6d55";
-    hash = "sha256-vnCX8RKZbpkLUig1bV1NGUAbK75qmT/ei7Jq/c29894=";
+    rev = "d1b9c50d78c1efe14e99c4c863726d784c4faaa0";
+    hash = "sha256-v+TagYh15lgUwppdlX00nEHBovXONNsJgydrr3LEEDw=";
   };
   sourceRoot = "source/tiago_pro_robot";
 

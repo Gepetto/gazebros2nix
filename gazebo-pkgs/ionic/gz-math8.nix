@@ -14,7 +14,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-math8";
-  version = "8.2.1";
+  version = "8.3.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -22,8 +22,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-math";
-    tag = "gz-math8_8.2.1";
-    hash = "sha256-kdkSZSO7guPJbc0CjS7e42b0DkTJ7GoFpSa7fwVauU4=";
+    tag = "gz-math8_8.3.0";
+    hash = "sha256-qXce3btwZn/iZoLFCWMWJGv/AK0RgIYx6zbKoXdHjzY=";
   };
 
   __structuredAttrs = true;

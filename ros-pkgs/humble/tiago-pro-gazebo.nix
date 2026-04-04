@@ -12,6 +12,8 @@
   gazebo-plugins,
   gazebo-ros,
   gazebo-ros2-control,
+  gz-ros2-control,
+  gz-sensors6,
   launch,
   launch-pal,
   launch-ros,
@@ -22,6 +24,7 @@
   pal-pro-gripper-description,
   pal-urdf-utils,
   play-motion2-msgs,
+  ros-gz-bridge,
   tiago-pro-2dnav,
   tiago-pro-bringup,
   tiago-pro-description,
@@ -38,13 +41,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-gazebo";
-  version = "1.15.0";
+  version = "1.16.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_simulation";
     tag = version;
-    hash = "sha256-L6wvXz5KoizUWueA4j034f21eSmbACIZUkfANxOwonE=";
+    hash = "sha256-oLTycg7Ik7DOOvzZlfrXSqlmUKuAQCguvsMcDEKzNtU=";
   };
   sourceRoot = "source/tiago_pro_gazebo";
 
@@ -63,6 +66,8 @@ buildRosPackage rec {
     gazebo-plugins
     gazebo-ros
     gazebo-ros2-control
+    gz-ros2-control
+    gz-sensors6
     launch
     launch-pal
     launch-ros
@@ -73,6 +78,7 @@ buildRosPackage rec {
     pal-pro-gripper-description
     pal-urdf-utils
     play-motion2-msgs
+    ros-gz-bridge
     tiago-pro-2dnav
     tiago-pro-bringup
     tiago-pro-description

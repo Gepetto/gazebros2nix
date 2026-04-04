@@ -28,13 +28,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-bringup";
-  version = "2.1.0";
+  version = "2.1.2";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_robot";
     tag = version;
-    hash = "sha256-oBKqkn23B3gldzZZ3LyAHt1uXSKJdspKkBhbN3VZj0Y=";
+    hash = "sha256-P0Q3ffWeix4x5ZWip9yjiE8yJrEWp7aV+VAZX2MM2cU=";
   };
   sourceRoot = "source/tiago_pro_bringup";
 

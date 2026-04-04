@@ -13,6 +13,7 @@
   ign-math,
   ign-plugin,
   ign-utils,
+  mujoco,
   pkg-config,
   sdformat,
 }:
@@ -47,6 +48,7 @@ stdenv.mkDerivation {
     ign-math
     ign-plugin
     ign-utils
+    mujoco
     sdformat
   ];
   checkInputs = [

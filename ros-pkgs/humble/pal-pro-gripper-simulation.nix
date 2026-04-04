@@ -9,16 +9,10 @@
   # buildInputs
 
   # propagatedBuildInputs
-  joint-state-broadcaster,
-  joint-trajectory-controller,
-  joy,
-  joy-teleop,
   launch-pal,
-  pal-sea-arm-controller-configuration,
-  pal-sea-arm-description,
-  play-motion2,
-  play-motion2-cli,
-  play-motion2-msgs,
+  pal-gazebo-worlds,
+  pal-pro-gripper-controller-configuration,
+  pal-pro-gripper-description,
 
   # checkInputs
   ament-lint-auto,
@@ -27,16 +21,16 @@
   # nativeCheckInputs
 }:
 buildRosPackage rec {
-  pname = "ros-humble-pal-sea-arm-bringup";
-  version = "2.0.0";
+  pname = "ros-humble-pal-pro-gripper-simulation";
+  version = "1.11.4";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
-    repo = "pal_sea_arm";
+    repo = "pal_pro_gripper";
     tag = version;
-    hash = "sha256-vMT9B4KS0ZoS5IkBdGq/qB9LbMrRE93bcAuSSRLL/kQ=";
+    hash = "sha256-KIa7yHVsW2inx3GchQ77UmvBGk503z0GpCRoyZcRBUU=";
   };
-  sourceRoot = "source/pal_sea_arm_bringup";
+  sourceRoot = "source/pal_pro_gripper_simulation";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -50,16 +44,10 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   propagatedBuildInputs = [
-    joint-state-broadcaster
-    joint-trajectory-controller
-    joy
-    joy-teleop
     launch-pal
-    pal-sea-arm-controller-configuration
-    pal-sea-arm-description
-    play-motion2
-    play-motion2-cli
-    play-motion2-msgs
+    pal-gazebo-worlds
+    pal-pro-gripper-controller-configuration
+    pal-pro-gripper-description
   ];
   checkInputs = [
     ament-lint-auto
@@ -71,9 +59,9 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Launch files to upload the robot description and start the controllers";
+    description = "The pal_pro_gripper_simulation package";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/pal-robotics/pal_sea_arm";
+    homepage = "https://github.com/pal-robotics/pal_pro_gripper";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };
