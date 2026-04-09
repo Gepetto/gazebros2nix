@@ -14,8 +14,8 @@ final: prev: {
     src = final.fetchFromGitHub {
       owner = "Simple-Robotics";
       repo = "pinocchio";
-      rev = "39fdb5c9bdea820e982b16cca40df9336408f000";
-      hash = "sha256-ewvDrg7pW0I252Zbw2jrTQ/dufi/F5B0337i1jd8jQQ=";
+      rev = "ce08a3b3a601effcaa042c8daebc83a38f5df964";
+      hash = "sha256-Ok/wqURUlzvzvjFm/VB4fYpBMISg0Z5mvi3T4mlkZrc=";
     };
   };
   zenoh-c = prev.zenoh-c.overrideAttrs (super: {
