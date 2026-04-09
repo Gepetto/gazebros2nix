@@ -28,13 +28,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-description";
-  version = "2.1.2";
+  version = "2.1.3";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_robot";
     tag = version;
-    hash = "sha256-P0Q3ffWeix4x5ZWip9yjiE8yJrEWp7aV+VAZX2MM2cU=";
+    hash = "sha256-kVW7ABqCz2rF954pU1HY+ocJbdHmvB3P9LyvUqfpelE=";
   };
   sourceRoot = "source/tiago_pro_description";
 
