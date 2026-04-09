@@ -15,18 +15,6 @@
   imports = [
     treefmt-nix.flakeModule
     flakoboros.flakeModule
-    {
-      flakoboros = {
-        nixpkgsConfig = {
-          allowUnfree = true;
-          permittedInsecurePackages = [
-            # SHAME
-            "freeimage-3.18.0-unstable-2024-04-18"
-          ];
-        };
-        overlays = [ self.overlays.gazebros2nix ];
-      };
-    }
   ];
 
   config = {
@@ -35,6 +23,17 @@
       (import ./generated.nix)
       (import ./todo.nix)
     ];
+
+    flakoboros = {
+      nixpkgsConfig = {
+        allowUnfree = true;
+        permittedInsecurePackages = [
+          # SHAME
+          "freeimage-3.18.0-unstable-2024-04-18"
+        ];
+      };
+      overlays = [ self.overlays.gazebros2nix ];
+    };
 
     perSystem =
       {
