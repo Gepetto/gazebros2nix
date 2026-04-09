@@ -1,6 +1,6 @@
 {
   inputs = {
-    flakoboros.url = "github:gepetto/flakoboros/overlays-first";
+    flakoboros.url = "github:gepetto/flakoboros";
     flake-parts.follows = "flakoboros/flake-parts";
     nix-ros-overlay.follows = "flakoboros/nix-ros-overlay";
     nixpkgs.follows = "flakoboros/nixpkgs";
@@ -30,12 +30,7 @@
       { lib, ... }:
       let
         flakeModule = inputs.flake-parts.lib.importApply ./module.nix {
-          inherit (inputs)
-            flakoboros
-            nix-ros-overlay
-            nixpkgs
-            treefmt-nix
-            ;
+          inherit (inputs) flakoboros treefmt-nix;
         };
       in
       {

@@ -1,12 +1,9 @@
 {
   flakoboros,
-  nix-ros-overlay,
-  nixpkgs,
   treefmt-nix,
   ...
 }:
 {
-  config,
   lib,
   self,
   ...
@@ -38,13 +35,12 @@
     perSystem =
       {
         pkgs,
-        system,
         ...
       }:
       {
         treefmt = {
           # workaround  https://github.com/numtide/treefmt-nix/issues/352
-          pkgs = nixpkgs.legacyPackages.${system};
+          inherit pkgs;
           programs = {
             deadnix.enable = true;
             keep-sorted.enable = true;
