@@ -1,6 +1,6 @@
 {
   inputs = {
-    flakoboros.url = "github:gepetto/flakoboros";
+    flakoboros.url = "github:gepetto/flakoboros/overlays-first";
     flake-parts.follows = "flakoboros/flake-parts";
     nix-ros-overlay.follows = "flakoboros/nix-ros-overlay";
     nixpkgs.follows = "flakoboros/nixpkgs";
