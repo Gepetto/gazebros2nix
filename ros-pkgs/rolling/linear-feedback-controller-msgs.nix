@@ -38,13 +38,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-rolling-linear-feedback-controller-msgs";
-  version = "1.2.1";
+  version = "1.2.2";
 
   src = fetchFromGitHub {
     owner = "loco-3d";
     repo = "linear-feedback-controller-msgs";
     tag = "v${version}";
-    hash = "sha256-onJMrXvn3jWVNyY/A7utPDG11P3yZ5mtGt5ZnZ3ccxU=";
+    hash = "sha256-VvDiU89PRYGzJ2bHaRJ7bw2pmgEXY5qqE4wZegV/NGw=";
   };
   sourceRoot = "source/";
 

@@ -40,13 +40,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-kilted-linear-feedback-controller";
-  version = "3.1.0";
+  version = "3.2.0";
 
   src = fetchFromGitHub {
     owner = "loco-3d";
     repo = "linear-feedback-controller";
     tag = "v${version}";
-    hash = "sha256-fMklYwoRlKVNdWJmuqw9MaEA9NWjFNBdf+j0OMJ5HD0=";
+    hash = "sha256-tO4YP7yLpKnRaAzwwNi2dC46pP9aJueSjgrcxYIXRf8=";
   };
   sourceRoot = "source/";
 
