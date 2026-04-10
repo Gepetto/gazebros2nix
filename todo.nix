@@ -32,6 +32,8 @@ final: prev: {
           qt5compat = final.qt5.qtquickcontrols2;
         };
 
+        # keep-sorted start block=yes
+
         ign-common4 = fortress-prev.ign-common4.overrideAttrs (super: {
           patches = [
             (final.fetchpatch {
@@ -41,7 +43,6 @@ final: prev: {
           ];
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
         });
-
         ign-gui6 = fortress-prev.ign-gui6.overrideAttrs {
           patches = [
             (final.fetchpatch2 {
@@ -50,7 +51,6 @@ final: prev: {
             })
           ];
         };
-
         ign-launch5 = fortress-prev.ign-launch5.overrideAttrs {
           # TODO: not sure why it was missed in https://github.com/gazebosim/gz-launch/pull/299
           postPatch = ''
@@ -58,11 +58,9 @@ final: prev: {
               --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
           '';
         };
-
         ign-rendering6 = fortress-prev.ign-rendering6.overrideAttrs (super: {
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
         });
-
         ign-tools1 = fortress-prev.ign-tools1.overrideAttrs {
           postPatch = ''
             substituteInPlace CMakeLists.txt --replace-fail \
@@ -70,6 +68,14 @@ final: prev: {
               "cmake_minimum_required(VERSION 3.10 FATAL_ERROR)"
           '';
         };
+        ign-transport11 = fortress-prev.ign-transport11.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/lib/ruby/gz/cmdtransport11.rb --replace-fail \
+              '"../../..//nix/store' \
+              '"/nix/store'
+          '';
+        };
+        # keep-sorted end
       }
     );
 
@@ -77,6 +83,8 @@ final: prev: {
       _harmonic-final: harmonic-prev: {
         inherit (final) dartsim urdfdom-headers urdfdom;
         dart = final.dartsim;
+
+        # keep-sorted start block=yes
 
         gz-common5 = harmonic-prev.gz-common5.overrideAttrs {
           patches = [
@@ -86,7 +94,6 @@ final: prev: {
             })
           ];
         };
-
         gz-gui8 = harmonic-prev.gz-gui8.overrideAttrs {
           patches = [
             (final.fetchpatch2 {
@@ -99,7 +106,6 @@ final: prev: {
             })
           ];
         };
-
         gz-launch7 = harmonic-prev.gz-launch7.overrideAttrs {
           # TODO: not sure why it was missed in https://github.com/gazebosim/gz-launch/pull/299
           postPatch = ''
@@ -107,7 +113,6 @@ final: prev: {
               --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
           '';
         };
-
         gz-msgs10 = harmonic-prev.gz-msgs10.overrideAttrs {
           patches = [
             (final.fetchpatch2 {
@@ -116,7 +121,13 @@ final: prev: {
             })
           ];
         };
-
+        gz-plugin2 = harmonic-prev.gz-plugin2.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/lib/ruby/gz/cmdplugin2.rb --replace-fail \
+              '"../../..//nix/store' \
+              '"/nix/store'
+          '';
+        };
         gz-rendering8 = harmonic-prev.gz-rendering8.overrideAttrs {
           patches = [
             (final.fetchpatch {
@@ -125,13 +136,53 @@ final: prev: {
             })
           ];
         };
+        gz-transport13 = harmonic-prev.gz-transport13.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/lib/ruby/gz/cmdtransport13.rb --replace-fail \
+              '"../../..//nix/store' \
+              '"/nix/store'
+          '';
+        };
+        # keep-sorted end
       }
     );
 
     ionic = prev.gazebo.ionic.overrideScope (
-      _ionic-final: _ionic-prev: {
+      _ionic-final: ionic-prev: {
         inherit (final) dartsim urdfdom-headers urdfdom;
         dart = final.dartsim;
+
+        # keep-sorted start block=yes
+
+        gz-msgs11 = ionic-prev.gz-msgs11.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/lib/ruby/gz/cmdmsgs11.rb --replace-fail \
+              "'../../..//nix/store" \
+              "'/nix/store"
+          '';
+        };
+        gz-plugin3 = ionic-prev.gz-plugin3.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/lib/ruby/gz/cmdplugin3.rb --replace-fail \
+              '"../../..//nix/store' \
+              '"/nix/store'
+          '';
+        };
+        gz-sdformat15 = ionic-prev.gz-sdformat15.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/lib/ruby/gz/cmdsdformat15.rb --replace-fail \
+              '"../../..//nix/store' \
+              '"/nix/store'
+          '';
+        };
+        gz-sim9 = ionic-prev.gz-sim9.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/lib/ruby/gz/cmdmodel9.rb --replace-fail \
+              '"../../..//nix/store' \
+              '"/nix/store'
+          '';
+        };
+        # keep-sorted end
       }
     );
 
@@ -140,6 +191,29 @@ final: prev: {
         inherit (final) dartsim urdfdom-headers urdfdom;
         dart = final.dartsim;
 
+        # keep-sorted start block=yes
+
+        gz-msgs12 = jetty-prev.gz-msgs12.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/lib/ruby/gz/cmdmsgs12.rb --replace-fail \
+              "'../../..//nix/store" \
+              "'/nix/store"
+          '';
+        };
+        gz-plugin4 = jetty-prev.gz-plugin4.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/lib/ruby/gz/cmdplugin4.rb --replace-fail \
+              '"../../..//nix/store' \
+              '"/nix/store'
+          '';
+        };
+        gz-sdformat16 = jetty-prev.gz-sdformat16.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/lib/ruby/gz/cmdsdformat16.rb --replace-fail \
+              '"../../..//nix/store' \
+              '"/nix/store'
+          '';
+        };
         gz-sim10 = jetty-prev.gz-sim10.overrideAttrs (super: {
           postPatch = (super.postPatch or "") + ''
             substituteInPlace src/cmd/CMakeLists.txt \
@@ -149,6 +223,14 @@ final: prev: {
               --replace-fail "$""{CMAKE_INSTALL_LIBEXECDIR}" "libexec"
           '';
         });
+        gz-transport15 = jetty-prev.gz-transport15.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/lib/ruby/gz/cmd{transport,log}15.rb --replace-fail \
+              '"../../..//nix/store' \
+              '"/nix/store'
+          '';
+        };
+        # keep-sorted end
       }
     );
   };
@@ -237,14 +319,10 @@ final: prev: {
           gazebo-ros = null;
           gazebo-dev = null;
 
-          geometric-shapes = humble-prev.geometric-shapes.overrideAttrs {
-            postPatch = ''
-              substituteInPlace CMakeLists.txt --replace-fail \
-                "find_package(octomap 1.9.7...<1.10.0 REQUIRED)" \
-                "find_package(octomap REQUIRED)"
-            '';
-          };
+          # keep-sorted start block=yes
 
+          _unresolved_ignition-gazebo6 = humble-final.ignition-gazebo6;
+          _unresolved_ignition-plugin = humble-final.ignition-plugin;
           agimus-controller-ros = humble-prev.agimus-controller-ros.overrideAttrs {
             # this thing believe we did pass --build-directory or --build-base:
             # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
@@ -258,7 +336,6 @@ final: prev: {
                   "run(f\"$out/${humble-final.python3.sitePackages}/agimus_controller_ros/{module_name}.py\", yaml_file)"
             '';
           };
-
           agimus-franka-ign-ros2-control = humble-prev.agimus-franka-ign-ros2-control.overrideAttrs {
             env.IGNITION_VERSION = "fortress";
             postPatch = ''
@@ -266,7 +343,13 @@ final: prev: {
               substituteInPlace CMakeLists.txt --replace-fail "gz_ros2_control" ""
             '';
           };
-
+          geometric-shapes = humble-prev.geometric-shapes.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt --replace-fail \
+                "find_package(octomap 1.9.7...<1.10.0 REQUIRED)" \
+                "find_package(octomap REQUIRED)"
+            '';
+          };
           # that repo somehow has a 0.0.0 tag
           net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
             src = final.fetchFromGitHub {
@@ -282,18 +365,6 @@ final: prev: {
           net-ft-driver = humble-prev.net-ft-driver.overrideAttrs {
             src = humble-final.net-ft-description.src;
           };
-
-          play-motion2-msgs = humble-prev.play-motion2-msgs.overrideAttrs (_super: rec {
-            version = "1.6.1";
-            src = final.fetchFromGitHub {
-              owner = "pal-robotics";
-              repo = "play_motion2";
-              tag = version;
-              hash = "sha256-gUlwPuMBpKftCj9lKLuqmXAOFAFQocWmLdgwazUz2ls=";
-            };
-            sourceRoot = "source/play_motion2_msgs";
-          });
-
           play-motion2 = humble-prev.play-motion2.overrideAttrs (super: rec {
             version = "1.6.1";
             src = final.fetchFromGitHub {
@@ -308,7 +379,16 @@ final: prev: {
               sed -i "1i #include <functional>" src/utils/motion_loader.*
             '';
           });
-
+          play-motion2-msgs = humble-prev.play-motion2-msgs.overrideAttrs (_super: rec {
+            version = "1.6.1";
+            src = final.fetchFromGitHub {
+              owner = "pal-robotics";
+              repo = "play_motion2";
+              tag = version;
+              hash = "sha256-gUlwPuMBpKftCj9lKLuqmXAOFAFQocWmLdgwazUz2ls=";
+            };
+            sourceRoot = "source/play_motion2_msgs";
+          });
           python-with-ament-package =
             let
               # TODO: this make no sense
@@ -318,20 +398,16 @@ final: prev: {
               ]);
             in
             "${python}/${python.sitePackages}";
-
           ros-gz = humble-prev.ros-gz.overrideAttrs (_super: {
             env.PYTHONPATH = humble-final.python-with-ament-package;
             meta.platforms = final.lib.platforms.linux;
           });
-
           ros-gz-sim = humble-prev.ros-gz-sim.overrideAttrs (super: {
             propagatedNativeBuildInputs = (super.propagatedNativeBuildInputs or [ ]) ++ [
               humble-final.gz-tools
             ];
           });
-
           ros-gz-sim-demos = null; # wants qt-gui-cpp, where qt5 and python 3.13 are not compatible
-
           sdformat-urdf = humble-prev.sdformat-urdf.overrideAttrs {
             # ref. https://github.com/ros/sdformat_urdf/pull/41
             postPatch = ''
@@ -340,13 +416,10 @@ final: prev: {
                 "find_package(urdfdom_headers REQUIRED)"
             '';
           };
-
           topic-tools-interfaces = humble-prev.topic-tools-interfaces.overrideAttrs {
             doCheck = false;
           };
-
-          _unresolved_ignition-gazebo6 = humble-final.ignition-gazebo6;
-          _unresolved_ignition-plugin = humble-final.ignition-plugin;
+          # keep-sorted end
         }
       );
 
@@ -354,12 +427,14 @@ final: prev: {
         jazzy-final: jazzy-prev:
         (rosOverlay jazzy-final jazzy-prev)
         // {
+
+          # keep-sorted start block=yes
+
+          agimus-franka-gazebo-bringup = null;
           agimus-franka-hardware = jazzy-prev.agimus-franka-hardware.overrideAttrs {
             doCheck = false; # TODO
           };
           agimus-franka-ign-ros2-control = null;
-          agimus-franka-gazebo-bringup = null;
-
           br2-gazebo-worlds = jazzy-prev.br2-gazebo-worlds.overrideAttrs {
             patches = [
               (final.fetchpatch {
@@ -368,22 +443,8 @@ final: prev: {
               })
             ];
           };
-
           # TODO: does not seem useful for now, but might bite later
           gazebo-planar-move-plugin = null;
-          urdf-test = null;
-          pal-gazebo-plugins = null;
-          pal-gazebo-worlds = null;
-          pal-maps = null;
-          tiago-pro-2dnav = null;
-          tiago-pro-laser-sensors = null;
-          tiago-pro-rgbd-sensors = null;
-
-          moveit-task-constructor-core = jazzy-prev.moveit-task-constructor-core.overrideAttrs (super: {
-            # TODO: unvendor pybind11 upstream
-            cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DPYBIND11_INSTALL=OFF" ];
-          });
-
           # unvendor
           gz-cmake-vendor = jazzy-final.gz-cmake;
           gz-common-vendor = jazzy-final.gz-common;
@@ -395,13 +456,6 @@ final: prev: {
           gz-physics-vendor = jazzy-final.gz-physics;
           gz-plugin-vendor = jazzy-final.gz-plugin;
           gz-rendering-vendor = jazzy-final.gz-rendering;
-          gz-sensors-vendor = jazzy-final.gz-sensors;
-          gz-sim-vendor = jazzy-final.gz-sim;
-          gz-tools-vendor = jazzy-final.gz-tools;
-          gz-transport-vendor = jazzy-final.gz-transport;
-          gz-utils-vendor = jazzy-final.gz-utils;
-          sdformat-vendor = jazzy-final.sdformat;
-
           gz-ros2-control = jazzy-prev.gz-ros2-control.overrideAttrs {
             postPatch = ''
               substituteInPlace CMakeLists.txt \
@@ -422,7 +476,15 @@ final: prev: {
 
             '';
           };
-
+          gz-sensors-vendor = jazzy-final.gz-sensors;
+          gz-sim-vendor = jazzy-final.gz-sim;
+          gz-tools-vendor = jazzy-final.gz-tools;
+          gz-transport-vendor = jazzy-final.gz-transport;
+          gz-utils-vendor = jazzy-final.gz-utils;
+          moveit-task-constructor-core = jazzy-prev.moveit-task-constructor-core.overrideAttrs (super: {
+            # TODO: unvendor pybind11 upstream
+            cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DPYBIND11_INSTALL=OFF" ];
+          });
           net-ft-description = jazzy-prev.net-ft-description.overrideAttrs (super: {
             src = final.fetchFromGitHub {
               inherit (super.src) repo;
@@ -437,7 +499,9 @@ final: prev: {
           net-ft-driver = jazzy-prev.net-ft-driver.overrideAttrs {
             src = jazzy-final.net-ft-description.src;
           };
-
+          pal-gazebo-plugins = null;
+          pal-gazebo-worlds = null;
+          pal-maps = null;
           ros-gz-bridge = jazzy-prev.ros-gz-bridge.overrideAttrs {
             cmakeFlags = [
               "-DGZ_MSGS_VERSION_FULL=${jazzy-final.gz-msgs.version}"
@@ -464,7 +528,6 @@ final: prev: {
                 --replace-fail "gz-msgs;" "gz-msgs10;" \
             '';
           };
-
           ros-gz-image = jazzy-prev.ros-gz-image.overrideAttrs {
             postPatch = ''
               substituteInPlace CMakeLists.txt \
@@ -480,7 +543,6 @@ final: prev: {
                   "find_package(gz-msgs10 REQUIRED)" \
             '';
           };
-
           ros-gz-sim = jazzy-prev.ros-gz-sim.overrideAttrs (super: {
             cmakeFlags = [ "-DGZ_SIM_VER=${final.lib.versions.major jazzy-final.gz-sim.version}" ];
             postPatch = super.postPatch + ''
@@ -507,7 +569,6 @@ final: prev: {
                   "find_package(gz-sim8 REQUIRED)" \
             '';
           });
-
           rviz-default-plugins = jazzy-prev.rviz-default-plugins.overrideAttrs {
             postPatch = ''
               substituteInPlace CMakeLists.txt \
@@ -533,6 +594,12 @@ final: prev: {
                 "find_package(urdfdom_headers REQUIRED)"
             '';
           };
+          sdformat-vendor = jazzy-final.sdformat;
+          tiago-pro-2dnav = null;
+          tiago-pro-laser-sensors = null;
+          tiago-pro-rgbd-sensors = null;
+          urdf-test = null;
+          # keep-sorted end
         }
       );
 
