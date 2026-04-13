@@ -64,7 +64,7 @@
               packages = [
                 pkgs.gazebros2nix-venv.passthru.editableVirtualenv
               ];
-              shellHook = inputs.flakoboros.lib.rosShellHook pkgs null + ''
+              shellHook = ''
                 test -f .venv/bin/activate && source .venv/bin/activate
               '';
             };
