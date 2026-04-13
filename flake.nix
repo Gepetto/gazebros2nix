@@ -51,7 +51,18 @@
             };
           }
         ];
-        flake = { inherit flakeModule; };
+        flake = {
+          inherit flakeModule;
+          lib.mkFlakoboros =
+            module:
+            inputs.flake-parts.lib.mkFlake { inherit inputs; } (args: {
+              systems = inputs.systems;
+              imports = [
+                flakeModule
+                { flakoboros = module args; }
+              ];
+            });
+        };
         perSystem =
           {
             pkgs,
