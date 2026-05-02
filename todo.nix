@@ -226,8 +226,8 @@ final: prev: {
         gz-transport15 = jetty-prev.gz-transport15.overrideAttrs {
           postFixup = ''
             substituteInPlace $out/lib/ruby/gz/cmd{transport,log}15.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
+              '../../..//nix/store' \
+              '/nix/store'
           '';
         };
         # keep-sorted end
