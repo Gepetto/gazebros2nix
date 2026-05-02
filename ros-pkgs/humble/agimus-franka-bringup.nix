@@ -20,7 +20,6 @@
   xacro,
 
   # checkInputs
-  ament-lint-auto,
   ament-lint-common,
 
   # nativeCheckInputs
@@ -32,10 +31,10 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "b4450db350c8ea796eef77290e81b09654f766bb";
-    hash = "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=";
+    rev = "c6609fcd10b4a9fcad84a93c8c92af7e66c78405";
+    hash = "sha256-+A03A5j+b75v9E+sLBOc5KvJ8tuBDUGCVQmFOskqYhY=";
   };
-  sourceRoot = "source/franka_bringup";
+  sourceRoot = "source/agimus_franka_bringup";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -60,13 +59,12 @@ buildRosPackage rec {
     xacro
   ];
   checkInputs = [
-    ament-lint-auto
     ament-lint-common
   ];
   nativeCheckInputs = [
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_bringup for franka robots not maintained anymore by franka";

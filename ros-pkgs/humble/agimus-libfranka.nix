@@ -8,11 +8,11 @@
   doxygen,
 
   # buildInputs
-  agimus-libfranka-common,
-  eigen,
   poco,
 
   # propagatedBuildInputs
+  agimus-libfranka-common,
+  eigen,
 
   # checkInputs
   gtest,
@@ -26,8 +26,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-libfranka";
-    rev = "786e93e98c323d36d57866cd3f25d1f2851eb2e9";
-    hash = "sha256-xEVVJz2GSSvUN85gjes3vai5HNVOzEpeuSRNv8Vr3qE=";
+    rev = "c669067a902d4e835d68f01a10bbe72a72d47607";
+    hash = "sha256-OHo/TR2Thel6TIxzskQs1D+4uUl9WH3pEV+cvpxbxUI=";
   };
   sourceRoot = "source/";
 
@@ -41,12 +41,12 @@ buildRosPackage rec {
     doxygen
   ];
   buildInputs = [
-    agimus-libfranka-common
     cmake
-    eigen
     poco
   ];
   propagatedBuildInputs = [
+    agimus-libfranka-common
+    eigen
     poco
   ];
   checkInputs = [
@@ -58,7 +58,7 @@ buildRosPackage rec {
   doCheck = false;
 
   meta = {
-    description = "fork of libfranka for franka robots not maintained anymore by franka";
+    description = "fork of libagimus_franka for agimus_franka robots not maintained anymore by agimus_franka";
     license = with lib.licenses; [ asl20 ];
     homepage = "https://github.com/agimus-project/agimus-libfranka";
     platforms = lib.platforms.linux;

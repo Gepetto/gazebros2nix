@@ -5,11 +5,11 @@
 
   # nativeBuildInputs
   ament-cmake,
+  writableTmpDirAsHomeHook,
 
   # buildInputs
   agimus-franka-msgs,
   agimus-libfranka,
-  agimus-libfranka-common,
   hardware-interface,
   pluginlib,
   rclcpp,
@@ -19,7 +19,6 @@
   # propagatedBuildInputs
 
   # checkInputs
-  ament-cmake-clang-format,
   ament-cmake-clang-tidy,
   ament-cmake-copyright,
   ament-cmake-cppcheck,
@@ -28,6 +27,7 @@
   ament-cmake-lint-cmake,
   ament-cmake-pep257,
   ament-cmake-xmllint,
+  rmw-implementation-cmake,
   xmllintPackageHook,
 
   # nativeCheckInputs
@@ -45,10 +45,10 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "b4450db350c8ea796eef77290e81b09654f766bb";
-    hash = "sha256-HRQJ9gx184+9+3GIfRnDcUuTMj/K8D/Ps2Ygje6OZdk=";
+    rev = "c6609fcd10b4a9fcad84a93c8c92af7e66c78405";
+    hash = "sha256-+A03A5j+b75v9E+sLBOc5KvJ8tuBDUGCVQmFOskqYhY=";
   };
-  sourceRoot = "source/franka_hardware";
+  sourceRoot = "source/agimus_franka_hardware";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -57,11 +57,11 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+    writableTmpDirAsHomeHook
   ];
   buildInputs = [
     agimus-franka-msgs
     agimus-libfranka
-    agimus-libfranka-common
     ament-cmake
     hardware-interface
     pluginlib
@@ -79,7 +79,6 @@ buildRosPackage rec {
     rclcpp-components
   ];
   checkInputs = [
-    ament-cmake-clang-format
     ament-cmake-clang-tidy
     ament-cmake-copyright
     ament-cmake-cppcheck
@@ -88,6 +87,7 @@ buildRosPackage rec {
     ament-cmake-lint-cmake
     ament-cmake-pep257
     ament-cmake-xmllint
+    rmw-implementation-cmake
     xmllintPackageHook
   ];
   nativeCheckInputs = [
@@ -99,7 +99,7 @@ buildRosPackage rec {
     ament-xmllint
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_hardware for franka robots not maintained anymore by franka";

@@ -16,8 +16,6 @@
 
   # checkInputs
   ament-cmake-pytest,
-  ament-lint-auto,
-  ament-lint-common,
 
   # nativeCheckInputs
 }:
@@ -28,8 +26,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-description";
-    rev = "a729f1103985226d2e51ec9bcf289e6b1e545c52";
-    hash = "sha256-NtTlaSYsn3oHXbGid+w8LRblZmcyScL+W5awYckvYTA=";
+    rev = "f836ec0c769c98c917900c0789dbed69a2dc20a6";
+    hash = "sha256-aJZWVxAqlB/5f4QUNXgxSn4SruH7zE/dUY9cCQ7XZVQ=";
   };
   sourceRoot = "source/";
 
@@ -52,13 +50,11 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-cmake-pytest
-    ament-lint-auto
-    ament-lint-common
   ];
   nativeCheckInputs = [
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "fork of franka_description with URDF files and meshes of Franka robots not maintained anymore by franka";
