@@ -12,6 +12,8 @@
   gazebo-plugins,
   gazebo-ros,
   gazebo-ros2-control,
+  gz-ros2-control,
+  gz-sensors6,
   launch,
   launch-pal,
   launch-ros,
@@ -22,6 +24,7 @@
   pal-sea-arm-description,
   pal-sea-arm-moveit-config,
   pal-urdf-utils,
+  ros-gz-bridge,
 
   # checkInputs
   ament-lint-auto,
@@ -31,13 +34,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm-gazebo";
-  version = "1.0.4";
+  version = "1.1.1";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_sea_arm_simulation";
     tag = version;
-    hash = "sha256-0UPWs4TLLf9rffQAbk0wEoDDyRJUPCOkMxCTQ42Kd+E=";
+    hash = "sha256-YBRNs2GhWgBsro0sSWW9Hk6Ckmlda+evfV2IwtYuY3g=";
   };
   sourceRoot = "source/pal_sea_arm_gazebo";
 
@@ -56,6 +59,8 @@ buildRosPackage rec {
     gazebo-plugins
     gazebo-ros
     gazebo-ros2-control
+    gz-ros2-control
+    gz-sensors6
     launch
     launch-pal
     launch-ros
@@ -66,6 +71,7 @@ buildRosPackage rec {
     pal-sea-arm-description
     pal-sea-arm-moveit-config
     pal-urdf-utils
+    ros-gz-bridge
   ];
   checkInputs = [
     ament-lint-auto

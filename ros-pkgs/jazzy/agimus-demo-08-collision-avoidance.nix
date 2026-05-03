@@ -27,8 +27,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-demos";
-    rev = "7fee3010b7112236c5cb7bc2592c1f3c16af676e";
-    hash = "sha256-+ziFTYWWKrhyLwY3qlpltieePkbwCXN5ftd2i4rQ3lo=";
+    rev = "35e6dff44a08baa39125b006659c0e48c450c657";
+    hash = "sha256-zcS8UK8MW3K6EBTwoy6zekp1KDTHGOKvJqm+OTOOUMQ=";
   };
   sourceRoot = "source/agimus_demo_08_collision_avoidance";
 

@@ -9,6 +9,7 @@
   # buildInputs
 
   # propagatedBuildInputs
+  gz-ros2-control,
   joint-state-publisher-gui,
   realsense2-description,
   rviz2,
@@ -26,8 +27,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-description";
-    rev = "f836ec0c769c98c917900c0789dbed69a2dc20a6";
-    hash = "sha256-aJZWVxAqlB/5f4QUNXgxSn4SruH7zE/dUY9cCQ7XZVQ=";
+    rev = "ed015db669453138b39064af263e985fa070079b";
+    hash = "sha256-0vdCSQjb6r7L0QkSdhweHglFKQe68C038hRgOq/HpnE=";
   };
   sourceRoot = "source/";
 
@@ -43,6 +44,7 @@ buildRosPackage rec {
     ament-cmake
   ];
   propagatedBuildInputs = [
+    gz-ros2-control
     joint-state-publisher-gui
     realsense2-description
     rviz2

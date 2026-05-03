@@ -22,13 +22,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-head-bringup";
-  version = "1.9.0";
+  version = "1.10.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_head_robot";
     tag = version;
-    hash = "sha256-KRlY/s2Nl5VCrGNFWi44atxg6QTu8NmEHIASI7pK174=";
+    hash = "sha256-lMKtyKnAmqaSwZ8FGHkHVqMmU2uwylpt8yah75dc6io=";
   };
   sourceRoot = "source/tiago_pro_head_bringup";
 

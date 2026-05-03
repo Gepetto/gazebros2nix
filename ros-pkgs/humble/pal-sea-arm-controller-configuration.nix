@@ -14,6 +14,7 @@
   launch,
   launch-pal,
   pal-pro-gripper-controller-configuration,
+  ros2controlcli,
 
   # checkInputs
   ament-lint-auto,
@@ -23,13 +24,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm-controller-configuration";
-  version = "2.0.0";
+  version = "2.2.1";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_sea_arm";
     tag = version;
-    hash = "sha256-vMT9B4KS0ZoS5IkBdGq/qB9LbMrRE93bcAuSSRLL/kQ=";
+    hash = "sha256-YRBsyTfPRW1U8Va9JRE5kCRKH5ok/f3gMFQ1kG2HDTw=";
   };
   sourceRoot = "source/pal_sea_arm_controller_configuration";
 
@@ -50,6 +51,7 @@ buildRosPackage rec {
     launch
     launch-pal
     pal-pro-gripper-controller-configuration
+    ros2controlcli
   ];
   checkInputs = [
     ament-lint-auto

@@ -28,13 +28,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-sea-arm-moveit-config";
-  version = "1.0.5";
+  version = "1.0.7";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_sea_arm_moveit_config";
     tag = version;
-    hash = "sha256-dD6KRaZUgtGatI4NrdF9hrYoZvccYjCl7xVWQKHsPJM=";
+    hash = "sha256-ZyZDlIHx+yDfJ0E2+i5+4QedaymLi6PPuLhOuV1wIhE=";
   };
   sourceRoot = "source/";
 

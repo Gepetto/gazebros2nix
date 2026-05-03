@@ -13,7 +13,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-math7";
-  version = "7.5.2";
+  version = "7.6.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -21,8 +21,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-math";
-    tag = "gz-math7_7.5.2";
-    hash = "sha256-LwYeyv8nwX06n5ju+ra2uqNMedMSLRumem8qDHXtNns=";
+    tag = "gz-math7_7.6.0";
+    hash = "sha256-dsIldb2yDDQsCzhi2B4CKCN8XQsQgPfTJG16MEgiOiM=";
   };
 
   __structuredAttrs = true;
