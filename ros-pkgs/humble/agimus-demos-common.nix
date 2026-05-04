@@ -13,6 +13,7 @@
 
   # propagatedBuildInputs
   agimus-franka-description,
+  agimus-franka-gazebo-bringup,
   agimus-franka-gripper,
   agimus-franka-hardware,
   agimus-franka-ign-ros2-control,
@@ -37,6 +38,7 @@
   ros2controlcli,
   ros2launch,
   rviz2,
+  topic-tools,
   xacro,
 
   # checkInputs
@@ -50,8 +52,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-demos";
-    rev = "7fee3010b7112236c5cb7bc2592c1f3c16af676e";
-    hash = "sha256-+ziFTYWWKrhyLwY3qlpltieePkbwCXN5ftd2i4rQ3lo=";
+    rev = "105f9d51f9c94a0cf5879d6f4c4673aca39f3ba5";
+    hash = "sha256-UA8p5EiWL1ETQ22q7vyKbtBzX+D0z73JHdO1qFsM5KI=";
   };
   sourceRoot = "source/agimus_demos_common";
 
@@ -73,6 +75,7 @@ buildRosPackage rec {
   ];
   propagatedBuildInputs = [
     agimus-franka-description
+    agimus-franka-gazebo-bringup
     agimus-franka-gripper
     agimus-franka-hardware
     agimus-franka-ign-ros2-control
@@ -97,6 +100,7 @@ buildRosPackage rec {
     ros2controlcli
     ros2launch
     rviz2
+    topic-tools
     xacro
   ];
   checkInputs = [

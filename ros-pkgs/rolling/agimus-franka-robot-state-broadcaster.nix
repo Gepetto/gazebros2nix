@@ -30,7 +30,6 @@
   # checkInputs
   ament-cmake-copyright,
   ament-cmake-cppcheck,
-  ament-cmake-flake8,
   ament-cmake-gmock,
   ament-cmake-lint-cmake,
   ament-cmake-pep257,
@@ -43,7 +42,6 @@
   # nativeCheckInputs
   ament-copyright,
   ament-cppcheck,
-  ament-flake8,
   ament-lint-cmake,
   ament-pep257,
   ament-xmllint,
@@ -55,8 +53,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "c6609fcd10b4a9fcad84a93c8c92af7e66c78405";
-    hash = "sha256-+A03A5j+b75v9E+sLBOc5KvJ8tuBDUGCVQmFOskqYhY=";
+    rev = "2719804b4ed7b2d4ef12d8ae4be34e0a5e1ac5cc";
+    hash = "sha256-J5ebhKVkF3m/0RcRFXv+UTqLjRAQBhbpajrVsl+z1oo=";
   };
   sourceRoot = "source/agimus_franka_robot_state_broadcaster";
 
@@ -111,7 +109,6 @@ buildRosPackage rec {
   checkInputs = [
     ament-cmake-copyright
     ament-cmake-cppcheck
-    ament-cmake-flake8
     ament-cmake-gmock
     ament-cmake-lint-cmake
     ament-cmake-pep257
@@ -124,7 +121,6 @@ buildRosPackage rec {
   nativeCheckInputs = [
     ament-copyright
     ament-cppcheck
-    ament-flake8
     ament-lint-cmake
     ament-pep257
     ament-xmllint
