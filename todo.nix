@@ -259,17 +259,24 @@ final: prev: {
           mim-solvers
           ;
         # keep-sorted start block=yes
-
+        agimus-controller-ros = ros-prev.agimus-controller-ros.overrideAttrs {
+          # this thing believe we did pass --build-directory or --build-base:
+          # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
+          postPatch = ''
+            substituteInPlace setup.py \
+              --replace-fail \
+                "from generate_parameter_library_py.setup_helper import generate_parameter_module" \
+                "from generate_parameter_library_py.generate_python_module import run" \
+              --replace-fail \
+                "generate_parameter_module(module_name, yaml_file)" \
+                "run(f\"$out/${ros-final.python3.sitePackages}/agimus_controller_ros/{module_name}.py\", yaml_file)"
+          '';
+        };
         agimus-demos = ros-prev.agimus-demos.overrideAttrs (super: {
           nativeBuildInputs = (super.nativeBuildInputs or [ ]) ++ [
             ros-final.ament-cmake
             final.cmake
             final.python3
-          ];
-        });
-        agimus-demos-common = ros-prev.agimus-demos-common.overrideAttrs (super: {
-          propagatedBuildInputs = (super.propagatedBuildInputs or [ ]) ++ [
-            ros-final.agimus-franka-gazebo-bringup
           ];
         });
         agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs amentInstallCheckOverride;
@@ -323,25 +330,9 @@ final: prev: {
 
           _unresolved_ignition-gazebo6 = humble-final.ignition-gazebo6;
           _unresolved_ignition-plugin = humble-final.ignition-plugin;
-          agimus-controller-ros = humble-prev.agimus-controller-ros.overrideAttrs {
-            # this thing believe we did pass --build-directory or --build-base:
-            # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
-            postPatch = ''
-              substituteInPlace setup.py \
-                --replace-fail \
-                  "from generate_parameter_library_py.setup_helper import generate_parameter_module" \
-                  "from generate_parameter_library_py.generate_python_module import run" \
-                --replace-fail \
-                  "generate_parameter_module(module_name, yaml_file)" \
-                  "run(f\"$out/${humble-final.python3.sitePackages}/agimus_controller_ros/{module_name}.py\", yaml_file)"
-            '';
-          };
           agimus-franka-ign-ros2-control = humble-prev.agimus-franka-ign-ros2-control.overrideAttrs {
+            env.ROS_DISTRO = "humble";
             env.IGNITION_VERSION = "fortress";
-            postPatch = ''
-              substituteInPlace CMakeLists.txt --replace-fail "find_package(gz_ros2_control REQUIRED)" ""
-              substituteInPlace CMakeLists.txt --replace-fail "gz_ros2_control" ""
-            '';
           };
           geometric-shapes = humble-prev.geometric-shapes.overrideAttrs {
             postPatch = ''
@@ -430,11 +421,9 @@ final: prev: {
 
           # keep-sorted start block=yes
 
-          agimus-franka-gazebo-bringup = null;
           agimus-franka-hardware = jazzy-prev.agimus-franka-hardware.overrideAttrs {
             doCheck = false; # TODO
           };
-          agimus-franka-ign-ros2-control = null;
           br2-gazebo-worlds = jazzy-prev.br2-gazebo-worlds.overrideAttrs {
             patches = [
               (final.fetchpatch {
@@ -607,9 +596,6 @@ final: prev: {
         kilted-final: kilted-prev:
         (rosOverlay kilted-final kilted-prev)
         // {
-          agimus-franka-ign-ros2-control = null;
-          agimus-franka-gazebo-bringup = null;
-
           sdformat-urdf = kilted-prev.sdformat-urdf.overrideAttrs {
             postPatch = ''
               substituteInPlace CMakeLists.txt --replace-fail \
@@ -621,12 +607,7 @@ final: prev: {
       );
 
       rolling = prev.rosPackages.rolling.overrideScope (
-        rolling-final: rolling-prev:
-        (rosOverlay rolling-final rolling-prev)
-        // {
-          agimus-franka-ign-ros2-control = null;
-          agimus-franka-gazebo-bringup = null;
-        }
+        rolling-final: rolling-prev: (rosOverlay rolling-final rolling-prev)
       );
     };
 }

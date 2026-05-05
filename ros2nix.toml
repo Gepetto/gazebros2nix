@@ -9,7 +9,7 @@ branch = "main"
 [humble."agimus-project/agimus-franka-ros2".packages]
 agimus_franka_hardware = {native = ["writableTmpDirAsHomeHook"]}
 agimus_franka_example_controllers = {native = ["writableTmpDirAsHomeHook"]}
-agimus_franka_robot_state_broadcaster = {native = ["generate-parameter-library", "writableTmpDirAsHomeHook"]}
+agimus_franka_robot_state_broadcaster = {native = ["writableTmpDirAsHomeHook"]}
 [humble."agimus-project/agimus-libfranka"]
 branch = "main"
 do_check = false
@@ -78,7 +78,7 @@ branch = "main"
 [jazzy."agimus-project/agimus-franka-ros2".packages]
 agimus_franka_hardware = {native = ["writableTmpDirAsHomeHook"]}
 agimus_franka_example_controllers = {native = ["writableTmpDirAsHomeHook"]}
-agimus_franka_robot_state_broadcaster = {native = ["generate-parameter-library", "writableTmpDirAsHomeHook"]}
+agimus_franka_robot_state_broadcaster = {native = ["writableTmpDirAsHomeHook"]}
 [jazzy."agimus-project/agimus-libfranka"]
 branch = "main"
 do_check = false

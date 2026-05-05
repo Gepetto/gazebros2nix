@@ -33,8 +33,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus_controller";
-    rev = "5f96b6a5688416b14ef7f93cfe10b8cd5d21ff19";
-    hash = "sha256-xcnLYdGaAkVTRUlSiyMnjYHDgMpa6nr6N401QP3NQpc=";
+    rev = "752f2bc2a4b4f2a49ebca29937ef6c0dd75c45b7";
+    hash = "sha256-T2gWfpwT9ZTvr+K5BkKGpBmuFWfgHregLjnTlmy79S8=";
   };
   sourceRoot = "source/agimus_controller";
 
