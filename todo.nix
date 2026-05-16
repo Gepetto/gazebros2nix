@@ -1,5 +1,6 @@
 final: prev: {
   # keep-sorted start block=yes
+  parameter-traits = null;
   zenoh-c = prev.zenoh-c.overrideAttrs (super: {
     # TODO: port https://github.com/eclipse-zenoh/zenoh-cpp/pull/702
     postInstall = super.postInstall + ''
