@@ -607,7 +607,7 @@ final: prev: {
       );
 
       rolling = prev.rosPackages.rolling.overrideScope (
-        rolling-final: rolling-prev: (rosOverlay rolling-final rolling-prev)
+        rolling-final: rolling-prev: (rosOverlay rolling-final rolling-prev) // { parameter-traits = null; }
       );
     };
 }
