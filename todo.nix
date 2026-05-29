@@ -259,7 +259,6 @@ final: prev: {
           mim-solvers
           ;
         # keep-sorted start block=yes
-        parameter-traits = null;
         agimus-controller-ros = ros-prev.agimus-controller-ros.overrideAttrs {
           # this thing believe we did pass --build-directory or --build-base:
           # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
