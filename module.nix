@@ -27,6 +27,8 @@
         permittedInsecurePackages = [
           # SHAME
           "freeimage-3.18.0-unstable-2024-04-18"
+          "ilmbase-2.5.10"
+          "openexr-2.5.10"
         ];
       };
       overlays = [ self.overlays.gazebros2nix ];
