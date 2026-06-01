@@ -1,5 +1,20 @@
 final: prev: {
   # keep-sorted start block=yes
+  # https://github.com/NixOS/nixpkgs/pull/526762
+  urdfdom = prev.urdfdom.overrideAttrs (super: {
+    version = "6.0.0";
+    src = final.fetchFromGitHub {
+      inherit (super.src) owner repo tag;
+      hash = "sha256-7ExQaz1/QshWwX8C3F2ZY4/Ty8U3/dXnBfwjGYB0SRg=";
+    };
+  });
+  urdfdom-headers = prev.urdfdom-headers.overrideAttrs (super: {
+    version = "3.0.0";
+    src = final.fetchFromGitHub {
+      inherit (super.src) owner repo tag;
+      hash = "sha256-9bKUuHKSzYiKNDbZwMkB9rbeDC1CUv4X8wDBKkuJkp8=";
+    };
+  });
   zenoh-c = prev.zenoh-c.overrideAttrs (super: {
     # TODO: port https://github.com/eclipse-zenoh/zenoh-cpp/pull/702
     postInstall = super.postInstall + ''
