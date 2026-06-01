@@ -473,6 +473,11 @@ final: prev: {
           moveit-task-constructor-core = jazzy-prev.moveit-task-constructor-core.overrideAttrs (super: {
             # TODO: unvendor pybind11 upstream
             cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DPYBIND11_INSTALL=OFF" ];
+            postFixup = ''
+              rm \
+                $out/${jazzy-final.python3.sitePackages}/moveit/__init__.py \
+                $out/${jazzy-final.python3.sitePackages}/moveit/__pycache__/__init__.cpython-*.pyc
+            '';
           });
           net-ft-description = jazzy-prev.net-ft-description.overrideAttrs (super: {
             src = final.fetchFromGitHub {
