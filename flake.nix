@@ -84,7 +84,7 @@
               {
                 gz-fortress = pkgs.rosPackages.humble.buildEnv {
                   name = "gz-fortress";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "humble";
+                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "humble" { };
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-fortress-" n) self'.packages) ++ [
                     pkgs.qt5.qtgraphicaleffects
                     pkgs.qt5.wrapQtAppsHook
@@ -93,7 +93,7 @@
 
                 gz-harmonic = pkgs.rosPackages.jazzy.buildEnv {
                   name = "gz-harmonic";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "jazzy";
+                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "jazzy" { };
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-harmonic-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -101,7 +101,7 @@
 
                 gz-ionic = pkgs.rosPackages.kilted.buildEnv {
                   name = "gz-ionic";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "kilted";
+                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "kilted" { };
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-ionic-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -109,7 +109,7 @@
 
                 gz-jetty = pkgs.rosPackages.rolling.buildEnv {
                   name = "gz-jetty";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "rolling";
+                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "rolling" { };
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-jetty-" n) self'.packages) ++ [
                     pkgs.qt6.wrapQtAppsHook
                   ];
@@ -117,7 +117,7 @@
 
                 ros-humble = pkgs.rosPackages.humble.buildEnv {
                   name = "ros-humble";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "humble";
+                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "humble" { };
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-humble-" n) self'.packages) ++ [
                     pkgs.python3Packages.coal # TODO
                     pkgs.qt5.qtgraphicaleffects
@@ -127,7 +127,7 @@
 
                 ros-jazzy = pkgs.rosPackages.jazzy.buildEnv {
                   name = "ros-jazzy";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "jazzy";
+                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "jazzy" { };
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-" n) self'.packages) ++ [
                     pkgs.python3Packages.coal # TODO
                     pkgs.qt5.wrapQtAppsHook
@@ -136,7 +136,7 @@
 
                 ros-kilted = pkgs.rosPackages.kilted.buildEnv {
                   name = "ros-kilted";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "kilted";
+                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "kilted" { };
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-kilted-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -144,7 +144,7 @@
 
                 ros-rolling = pkgs.rosPackages.rolling.buildEnv {
                   name = "ros-rolling";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "rolling";
+                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "rolling" { };
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-rolling-" n) self'.packages) ++ [
                     pkgs.qt6.wrapQtAppsHook
                   ];
