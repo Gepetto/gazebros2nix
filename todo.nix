@@ -117,7 +117,7 @@ final: prev: {
             })
             (final.fetchpatch2 {
               url = "https://github.com/gazebosim/gz-gui/pull/745.patch?full_index=1";
-              hash = "sha256-38zgigMiHdTYHrcbvd6sc+pt+qQPpZHrcQc8aSSZcP4=";
+              hash = "sha256-vlgLYgSHZC/ga2xxgI6AJapq45K3xH9IQBSCOct5Yx0=";
             })
           ];
         };
