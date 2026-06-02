@@ -21,6 +21,8 @@
   ign-transport,
   ign-utils,
   libwebsockets,
+  libxi,
+  libxmu,
   libyaml,
   pkg-config,
   sdformat,
@@ -68,12 +70,12 @@ stdenv.mkDerivation {
     ign-transport
     ign-utils
     libwebsockets
+    libxi
+    libxmu
     libyaml
     sdformat
     tinyxml-2
     util-linux
-    xorg.libXi
-    xorg.libXmu
   ];
   checkInputs = [
     xorg.xorgserver

@@ -8,7 +8,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-cmake3";
-  version = "3.5.6";
+  version = "3.6.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -16,8 +16,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-cmake";
-    tag = "gz-cmake3_3.5.6";
-    hash = "sha256-S5nBV05So1KjNvI//U01gJKykleqNgi8dIbtQZHIiqA=";
+    tag = "gz-cmake3_3.6.0";
+    hash = "sha256-9UKHLCEfkbJ+NIUAKz3/rLFfG4e0wJaiR8eHslWqWFA=";
   };
 
   __structuredAttrs = true;

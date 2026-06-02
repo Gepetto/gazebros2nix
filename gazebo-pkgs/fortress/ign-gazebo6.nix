@@ -25,6 +25,8 @@
   ign-utils,
   libdwarf,
   libwebsockets,
+  libxi,
+  libxmu,
   pkg-config,
   protobuf,
   python3Packages,
@@ -73,11 +75,12 @@ stdenv.mkDerivation {
     ign-rendering
     ign-sensors
     ign-tools
-    ign-tools
     ign-transport
     ign-utils
     libdwarf
     libwebsockets
+    libxi
+    libxmu
     protobuf
     python3Packages.pybind11
     qt6.qt5compat
@@ -86,8 +89,6 @@ stdenv.mkDerivation {
     sdformat
     tinyxml-2
     util-linux
-    xorg.libXi
-    xorg.libXmu
   ];
   checkInputs = [
     python3Packages.pytest

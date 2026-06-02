@@ -12,7 +12,11 @@
   ign-math,
   ign-plugin,
   ign-utils,
+  libGL,
+  libGLU,
   libogre-next-23-dev,
+  libxi,
+  libxmu,
   ogre1_9,
   pkg-config,
   util-linux,
@@ -49,12 +53,14 @@ stdenv.mkDerivation {
     ign-math
     ign-plugin
     ign-utils
+    libGL
+    libGLU
     libogre-next-23-dev
+    libxi
+    libxmu
     ogre1_9
     util-linux
     vulkan-loader
-    xorg.libXi
-    xorg.libXmu
   ];
   checkInputs = [
     xorg.xorgserver

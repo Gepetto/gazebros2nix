@@ -19,7 +19,6 @@
   message-filters,
   nav-msgs,
   pal-statistics,
-  parameter-traits,
   pinocchio,
   pluginlib,
   rcl,
@@ -27,6 +26,7 @@
   rclcpp-lifecycle,
   realtime-tools,
   sensor-msgs,
+  tl-expected-nixpkgs,
 
   # propagatedBuildInputs
 
@@ -39,13 +39,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-linear-feedback-controller";
-  version = "3.2.0";
+  version = "4.0.1";
 
   src = fetchFromGitHub {
     owner = "loco-3d";
     repo = "linear-feedback-controller";
     tag = "v${version}";
-    hash = "sha256-tO4YP7yLpKnRaAzwwNi2dC46pP9aJueSjgrcxYIXRf8=";
+    hash = "sha256-fEQEhr08yoo6/gAfiNZoV/Ap5pnKTDGFIgR/qSy4DB0=";
   };
   sourceRoot = "source/";
 
@@ -73,7 +73,6 @@ buildRosPackage rec {
     message-filters
     nav-msgs
     pal-statistics
-    parameter-traits
     pinocchio
     pluginlib
     rcl
@@ -81,6 +80,7 @@ buildRosPackage rec {
     rclcpp-lifecycle
     realtime-tools
     sensor-msgs
+    tl-expected-nixpkgs
   ];
   propagatedBuildInputs = [
     control-toolbox

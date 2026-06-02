@@ -12,7 +12,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-math6";
-  version = "6.15.1";
+  version = "6.16.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -20,8 +20,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-math";
-    tag = "ignition-math6_6.15.1";
-    hash = "sha256-G6m7mg0xlnXknznLhFPbN/f80DUnWlFksfLAH6339Io=";
+    tag = "ignition-math6_6.16.0";
+    hash = "sha256-diZtAFnPGby/xMTzX71pA2Q2F5pCFFfGAOe6ucrMhwg=";
   };
 
   __structuredAttrs = true;

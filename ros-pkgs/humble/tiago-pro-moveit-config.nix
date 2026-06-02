@@ -30,13 +30,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-moveit-config";
-  version = "1.5.0";
+  version = "1.5.1";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_moveit_config";
     tag = version;
-    hash = "sha256-p984t6tdLYzqwKF9JjSGocc1/UwXdCn2P7P+/c93wpk=";
+    hash = "sha256-nP/Irwx9PkNZFFQpSr1nEHxk3zjkuvRcEVialfIyxp8=";
   };
   sourceRoot = "source/";
 

@@ -19,13 +19,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-tiago-pro-head-robot";
-  version = "1.9.0";
+  version = "1.11.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "tiago_pro_head_robot";
     tag = version;
-    hash = "sha256-KRlY/s2Nl5VCrGNFWi44atxg6QTu8NmEHIASI7pK174=";
+    hash = "sha256-26jS10AsP9VXggpucGRRshHPFA4DhYZNs+Ff1B7oe20=";
   };
   sourceRoot = "source/tiago_pro_head_robot";
 

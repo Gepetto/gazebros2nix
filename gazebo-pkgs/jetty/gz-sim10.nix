@@ -26,6 +26,8 @@
   gz-utils,
   libdwarf,
   libwebsockets,
+  libxi,
+  libxmu,
   pkg-config,
   protobuf,
   python3,
@@ -38,7 +40,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-sim10";
-  version = "10.1.1";
+  version = "10.3.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -46,8 +48,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sim";
-    tag = "gz-sim10_10.1.1";
-    hash = "sha256-pFzpusR7bJAQOZqTGZ79DP9fMIcKNl2gbWW+Zw5tNgs=";
+    tag = "gz-sim10_10.3.0";
+    hash = "sha256-EnzynxbSOZugZJOlXOAK+JNe5zCMvpwkqnoKp0ijdzY=";
   };
 
   __structuredAttrs = true;
@@ -81,6 +83,8 @@ stdenv.mkDerivation {
     gz-utils
     libdwarf
     libwebsockets
+    libxi
+    libxmu
     protobuf
     python3Packages.pybind11
     qt6.qt5compat
@@ -89,8 +93,6 @@ stdenv.mkDerivation {
     sdformat
     tinyxml-2
     util-linux
-    xorg.libXi
-    xorg.libXmu
   ];
   checkInputs = [
     python3Packages.pytest

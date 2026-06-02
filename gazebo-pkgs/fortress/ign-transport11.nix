@@ -45,7 +45,6 @@ stdenv.mkDerivation {
     ign-math
     ign-msgs
     ign-tools
-    ign-tools
     ign-utils
     libsodium
     protobuf

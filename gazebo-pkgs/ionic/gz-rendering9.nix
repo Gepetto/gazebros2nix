@@ -18,6 +18,8 @@
   gz-utils,
   gz-utils3,
   libogre-next-23-dev,
+  libxi,
+  libxmu,
   libz,
   ogre1_9,
   pkg-config,
@@ -62,13 +64,13 @@ stdenv.mkDerivation {
     gz-utils
     gz-utils3
     libogre-next-23-dev
+    libxi
+    libxmu
     libz
     ogre1_9
     python3
     util-linux
     vulkan-loader
-    xorg.libXi
-    xorg.libXmu
   ];
   checkInputs = [
     xorg.xorgserver

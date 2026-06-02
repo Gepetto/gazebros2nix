@@ -8,7 +8,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-cmake2";
-  version = "2.17.3";
+  version = "2.18.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -16,8 +16,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-cmake";
-    tag = "ignition-cmake2_2.17.3";
-    hash = "sha256-G1SaqMh0JyoRs7Rxr6w4t/BaxcWHUIxwMiXSfHjdqUk=";
+    tag = "ignition-cmake2_2.18.0";
+    hash = "sha256-TspJCmzJMVWZwFrpvDqSzL+7hcVsXBEcaEy1eAIytjE=";
   };
 
   __structuredAttrs = true;
