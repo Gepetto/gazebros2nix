@@ -41,7 +41,6 @@ stdenv.mkDerivation {
     ign-cmake
     ign-math
     ign-tools
-    ign-tools
     ign-utils
     python3Packages.pybind11
     tinyxml-2

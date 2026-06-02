@@ -34,6 +34,8 @@
   gz-transport14,
   gz-utils,
   gz-utils3,
+  libxi,
+  libxmu,
   pkg-config,
   protobuf,
   python3,
@@ -98,6 +100,8 @@ stdenv.mkDerivation {
     gz-transport14
     gz-utils
     gz-utils3
+    libxi
+    libxmu
     protobuf
     python3Packages.pybind11
     qt5.qtbase
@@ -109,8 +113,6 @@ stdenv.mkDerivation {
     sdformat15
     tinyxml-2
     util-linux
-    xorg.libXi
-    xorg.libXmu
   ];
   checkInputs = [
     python3Packages.pytest

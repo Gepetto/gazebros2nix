@@ -30,6 +30,8 @@
   gz-transport14,
   gz-utils,
   libwebsockets,
+  libxi,
+  libxmu,
   libyaml,
   pkg-config,
   python3,
@@ -87,12 +89,12 @@ stdenv.mkDerivation {
     gz-transport14
     gz-utils
     libwebsockets
+    libxi
+    libxmu
     libyaml
     sdformat
     tinyxml-2
     util-linux
-    xorg.libXi
-    xorg.libXmu
   ];
   checkInputs = [
     xorg.xorgserver

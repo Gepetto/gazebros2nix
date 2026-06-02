@@ -22,13 +22,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-humble-pal-pro-gripper-simulation";
-  version = "1.11.4";
+  version = "1.12.5";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "pal_pro_gripper";
     tag = version;
-    hash = "sha256-KIa7yHVsW2inx3GchQ77UmvBGk503z0GpCRoyZcRBUU=";
+    hash = "sha256-AGle1Uo83LKC2u/4yGu8kbwgSHZzIOAi/Chr9Fs3mTM=";
   };
   sourceRoot = "source/pal_pro_gripper_simulation";
 

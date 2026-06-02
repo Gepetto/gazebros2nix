@@ -48,7 +48,6 @@ stdenv.mkDerivation {
     ign-plugin
     ign-rendering
     ign-tools
-    ign-tools
     ign-transport
     ign-utils
     protobuf

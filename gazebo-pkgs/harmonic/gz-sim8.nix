@@ -34,6 +34,8 @@
   gz-transport13,
   gz-utils,
   gz-utils2,
+  libxi,
+  libxmu,
   pkg-config,
   protobuf,
   python3,
@@ -47,7 +49,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-sim8";
-  version = "8.11.0";
+  version = "8.12.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -55,8 +57,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sim";
-    tag = "gz-sim8_8.11.0";
-    hash = "sha256-gn7UymNuR3Ih9d/xetXKa0LKuIu/MeKX7KsNCU16nto=";
+    tag = "gz-sim8_8.12.0";
+    hash = "sha256-d+ZEQWkr4X3AZqdrapNkKoiyC/SPoydspSYhRMqoXXU=";
   };
 
   __structuredAttrs = true;
@@ -98,6 +100,8 @@ stdenv.mkDerivation {
     gz-transport13
     gz-utils
     gz-utils2
+    libxi
+    libxmu
     protobuf
     python3Packages.pybind11
     qt5.qtbase
@@ -109,8 +113,6 @@ stdenv.mkDerivation {
     sdformat14
     tinyxml-2
     util-linux
-    xorg.libXi
-    xorg.libXmu
   ];
   checkInputs = [
     python3Packages.pytest

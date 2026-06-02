@@ -38,7 +38,6 @@ stdenv.mkDerivation {
     ign-cmake
     ign-math
     ign-tools
-    ign-tools
     protobuf
     python3
     python3Packages.protobuf
