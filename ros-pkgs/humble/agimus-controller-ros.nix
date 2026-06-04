@@ -35,9 +35,9 @@ buildRosPackage rec {
 
   src = fetchFromGitHub {
     owner = "agimus-project";
-    repo = "agimus_controller";
-    rev = "752f2bc2a4b4f2a49ebca29937ef6c0dd75c45b7";
-    hash = "sha256-T2gWfpwT9ZTvr+K5BkKGpBmuFWfgHregLjnTlmy79S8=";
+    repo = "agimus-controller";
+    rev = "b11188aa58194ba03fd7528cc94bfb49cfa71ecd";
+    hash = "sha256-hFNPv21GTZyz69fU31WjxwZmP9P6HsATZF6ILgX3gRw=";
   };
   sourceRoot = "source/agimus_controller_ros";
 
@@ -86,7 +86,7 @@ buildRosPackage rec {
   meta = {
     description = "The agimus_controller package";
     license = with lib.licenses; [ bsd3 ];
-    homepage = "https://github.com/agimus-project/agimus_controller";
+    homepage = "https://github.com/agimus-project/agimus-controller";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

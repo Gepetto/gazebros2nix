@@ -341,6 +341,7 @@
                   linear-feedback-controller
                   linear-feedback-controller-msgs
                   net-ft-driver
+                  quest-control
                   ros2topic
                   tiago-pro-description
                   # tiago-pro-gazebo TODO: gazebo-classic
