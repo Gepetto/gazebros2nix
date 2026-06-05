@@ -13,6 +13,11 @@
   jinja2,
   pygithub,
   pyyaml,
+
+  # propagatedNativeBuildInputs
+  deadnix,
+  nixfmt,
+  nurl,
 }:
 buildPythonPackage {
   pname = "gazebros2nix";
@@ -39,6 +44,12 @@ buildPythonPackage {
     jinja2
     pygithub
     pyyaml
+  ];
+
+  propagatedNativeBuildInputs = [
+    deadnix
+    nixfmt
+    nurl
   ];
 
   meta = {
