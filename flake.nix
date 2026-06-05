@@ -74,7 +74,8 @@
             devShells.default = pkgs.mkShell {
               packages = [
                 pkgs.gazebros2nix-venv.passthru.editableVirtualenv
-              ];
+              ]
+              ++ pkgs.python3Packages.gazebros2nix.propagatedNativeBuildInputs;
               shellHook = ''
                 test -f .venv/bin/activate && source .venv/bin/activate
               '';
