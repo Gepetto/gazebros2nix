@@ -1,5 +1,8 @@
 final: prev: {
   # keep-sorted start block=yes
+  example-robot-data = prev.example-robot-data.overrideAttrs {
+    passthru.rosPackage = true;
+  };
   # https://github.com/NixOS/nixpkgs/pull/519501
   proxsuite = prev.proxsuite.overrideAttrs (super: {
     version = "0.7.3";
