@@ -630,6 +630,9 @@ final: prev: {
                   "find_package(gz-sim REQUIRED)" \
                   "find_package(gz-sim8 REQUIRED)" \
             '';
+            propagatedNativeBuildInputs = (super.propagatedNativeBuildInputs or [ ]) ++ [
+              jazzy-final.gz-tools
+            ];
           });
           rviz-default-plugins = jazzy-prev.rviz-default-plugins.overrideAttrs {
             postPatch = ''
