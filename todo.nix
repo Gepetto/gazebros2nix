@@ -401,6 +401,7 @@ final: prev: {
           agimus-franka-ign-ros2-control = humble-prev.agimus-franka-ign-ros2-control.overrideAttrs {
             env.ROS_DISTRO = "humble";
             env.IGNITION_VERSION = "fortress";
+            env.IGN_VERSION = "fortress";
           };
           # that repo somehow has a 0.0.0 tag
           net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
