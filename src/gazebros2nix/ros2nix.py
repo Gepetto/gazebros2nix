@@ -305,15 +305,17 @@ def main():
                 continue
             environ["ROS_DISTRO"] = distro
             if distro == "humble":
-                environ["IGNITION_VERSION"] = "fortress"
-                environ["GAZEBO_VERSION"] = ""
+                environ["IGN_VERSION"] = "fortress"
+                environ["GZ_VERSION"] = ""
             else:
-                environ["IGNITION_VERSION"] = ""
-                environ["GAZEBO_VERSION"] = {
+                environ["IGN_VERSION"] = ""
+                environ["GZ_VERSION"] = {
                     "jazzy": "harmonic",
                     "kilted": "ionic",
                     "rolling": "jetty",
                 }[distro]
+            environ["IGNITION_VERSION"] = environ["IGN_VERSION"]
+            environ["GAZEBO_VERSION"] = environ["GZ_VERSION"]
             for repo, repo_conf in conf.items():
                 if args.repo and repo != args.repo:
                     logger.debug("ignore repo %s", repo)

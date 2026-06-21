@@ -98,5 +98,6 @@
   "https://github.com/pal-robotics/tiago_pro_navigation/archive/refs/tags/2.14.0.tar.gz": "sha256-CWqmbPxE05r7TrQUAqXmk3gEK9QJYxhP9ROmifcQXHY=",
   "https://github.com/pal-robotics/tiago_pro_robot/archive/refs/tags/2.3.0.tar.gz": "sha256-Kyj/jRngQp7YBEz1W+SuV1dy+dgL08YASNGta9yenRg=",
   "https://github.com/pal-robotics/tiago_pro_simulation/archive/refs/tags/1.16.0.tar.gz": "sha256-oLTycg7Ik7DOOvzZlfrXSqlmUKuAQCguvsMcDEKzNtU=",
-  "https://github.com/ros-controls/ros2_control_demos/archive/af54aabe00a7c2dfe414f7f18402905f217bd321.tar.gz": "sha256-1X+U2mxIcL1DiOHru1iTwXE0U7EOkZbA26nWmbeLPqo="
+  "https://github.com/ros-controls/ros2_control_demos/archive/af54aabe00a7c2dfe414f7f18402905f217bd321.tar.gz": "sha256-1X+U2mxIcL1DiOHru1iTwXE0U7EOkZbA26nWmbeLPqo=",
+  "https://github.com/stack-of-tasks/odri_gz_ros2_control/archive/de7ef0888792ef3b4a75150a60ccf559947817db.tar.gz": "sha256-zc5GuiqPQnD6NHEAfdXfmUlqRcjznPqYdciweD/FQPg="
 }

@@ -391,6 +391,7 @@
                   linear-feedback-controller
                   linear-feedback-controller-msgs
                   net-ft-driver
+                  odri-gz-ros2-control
                   omni-base-bringup
                   omni-base-controller-configuration
                   omni-base-description
