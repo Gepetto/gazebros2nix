@@ -402,13 +402,6 @@ final: prev: {
             env.ROS_DISTRO = "humble";
             env.IGNITION_VERSION = "fortress";
           };
-          geometric-shapes = humble-prev.geometric-shapes.overrideAttrs {
-            postPatch = ''
-              substituteInPlace CMakeLists.txt --replace-fail \
-                "find_package(octomap 1.9.7...<1.10.0 REQUIRED)" \
-                "find_package(octomap REQUIRED)"
-            '';
-          };
           # that repo somehow has a 0.0.0 tag
           net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
             src = final.fetchFromGitHub {
