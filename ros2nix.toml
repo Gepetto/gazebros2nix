@@ -132,6 +132,9 @@ do_check = false
 [jazzy."ros-controls/ros2_control_demos".packages.example_17]
 do_check = false
 
+[jazzy."stack-of-tasks/odri_gz_ros2_control"]
+branch = "nix"
+
 [jazzy."Tiago-Pro-Harmonic/br2_gazebo_worlds"]
 do_check = false
 [jazzy."Tiago-Pro-Harmonic/gep_tiago_pro_control_stack"]
