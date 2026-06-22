@@ -105,6 +105,7 @@
   "https://github.com/stack-of-tasks/odri_dual_motor_testbed_robot/archive/ce808abcbf62df8417f23775db447d5f515ea443.tar.gz": "sha256-uf5wgrkdCvevNMEaVMnhthWuWcBx+7/RQg3GbnjWqDo=",
   "https://github.com/stack-of-tasks/odri_forward_command_controller/archive/791ff09a36d15c6f435650ef1685de0c801ca922.tar.gz": "sha256-vEpNhyLrKJx0F3gn6JAhpPfFXrFEbZKSoSraoMcrrAA=",
   "https://github.com/stack-of-tasks/odri_forward_command_controller/archive/fe9fd167cffeede19867b3d40acc839058d3174a.tar.gz": "sha256-RqPMTgF9CT6HX6kyF1fGj2kKkuoyNi8EcNb/+qDU++s=",
+  "https://github.com/stack-of-tasks/odri_gz_ros2_control/archive/4ec8d55778282b859f6b392e4f7dce35f3b73937.tar.gz": "sha256-vqXAN1fNIqjFvjktHOTfvcRqvySv5A986E0JFO5qc5Q=",
   "https://github.com/stack-of-tasks/odri_gz_ros2_control/archive/de7ef0888792ef3b4a75150a60ccf559947817db.tar.gz": "sha256-zc5GuiqPQnD6NHEAfdXfmUlqRcjznPqYdciweD/FQPg=",
   "https://github.com/stack-of-tasks/odri_gz_ros2_control/archive/f805c668c675fb0ce18abae7838c5daa2b900365.tar.gz": "sha256-JAU8DVsEpAXorZBGVAwvNKkKnN5b085u6DZ4CuPRoYM="
 }
