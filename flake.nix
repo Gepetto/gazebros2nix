@@ -135,6 +135,17 @@
                   ];
                 };
 
+                ros-jazzy-odri = pkgs.rosPackages.jazzy.buildEnv {
+                  name = "ros-jazzy-odri";
+                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "jazzy" { };
+                  paths =
+                    lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-odri-" n) self'.packages)
+                    ++ [
+                      pkgs.python3Packages.coal # TODO
+                      pkgs.qt5.wrapQtAppsHook
+                    ];
+                };
+
                 ros-kilted = pkgs.rosPackages.kilted.buildEnv {
                   name = "ros-kilted";
                   postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "kilted" { };

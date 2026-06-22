@@ -33,8 +33,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "stack-of-tasks";
     repo = "odri_forward_command_controller";
-    rev = "fe9fd167cffeede19867b3d40acc839058d3174a";
-    hash = "sha256-RqPMTgF9CT6HX6kyF1fGj2kKkuoyNi8EcNb/+qDU++s=";
+    rev = "791ff09a36d15c6f435650ef1685de0c801ca922";
+    hash = "sha256-vEpNhyLrKJx0F3gn6JAhpPfFXrFEbZKSoSraoMcrrAA=";
   };
   sourceRoot = "source/";
 
