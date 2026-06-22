@@ -7,7 +7,6 @@
   ament-cmake,
 
   # buildInputs
-  ament-index-cpp,
   controller-manager,
   gz-plugin-vendor,
   gz-sim-vendor,
@@ -15,6 +14,7 @@
   pluginlib,
   rclcpp,
   rclcpp-lifecycle,
+  ros2-control-cmake,
   yaml-cpp-vendor,
 
   # propagatedBuildInputs
@@ -23,6 +23,7 @@
   ament-cmake-copyright,
   ament-cmake-cppcheck,
   ament-cmake-cpplint,
+  ament-cmake-gtest,
   ament-cmake-lint-cmake,
   ament-cmake-xmllint,
   ament-lint-auto,
@@ -43,8 +44,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "stack-of-tasks";
     repo = "odri_gz_ros2_control";
-    rev = "de7ef0888792ef3b4a75150a60ccf559947817db";
-    hash = "sha256-zc5GuiqPQnD6NHEAfdXfmUlqRcjznPqYdciweD/FQPg=";
+    rev = "f805c668c675fb0ce18abae7838c5daa2b900365";
+    hash = "sha256-JAU8DVsEpAXorZBGVAwvNKkKnN5b085u6DZ4CuPRoYM=";
   };
   sourceRoot = "source/";
 
@@ -58,7 +59,6 @@ buildRosPackage rec {
   ];
   buildInputs = [
     ament-cmake
-    ament-index-cpp
     controller-manager
     gz-plugin-vendor
     gz-sim-vendor
@@ -66,10 +66,10 @@ buildRosPackage rec {
     pluginlib
     rclcpp
     rclcpp-lifecycle
+    ros2-control-cmake
     yaml-cpp-vendor
   ];
   propagatedBuildInputs = [
-    ament-index-cpp
     controller-manager
     gz-plugin-vendor
     gz-sim-vendor
@@ -77,12 +77,14 @@ buildRosPackage rec {
     pluginlib
     rclcpp
     rclcpp-lifecycle
+    ros2-control-cmake
     yaml-cpp-vendor
   ];
   checkInputs = [
     ament-cmake-copyright
     ament-cmake-cppcheck
     ament-cmake-cpplint
+    ament-cmake-gtest
     ament-cmake-lint-cmake
     ament-cmake-xmllint
     ament-lint-auto
