@@ -132,9 +132,11 @@ do_check = false
 [jazzy."ros-controls/ros2_control_demos".packages.example_17]
 do_check = false
 
-[jazzy."stack-of-tasks/odri_gz_ros2_control"]
-branch = "nix"
 [jazzy."stack-of-tasks/odri_dual_motor_testbed_robot"]
+branch = "nix"
+[jazzy."stack-of-tasks/odri_forward_command_controller".packages]
+odri_forward_command_controller = {native = ["writableTmpDirAsHomeHook"]}
+[jazzy."stack-of-tasks/odri_gz_ros2_control"]
 branch = "nix"
 
 [jazzy."Tiago-Pro-Harmonic/br2_gazebo_worlds"]

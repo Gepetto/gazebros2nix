@@ -102,5 +102,6 @@
   "https://github.com/stack-of-tasks/odri_dual_motor_testbed_robot/archive/29aba95e25e22af7cdfb2f8932d6bd403f01f859.tar.gz": "sha256-kckcd5mqCttqABjLmxrnJYFB5Wbq2yF5vQjBRSUTqVo=",
   "https://github.com/stack-of-tasks/odri_dual_motor_testbed_robot/archive/2dda1bbfa90f459c2d9909c97aa5aab7052520ec.tar.gz": "sha256-aCFH13rwexeiUgVzwJ4l1D6bUUTJ5Oc5rDxOofjBf6E=",
   "https://github.com/stack-of-tasks/odri_dual_motor_testbed_robot/archive/97b06beb4753b3c6a1d64cf33c833d5bc9b9b0b5.tar.gz": "sha256-vsMkKL0bL04UkfUeEfL5+rx3pQa9jOEx2uGCIqxKHpU=",
+  "https://github.com/stack-of-tasks/odri_forward_command_controller/archive/fe9fd167cffeede19867b3d40acc839058d3174a.tar.gz": "sha256-RqPMTgF9CT6HX6kyF1fGj2kKkuoyNi8EcNb/+qDU++s=",
   "https://github.com/stack-of-tasks/odri_gz_ros2_control/archive/de7ef0888792ef3b4a75150a60ccf559947817db.tar.gz": "sha256-zc5GuiqPQnD6NHEAfdXfmUlqRcjznPqYdciweD/FQPg="
 }

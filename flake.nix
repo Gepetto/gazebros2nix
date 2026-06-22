@@ -395,6 +395,7 @@
                   odri-dual-motor-testbed-description
                   odri-dual-motor-testbed-gazebo
                   odri-dual-motor-testbed-robot
+                  odri-forward-command-controller
                   odri-gz-ros2-control
                   omni-base-bringup
                   omni-base-controller-configuration
