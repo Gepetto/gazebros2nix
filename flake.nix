@@ -391,6 +391,10 @@
                   linear-feedback-controller
                   linear-feedback-controller-msgs
                   net-ft-driver
+                  odri-dual-motor-testbed-bringup
+                  odri-dual-motor-testbed-description
+                  odri-dual-motor-testbed-gazebo
+                  odri-dual-motor-testbed-robot
                   odri-gz-ros2-control
                   omni-base-bringup
                   omni-base-controller-configuration
