@@ -4,6 +4,7 @@
     flake-parts.follows = "flakoboros/flake-parts";
     nix-ros-overlay.follows = "flakoboros/nix-ros-overlay";
     nixpkgs.follows = "flakoboros/nixpkgs";
+    rosdistro.follows = "nix-ros-overlay/rosdistro";
     systems.follows = "flakoboros/systems";
     treefmt-nix.follows = "flakoboros/treefmt-nix";
 
@@ -34,6 +35,7 @@
         };
       in
       {
+        debug = true;
         systems = import inputs.systems;
         imports = [
           flakeModule
@@ -83,6 +85,7 @@
 
             packages = lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (
               {
+                flakoboros-json = pkgs.callPackage ./flakoboros-json.nix { inherit (inputs) rosdistro; };
                 gz-fortress = pkgs.rosPackages.humble.buildEnv {
                   name = "gz-fortress";
                   postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "humble" { };

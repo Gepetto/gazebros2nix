@@ -182,6 +182,10 @@
         ],
         "pyproject-build-systems": "pyproject-build-systems",
         "pyproject-nix": "pyproject-nix",
+        "rosdistro": [
+          "nix-ros-overlay",
+          "rosdistro"
+        ],
         "systems": [
           "flakoboros",
           "systems"
