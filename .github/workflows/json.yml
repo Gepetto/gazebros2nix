@@ -16,10 +16,11 @@ jobs:
           name: gepetto
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - run: nix build .#flakoboros-json
-      - run: cp result flakoboros.json
+      - run: mkdir out
+      - run: cp result out/flakoboros.json
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: flakoboros.json
+          path: out
   deploy:
     name: publish on github pages
     runs-on: ubuntu-latest
