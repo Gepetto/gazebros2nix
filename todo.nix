@@ -380,6 +380,18 @@ final: prev: {
             "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
           ];
         };
+        mujoco-ros2-control = ros-prev.mujoco-ros2-control.overrideAttrs (super: {
+          postPatch = (super.postPatch or "") + ''
+            substituteInPlace CMakeLists.txt \
+              --replace-fail "FetchContent_Populate(lodepng)" 'set(lodepng_SOURCE_DIR "${final.mujoco.pin.lodepng}")' \
+              --replace-fail 'set(MUJOCO_ROOT "''${MUJOCO_PREFIX}/opt/mujoco_vendor")' 'set(MUJOCO_ROOT "${final.mujoco}")'
+          '';
+          buildInputs = (super.buildInputs or [ ]) ++ [
+            final.glfw
+            final.mujoco
+            final.mujoco.pin.lodepng
+          ];
+        });
         mujoco-vendor = ros-prev.mujoco-vendor.overrideAttrs (super: {
           cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DAMENT_VENDOR_POLICY=NEVER_VENDOR" ];
 
