@@ -250,13 +250,15 @@ class Package:
             check += [f"ament-cmake-{lint}" for lint in COMMON_LINTERS]
         if "ament-cmake-xmllint" in check:
             check.append("xmllintPackageHook")
-        check_scopes = deps_scopes(
-            check, [*native_scopes, *build_scopes, *propagated_scopes]
-        )
         native_check = []
         for lint in COMMON_LINTERS:
             if f"ament-cmake-{lint}" in check:
                 native_check.append(f"ament-{lint}")
+                if f"ament-{lint}" in check:
+                    check.remove(f"ament-{lint}")
+        check_scopes = deps_scopes(
+            check, [*native_scopes, *build_scopes, *propagated_scopes]
+        )
         native_check_scopes = native_check
         nix = template.render(
             pkg=pkg,

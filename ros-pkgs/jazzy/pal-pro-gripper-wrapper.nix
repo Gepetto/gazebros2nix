@@ -67,11 +67,8 @@ buildRosPackage rec {
     rclpy
   ];
   checkInputs = [
-    ament-copyright
-    ament-flake8
     ament-lint-auto
     ament-lint-common
-    ament-pep257
     python3Packages.pytest
     ament-cmake-copyright
     ament-cmake-cppcheck
