@@ -135,8 +135,6 @@ class Repo(HashesFile):
         logger.info("Branch: %s", branch)
         if distro is None:
             distro = branch.split("-")[0]
-        if distro == "alum":  # PAL specific thing
-            distro = "humble"
         self.distro = distro
         logger.info("Distro: %s", self.distro)
 
@@ -305,16 +303,22 @@ def main():
     with Github(auth=auth) as gh:
         rosdeps = get_rosdeps(gh)
         for distro, conf in cfg.items():
+            logger.info("generating distro %s", distro)
             if args.distro and args.distro != "all" and distro not in args.distro:
                 logger.debug("ignore distro %s", distro)
                 continue
-            environ["ROS_DISTRO"] = distro
+            if distro == "alum":
+                # environ["PAL_DISTRO"] = distro
+                environ["ROS_DISTRO"] = "humble"
+            else:
+                environ["ROS_DISTRO"] = distro
             if distro == "humble":
                 environ["IGN_VERSION"] = "fortress"
                 environ["GZ_VERSION"] = ""
             else:
                 environ["IGN_VERSION"] = ""
                 environ["GZ_VERSION"] = {
+                    "alum": "harmonic",
                     "jazzy": "harmonic",
                     "kilted": "ionic",
                     "rolling": "jetty",

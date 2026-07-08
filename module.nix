@@ -19,6 +19,7 @@
       (import ./garbage)
       (import ./generated.nix)
       (import ./todo.nix)
+      (import ./pal.nix)
     ];
 
     flakoboros = {

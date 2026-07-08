@@ -15,11 +15,13 @@ from github import Github
 # ROS aproximate license strings to nixpkgs license ids
 LICENSES = {
     "Apache License 2.0": "asl20",
+    "Apache 2": "asl20",
     "Apache 2.0": "asl20",
     "Apache-2.0": "asl20",
     "BSD-2-Clause": "bsd2",
     "BSD-3-Clause": "bsd3",
     "BSD-3-clause": "bsd3",
+    "3-Clause BSD": "bsd3",
 }
 
 

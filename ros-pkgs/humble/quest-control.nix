@@ -32,10 +32,10 @@ buildRosPackage rec {
   version = "0.1.0";
 
   src = fetchFromGitHub {
-    owner = "nim65s";
+    owner = "Gepetto";
     repo = "Quest-Teleoperation-Panda";
-    rev = "0ba480309e9c9252c9981bf742f856fd98f318c0";
-    hash = "sha256-IdG6JrVqBQ9TRnBrGqZgVwt+xC5jbs+0gS6tQiDo4ac=";
+    rev = "f09f37c221bd3a526ee90dcc91db9a14871fca1a";
+    hash = "sha256-oA4R56XldID3tl00ZKhVlKjndok6I9VfwYhKyCrTxfc=";
   };
   sourceRoot = "source/quest_control";
 
@@ -94,7 +94,7 @@ buildRosPackage rec {
   meta = {
     description = "Teleoperation on the Panda Robot with Quest 3";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/nim65s/Quest-Teleoperation-Panda";
+    homepage = "https://github.com/Gepetto/Quest-Teleoperation-Panda";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

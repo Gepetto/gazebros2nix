@@ -119,6 +119,15 @@
                   ];
                 };
 
+                pal-alum = pkgs.rosPackages.alum.buildEnv {
+                  name = "pal-alum";
+                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "humble" { };
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "pal-alum-" n) self'.packages) ++ [
+                    pkgs.qt5.qtgraphicaleffects
+                    pkgs.qt5.wrapQtAppsHook
+                  ];
+                };
+
                 ros-humble = pkgs.rosPackages.humble.buildEnv {
                   name = "ros-humble";
                   postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "humble" { };
@@ -317,6 +326,22 @@
                 }
               )
 
+              // lib.mapAttrs' (n: lib.nameValuePair "pal-alum-${n}") {
+                inherit (pkgs.rosPackages.alum)
+                  # keep-sorted start
+                  controller-manager-msgs
+                  controller-manager
+                  kangaroo-bringup
+                  kangaroo-controller-configuration
+                  kangaroo-description
+                  kangaroo-moveit-config
+                  kangaroo-mujoco
+                  kangaroo-robot
+                  kangaroo-simulation
+                  # keep-sorted end
+                  ;
+              }
+
               // lib.mapAttrs' (n: lib.nameValuePair "ros-humble-${n}") {
                 inherit (pkgs.rosPackages.humble)
                   # keep-sorted start
@@ -353,13 +378,6 @@
                   agimus-libfranka
                   agimus-libfranka-common
                   agimus-msgs
-                  kangaroo-bringup
-                  kangaroo-controller-configuration
-                  kangaroo-description
-                  kangaroo-moveit-config
-                  kangaroo-mujoco
-                  kangaroo-robot
-                  kangaroo-simulation
                   linear-feedback-controller
                   linear-feedback-controller-msgs
                   mujoco-ros2-control
