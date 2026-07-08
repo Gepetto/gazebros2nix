@@ -62,12 +62,6 @@ final: prev: {
         # keep-sorted start block=yes
 
         ign-common4 = fortress-prev.ign-common4.overrideAttrs (super: {
-          patches = [
-            (final.fetchpatch {
-              url = "https://github.com/nim65s/gz-common/commit/4efc4456686229e58e7b5af15810d0dfaff3fc1d.patch?full_index=1";
-              hash = "sha256-98JIk5VJq1nUk38kww2rhXTacsbsFzDvpqf+VHQksgA=";
-            })
-          ];
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
         });
         ign-gui6 = fortress-prev.ign-gui6.overrideAttrs {
@@ -380,31 +374,6 @@ final: prev: {
             "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
           ];
         };
-        mujoco-ros2-control = ros-prev.mujoco-ros2-control.overrideAttrs (super: {
-          postPatch = (super.postPatch or "") + ''
-            substituteInPlace CMakeLists.txt \
-              --replace-fail "FetchContent_Populate(lodepng)" 'set(lodepng_SOURCE_DIR "${final.mujoco.pin.lodepng}")' \
-              --replace-fail 'set(MUJOCO_ROOT "''${MUJOCO_PREFIX}/opt/mujoco_vendor")' 'set(MUJOCO_ROOT "${final.mujoco}")'
-          '';
-          buildInputs = (super.buildInputs or [ ]) ++ [
-            final.glfw
-            final.mujoco
-            final.mujoco.pin.lodepng
-          ];
-        });
-        mujoco-vendor = ros-prev.mujoco-vendor.overrideAttrs (super: {
-          cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DAMENT_VENDOR_POLICY=NEVER_VENDOR" ];
-
-          patches = (super.patches or [ ]) ++ [
-            (final.fetchpatch2 {
-              url = "https://github.com/pal-robotics/mujoco_vendor/commit/5585496493479578449de92616b4a36ac28fa1a9.patch?full_index=1";
-              hash = "sha256-cAtJmf4Q5ML9CcYUjeZEC+B6tvQn27fL4JJHBQ5XWxo=";
-            })
-          ];
-          propagatedBuildInputs = (super.propagatedBuildInputs or [ ]) ++ [
-            final.mujoco
-          ];
-        });
         # keep-sorted end
       };
     in
