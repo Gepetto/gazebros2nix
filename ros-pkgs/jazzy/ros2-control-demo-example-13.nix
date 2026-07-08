@@ -21,6 +21,7 @@
   ros2-controllers-test-nodes,
   ros2controlcli,
   ros2launch,
+  rqt-controller-manager,
   rviz2,
   xacro,
 
@@ -42,8 +43,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control_demos";
-    rev = "af54aabe00a7c2dfe414f7f18402905f217bd321";
-    hash = "sha256-1X+U2mxIcL1DiOHru1iTwXE0U7EOkZbA26nWmbeLPqo=";
+    rev = "b98a0ee598a3975b9eded8062e2b1f5ba8360db1";
+    hash = "sha256-cCsEoJeqr+ylVXVBALm7r46Veqc4G9RlIjyWgyL8xdM=";
   };
   sourceRoot = "source/example_13";
 
@@ -71,6 +72,7 @@ buildRosPackage rec {
     ros2-controllers-test-nodes
     ros2controlcli
     ros2launch
+    rqt-controller-manager
     rviz2
     xacro
   ];

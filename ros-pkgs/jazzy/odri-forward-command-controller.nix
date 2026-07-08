@@ -20,11 +20,28 @@
   # propagatedBuildInputs
 
   # checkInputs
+  ament-cmake-copyright,
+  ament-cmake-cppcheck,
+  ament-cmake-cpplint,
+  ament-cmake-flake8,
   ament-cmake-gmock,
+  ament-cmake-lint-cmake,
+  ament-cmake-pep257,
+  ament-cmake-uncrustify,
+  ament-cmake-xmllint,
   ament-lint-auto,
   ament-lint-common,
+  xmllintPackageHook,
 
   # nativeCheckInputs
+  ament-copyright,
+  ament-cppcheck,
+  ament-cpplint,
+  ament-flake8,
+  ament-lint-cmake,
+  ament-pep257,
+  ament-uncrustify,
+  ament-xmllint,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-odri-forward-command-controller";
@@ -33,8 +50,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "stack-of-tasks";
     repo = "odri_forward_command_controller";
-    rev = "791ff09a36d15c6f435650ef1685de0c801ca922";
-    hash = "sha256-vEpNhyLrKJx0F3gn6JAhpPfFXrFEbZKSoSraoMcrrAA=";
+    rev = "68529975f57646d6e9bb94d9f6fed9b29d12d9f3";
+    hash = "sha256-x9ivo/8AAJ4I/HqYk9fGPSKoWP7lXa3ScmY/ZLFGHik=";
   };
   sourceRoot = "source/";
 
@@ -73,8 +90,25 @@ buildRosPackage rec {
     ament-cmake-gmock
     ament-lint-auto
     ament-lint-common
+    ament-cmake-copyright
+    ament-cmake-cppcheck
+    ament-cmake-cpplint
+    ament-cmake-flake8
+    ament-cmake-lint-cmake
+    ament-cmake-pep257
+    ament-cmake-uncrustify
+    ament-cmake-xmllint
+    xmllintPackageHook
   ];
   nativeCheckInputs = [
+    ament-copyright
+    ament-cppcheck
+    ament-cpplint
+    ament-flake8
+    ament-lint-cmake
+    ament-pep257
+    ament-uncrustify
+    ament-xmllint
   ];
 
   doCheck = true;

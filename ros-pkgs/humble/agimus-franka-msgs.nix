@@ -18,9 +18,26 @@
   rosidl-default-runtime,
 
   # checkInputs
+  ament-cmake-copyright,
+  ament-cmake-cppcheck,
+  ament-cmake-cpplint,
+  ament-cmake-flake8,
+  ament-cmake-lint-cmake,
+  ament-cmake-pep257,
+  ament-cmake-uncrustify,
+  ament-cmake-xmllint,
   ament-lint-common,
+  xmllintPackageHook,
 
   # nativeCheckInputs
+  ament-copyright,
+  ament-cppcheck,
+  ament-cpplint,
+  ament-flake8,
+  ament-lint-cmake,
+  ament-pep257,
+  ament-uncrustify,
+  ament-xmllint,
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-franka-msgs";
@@ -29,8 +46,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "2719804b4ed7b2d4ef12d8ae4be34e0a5e1ac5cc";
-    hash = "sha256-J5ebhKVkF3m/0RcRFXv+UTqLjRAQBhbpajrVsl+z1oo=";
+    rev = "8a05aced1fae55a09b3f019b6d2645ef45cf002d";
+    hash = "sha256-+LMsdt14tBKIlo0KnfCYFoiYyFYYP4a1QkeEtpzRAIM=";
   };
   sourceRoot = "source/agimus_franka_msgs";
 
@@ -61,8 +78,25 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-lint-common
+    ament-cmake-copyright
+    ament-cmake-cppcheck
+    ament-cmake-cpplint
+    ament-cmake-flake8
+    ament-cmake-lint-cmake
+    ament-cmake-pep257
+    ament-cmake-uncrustify
+    ament-cmake-xmllint
+    xmllintPackageHook
   ];
   nativeCheckInputs = [
+    ament-copyright
+    ament-cppcheck
+    ament-cpplint
+    ament-flake8
+    ament-lint-cmake
+    ament-pep257
+    ament-uncrustify
+    ament-xmllint
   ];
 
   doCheck = true;

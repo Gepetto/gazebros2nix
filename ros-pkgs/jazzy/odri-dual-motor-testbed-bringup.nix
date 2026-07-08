@@ -21,6 +21,7 @@
   ament-cmake-copyright,
   ament-cmake-cppcheck,
   ament-cmake-cpplint,
+  ament-cmake-flake8,
   ament-cmake-lint-cmake,
   ament-cmake-pep257,
   ament-cmake-uncrustify,
@@ -34,6 +35,7 @@
   ament-copyright,
   ament-cppcheck,
   ament-cpplint,
+  ament-flake8,
   ament-lint-cmake,
   ament-pep257,
   ament-uncrustify,
@@ -46,8 +48,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "stack-of-tasks";
     repo = "odri_dual_motor_testbed_robot";
-    rev = "ce808abcbf62df8417f23775db447d5f515ea443";
-    hash = "sha256-uf5wgrkdCvevNMEaVMnhthWuWcBx+7/RQg3GbnjWqDo=";
+    rev = "a3aab82561117ddd5fe4f90747e8f43803c3b38a";
+    hash = "sha256-MRsDFCSpclK6rxRiRe5rHZ/u+cpeNJWhiolsWiMIEAo=";
   };
   sourceRoot = "source/odri_dual_motor_testbed_bringup";
 
@@ -82,12 +84,21 @@ buildRosPackage rec {
     ament-lint-auto
     ament-lint-common
     launch-testing-ament-cmake
+    ament-cmake-copyright
+    ament-cmake-cppcheck
+    ament-cmake-cpplint
+    ament-cmake-flake8
+    ament-cmake-lint-cmake
+    ament-cmake-pep257
+    ament-cmake-uncrustify
+    ament-cmake-xmllint
     xmllintPackageHook
   ];
   nativeCheckInputs = [
     ament-copyright
     ament-cppcheck
     ament-cpplint
+    ament-flake8
     ament-lint-cmake
     ament-pep257
     ament-uncrustify

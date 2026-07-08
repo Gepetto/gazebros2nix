@@ -27,8 +27,16 @@
   launch-ros,
 
   # checkInputs
+  ament-cmake-copyright,
+  ament-cmake-cppcheck,
+  ament-cmake-cpplint,
+  ament-cmake-flake8,
   ament-cmake-gtest,
+  ament-cmake-lint-cmake,
+  ament-cmake-pep257,
   ament-cmake-pytest,
+  ament-cmake-uncrustify,
+  ament-cmake-xmllint,
   ament-index-cpp,
   ament-lint-auto,
   ament-lint-common,
@@ -42,8 +50,17 @@
   realtime-tools,
   robot-state-publisher,
   xacro,
+  xmllintPackageHook,
 
   # nativeCheckInputs
+  ament-copyright,
+  ament-cppcheck,
+  ament-cpplint,
+  ament-flake8,
+  ament-lint-cmake,
+  ament-pep257,
+  ament-uncrustify,
+  ament-xmllint,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-play-motion2";
@@ -116,8 +133,25 @@ buildRosPackage rec {
     realtime-tools
     robot-state-publisher
     xacro
+    ament-cmake-copyright
+    ament-cmake-cppcheck
+    ament-cmake-cpplint
+    ament-cmake-flake8
+    ament-cmake-lint-cmake
+    ament-cmake-pep257
+    ament-cmake-uncrustify
+    ament-cmake-xmllint
+    xmllintPackageHook
   ];
   nativeCheckInputs = [
+    ament-copyright
+    ament-cppcheck
+    ament-cpplint
+    ament-flake8
+    ament-lint-cmake
+    ament-pep257
+    ament-uncrustify
+    ament-xmllint
   ];
 
   doCheck = false;

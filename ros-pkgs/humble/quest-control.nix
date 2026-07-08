@@ -8,6 +8,8 @@
 
   # buildInputs
   agimus-controller,
+  agimus-controller-ros,
+  agimus-demo-03-mpc-dummy-traj,
   agimus-demo-08-collision-avoidance,
   agimus-demos-common,
   agimus-franka-msgs,
@@ -22,8 +24,6 @@
 
   # checkInputs
   ament-copyright,
-  ament-flake8,
-  ament-pep257,
 
   # nativeCheckInputs
 }:
@@ -32,10 +32,10 @@ buildRosPackage rec {
   version = "0.1.0";
 
   src = fetchFromGitHub {
-    owner = "Gepetto";
+    owner = "nim65s";
     repo = "Quest-Teleoperation-Panda";
-    rev = "16a5fa7c0699ac77addd04dfdb64e9cc5bd52922";
-    hash = "sha256-+hfTuQONbUdkhrmZUcXzpz8KQxFjqJjf4QEt9ToFItI=";
+    rev = "0ba480309e9c9252c9981bf742f856fd98f318c0";
+    hash = "sha256-IdG6JrVqBQ9TRnBrGqZgVwt+xC5jbs+0gS6tQiDo4ac=";
   };
   sourceRoot = "source/quest_control";
 
@@ -49,6 +49,8 @@ buildRosPackage rec {
   ];
   buildInputs = [
     agimus-controller
+    agimus-controller-ros
+    agimus-demo-03-mpc-dummy-traj
     agimus-demo-08-collision-avoidance
     agimus-demos-common
     agimus-franka-msgs
@@ -64,6 +66,8 @@ buildRosPackage rec {
   ];
   propagatedBuildInputs = [
     agimus-controller
+    agimus-controller-ros
+    agimus-demo-03-mpc-dummy-traj
     agimus-demo-08-collision-avoidance
     agimus-demos-common
     agimus-franka-msgs
@@ -80,8 +84,6 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-copyright
-    ament-flake8
-    ament-pep257
     python3Packages.pytest
   ];
   nativeCheckInputs = [
@@ -92,7 +94,7 @@ buildRosPackage rec {
   meta = {
     description = "Teleoperation on the Panda Robot with Quest 3";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/Gepetto/Quest-Teleoperation-Panda";
+    homepage = "https://github.com/nim65s/Quest-Teleoperation-Panda";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };
