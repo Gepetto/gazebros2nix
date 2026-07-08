@@ -1,0 +1,74 @@
+{
+  lib,
+  buildRosPackage,
+  fetchFromGitHub,
+
+  # nativeBuildInputs
+  ament-cmake-auto,
+
+  # buildInputs
+
+  # propagatedBuildInputs
+  ament-index-python,
+  diagnostic-aggregator,
+  joint-state-broadcaster,
+  joint-trajectory-controller,
+  launch,
+  launch-pal,
+  ros2controlcli,
+
+  # checkInputs
+  ament-lint-auto,
+  ament-lint-common,
+
+  # nativeCheckInputs
+}:
+buildRosPackage rec {
+  pname = "ros-humble-kangaroo-controller-configuration";
+  version = "2.13.2";
+
+  src = fetchFromGitHub {
+    owner = "pal-robotics";
+    repo = "kangaroo_robot";
+    tag = version;
+    hash = "sha256-FeNxJSm840h/vULyYyGL00csbXzXl3wMK7fW5ccQ6MY=";
+  };
+  sourceRoot = "source/kangaroo_controller_configuration";
+
+  __structuredAttrs = true;
+  strictDeps = true;
+
+  buildType = "ament_cmake";
+
+  nativeBuildInputs = [
+    ament-cmake-auto
+  ];
+  buildInputs = [
+    ament-cmake-auto
+  ];
+  propagatedBuildInputs = [
+    ament-index-python
+    diagnostic-aggregator
+    joint-state-broadcaster
+    joint-trajectory-controller
+    launch
+    launch-pal
+    ros2controlcli
+  ];
+  checkInputs = [
+    ament-lint-auto
+    ament-lint-common
+  ];
+  nativeCheckInputs = [
+  ];
+
+  doCheck = true;
+
+  meta = {
+    description = "The kangaroo_controller_configuration package";
+    license = with lib.licenses; [ asl20 ];
+    homepage = "https://github.com/pal-robotics/kangaroo_robot";
+    platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.nim65s ];
+  };
+}

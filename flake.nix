@@ -353,6 +353,13 @@
                   agimus-libfranka
                   agimus-libfranka-common
                   agimus-msgs
+                  kangaroo-bringup
+                  kangaroo-controller-configuration
+                  kangaroo-description
+                  kangaroo-moveit-config
+                  kangaroo-mujoco
+                  kangaroo-robot
+                  kangaroo-simulation
                   linear-feedback-controller
                   linear-feedback-controller-msgs
                   mujoco-ros2-control

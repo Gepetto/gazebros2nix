@@ -30,6 +30,9 @@ omni_drive_controller = {do_check = false}
 [humble."loco-3d/linear-feedback-controller"]
 [humble."loco-3d/linear-feedback-controller-msgs"]
 
+[humble."pal-robotics/kangaroo_moveit_config"]
+[humble."pal-robotics/kangaroo_robot"]
+[humble."pal-robotics/kangaroo_simulation"]
 [humble."pal-robotics/realsense_gazebo_plugin"]
 [humble."pal-robotics/realsense_simulation"]
 
