@@ -13,7 +13,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-math9";
-  version = "9.1.0";
+  version = "9.2.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -21,8 +21,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-math";
-    tag = "gz-math9_9.1.0";
-    hash = "sha256-Kc9g5D52+NVygYLpMf+4GFPPn2sTEfXBOC14iw39NlA=";
+    tag = "gz-math9_9.2.0";
+    hash = "sha256-54SfQNeYbM18QeCnTpQnK9FGTHg2ROybFTo+xPHXVAI=";
   };
 
   __structuredAttrs = true;

@@ -23,7 +23,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-physics7";
-  version = "7.7.0";
+  version = "7.8.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -31,8 +31,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-physics";
-    tag = "gz-physics7_7.7.0";
-    hash = "sha256-UPHzbZcmbcKZ6RBQT26NFUaETO3QaJPipt6d1udhL84=";
+    tag = "gz-physics7_7.8.0";
+    hash = "sha256-WnlC9fzLGbfB3xmnZcYgpqYMLzcZzJiSHj2lcN2cDC4=";
   };
 
   __structuredAttrs = true;

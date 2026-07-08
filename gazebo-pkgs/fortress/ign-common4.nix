@@ -6,6 +6,7 @@
   assimp,
   cmake,
   ffmpeg,
+  gbenchmark,
   gdal,
   gts,
   ign-cmake,
@@ -18,7 +19,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-common4";
-  version = "4.8.0";
+  version = "4.8.1";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -26,8 +27,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-common";
-    tag = "ignition-common4_4.8.0";
-    hash = "sha256-LnxPimXalg0EwIgs/cgqkn/cFYOdWvkQLlAlxXhUZL8=";
+    tag = "ignition-common4_4.8.1";
+    hash = "sha256-hM+WuIY7H5lONpS8OKXZ6AoTtSylXGhLDBsbIwn8VYQ=";
   };
 
   __structuredAttrs = true;
@@ -40,6 +41,7 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [
     assimp
     ffmpeg
+    gbenchmark
     gdal
     gts
     ign-cmake

@@ -32,7 +32,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-launch5";
-  version = "5.3.0";
+  version = "5.3.1";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -40,8 +40,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-launch";
-    tag = "ignition-launch5_5.3.0";
-    hash = "sha256-1IJg6M06smyCp9yuHzHgZFRb+af/jpXWwETwq1FDAeU=";
+    tag = "ignition-launch5_5.3.1";
+    hash = "sha256-sgAr6A/+lzbV7QxMfAuLF3W5glzDkV/0vOE+tE0x7Ww=";
   };
 
   __structuredAttrs = true;

@@ -40,7 +40,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-sim10";
-  version = "10.3.0";
+  version = "10.4.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -48,8 +48,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sim";
-    tag = "gz-sim10_10.3.0";
-    hash = "sha256-EnzynxbSOZugZJOlXOAK+JNe5zCMvpwkqnoKp0ijdzY=";
+    tag = "gz-sim10_10.4.0";
+    hash = "sha256-3QKqSvEI8wa0z/LOmLjGeuWYIEQ999xLtdoeX+DA2rk=";
   };
 
   __structuredAttrs = true;

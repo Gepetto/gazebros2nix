@@ -33,7 +33,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-launch9";
-  version = "9.0.0";
+  version = "9.0.1";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -41,8 +41,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-launch";
-    tag = "gz-launch9_9.0.0";
-    hash = "sha256-fRzRFsnhK0IiOLNyB9JrYgX0D2vPXQ7rxp7JXCMd3hQ=";
+    tag = "gz-launch9_9.0.1";
+    hash = "sha256-tedpWzkWN3yTcDfEv2sEDuNvveybx26zQY03uzRkTEQ=";
   };
 
   __structuredAttrs = true;
