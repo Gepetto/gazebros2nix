@@ -355,6 +355,7 @@
                   agimus-msgs
                   linear-feedback-controller
                   linear-feedback-controller-msgs
+                  mujoco-vendor
                   net-ft-driver
                   quest-control
                   ros2topic

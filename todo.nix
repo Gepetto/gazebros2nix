@@ -380,6 +380,19 @@ final: prev: {
             "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
           ];
         };
+        mujoco-vendor = ros-prev.mujoco-vendor.overrideAttrs (super: {
+          cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DAMENT_VENDOR_POLICY=NEVER_VENDOR" ];
+
+          patches = (super.patches or [ ]) ++ [
+            (final.fetchpatch2 {
+              url = "https://github.com/pal-robotics/mujoco_vendor/commit/5585496493479578449de92616b4a36ac28fa1a9.patch?full_index=1";
+              hash = "sha256-cAtJmf4Q5ML9CcYUjeZEC+B6tvQn27fL4JJHBQ5XWxo=";
+            })
+          ];
+          propagatedBuildInputs = (super.propagatedBuildInputs or [ ]) ++ [
+            final.mujoco
+          ];
+        });
         # keep-sorted end
       };
     in
