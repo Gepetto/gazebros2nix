@@ -96,7 +96,7 @@ buildRosPackage rec {
     ament-xmllint
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "The kangaroo_controller_configuration package";

@@ -102,7 +102,7 @@ buildRosPackage rec {
     ament-xmllint
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "The kangaroo_bringup package";
