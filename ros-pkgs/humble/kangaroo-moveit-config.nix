@@ -18,23 +18,21 @@
   moveit-ros-move-group,
   moveit-ros-perception,
   moveit-ros-visualization,
-  pal-sea-arm-description,
+  pal-sea-arm-moveit-config,
 
   # checkInputs
-  ament-lint-auto,
-  ament-lint-common,
 
   # nativeCheckInputs
 }:
 buildRosPackage rec {
-  pname = "ros-humble-pal-sea-arm-moveit-config";
-  version = "1.0.7";
+  pname = "ros-humble-kangaroo-moveit-config";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
-    repo = "pal_sea_arm_moveit_config";
+    repo = "kangaroo_moveit_config";
     tag = version;
-    hash = "sha256-ZyZDlIHx+yDfJ0E2+i5+4QedaymLi6PPuLhOuV1wIhE=";
+    hash = "sha256-KAoTICN8/jrJIcMz9MTgqxgFJTidZQBOwfSqdjvUNb4=";
   };
   sourceRoot = "source/";
 
@@ -59,21 +57,19 @@ buildRosPackage rec {
     moveit-ros-move-group
     moveit-ros-perception
     moveit-ros-visualization
-    pal-sea-arm-description
+    pal-sea-arm-moveit-config
   ];
   checkInputs = [
-    ament-lint-auto
-    ament-lint-common
   ];
   nativeCheckInputs = [
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
-    description = "An automatically generated package with all the configuration and launch files for using the pal_sea_arm with the MoveIt Motion Planning Framework";
+    description = "An automatically generated package with all the configuration and launch files for using the kangaroo with the MoveIt! Motion Planning Framework";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/pal-robotics/pal_sea_arm_moveit_config";
+    homepage = "https://github.com/pal-robotics/kangaroo_moveit_config";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

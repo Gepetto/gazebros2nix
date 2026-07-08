@@ -85,6 +85,18 @@ buildRosPackage rec {
   };
 }"""
 
+# https://github.com/ament/ament_lint/blob/rolling/ament_lint_common/package.xml#L25C1-L34C1
+COMMON_LINTERS = [
+    "copyright",
+    "cppcheck",
+    "cpplint",
+    "flake8",
+    "lint-cmake",
+    "pep257",
+    "uncrustify",
+    "xmllint",
+]
+
 logger = getLogger("ros2nix")
 parser = get_parser(prog="ros2nix", description=__doc__)
 
@@ -236,22 +248,15 @@ class Package:
         check = sort_deps(
             pkg.test_depends, overrides.check, [*native, *build, *propagated]
         )
-        if any(dep.name == "ament_cmake_xmllint" for dep in pkg.test_depends):
+        if "ament-lint-common" in check:
+            check += [f"ament-cmake-{lint}" for lint in COMMON_LINTERS]
+        if "ament-cmake-xmllint" in check:
             check.append("xmllintPackageHook")
         check_scopes = deps_scopes(
             check, [*native_scopes, *build_scopes, *propagated_scopes]
         )
         native_check = []
-        for lint in [
-            "copyright",
-            "cppcheck",
-            "cpplint",
-            "flake8",
-            "lint-cmake",
-            "pep257",
-            "uncrustify",
-            "xmllint",
-        ]:
+        for lint in COMMON_LINTERS:
             if f"ament-cmake-{lint}" in check:
                 native_check.append(f"ament-{lint}")
         native_check_scopes = native_check

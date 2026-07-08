@@ -52,7 +52,7 @@ buildRosPackage rec {
   nativeCheckInputs = [
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "RealSense Camera description package for simulation";

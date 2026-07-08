@@ -9,25 +9,23 @@
   # buildInputs
 
   # propagatedBuildInputs
-  tiago-pro-bringup,
-  tiago-pro-controller-configuration,
-  tiago-pro-description,
+  kangaroo-mujoco,
 
   # checkInputs
 
   # nativeCheckInputs
 }:
 buildRosPackage rec {
-  pname = "ros-humble-tiago-pro-robot";
-  version = "2.3.0";
+  pname = "ros-humble-kangaroo-simulation";
+  version = "2.6.1";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
-    repo = "tiago_pro_robot";
+    repo = "kangaroo_simulation";
     tag = version;
-    hash = "sha256-Kyj/jRngQp7YBEz1W+SuV1dy+dgL08YASNGta9yenRg=";
+    hash = "sha256-9p61humn6WCg5HC6k04sjwkqgW+th1ca5L07pfLhHeU=";
   };
-  sourceRoot = "source/tiago_pro_robot";
+  sourceRoot = "source/kangaroo_simulation";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -41,9 +39,7 @@ buildRosPackage rec {
     ament-cmake
   ];
   propagatedBuildInputs = [
-    tiago-pro-bringup
-    tiago-pro-controller-configuration
-    tiago-pro-description
+    kangaroo-mujoco
   ];
   checkInputs = [
   ];
@@ -53,9 +49,9 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "The tiago_pro_robot package";
+    description = "The kangaroo_simulation metapackage";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/pal-robotics/tiago_pro_robot";
+    homepage = "https://github.com/pal-robotics/kangaroo_simulation";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

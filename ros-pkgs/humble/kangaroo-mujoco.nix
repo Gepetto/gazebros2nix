@@ -9,34 +9,32 @@
   # buildInputs
 
   # propagatedBuildInputs
-  gazebo-plugins,
-  gazebo-ros,
-  gazebo-ros2-control,
+  kangaroo-bringup,
+  kangaroo-controller-configuration,
+  kangaroo-description,
   launch,
   launch-pal,
   launch-ros,
-  pal-gazebo-plugins,
-  pal-gazebo-worlds,
-  tiago-pro-head-bringup,
-  tiago-pro-head-description,
+  mujoco-ros2-control,
+  rclpy,
+  std-msgs,
 
   # checkInputs
-  ament-lint-auto,
-  ament-lint-common,
+  ament-cmake-pytest,
 
   # nativeCheckInputs
 }:
 buildRosPackage rec {
-  pname = "ros-humble-tiago-pro-head-gazebo";
-  version = "1.0.2";
+  pname = "ros-humble-kangaroo-mujoco";
+  version = "2.6.1";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
-    repo = "tiago_pro_head_simulation";
+    repo = "kangaroo_simulation";
     tag = version;
-    hash = "sha256-JS+4wBv+vXk/BH3X8gUHB0W+iTO+g5kt1TB47SesI2E=";
+    hash = "sha256-9p61humn6WCg5HC6k04sjwkqgW+th1ca5L07pfLhHeU=";
   };
-  sourceRoot = "source/tiago_pro_head_gazebo";
+  sourceRoot = "source/kangaroo_mujoco";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -50,20 +48,18 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   propagatedBuildInputs = [
-    gazebo-plugins
-    gazebo-ros
-    gazebo-ros2-control
+    kangaroo-bringup
+    kangaroo-controller-configuration
+    kangaroo-description
     launch
     launch-pal
     launch-ros
-    pal-gazebo-plugins
-    pal-gazebo-worlds
-    tiago-pro-head-bringup
-    tiago-pro-head-description
+    mujoco-ros2-control
+    rclpy
+    std-msgs
   ];
   checkInputs = [
-    ament-lint-auto
-    ament-lint-common
+    ament-cmake-pytest
   ];
   nativeCheckInputs = [
   ];
@@ -71,9 +67,9 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "The tiago_pro_head_gazebo package";
+    description = "Kangaroo MuJoCo simulation package";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/pal-robotics/tiago_pro_head_simulation";
+    homepage = "https://github.com/pal-robotics/kangaroo_simulation";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

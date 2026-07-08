@@ -66,7 +66,7 @@ buildRosPackage rec {
   nativeCheckInputs = [
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "Intel RealSense D435 Gazebo plugin package";

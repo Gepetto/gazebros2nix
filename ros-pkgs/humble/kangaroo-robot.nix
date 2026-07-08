@@ -4,30 +4,30 @@
   fetchFromGitHub,
 
   # nativeBuildInputs
-  ament-cmake-auto,
+  ament-cmake,
 
   # buildInputs
 
   # propagatedBuildInputs
-  tiago-pro-2dnav,
-  tiago-pro-laser-sensors,
-  tiago-pro-rgbd-sensors,
+  kangaroo-bringup,
+  kangaroo-controller-configuration,
+  kangaroo-description,
 
   # checkInputs
 
   # nativeCheckInputs
 }:
 buildRosPackage rec {
-  pname = "ros-humble-tiago-pro-navigation";
-  version = "2.14.0";
+  pname = "ros-humble-kangaroo-robot";
+  version = "2.13.2";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
-    repo = "tiago_pro_navigation";
+    repo = "kangaroo_robot";
     tag = version;
-    hash = "sha256-CWqmbPxE05r7TrQUAqXmk3gEK9QJYxhP9ROmifcQXHY=";
+    hash = "sha256-FeNxJSm840h/vULyYyGL00csbXzXl3wMK7fW5ccQ6MY=";
   };
-  sourceRoot = "source/tiago_pro_navigation";
+  sourceRoot = "source/kangaroo_robot";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -35,15 +35,15 @@ buildRosPackage rec {
   buildType = "ament_cmake";
 
   nativeBuildInputs = [
-    ament-cmake-auto
+    ament-cmake
   ];
   buildInputs = [
-    ament-cmake-auto
+    ament-cmake
   ];
   propagatedBuildInputs = [
-    tiago-pro-2dnav
-    tiago-pro-laser-sensors
-    tiago-pro-rgbd-sensors
+    kangaroo-bringup
+    kangaroo-controller-configuration
+    kangaroo-description
   ];
   checkInputs = [
   ];
@@ -53,9 +53,9 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "The tiago_pro Navigation metapackage";
+    description = "The kangaroo_robot package";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/pal-robotics/tiago_pro_navigation";
+    homepage = "https://github.com/pal-robotics/kangaroo_robot";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };
