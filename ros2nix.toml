@@ -1,5 +1,5 @@
-[humble."gepetto/Quest-Teleoperation-Panda"]
-branch = "teleop"
+[humble."nim65s/Quest-Teleoperation-Panda"]
+branch = "pre-commit"
 native = ["v4l-utils"]
 propagated = ["python3Packages.pyarrow"]
 [humble."agimus-project/agimus-controller"]
