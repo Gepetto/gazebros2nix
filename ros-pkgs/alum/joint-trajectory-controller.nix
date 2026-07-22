@@ -34,6 +34,7 @@
   ros2-control-test-assets,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-joint-trajectory-controller";
@@ -101,6 +102,7 @@ buildRosPackage rec {
     ros2-control-test-assets
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;

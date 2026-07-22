@@ -25,6 +25,7 @@
   # checkInputs
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demos-controllers";
@@ -77,6 +78,7 @@ buildRosPackage rec {
   checkInputs = [
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

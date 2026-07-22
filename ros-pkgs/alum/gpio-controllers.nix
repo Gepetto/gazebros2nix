@@ -26,6 +26,7 @@
   ros2-control-test-assets,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-gpio-controllers";
@@ -76,6 +77,7 @@ buildRosPackage rec {
     ros2-control-test-assets
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

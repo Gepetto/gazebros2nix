@@ -26,6 +26,7 @@
   ament-copyright,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-humble-quest-control";
@@ -87,6 +88,7 @@ buildRosPackage rec {
     python3Packages.pytest
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

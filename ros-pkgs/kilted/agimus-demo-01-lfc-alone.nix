@@ -28,6 +28,7 @@
   ament-lint-auto,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-kilted-agimus-demo-01-lfc-alone";
@@ -85,6 +86,7 @@ buildRosPackage rec {
     ament-lint-auto
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

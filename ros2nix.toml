@@ -42,10 +42,6 @@ branch = "main"
 branch = "main"
 [humble."agimus-project/agimus-franka-ros2"]
 branch = "main"
-[humble."agimus-project/agimus-franka-ros2".packages]
-agimus_franka_hardware = {native = ["writableTmpDirAsHomeHook"]}
-agimus_franka_example_controllers = {native = ["writableTmpDirAsHomeHook"]}
-agimus_franka_robot_state_broadcaster = {native = ["writableTmpDirAsHomeHook"]}
 [humble."agimus-project/agimus-libfranka"]
 branch = "main"
 do_check = false
@@ -67,10 +63,6 @@ branch = "main"
 branch = "main"
 [jazzy."agimus-project/agimus-franka-ros2"]
 branch = "main"
-[jazzy."agimus-project/agimus-franka-ros2".packages]
-agimus_franka_hardware = {native = ["writableTmpDirAsHomeHook"]}
-agimus_franka_example_controllers = {native = ["writableTmpDirAsHomeHook"]}
-agimus_franka_robot_state_broadcaster = {native = ["writableTmpDirAsHomeHook"]}
 [jazzy."agimus-project/agimus-libfranka"]
 branch = "main"
 do_check = false
@@ -119,7 +111,6 @@ do_check = false
 
 [jazzy."stack-of-tasks/odri_dual_motor_testbed_robot"]
 [jazzy."stack-of-tasks/odri_forward_command_controller"]
-packages = {odri_forward_command_controller = {native = ["writableTmpDirAsHomeHook"]}}
 [jazzy."stack-of-tasks/odri_gz_ros2_control"]
 
 [jazzy."Tiago-Pro-Harmonic/br2_gazebo_worlds"]

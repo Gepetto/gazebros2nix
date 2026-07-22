@@ -250,7 +250,7 @@ class Package:
             check += [f"ament-cmake-{lint}" for lint in COMMON_LINTERS]
         if "ament-cmake-xmllint" in check:
             check.append("xmllintPackageHook")
-        native_check = []
+        native_check = ["writableTmpDirAsHomeHook"]
         for lint in COMMON_LINTERS:
             if f"ament-cmake-{lint}" in check:
                 native_check.append(f"ament-{lint}")

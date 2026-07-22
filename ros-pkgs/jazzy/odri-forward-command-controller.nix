@@ -5,7 +5,6 @@
 
   # nativeBuildInputs
   ament-cmake,
-  writableTmpDirAsHomeHook,
 
   # buildInputs
   controller-interface,
@@ -34,6 +33,7 @@
   xmllintPackageHook,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
   ament-copyright,
   ament-cppcheck,
   ament-cpplint,
@@ -63,7 +63,6 @@ buildRosPackage rec {
   nativeBuildInputs = [
     ament-cmake
     generate-parameter-library
-    writableTmpDirAsHomeHook
   ];
   buildInputs = [
     ament-cmake
@@ -101,6 +100,7 @@ buildRosPackage rec {
     xmllintPackageHook
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
     ament-copyright
     ament-cppcheck
     ament-cpplint

@@ -31,6 +31,7 @@
   ros2-control-test-assets,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-force-torque-sensor-broadcaster";
@@ -92,6 +93,7 @@ buildRosPackage rec {
     ros2-control-test-assets
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

@@ -27,6 +27,7 @@
   launch-testing-ament-cmake,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-joint-limits";
@@ -79,6 +80,7 @@ buildRosPackage rec {
     launch-testing-ament-cmake
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;

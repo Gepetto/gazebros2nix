@@ -19,6 +19,7 @@
   ament-lint-auto,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-08-collision-avoidance";
@@ -55,6 +56,7 @@ buildRosPackage rec {
     ament-lint-auto
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

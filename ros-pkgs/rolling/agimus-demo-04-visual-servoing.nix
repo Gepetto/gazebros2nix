@@ -17,6 +17,7 @@
   ament-lint-auto,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-rolling-agimus-demo-04-visual-servoing";
@@ -50,6 +51,7 @@ buildRosPackage rec {
     ament-lint-auto
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

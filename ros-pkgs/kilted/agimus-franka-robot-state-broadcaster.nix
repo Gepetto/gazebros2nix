@@ -40,6 +40,7 @@
   xmllintPackageHook,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
   ament-copyright,
   ament-cppcheck,
   ament-lint-cmake,
@@ -119,6 +120,7 @@ buildRosPackage rec {
     xmllintPackageHook
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
     ament-copyright
     ament-cppcheck
     ament-lint-cmake

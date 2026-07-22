@@ -46,6 +46,7 @@
   ros2pkg,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-controller-manager";
@@ -126,6 +127,7 @@ buildRosPackage rec {
     ros2pkg
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;

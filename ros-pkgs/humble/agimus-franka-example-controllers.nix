@@ -5,7 +5,6 @@
 
   # nativeBuildInputs
   ament-cmake,
-  writableTmpDirAsHomeHook,
 
   # buildInputs
   agimus-franka-hardware,
@@ -37,6 +36,7 @@
   xmllintPackageHook,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
   ament-copyright,
   ament-cppcheck,
   ament-lint-cmake,
@@ -62,7 +62,6 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
-    writableTmpDirAsHomeHook
   ];
   buildInputs = [
     agimus-franka-hardware
@@ -107,6 +106,7 @@ buildRosPackage rec {
     xmllintPackageHook
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
     ament-copyright
     ament-cppcheck
     ament-lint-cmake

@@ -20,6 +20,7 @@
   xmllintPackageHook,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
   ament-copyright,
   ament-lint-cmake,
   ament-pep257,
@@ -60,6 +61,7 @@ buildRosPackage rec {
     xmllintPackageHook
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
     ament-copyright
     ament-lint-cmake
     ament-pep257

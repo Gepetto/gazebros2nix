@@ -37,6 +37,7 @@
   urdfdom,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-ros2-control-demo-example-2";
@@ -95,6 +96,7 @@ buildRosPackage rec {
     urdfdom
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;

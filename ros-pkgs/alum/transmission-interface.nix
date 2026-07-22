@@ -20,6 +20,7 @@
   ros2-control-test-assets,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-transmission-interface";
@@ -60,6 +61,7 @@ buildRosPackage rec {
     ros2-control-test-assets
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;

@@ -30,6 +30,7 @@
   ros2-control-test-assets,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-pid-controller";
@@ -88,6 +89,7 @@ buildRosPackage rec {
     ros2-control-test-assets
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

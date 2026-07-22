@@ -19,6 +19,7 @@
   ament-cmake-pytest,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-agimus-franka-description";
@@ -54,6 +55,7 @@ buildRosPackage rec {
     ament-cmake-pytest
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

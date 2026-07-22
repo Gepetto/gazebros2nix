@@ -23,6 +23,7 @@
   ament-cmake-pytest,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-kangaroo-mujoco";
@@ -62,6 +63,7 @@ buildRosPackage rec {
     ament-cmake-pytest
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

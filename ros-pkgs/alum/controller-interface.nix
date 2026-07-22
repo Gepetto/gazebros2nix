@@ -24,6 +24,7 @@
   std-msgs,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-controller-interface";
@@ -68,6 +69,7 @@ buildRosPackage rec {
     std-msgs
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;

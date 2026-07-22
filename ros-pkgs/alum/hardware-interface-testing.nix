@@ -22,6 +22,7 @@
   ament-cmake-gmock,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-hardware-interface-testing";
@@ -67,6 +68,7 @@ buildRosPackage rec {
     ament-cmake-gmock
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;

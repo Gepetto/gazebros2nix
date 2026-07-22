@@ -19,6 +19,7 @@
   launch-testing-ros,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-rqt-controller-manager";
@@ -53,6 +54,7 @@ buildRosPackage rec {
     launch-testing-ros
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

@@ -25,6 +25,7 @@
   ament-pep257,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-kilted-agimus-controller";
@@ -67,6 +68,7 @@ buildRosPackage rec {
     python3Packages.pyyaml
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

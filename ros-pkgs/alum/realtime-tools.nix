@@ -22,6 +22,7 @@
   test-msgs,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-realtime-tools";
@@ -64,6 +65,7 @@ buildRosPackage rec {
     test-msgs
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;

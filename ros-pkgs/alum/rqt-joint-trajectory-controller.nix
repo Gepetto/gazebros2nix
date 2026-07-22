@@ -23,6 +23,7 @@
   launch-testing-ros,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-rqt-joint-trajectory-controller";
@@ -62,6 +63,7 @@ buildRosPackage rec {
     python3Packages.pytest
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

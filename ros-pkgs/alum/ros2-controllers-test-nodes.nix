@@ -19,6 +19,7 @@
   python3Packages,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-ros2-controllers-test-nodes";
@@ -57,6 +58,7 @@ buildRosPackage rec {
     python3Packages.pytest
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

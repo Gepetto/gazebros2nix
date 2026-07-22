@@ -32,6 +32,7 @@
   rclcpp-lifecycle,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-control-toolbox";
@@ -96,6 +97,7 @@ buildRosPackage rec {
     rclcpp-lifecycle
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;
