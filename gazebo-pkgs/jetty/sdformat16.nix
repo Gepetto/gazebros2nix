@@ -18,7 +18,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-sdformat16";
-  version = "16.0.1";
+  version = "16.1.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -26,8 +26,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "sdformat";
-    tag = "sdformat16_16.0.1";
-    hash = "sha256-WhbPVzlR8p89bqtzqGjfGJbTjOHjdlm7mMxhvyHmZjA=";
+    tag = "sdformat16_16.1.0";
+    hash = "sha256-iZ1it91NCJ8xUohp4WyoDfSEYGfp4MWT2DrtYCwjgjs=";
   };
 
   __structuredAttrs = true;

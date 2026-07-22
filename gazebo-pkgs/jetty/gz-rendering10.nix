@@ -13,6 +13,8 @@
   gz-math,
   gz-plugin,
   gz-utils,
+  libGL,
+  libGLU,
   libogre-next-23-dev,
   libxi,
   libxmu,
@@ -26,7 +28,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-rendering10";
-  version = "10.0.1";
+  version = "10.0.2";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -34,8 +36,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-rendering";
-    tag = "gz-rendering10_10.0.1";
-    hash = "sha256-gnNGe/yk+ucwPviaa6FusLD9Kp3SXKhnAChyNQhRzrM=";
+    tag = "gz-rendering10_10.0.2";
+    hash = "sha256-xdIdwBcox+la4WtbSY5Z3VnWRzhuBsrcu6Rdd4hhNGI=";
   };
 
   __structuredAttrs = true;
@@ -55,6 +57,8 @@ stdenv.mkDerivation {
     gz-math
     gz-plugin
     gz-utils
+    libGL
+    libGLU
     libogre-next-23-dev
     libxi
     libxmu
