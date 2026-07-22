@@ -31,7 +31,6 @@
   xmllintPackageHook,
 
   # nativeCheckInputs
-  writableTmpDirAsHomeHook,
   ament-copyright,
   ament-cppcheck,
   ament-cpplint,
@@ -40,6 +39,7 @@
   ament-pep257,
   ament-uncrustify,
   ament-xmllint,
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-pal-pro-gripper-controller-configuration";
@@ -87,7 +87,6 @@ buildRosPackage rec {
     xmllintPackageHook
   ];
   nativeCheckInputs = [
-    writableTmpDirAsHomeHook
     ament-copyright
     ament-cppcheck
     ament-cpplint
@@ -96,6 +95,7 @@ buildRosPackage rec {
     ament-pep257
     ament-uncrustify
     ament-xmllint
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;

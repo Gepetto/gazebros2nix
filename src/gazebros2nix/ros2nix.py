@@ -259,6 +259,7 @@ class Package:
         check_scopes = deps_scopes(
             check, [*native_scopes, *build_scopes, *propagated_scopes]
         )
+        native_check = sorted(native_check)
         native_check_scopes = native_check
         nix = template.render(
             pkg=pkg,

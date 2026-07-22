@@ -28,10 +28,10 @@
   xmllintPackageHook,
 
   # nativeCheckInputs
-  writableTmpDirAsHomeHook,
   ament-copyright,
   ament-lint-cmake,
   ament-xmllint,
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-sdformat-vendor";
@@ -88,10 +88,10 @@ buildRosPackage rec {
     xmllintPackageHook
   ];
   nativeCheckInputs = [
-    writableTmpDirAsHomeHook
     ament-copyright
     ament-lint-cmake
     ament-xmllint
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

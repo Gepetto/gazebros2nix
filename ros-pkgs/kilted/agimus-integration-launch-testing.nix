@@ -20,11 +20,11 @@
   xmllintPackageHook,
 
   # nativeCheckInputs
-  writableTmpDirAsHomeHook,
   ament-copyright,
   ament-lint-cmake,
   ament-pep257,
   ament-xmllint,
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-kilted-agimus-integration-launch-testing";
@@ -61,11 +61,11 @@ buildRosPackage rec {
     xmllintPackageHook
   ];
   nativeCheckInputs = [
-    writableTmpDirAsHomeHook
     ament-copyright
     ament-lint-cmake
     ament-pep257
     ament-xmllint
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

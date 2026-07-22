@@ -29,12 +29,12 @@
   xmllintPackageHook,
 
   # nativeCheckInputs
-  writableTmpDirAsHomeHook,
   ament-copyright,
   ament-cppcheck,
   ament-lint-cmake,
   ament-pep257,
   ament-xmllint,
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-rolling-agimus-franka-gripper";
@@ -90,12 +90,12 @@ buildRosPackage rec {
     xmllintPackageHook
   ];
   nativeCheckInputs = [
-    writableTmpDirAsHomeHook
     ament-copyright
     ament-cppcheck
     ament-lint-cmake
     ament-pep257
     ament-xmllint
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;
