@@ -48,8 +48,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control_demos";
-    rev = "b98a0ee598a3975b9eded8062e2b1f5ba8360db1";
-    hash = "sha256-cCsEoJeqr+ylVXVBALm7r46Veqc4G9RlIjyWgyL8xdM=";
+    rev = "4462ded3975d1f7f3ba75aeaa09fb099b87866ed";
+    hash = "sha256-MRvHBHVYyqJn2vfTrMGZjNFI2ls7fDywS72mZXPOYxw=";
   };
   sourceRoot = "source/example_17";
 
