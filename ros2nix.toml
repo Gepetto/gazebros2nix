@@ -59,9 +59,6 @@ packages = {"net_ft_driver" = {native = ["pkg-config"], propagated = ["curl", "c
 [humble."jpgtzg/omni_drive_controller".packages]
 omni_drive_controller = {do_check = false}
 
-[humble."loco-3d/linear-feedback-controller"]
-[humble."loco-3d/linear-feedback-controller-msgs"]
-
 [jazzy."agimus-project/agimus-controller"]
 branch = "main"
 [jazzy."agimus-project/agimus-demos"]
@@ -82,9 +79,6 @@ do_check = false
 
 [jazzy."gbartyzel/ros2_net_ft_driver"]
 packages = {"net_ft_driver" = {check = ["ament-lint-auto"], native = ["pkg-config"], propagated = ["curl", "curlpp"]}}
-
-[jazzy."loco-3d/linear-feedback-controller"]
-[jazzy."loco-3d/linear-feedback-controller-msgs"]
 
 [jazzy."ros-controls/ros2_control_demos"]
 branch = "jazzy"
@@ -178,9 +172,6 @@ do_check = false
 [kilted."agimus-project/agimus-libfranka-common"]
 [kilted."agimus-project/agimus-msgs"]
 
-[kilted."loco-3d/linear-feedback-controller"]
-[kilted."loco-3d/linear-feedback-controller-msgs"]
-
 [rolling."agimus-project/agimus-controller"]
 branch = "main"
 [rolling."agimus-project/agimus-demos"]
@@ -194,6 +185,3 @@ branch = "main"
 do_check = false
 [rolling."agimus-project/agimus-libfranka-common"]
 [rolling."agimus-project/agimus-msgs"]
-
-[rolling."loco-3d/linear-feedback-controller"]
-[rolling."loco-3d/linear-feedback-controller-msgs"]

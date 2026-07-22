@@ -293,11 +293,13 @@ final: prev: {
           ];
         };
         linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs {
+          doCheck = true;
           preCheck = ''
             export LD_LIBRARY_PATH=.
           '';
         };
         linear-feedback-controller-msgs = ros-prev.linear-feedback-controller-msgs.overrideAttrs {
+          doCheck = true;
           cmakeFlags = [
             "-DCMAKE_SKIP_BUILD_RPATH=ON"
             "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
