@@ -3,14 +3,14 @@ final: prev: {
     # PAL alum: ROS humble but jazzy versions of ros control
     alum =
       (prev.rosPackages.humble.overrideScope (
-        alum-final: humble-prev:
+        alum-final: _humble-prev:
         final.lib.filesystem.packagesFromDirectoryRecursive {
           inherit (alum-final) callPackage;
           directory = ./ros-pkgs/alum;
         }
       )).overrideScope
         (
-          alum-final: alum-prev: {
+          _alum-final: alum-prev: {
             control-msgs = alum-prev.control-msgs.overrideAttrs {
               cmakeFlags = [
                 "-DCMAKE_SKIP_BUILD_RPATH=ON"

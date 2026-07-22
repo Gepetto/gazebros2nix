@@ -329,8 +329,8 @@
               // lib.mapAttrs' (n: lib.nameValuePair "pal-alum-${n}") {
                 inherit (pkgs.rosPackages.alum)
                   # keep-sorted start
-                  controller-manager-msgs
                   controller-manager
+                  controller-manager-msgs
                   kangaroo-bringup
                   kangaroo-controller-configuration
                   kangaroo-description
