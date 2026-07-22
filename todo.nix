@@ -4,20 +4,21 @@ final: prev: {
     passthru.rosPackage = true;
   };
   zenoh-c = prev.zenoh-c.overrideAttrs (super: {
-    # TODO: port https://github.com/eclipse-zenoh/zenoh-cpp/pull/702
+    # PACKAGE_PREFIX_DIR is $dev
     postInstall = super.postInstall + ''
-      substituteInPlace $out/lib/cmake/zenohc/zenohcConfig.cmake --replace-fail \
-        "$""{PACKAGE_PREFIX_DIR}/lib" \
-        "$out/lib" \
+      substituteInPlace $out/lib/cmake/zenohc/zenohcConfig.cmake \
+        --replace-fail "$""{PACKAGE_PREFIX_DIR}" "$out"
     '';
   });
   zenoh-cpp = prev.zenoh-cpp.overrideAttrs (super: {
-    # ref. https://github.com/eclipse-zenoh/zenoh-cpp/pull/702
-    postInstall = super.postInstall + ''
-      substituteInPlace $out/lib/cmake/zenohcxx/zenohcxxConfig.cmake --replace-fail \
-        "$""{_IMPORT_PREFIX}//nix/store" \
-        "/nix/store"
-    '';
+    patches = (super.patches or [ ]) ++ [
+      # fix cmake syntax
+      (final.fetchpatch2 {
+        url = "https://github.com/eclipse-zenoh/zenoh-cpp/pull/790.patch?full_index=1";
+        hash = "sha256-oaCeLTrQ7veWzpTEKGo4pDmNLKmnBIjBkuX71vRtjoo=";
+      })
+    ];
+    postInstall = ""; # already fixed by the patch
   });
   # keep-sorted end
 
