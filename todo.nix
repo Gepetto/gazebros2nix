@@ -98,7 +98,7 @@ final: prev: {
           ];
         };
         gz-launch7 = harmonic-prev.gz-launch7.overrideAttrs {
-          # https://github.com/gazebosim/gz-launch/pull/329
+          # ref. https://github.com/gazebosim/gz-launch/pull/329
           postPatch = ''
             substituteInPlace plugins/websocket_server/WebsocketServer.cc \
               --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
@@ -145,6 +145,13 @@ final: prev: {
 
         # keep-sorted start block=yes
 
+        gz-launch8 = ionic-prev.gz-launch8.overrideAttrs {
+          # ref. https://github.com/gazebosim/gz-launch/pull/330
+          postPatch = ''
+            substituteInPlace plugins/websocket_server/WebsocketServer.cc \
+              --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
+          '';
+        };
         gz-msgs11 = ionic-prev.gz-msgs11.overrideAttrs {
           postFixup = ''
             substituteInPlace $out/lib/ruby/gz/cmdmsgs11.rb --replace-fail \
