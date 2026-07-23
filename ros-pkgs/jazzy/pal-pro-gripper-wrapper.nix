@@ -14,14 +14,29 @@
   # propagatedBuildInputs
 
   # checkInputs
-  ament-copyright,
-  ament-flake8,
+  ament-cmake-copyright,
+  ament-cmake-cppcheck,
+  ament-cmake-cpplint,
+  ament-cmake-flake8,
+  ament-cmake-lint-cmake,
+  ament-cmake-pep257,
+  ament-cmake-uncrustify,
+  ament-cmake-xmllint,
   ament-lint-auto,
   ament-lint-common,
-  ament-pep257,
   python3Packages,
+  xmllintPackageHook,
 
   # nativeCheckInputs
+  ament-copyright,
+  ament-cppcheck,
+  ament-cpplint,
+  ament-flake8,
+  ament-lint-cmake,
+  ament-pep257,
+  ament-uncrustify,
+  ament-xmllint,
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-pal-pro-gripper-wrapper";
@@ -53,14 +68,29 @@ buildRosPackage rec {
     rclpy
   ];
   checkInputs = [
-    ament-copyright
-    ament-flake8
     ament-lint-auto
     ament-lint-common
-    ament-pep257
     python3Packages.pytest
+    ament-cmake-copyright
+    ament-cmake-cppcheck
+    ament-cmake-cpplint
+    ament-cmake-flake8
+    ament-cmake-lint-cmake
+    ament-cmake-pep257
+    ament-cmake-uncrustify
+    ament-cmake-xmllint
+    xmllintPackageHook
   ];
   nativeCheckInputs = [
+    ament-copyright
+    ament-cppcheck
+    ament-cpplint
+    ament-flake8
+    ament-lint-cmake
+    ament-pep257
+    ament-uncrustify
+    ament-xmllint
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

@@ -6,7 +6,6 @@
   assimp,
   cmake,
   ffmpeg,
-  freeimage,
   gdal,
   gz-cmake,
   gz-math,
@@ -19,7 +18,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-common7";
-  version = "7.1.1";
+  version = "7.3.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -27,8 +26,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-common";
-    tag = "gz-common7_7.1.1";
-    hash = "sha256-0+C2gvX7vF/8DbRfX0rftbrYydO6zHYXAhWDe3YXWcs=";
+    tag = "gz-common7_7.3.0";
+    hash = "sha256-LFuXkoGlln9Pj+TRZoZYY2pF8osKt9j1ub1Frzv/loQ=";
   };
 
   __structuredAttrs = true;
@@ -41,7 +40,6 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [
     assimp
     ffmpeg
-    freeimage
     gdal
     gz-cmake
     gz-math

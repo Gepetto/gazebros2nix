@@ -18,13 +18,31 @@
   xacro,
 
   # checkInputs
+  ament-cmake-copyright,
+  ament-cmake-cppcheck,
+  ament-cmake-cpplint,
+  ament-cmake-flake8,
+  ament-cmake-lint-cmake,
+  ament-cmake-pep257,
   ament-cmake-pytest,
+  ament-cmake-uncrustify,
+  ament-cmake-xmllint,
   ament-lint-auto,
   ament-lint-common,
   launch-testing-ament-cmake,
   urdf-test,
+  xmllintPackageHook,
 
   # nativeCheckInputs
+  ament-copyright,
+  ament-cppcheck,
+  ament-cpplint,
+  ament-flake8,
+  ament-lint-cmake,
+  ament-pep257,
+  ament-uncrustify,
+  ament-xmllint,
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-tiago-pro-head-description";
@@ -65,8 +83,26 @@ buildRosPackage rec {
     ament-lint-common
     launch-testing-ament-cmake
     urdf-test
+    ament-cmake-copyright
+    ament-cmake-cppcheck
+    ament-cmake-cpplint
+    ament-cmake-flake8
+    ament-cmake-lint-cmake
+    ament-cmake-pep257
+    ament-cmake-uncrustify
+    ament-cmake-xmllint
+    xmllintPackageHook
   ];
   nativeCheckInputs = [
+    ament-copyright
+    ament-cppcheck
+    ament-cpplint
+    ament-flake8
+    ament-lint-cmake
+    ament-pep257
+    ament-uncrustify
+    ament-xmllint
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;

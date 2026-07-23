@@ -12,10 +12,28 @@
   # propagatedBuildInputs
 
   # checkInputs
+  ament-cmake-copyright,
+  ament-cmake-cppcheck,
+  ament-cmake-cpplint,
+  ament-cmake-flake8,
+  ament-cmake-lint-cmake,
+  ament-cmake-pep257,
+  ament-cmake-uncrustify,
+  ament-cmake-xmllint,
   ament-lint-auto,
   ament-lint-common,
+  xmllintPackageHook,
 
   # nativeCheckInputs
+  ament-copyright,
+  ament-cppcheck,
+  ament-cpplint,
+  ament-flake8,
+  ament-lint-cmake,
+  ament-pep257,
+  ament-uncrustify,
+  ament-xmllint,
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-br2-gazebo-worlds";
@@ -46,8 +64,26 @@ buildRosPackage rec {
   checkInputs = [
     ament-lint-auto
     ament-lint-common
+    ament-cmake-copyright
+    ament-cmake-cppcheck
+    ament-cmake-cpplint
+    ament-cmake-flake8
+    ament-cmake-lint-cmake
+    ament-cmake-pep257
+    ament-cmake-uncrustify
+    ament-cmake-xmllint
+    xmllintPackageHook
   ];
   nativeCheckInputs = [
+    ament-copyright
+    ament-cppcheck
+    ament-cpplint
+    ament-flake8
+    ament-lint-cmake
+    ament-pep257
+    ament-uncrustify
+    ament-xmllint
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;

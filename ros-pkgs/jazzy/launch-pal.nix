@@ -19,6 +19,7 @@
   ament-pep257,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-launch-pal";
@@ -60,6 +61,7 @@ buildRosPackage rec {
     python3Packages.pytest
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

@@ -24,6 +24,7 @@
   ament-lint-auto,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-net-ft-driver";
@@ -72,6 +73,7 @@ buildRosPackage rec {
     ament-lint-auto
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

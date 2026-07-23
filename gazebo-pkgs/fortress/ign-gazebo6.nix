@@ -38,7 +38,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-gazebo6";
-  version = "6.17.1";
+  version = "6.18.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -46,8 +46,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sim";
-    tag = "ignition-gazebo6_6.17.1";
-    hash = "sha256-BaeOE00NwJiZgUS/7aUZ/ZY5pJww9t6pCTXDBsu4RTs=";
+    tag = "ignition-gazebo6_6.18.0";
+    hash = "sha256-q8MsCizvItQbOBQYf40fsl/GPXAU0Pi3ZOv27e29zn0=";
   };
 
   __structuredAttrs = true;

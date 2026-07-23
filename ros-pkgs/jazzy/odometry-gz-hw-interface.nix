@@ -18,6 +18,7 @@
   # checkInputs
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-odometry-gz-hw-interface";
@@ -57,6 +58,7 @@ buildRosPackage rec {
   checkInputs = [
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

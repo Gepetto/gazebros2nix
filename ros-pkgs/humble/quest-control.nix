@@ -8,6 +8,8 @@
 
   # buildInputs
   agimus-controller,
+  agimus-controller-ros,
+  agimus-demo-03-mpc-dummy-traj,
   agimus-demo-08-collision-avoidance,
   agimus-demos-common,
   agimus-franka-msgs,
@@ -22,10 +24,9 @@
 
   # checkInputs
   ament-copyright,
-  ament-flake8,
-  ament-pep257,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-humble-quest-control";
@@ -34,8 +35,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Gepetto";
     repo = "Quest-Teleoperation-Panda";
-    rev = "16a5fa7c0699ac77addd04dfdb64e9cc5bd52922";
-    hash = "sha256-+hfTuQONbUdkhrmZUcXzpz8KQxFjqJjf4QEt9ToFItI=";
+    rev = "f09f37c221bd3a526ee90dcc91db9a14871fca1a";
+    hash = "sha256-oA4R56XldID3tl00ZKhVlKjndok6I9VfwYhKyCrTxfc=";
   };
   sourceRoot = "source/quest_control";
 
@@ -49,6 +50,8 @@ buildRosPackage rec {
   ];
   buildInputs = [
     agimus-controller
+    agimus-controller-ros
+    agimus-demo-03-mpc-dummy-traj
     agimus-demo-08-collision-avoidance
     agimus-demos-common
     agimus-franka-msgs
@@ -64,6 +67,8 @@ buildRosPackage rec {
   ];
   propagatedBuildInputs = [
     agimus-controller
+    agimus-controller-ros
+    agimus-demo-03-mpc-dummy-traj
     agimus-demo-08-collision-avoidance
     agimus-demos-common
     agimus-franka-msgs
@@ -80,11 +85,10 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-copyright
-    ament-flake8
-    ament-pep257
     python3Packages.pytest
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

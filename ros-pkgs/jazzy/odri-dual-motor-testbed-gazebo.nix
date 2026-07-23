@@ -12,24 +12,44 @@
   gz-sim-vendor,
 
   # propagatedBuildInputs
+  joint-state-broadcaster,
   launch,
   launch-param-builder,
   launch-ros,
   odri-dual-motor-testbed-description,
   odri-gz-ros2-control,
+  ros-gz-bridge,
   ros-gz-sim,
   ros2launch,
   xacro,
 
   # checkInputs
+  ament-cmake-copyright,
+  ament-cmake-cppcheck,
+  ament-cmake-cpplint,
+  ament-cmake-flake8,
   ament-cmake-gtest,
+  ament-cmake-lint-cmake,
+  ament-cmake-pep257,
+  ament-cmake-uncrustify,
+  ament-cmake-xmllint,
   ament-lint-auto,
   ament-lint-common,
   launch-testing-ament-cmake,
   rclcpp,
   sensor-msgs,
+  xmllintPackageHook,
 
   # nativeCheckInputs
+  ament-copyright,
+  ament-cppcheck,
+  ament-cpplint,
+  ament-flake8,
+  ament-lint-cmake,
+  ament-pep257,
+  ament-uncrustify,
+  ament-xmllint,
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-odri-dual-motor-testbed-gazebo";
@@ -38,8 +58,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "stack-of-tasks";
     repo = "odri_dual_motor_testbed_robot";
-    rev = "ce808abcbf62df8417f23775db447d5f515ea443";
-    hash = "sha256-uf5wgrkdCvevNMEaVMnhthWuWcBx+7/RQg3GbnjWqDo=";
+    rev = "13215f3739addc8768e2c646fa43fb48ee4f2536";
+    hash = "sha256-FkgbanNhYhb0pQb4dnrGOPvGK7q2bqUOSELltCNS2aU=";
   };
   sourceRoot = "source/odri_dual_motor_testbed_gazebo";
 
@@ -59,11 +79,13 @@ buildRosPackage rec {
   ];
   propagatedBuildInputs = [
     gz-plugin-vendor
+    joint-state-broadcaster
     launch
     launch-param-builder
     launch-ros
     odri-dual-motor-testbed-description
     odri-gz-ros2-control
+    ros-gz-bridge
     ros-gz-sim
     ros2launch
     xacro
@@ -75,8 +97,26 @@ buildRosPackage rec {
     launch-testing-ament-cmake
     rclcpp
     sensor-msgs
+    ament-cmake-copyright
+    ament-cmake-cppcheck
+    ament-cmake-cpplint
+    ament-cmake-flake8
+    ament-cmake-lint-cmake
+    ament-cmake-pep257
+    ament-cmake-uncrustify
+    ament-cmake-xmllint
+    xmllintPackageHook
   ];
   nativeCheckInputs = [
+    ament-copyright
+    ament-cppcheck
+    ament-cpplint
+    ament-flake8
+    ament-lint-cmake
+    ament-pep257
+    ament-uncrustify
+    ament-xmllint
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

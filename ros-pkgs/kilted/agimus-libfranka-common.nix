@@ -13,6 +13,7 @@
   # checkInputs
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-kilted-agimus-libfranka-common";
@@ -21,8 +22,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-libfranka-common";
-    rev = "f15396e7f16cf6ee8099b46dfa8df602439c6019";
-    hash = "sha256-r6WrHTI/JMA+gFVywFCdnTRXBUZZ8Q6qRd4IDsUlMEU=";
+    rev = "2c2aee8674d222e8c60bd2fa419acbcf87d8a9e1";
+    hash = "sha256-s6tyhejjwbWa6sdOSgTKFuaaYd3cJI/TN0nNHiRoeS0=";
   };
   sourceRoot = "source/";
 
@@ -42,6 +43,7 @@ buildRosPackage rec {
   checkInputs = [
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

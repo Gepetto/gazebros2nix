@@ -28,6 +28,7 @@
   ament-pep257,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-rolling-agimus-controller-ros";
@@ -36,8 +37,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-controller";
-    rev = "b11188aa58194ba03fd7528cc94bfb49cfa71ecd";
-    hash = "sha256-hFNPv21GTZyz69fU31WjxwZmP9P6HsATZF6ILgX3gRw=";
+    rev = "630372d699f65d8175588937213637350e1b2bdc";
+    hash = "sha256-CFJIMPMJU4SLQi4AHYAed+Qje7X5rvfltAnz4FO/Zyg=";
   };
   sourceRoot = "source/agimus_controller_ros";
 
@@ -79,6 +80,7 @@ buildRosPackage rec {
     python3Packages.pytest
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

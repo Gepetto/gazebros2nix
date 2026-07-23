@@ -18,7 +18,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-physics9";
-  version = "9.3.0";
+  version = "9.4.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -26,8 +26,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-physics";
-    tag = "gz-physics9_9.3.0";
-    hash = "sha256-HUydNVfOX/nWi0a29CcFlM2dCt9hqfsafJR61WkBPIw=";
+    tag = "gz-physics9_9.4.0";
+    hash = "sha256-tfJkL8Lxd2z8tLmrxm25dpo22tp3SdWXEbq+QuWRAI0=";
   };
 
   __structuredAttrs = true;

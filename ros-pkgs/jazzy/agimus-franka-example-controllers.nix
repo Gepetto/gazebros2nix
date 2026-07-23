@@ -5,7 +5,6 @@
 
   # nativeBuildInputs
   ament-cmake,
-  writableTmpDirAsHomeHook,
 
   # buildInputs
   agimus-franka-hardware,
@@ -42,6 +41,7 @@
   ament-lint-cmake,
   ament-pep257,
   ament-xmllint,
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-agimus-franka-example-controllers";
@@ -50,8 +50,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "2719804b4ed7b2d4ef12d8ae4be34e0a5e1ac5cc";
-    hash = "sha256-J5ebhKVkF3m/0RcRFXv+UTqLjRAQBhbpajrVsl+z1oo=";
+    rev = "8a05aced1fae55a09b3f019b6d2645ef45cf002d";
+    hash = "sha256-+LMsdt14tBKIlo0KnfCYFoiYyFYYP4a1QkeEtpzRAIM=";
   };
   sourceRoot = "source/agimus_franka_example_controllers";
 
@@ -62,7 +62,6 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
-    writableTmpDirAsHomeHook
   ];
   buildInputs = [
     agimus-franka-hardware
@@ -112,6 +111,7 @@ buildRosPackage rec {
     ament-lint-cmake
     ament-pep257
     ament-xmllint
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

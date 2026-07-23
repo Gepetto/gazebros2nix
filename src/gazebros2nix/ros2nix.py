@@ -135,8 +135,6 @@ class Repo(HashesFile):
         logger.info("Branch: %s", branch)
         if distro is None:
             distro = branch.split("-")[0]
-        if distro == "alum":  # PAL specific thing
-            distro = "humble"
         self.distro = distro
         logger.info("Distro: %s", self.distro)
 
@@ -252,13 +250,16 @@ class Package:
             check += [f"ament-cmake-{lint}" for lint in COMMON_LINTERS]
         if "ament-cmake-xmllint" in check:
             check.append("xmllintPackageHook")
-        check_scopes = deps_scopes(
-            check, [*native_scopes, *build_scopes, *propagated_scopes]
-        )
-        native_check = []
+        native_check = ["writableTmpDirAsHomeHook"]
         for lint in COMMON_LINTERS:
             if f"ament-cmake-{lint}" in check:
                 native_check.append(f"ament-{lint}")
+                if f"ament-{lint}" in check:
+                    check.remove(f"ament-{lint}")
+        check_scopes = deps_scopes(
+            check, [*native_scopes, *build_scopes, *propagated_scopes]
+        )
+        native_check = sorted(native_check)
         native_check_scopes = native_check
         nix = template.render(
             pkg=pkg,
@@ -305,16 +306,22 @@ def main():
     with Github(auth=auth) as gh:
         rosdeps = get_rosdeps(gh)
         for distro, conf in cfg.items():
+            logger.info("generating distro %s", distro)
             if args.distro and args.distro != "all" and distro not in args.distro:
                 logger.debug("ignore distro %s", distro)
                 continue
-            environ["ROS_DISTRO"] = distro
+            if distro == "alum":
+                # environ["PAL_DISTRO"] = distro
+                environ["ROS_DISTRO"] = "humble"
+            else:
+                environ["ROS_DISTRO"] = distro
             if distro == "humble":
                 environ["IGN_VERSION"] = "fortress"
                 environ["GZ_VERSION"] = ""
             else:
                 environ["IGN_VERSION"] = ""
                 environ["GZ_VERSION"] = {
+                    "alum": "harmonic",
                     "jazzy": "harmonic",
                     "kilted": "ionic",
                     "rolling": "jetty",

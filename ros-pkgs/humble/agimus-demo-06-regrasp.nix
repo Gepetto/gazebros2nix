@@ -19,6 +19,7 @@
   ament-lint-auto,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-humble-agimus-demo-06-regrasp";
@@ -27,8 +28,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-demos";
-    rev = "105f9d51f9c94a0cf5879d6f4c4673aca39f3ba5";
-    hash = "sha256-UA8p5EiWL1ETQ22q7vyKbtBzX+D0z73JHdO1qFsM5KI=";
+    rev = "302ac9fdf5a85dd991e3796c4089e09d9cabbec3";
+    hash = "sha256-5uLPiWbv/xMnb7ZIiyVeANJdv1W/aKhMqm6fRioq4ik=";
   };
   sourceRoot = "source/agimus_demo_06_regrasp";
 
@@ -54,6 +55,7 @@ buildRosPackage rec {
     ament-lint-auto
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

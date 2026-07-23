@@ -3,45 +3,22 @@ final: prev: {
   example-robot-data = prev.example-robot-data.overrideAttrs {
     passthru.rosPackage = true;
   };
-  # https://github.com/NixOS/nixpkgs/pull/519501
-  proxsuite = prev.proxsuite.overrideAttrs (super: {
-    version = "0.7.3";
-    src = final.fetchFromGitHub {
-      inherit (super.src) owner repo rev;
-      hash = "sha256-qJZQV9vNLQ/rtPMRdAfjwrYExyyDC2OP8uVeywkQ56Y=";
-    };
-    postPatch = "";
-  });
-  # https://github.com/NixOS/nixpkgs/pull/526762
-  urdfdom = prev.urdfdom.overrideAttrs (super: {
-    version = "6.0.0";
-    src = final.fetchFromGitHub {
-      inherit (super.src) owner repo tag;
-      hash = "sha256-7ExQaz1/QshWwX8C3F2ZY4/Ty8U3/dXnBfwjGYB0SRg=";
-    };
-  });
-  urdfdom-headers = prev.urdfdom-headers.overrideAttrs (super: {
-    version = "3.0.0";
-    src = final.fetchFromGitHub {
-      inherit (super.src) owner repo tag;
-      hash = "sha256-9bKUuHKSzYiKNDbZwMkB9rbeDC1CUv4X8wDBKkuJkp8=";
-    };
-  });
   zenoh-c = prev.zenoh-c.overrideAttrs (super: {
-    # TODO: port https://github.com/eclipse-zenoh/zenoh-cpp/pull/702
+    # PACKAGE_PREFIX_DIR is $dev
     postInstall = super.postInstall + ''
-      substituteInPlace $out/lib/cmake/zenohc/zenohcConfig.cmake --replace-fail \
-        "$""{PACKAGE_PREFIX_DIR}/lib" \
-        "$out/lib" \
+      substituteInPlace $out/lib/cmake/zenohc/zenohcConfig.cmake \
+        --replace-fail "$""{PACKAGE_PREFIX_DIR}" "$out"
     '';
   });
   zenoh-cpp = prev.zenoh-cpp.overrideAttrs (super: {
-    # ref. https://github.com/eclipse-zenoh/zenoh-cpp/pull/702
-    postInstall = super.postInstall + ''
-      substituteInPlace $out/lib/cmake/zenohcxx/zenohcxxConfig.cmake --replace-fail \
-        "$""{_IMPORT_PREFIX}//nix/store" \
-        "/nix/store"
-    '';
+    patches = (super.patches or [ ]) ++ [
+      # fix cmake syntax
+      (final.fetchpatch2 {
+        url = "https://github.com/eclipse-zenoh/zenoh-cpp/pull/790.patch?full_index=1";
+        hash = "sha256-oaCeLTrQ7veWzpTEKGo4pDmNLKmnBIjBkuX71vRtjoo=";
+      })
+    ];
+    postInstall = ""; # already fixed by the patch
   });
   # keep-sorted end
 
@@ -62,12 +39,6 @@ final: prev: {
         # keep-sorted start block=yes
 
         ign-common4 = fortress-prev.ign-common4.overrideAttrs (super: {
-          patches = [
-            (final.fetchpatch {
-              url = "https://github.com/nim65s/gz-common/commit/4efc4456686229e58e7b5af15810d0dfaff3fc1d.patch?full_index=1";
-              hash = "sha256-98JIk5VJq1nUk38kww2rhXTacsbsFzDvpqf+VHQksgA=";
-            })
-          ];
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
         });
         ign-gui6 = fortress-prev.ign-gui6.overrideAttrs {
@@ -78,17 +49,11 @@ final: prev: {
             })
           ];
         };
-        ign-launch5 = fortress-prev.ign-launch5.overrideAttrs {
-          # TODO: not sure why it was missed in https://github.com/gazebosim/gz-launch/pull/299
-          postPatch = ''
-            substituteInPlace plugins/websocket_server/WebsocketServer.cc \
-              --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
-          '';
-        };
         ign-rendering6 = fortress-prev.ign-rendering6.overrideAttrs (super: {
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
         });
         ign-tools1 = fortress-prev.ign-tools1.overrideAttrs {
+          # ref. https://github.com/gazebosim/gz-tools/pull/173 merged
           postPatch = ''
             substituteInPlace CMakeLists.txt --replace-fail \
               "cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)" \
@@ -134,7 +99,7 @@ final: prev: {
           ];
         };
         gz-launch7 = harmonic-prev.gz-launch7.overrideAttrs {
-          # TODO: not sure why it was missed in https://github.com/gazebosim/gz-launch/pull/299
+          # ref. https://github.com/gazebosim/gz-launch/pull/329
           postPatch = ''
             substituteInPlace plugins/websocket_server/WebsocketServer.cc \
               --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
@@ -181,6 +146,13 @@ final: prev: {
 
         # keep-sorted start block=yes
 
+        gz-launch8 = ionic-prev.gz-launch8.overrideAttrs {
+          # ref. https://github.com/gazebosim/gz-launch/pull/330
+          postPatch = ''
+            substituteInPlace plugins/websocket_server/WebsocketServer.cc \
+              --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
+          '';
+        };
         gz-msgs11 = ionic-prev.gz-msgs11.overrideAttrs {
           postFixup = ''
             substituteInPlace $out/lib/ruby/gz/cmdmsgs11.rb --replace-fail \
@@ -262,47 +234,6 @@ final: prev: {
     );
   };
 
-  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-    (_python-final: python-prev: {
-      # https://github.com/NixOS/nixpkgs/pull/519501
-      aerosandbox = python-prev.aerosandbox.overrideAttrs {
-        pythonRemoveDeps = [
-          # infinite recursion
-          "neuralfoil"
-          # not pypa-installed, so no metadata
-          # good candidate for https://github.com/NixOS/nixpkgs/pull/518530
-          "casadi"
-        ];
-      };
-      daqp = python-prev.daqp.overrideAttrs (
-        finalAttrs: prevAttrs: {
-          version = "0.8.4";
-          src = final.fetchFromGitHub {
-            inherit (prevAttrs.src) owner repo;
-            tag = "v${finalAttrs.version}";
-            hash = "sha256-UakuHHsz4LXDfI7+VT5TO+jg90gpgu3lTJL8RGhtODQ=";
-          };
-          sourceRoot = "${finalAttrs.src.name}/interfaces/daqp-python";
-          postPatch = ''
-            substituteInPlace setup.py --replace-fail \
-            "if src_path.exists():" \
-            "if False:"
-          '';
-        }
-      );
-      qpsolvers = python-prev.qpsolvers.overrideAttrs (
-        finalAttrs: prevAttrs: {
-          version = "4.12.0";
-          src = final.fetchFromGitHub {
-            inherit (prevAttrs.src) owner repo;
-            tag = "v${finalAttrs.version}";
-            hash = "sha256-KUaDas2PIkTuy+Yi94vKm1P/n6QLPDcUXm8KjOq6JzI=";
-          };
-        }
-      );
-    })
-  ];
-
   rosPackages =
     let
       # some packages need an installed verison of themself discoverable by ament.
@@ -370,41 +301,18 @@ final: prev: {
           ];
         };
         linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs {
+          doCheck = true;
           preCheck = ''
             export LD_LIBRARY_PATH=.
           '';
         };
         linear-feedback-controller-msgs = ros-prev.linear-feedback-controller-msgs.overrideAttrs {
+          doCheck = true;
           cmakeFlags = [
             "-DCMAKE_SKIP_BUILD_RPATH=ON"
             "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
           ];
         };
-        mujoco-ros2-control = ros-prev.mujoco-ros2-control.overrideAttrs (super: {
-          postPatch = (super.postPatch or "") + ''
-            substituteInPlace CMakeLists.txt \
-              --replace-fail "FetchContent_Populate(lodepng)" 'set(lodepng_SOURCE_DIR "${final.mujoco.pin.lodepng}")' \
-              --replace-fail 'set(MUJOCO_ROOT "''${MUJOCO_PREFIX}/opt/mujoco_vendor")' 'set(MUJOCO_ROOT "${final.mujoco}")'
-          '';
-          buildInputs = (super.buildInputs or [ ]) ++ [
-            final.glfw
-            final.mujoco
-            final.mujoco.pin.lodepng
-          ];
-        });
-        mujoco-vendor = ros-prev.mujoco-vendor.overrideAttrs (super: {
-          cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DAMENT_VENDOR_POLICY=NEVER_VENDOR" ];
-
-          patches = (super.patches or [ ]) ++ [
-            (final.fetchpatch2 {
-              url = "https://github.com/pal-robotics/mujoco_vendor/commit/5585496493479578449de92616b4a36ac28fa1a9.patch?full_index=1";
-              hash = "sha256-cAtJmf4Q5ML9CcYUjeZEC+B6tvQn27fL4JJHBQ5XWxo=";
-            })
-          ];
-          propagatedBuildInputs = (super.propagatedBuildInputs or [ ]) ++ [
-            final.mujoco
-          ];
-        });
         # keep-sorted end
       };
     in
@@ -431,9 +339,8 @@ final: prev: {
           # that repo somehow has a 0.0.0 tag
           net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
             src = final.fetchFromGitHub {
-              inherit (super.src) repo;
-              owner = "nim65s"; # ref https://github.com/gbartyzel/ros2_net_ft_driver/pull/26
-              rev = "042b7885a7d1ca01f0adb153859fd7c6ace6ed41";
+              inherit (super.src) owner repo;
+              rev = "f76040b53ce1bc021cba89fdca35089b8e883a16";
               hash = "sha256-A+A9c1N/2QShCk9z65PbBT4KvM4C+85X1Suai5bGGWM=";
             };
           });
@@ -443,29 +350,11 @@ final: prev: {
           net-ft-driver = humble-prev.net-ft-driver.overrideAttrs {
             src = humble-final.net-ft-description.src;
           };
-          play-motion2 = humble-prev.play-motion2.overrideAttrs (super: rec {
-            version = "1.6.1";
-            src = final.fetchFromGitHub {
-              owner = "pal-robotics";
-              repo = "play_motion2";
-              tag = version;
-              hash = "sha256-gUlwPuMBpKftCj9lKLuqmXAOFAFQocWmLdgwazUz2ls=";
-            };
-            sourceRoot = "source/play_motion2";
-            # fix for rclcpp < 17.1.0 (#2018). we currently have 16.0.12.
+          play-motion2 = humble-prev.play-motion2.overrideAttrs (super: {
+            # ref. https://github.com/ros2/rclcpp/pull/3211
             postPatch = (super.postPatch or "") + ''
               sed -i "1i #include <functional>" src/utils/motion_loader.*
             '';
-          });
-          play-motion2-msgs = humble-prev.play-motion2-msgs.overrideAttrs (_super: rec {
-            version = "1.6.1";
-            src = final.fetchFromGitHub {
-              owner = "pal-robotics";
-              repo = "play_motion2";
-              tag = version;
-              hash = "sha256-gUlwPuMBpKftCj9lKLuqmXAOFAFQocWmLdgwazUz2ls=";
-            };
-            sourceRoot = "source/play_motion2_msgs";
           });
           python-with-ament-package =
             let
@@ -487,7 +376,7 @@ final: prev: {
           });
           ros-gz-sim-demos = null; # wants qt-gui-cpp, where qt5 and python 3.13 are not compatible
           sdformat-urdf = humble-prev.sdformat-urdf.overrideAttrs {
-            # ref. https://github.com/ros/sdformat_urdf/pull/41
+            # ref. https://github.com/ros/sdformat_urdf/pull/41 merged
             postPatch = ''
               substituteInPlace CMakeLists.txt --replace-fail \
                 "find_package(urdfdom_headers 1.0.6 REQUIRED)" \
@@ -513,6 +402,7 @@ final: prev: {
           };
           br2-gazebo-worlds = jazzy-prev.br2-gazebo-worlds.overrideAttrs {
             patches = [
+              # ref. https://github.com/Tiago-Pro-Harmonic/br2_gazebo_worlds/pull/1
               (final.fetchpatch {
                 url = "https://github.com/nim65s/br2_gazebo_worlds/commit/8a2bf334bc3b286ed4187fe9ffcd723113794d0b.patch?full_index=1";
                 hash = "sha256-1j2RgxBOXYitRXeVJt3MJQXGq6H70GgvBB6Cu40/63M=";
@@ -567,9 +457,9 @@ final: prev: {
             '';
           });
           net-ft-description = jazzy-prev.net-ft-description.overrideAttrs (super: {
+            # ref. https://github.com/gbartyzel/ros2_net_ft_driver/pull/25 merged
             src = final.fetchFromGitHub {
-              inherit (super.src) repo;
-              owner = "nim65s"; # ref https://github.com/gbartyzel/ros1_net_ft_driver/pull/26
+              inherit (super.src) owner repo;
               rev = "a2770efe5d4ec3560fd35b4672a3b59d15c37d30";
               hash = "sha256-9kjfo4We1OQLgi5g9cMz3ync1vp4HiJPbE1NnQqA96A=";
             };

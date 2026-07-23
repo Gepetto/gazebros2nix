@@ -23,8 +23,11 @@
   ament-cmake-copyright,
   ament-cmake-cppcheck,
   ament-cmake-cpplint,
+  ament-cmake-flake8,
   ament-cmake-gtest,
   ament-cmake-lint-cmake,
+  ament-cmake-pep257,
+  ament-cmake-uncrustify,
   ament-cmake-xmllint,
   ament-lint-auto,
   ament-lint-common,
@@ -34,8 +37,12 @@
   ament-copyright,
   ament-cppcheck,
   ament-cpplint,
+  ament-flake8,
   ament-lint-cmake,
+  ament-pep257,
+  ament-uncrustify,
   ament-xmllint,
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-odri-gz-ros2-control";
@@ -44,8 +51,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "stack-of-tasks";
     repo = "odri_gz_ros2_control";
-    rev = "25575c5976013a909e0e8dd365ef441c419bcb45";
-    hash = "sha256-MIA/ZKyvOShXrqgWknjxtTnNsEjpN4cDl13gEeiPfgE=";
+    rev = "452cbb73686333a57423eb4bffd27f4253fe506a";
+    hash = "sha256-VjPzT9aozcMFO8vtGHsZlRuentAd+bGRXkwrfHj5J9o=";
   };
   sourceRoot = "source/";
 
@@ -89,14 +96,26 @@ buildRosPackage rec {
     ament-cmake-xmllint
     ament-lint-auto
     ament-lint-common
+    ament-cmake-copyright
+    ament-cmake-cppcheck
+    ament-cmake-cpplint
+    ament-cmake-flake8
+    ament-cmake-lint-cmake
+    ament-cmake-pep257
+    ament-cmake-uncrustify
+    ament-cmake-xmllint
     xmllintPackageHook
   ];
   nativeCheckInputs = [
     ament-copyright
     ament-cppcheck
     ament-cpplint
+    ament-flake8
     ament-lint-cmake
+    ament-pep257
+    ament-uncrustify
     ament-xmllint
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

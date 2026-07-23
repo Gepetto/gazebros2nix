@@ -1,5 +1,37 @@
+[alum."gazebo-release/sdformat_vendor"]
+branch = "jazzy"
+[alum."pal-robotics/kangaroo_moveit_config"]
+[alum."pal-robotics/kangaroo_robot".packages]
+kangaroo_bringup = {do_check = false}
+kangaroo_controller_configuration = {do_check = false}
+kangaroo_description = {do_check = false}
+[alum."pal-robotics/kangaroo_simulation"]
+[alum."pal-robotics/realsense_gazebo_plugin"]
+[alum."pal-robotics/realsense_simulation"]
+[alum."ros-controls/control_msgs"]
+branch = "jazzy"
+[alum."ros-controls/control_toolbox"]
+branch = "jazzy"
+packages = {"control_toolbox" = {do_check = false}}
+[alum."ros-controls/realtime_tools"]
+branch = "jazzy"
+packages = {"realtime_tools" = {do_check = false}}
+[alum."ros-controls/ros2_control"]
+branch = "jazzy"
+[alum."ros-controls/ros2_control".packages]
+controller_interface = {do_check = false}
+controller_manager = {do_check = false}
+joint_limits = {do_check = false}
+hardware_interface = {do_check = false}
+hardware_interface_testing = {do_check = false}
+transmission_interface = {do_check = false}
+[alum."ros-controls/ros2_controllers"]
+branch = "jazzy"
+[alum."ros-controls/ros2_controllers".packages]
+joint_state_broadcaster = {do_check = false}
+joint_trajectory_controller = {do_check = false}
+
 [humble."gepetto/Quest-Teleoperation-Panda"]
-branch = "teleop"
 native = ["v4l-utils"]
 propagated = ["python3Packages.pyarrow"]
 [humble."agimus-project/agimus-controller"]
@@ -10,10 +42,6 @@ branch = "main"
 branch = "main"
 [humble."agimus-project/agimus-franka-ros2"]
 branch = "main"
-[humble."agimus-project/agimus-franka-ros2".packages]
-agimus_franka_hardware = {native = ["writableTmpDirAsHomeHook"]}
-agimus_franka_example_controllers = {native = ["writableTmpDirAsHomeHook"]}
-agimus_franka_robot_state_broadcaster = {native = ["writableTmpDirAsHomeHook"]}
 [humble."agimus-project/agimus-libfranka"]
 branch = "main"
 do_check = false
@@ -27,18 +55,6 @@ packages = {"net_ft_driver" = {native = ["pkg-config"], propagated = ["curl", "c
 [humble."jpgtzg/omni_drive_controller".packages]
 omni_drive_controller = {do_check = false}
 
-[humble."loco-3d/linear-feedback-controller"]
-[humble."loco-3d/linear-feedback-controller-msgs"]
-
-[humble."pal-robotics/kangaroo_moveit_config"]
-[humble."pal-robotics/kangaroo_robot".packages]
-kangaroo_bringup = {do_check = false}
-kangaroo_controller_configuration = {do_check = false}
-kangaroo_description = {do_check = false}
-[humble."pal-robotics/kangaroo_simulation"]
-[humble."pal-robotics/realsense_gazebo_plugin"]
-[humble."pal-robotics/realsense_simulation"]
-
 [jazzy."agimus-project/agimus-controller"]
 branch = "main"
 [jazzy."agimus-project/agimus-demos"]
@@ -47,10 +63,6 @@ branch = "main"
 branch = "main"
 [jazzy."agimus-project/agimus-franka-ros2"]
 branch = "main"
-[jazzy."agimus-project/agimus-franka-ros2".packages]
-agimus_franka_hardware = {native = ["writableTmpDirAsHomeHook"]}
-agimus_franka_example_controllers = {native = ["writableTmpDirAsHomeHook"]}
-agimus_franka_robot_state_broadcaster = {native = ["writableTmpDirAsHomeHook"]}
 [jazzy."agimus-project/agimus-libfranka"]
 branch = "main"
 do_check = false
@@ -59,9 +71,6 @@ do_check = false
 
 [jazzy."gbartyzel/ros2_net_ft_driver"]
 packages = {"net_ft_driver" = {check = ["ament-lint-auto"], native = ["pkg-config"], propagated = ["curl", "curlpp"]}}
-
-[jazzy."loco-3d/linear-feedback-controller"]
-[jazzy."loco-3d/linear-feedback-controller-msgs"]
 
 [jazzy."ros-controls/ros2_control_demos"]
 branch = "jazzy"
@@ -101,12 +110,8 @@ do_check = false
 do_check = false
 
 [jazzy."stack-of-tasks/odri_dual_motor_testbed_robot"]
-branch = "nix"
 [jazzy."stack-of-tasks/odri_forward_command_controller"]
-branch = "nix"
-packages = {odri_forward_command_controller = {native = ["writableTmpDirAsHomeHook"]}}
 [jazzy."stack-of-tasks/odri_gz_ros2_control"]
-branch = "nix"
 
 [jazzy."Tiago-Pro-Harmonic/br2_gazebo_worlds"]
 do_check = false
@@ -158,9 +163,6 @@ do_check = false
 [kilted."agimus-project/agimus-libfranka-common"]
 [kilted."agimus-project/agimus-msgs"]
 
-[kilted."loco-3d/linear-feedback-controller"]
-[kilted."loco-3d/linear-feedback-controller-msgs"]
-
 [rolling."agimus-project/agimus-controller"]
 branch = "main"
 [rolling."agimus-project/agimus-demos"]
@@ -174,6 +176,3 @@ branch = "main"
 do_check = false
 [rolling."agimus-project/agimus-libfranka-common"]
 [rolling."agimus-project/agimus-msgs"]
-
-[rolling."loco-3d/linear-feedback-controller"]
-[rolling."loco-3d/linear-feedback-controller-msgs"]

@@ -24,6 +24,7 @@
   python3Packages,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-play-motion2-cli";
@@ -64,6 +65,7 @@ buildRosPackage rec {
     python3Packages.pytest-timeout
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;

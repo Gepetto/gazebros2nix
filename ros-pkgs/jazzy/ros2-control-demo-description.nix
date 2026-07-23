@@ -14,6 +14,7 @@
   # checkInputs
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-ros2-control-demo-description";
@@ -22,8 +23,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control_demos";
-    rev = "af54aabe00a7c2dfe414f7f18402905f217bd321";
-    hash = "sha256-1X+U2mxIcL1DiOHru1iTwXE0U7EOkZbA26nWmbeLPqo=";
+    rev = "4462ded3975d1f7f3ba75aeaa09fb099b87866ed";
+    hash = "sha256-MRvHBHVYyqJn2vfTrMGZjNFI2ls7fDywS72mZXPOYxw=";
   };
   sourceRoot = "source/ros2_control_demo_description";
 
@@ -44,6 +45,7 @@ buildRosPackage rec {
   checkInputs = [
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

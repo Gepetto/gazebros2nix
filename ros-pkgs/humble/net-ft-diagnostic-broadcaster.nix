@@ -20,6 +20,7 @@
   # checkInputs
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-humble-net-ft-diagnostic-broadcaster";
@@ -63,6 +64,7 @@ buildRosPackage rec {
   checkInputs = [
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = true;

@@ -42,7 +42,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-launch7";
-  version = "7.1.1";
+  version = "7.1.2";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -50,8 +50,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-launch";
-    tag = "gz-launch7_7.1.1";
-    hash = "sha256-S63DWe/c3cnEztxr3uJc0A4AmuiQk4o6m9yXj0X97Yk=";
+    tag = "gz-launch7_7.1.2";
+    hash = "sha256-bGK1ygCNTBzYJWBoezzD6Ls3tqnmZv60T6MtS7xFYfI=";
   };
 
   __structuredAttrs = true;

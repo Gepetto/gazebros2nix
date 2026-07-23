@@ -18,6 +18,7 @@
   gtest,
 
   # nativeCheckInputs
+  writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-agimus-libfranka";
@@ -53,6 +54,7 @@ buildRosPackage rec {
     gtest
   ];
   nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   doCheck = false;
