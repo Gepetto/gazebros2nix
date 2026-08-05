@@ -71,6 +71,11 @@ stdenv.mkDerivation (finalAttrs: {
       "tifin->tif_row" \
       "tifin->tif_dir.td_row"
 
+    # fix: ogre-next> /nix/store/advlbxfc5cg0jswl7zv40h2lzlxiksr6-binutils-2.46/bin/ld.bfd: /nix/store/8wlb1p8wb6wpjpdw3rmbkk8yrpw1hrr8-freeimage-3.18.0-unstable-2024-04-18/lib/libfreeimage.so: undefined reference to `jtransform_execute_transform'
+    substituteInPlace Makefile.gnu --replace-fail \
+      '-lstdc++' \
+      '-lstdc++ ${lib.getLib libjpeg_turbo-freeimage}/lib/libturbojpeg.a'
+
   ''
   + lib.optionalString (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) ''
     # Upstream Makefile hardcodes i386 and x86_64 architectures only
