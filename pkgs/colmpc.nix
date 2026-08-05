@@ -4,11 +4,8 @@
 
   fetchFromGitHub,
 
-  # nativeBuildInputs
-  cmake,
-  pkg-config,
-
   # buildInputs
+  jrl-cmakemodules,
   llvmPackages,
 
   # propagatedBuildInputs
@@ -29,19 +26,19 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = "-DCOAL_DISABLE_HPP_FCL_WARNINGS";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = jrl-cmakemodules.docsNativeBuildInputs;
 
-  buildInputs = lib.optional stdenv.cc.isClang llvmPackages.openmp;
+  buildInputs = [
+    jrl-cmakemodules
+  ]
+  ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
   propagatedBuildInputs = [
     crocoddyl
     ipopt
   ];
 
-  cmakeFlags = [
+  cmakeFlags = jrl-cmakemodules.docsCmakeFlags ++ [
     (lib.cmakeBool "BUILD_PYTHON_INTERFACE" false)
   ];
 
