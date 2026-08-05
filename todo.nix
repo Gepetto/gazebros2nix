@@ -336,6 +336,15 @@ final: prev: {
             env.IGNITION_VERSION = "fortress";
             env.IGN_VERSION = "fortress";
           };
+          launch-testing = humble-prev.launch-testing.overrideAttrs (super: {
+            patches = (super.patches or [ ]) ++ [
+              (final.fetchpatch2 {
+                url = "https://github.com/ros2/launch/pull/991.patch?full_index=1";
+                stripLen = 1;
+                hash = "sha256-OOa03NANO9nNgDqNRcvUwWRa7jWCxZreYRosvHP6818=";
+              })
+            ];
+          });
           # that repo somehow has a 0.0.0 tag
           net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
             src = final.fetchFromGitHub {
@@ -447,6 +456,25 @@ final: prev: {
           gz-tools-vendor = jazzy-final.gz-tools;
           gz-transport-vendor = jazzy-final.gz-transport;
           gz-utils-vendor = jazzy-final.gz-utils;
+          launch-testing = jazzy-prev.launch-testing.overrideAttrs (super: {
+            patches = (super.patches or [ ]) ++ [
+              (final.fetchpatch2 {
+                url = "https://github.com/ros2/launch/pull/972.patch?full_index=1";
+                stripLen = 1;
+                includes = [ "launch_testing/*" ];
+                hash = "sha256-p7RoxvSUBsbnoxweS5KbdrlF9eGnxohy8VAGpMAQchc=";
+              })
+            ];
+          });
+          launch-testing-ros = jazzy-prev.launch-testing-ros.overrideAttrs (super: {
+            patches = (super.patches or [ ]) ++ [
+              (final.fetchpatch2 {
+                url = "https://github.com/ros2/launch_ros/pull/540.patch?full_index=1";
+                stripLen = 1;
+                hash = "sha256-lv8R9lij5gwTvShmpLD8bkTu/WcIAdGWAV7qEz0UmF8=";
+              })
+            ];
+          });
           moveit-task-constructor-core = jazzy-prev.moveit-task-constructor-core.overrideAttrs (super: {
             # TODO: unvendor pybind11 upstream
             cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DPYBIND11_INSTALL=OFF" ];
@@ -587,6 +615,25 @@ final: prev: {
         kilted-final: kilted-prev:
         (rosOverlay kilted-final kilted-prev)
         // {
+          launch-testing = kilted-prev.launch-testing.overrideAttrs (super: {
+            patches = (super.patches or [ ]) ++ [
+              (final.fetchpatch2 {
+                url = "https://github.com/ros2/launch/pull/972.patch?full_index=1";
+                stripLen = 1;
+                includes = [ "launch_testing/*" ];
+                hash = "sha256-p7RoxvSUBsbnoxweS5KbdrlF9eGnxohy8VAGpMAQchc=";
+              })
+            ];
+          });
+          launch-testing-ros = kilted-prev.launch-testing-ros.overrideAttrs (super: {
+            patches = (super.patches or [ ]) ++ [
+              (final.fetchpatch2 {
+                url = "https://github.com/ros2/launch_ros/pull/540.patch?full_index=1";
+                stripLen = 1;
+                hash = "sha256-lv8R9lij5gwTvShmpLD8bkTu/WcIAdGWAV7qEz0UmF8=";
+              })
+            ];
+          });
           sdformat-urdf = kilted-prev.sdformat-urdf.overrideAttrs {
             postPatch = ''
               substituteInPlace CMakeLists.txt --replace-fail \
