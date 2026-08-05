@@ -66,6 +66,11 @@ stdenv.mkDerivation (finalAttrs: {
          jcopy_markers_setup(&cinfo, JCOPYOPT_ALL);
        #endif"
 
+    # fix after libtiff 4.7.1 -> 4.7.2
+    substituteInPlace Source/FreeImage/PluginG3.cpp --replace-fail \
+      "tifin->tif_row" \
+      "tifin->tif_dir.td_row"
+
   ''
   + lib.optionalString (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) ''
     # Upstream Makefile hardcodes i386 and x86_64 architectures only
