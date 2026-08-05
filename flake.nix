@@ -7,22 +7,6 @@
     rosdistro.follows = "nix-ros-overlay/rosdistro";
     systems.follows = "flakoboros/systems";
     treefmt-nix.follows = "flakoboros/treefmt-nix";
-
-    pyproject-build-systems = {
-      url = "github:pyproject-nix/build-system-pkgs";
-      inputs.pyproject-nix.follows = "pyproject-nix";
-      inputs.uv2nix.follows = "uv2nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    pyproject-nix = {
-      url = "github:pyproject-nix/pyproject.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    uv2nix = {
-      url = "github:pyproject-nix/uv2nix";
-      inputs.pyproject-nix.follows = "pyproject-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -43,7 +27,6 @@
             flakoboros = {
               overlays = [
                 (final: _prev: {
-                  inherit (inputs) pyproject-build-systems pyproject-nix uv2nix;
                   pythonVersion = inputs.flakoboros.lib.pythonVersion final;
                 })
               ];
@@ -74,10 +57,6 @@
           }:
           {
             devShells.default = pkgs.mkShell {
-              packages = [
-                pkgs.gazebros2nix-venv.passthru.editableVirtualenv
-              ]
-              ++ pkgs.python3Packages.gazebros2nix.propagatedNativeBuildInputs;
               shellHook = ''
                 test -f .venv/bin/activate && source .venv/bin/activate
               '';
