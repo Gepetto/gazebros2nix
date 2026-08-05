@@ -53,10 +53,10 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   outputs = [
+    "out"
     "bin"
     "dev"
     "dev_private"
-    "out"
     "man"
     "doc"
   ];
