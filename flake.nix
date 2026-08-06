@@ -408,9 +408,17 @@
                   # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
                   # ros2-control-demos # need the other ones
                   br2-gazebo-worlds
+                  kangaroo-bringup
+                  kangaroo-controller-configuration
+                  kangaroo-description
+                  kangaroo-moveit-config
+                  kangaroo-mujoco
+                  kangaroo-robot
+                  kangaroo-simulation
                   launch-pal
                   linear-feedback-controller
                   linear-feedback-controller-msgs
+                  moveit-core
                   net-ft-driver
                   odri-dual-motor-testbed-bringup
                   odri-dual-motor-testbed-description
@@ -436,6 +444,7 @@
                   play-motion2
                   play-motion2-cli
                   play-motion2-msgs
+                  realsense-simulation
                   ros-gz-bridge
                   ros-gz-image
                   ros2-control-demo-description

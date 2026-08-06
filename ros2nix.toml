@@ -72,6 +72,15 @@ do_check = false
 [jazzy."gbartyzel/ros2_net_ft_driver"]
 packages = {"net_ft_driver" = {check = ["ament-lint-auto"], native = ["pkg-config"], propagated = ["curl", "curlpp"]}}
 
+[jazzy."pal-robotics/kangaroo_moveit_config"]
+[jazzy."pal-robotics/kangaroo_robot".packages]
+kangaroo_bringup = {do_check = false}
+kangaroo_controller_configuration = {do_check = false}
+kangaroo_description = {do_check = false}
+[jazzy."pal-robotics/kangaroo_simulation"]
+[jazzy."pal-robotics/realsense_simulation"]
+do_check = false
+
 [jazzy."ros-controls/ros2_control_demos"]
 branch = "jazzy"
 [jazzy."ros-controls/ros2_control_demos".packages.example_1]

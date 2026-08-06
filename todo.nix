@@ -418,7 +418,6 @@ final: prev: {
               })
             ];
           };
-          # TODO: does not seem useful for now, but might bite later
           gazebo-planar-move-plugin = null;
           # unvendor
           gz-cmake-vendor = jazzy-final.gz-cmake;
@@ -507,6 +506,8 @@ final: prev: {
           pal-gazebo-plugins = null;
           pal-gazebo-worlds = null;
           pal-maps = null;
+          # TODO: does not seem useful for now, but might bite later
+          realsense-gazebo-plugin = null;
           ros-gz-bridge = jazzy-prev.ros-gz-bridge.overrideAttrs {
             cmakeFlags = [
               "-DGZ_MSGS_VERSION_FULL=${jazzy-final.gz-msgs.version}"
