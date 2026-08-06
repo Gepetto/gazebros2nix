@@ -607,7 +607,6 @@ final: prev: {
           tiago-pro-2dnav = null;
           tiago-pro-laser-sensors = null;
           tiago-pro-rgbd-sensors = null;
-          urdf-test = null;
           # keep-sorted end
         }
       );
