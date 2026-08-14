@@ -266,7 +266,6 @@ final: prev: {
           mim-solvers
           ;
         # keep-sorted start block=yes
-        gz-dartsim = final.dartsim;
         agimus-controller-ros = ros-prev.agimus-controller-ros.overrideAttrs {
           # this thing believe we did pass --build-directory or --build-base:
           # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
@@ -309,6 +308,7 @@ final: prev: {
             "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
           ];
         };
+        gz-dartsim = final.dartsim;
         linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs {
           doCheck = true;
           preCheck = ''
@@ -455,20 +455,6 @@ final: prev: {
           (
             jazzy-final: jazzy-prev: {
               # keep-sorted start block=yes
-              gz-gui-vendor = jazzy-prev.gz-gui-vendor.overrideAttrs {
-                postInstall = "";
-              };
-              gz-dartsim-vendor = jazzy-prev.gz-dartsim-vendor.overrideAttrs {
-                # env.GZ_RELAX_VERSION_MATCH = ""; TODO
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
-                '';
-              };
-              gz-tools-vendor = jazzy-prev.gz-tools-vendor.overrideAttrs {
-                postFixup = "";
-                qtWrapperArgs = [ ];
-              };
               agimus-franka-hardware = jazzy-prev.agimus-franka-hardware.overrideAttrs {
                 doCheck = false; # TODO
               };
@@ -482,6 +468,20 @@ final: prev: {
                 ];
               };
               gazebo-planar-move-plugin = null;
+              gz-dartsim-vendor = jazzy-prev.gz-dartsim-vendor.overrideAttrs {
+                # env.GZ_RELAX_VERSION_MATCH = ""; TODO
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
+                '';
+              };
+              gz-gui-vendor = jazzy-prev.gz-gui-vendor.overrideAttrs {
+                postInstall = "";
+              };
+              gz-tools-vendor = jazzy-prev.gz-tools-vendor.overrideAttrs {
+                postFixup = "";
+                qtWrapperArgs = [ ];
+              };
               launch-testing = jazzy-prev.launch-testing.overrideAttrs (super: {
                 patches = (super.patches or [ ]) ++ [
                   (final.fetchpatch2 {
