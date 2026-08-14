@@ -61,6 +61,21 @@
                 test -f .venv/bin/activate && source .venv/bin/activate
               '';
             };
+            legacyPackages = {
+              inherit (pkgs.gazeboPackages)
+                fortress
+                harmonic
+                ionic
+                jetty
+                ;
+              inherit (pkgs.rosPackages)
+                humble
+                jazzy
+                kilted
+                lyrical
+                rolling
+                ;
+            };
             packages = lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (
               {
                 flakoboros-json = pkgs.callPackage ./flakoboros-json.nix { inherit (inputs) rosdistro; };
