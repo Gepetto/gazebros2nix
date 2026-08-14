@@ -52,14 +52,22 @@ final: prev: {
         ign-rendering6 = fortress-prev.ign-rendering6.overrideAttrs (super: {
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
         });
-        ign-tools1 = fortress-prev.ign-tools1.overrideAttrs {
+        ign-tools1 = fortress-prev.ign-tools1.overrideAttrs (super: {
           # ref. https://github.com/gazebosim/gz-tools/pull/173 merged
           postPatch = ''
             substituteInPlace CMakeLists.txt --replace-fail \
               "cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)" \
               "cmake_minimum_required(VERSION 3.10 FATAL_ERROR)"
           '';
-        };
+          dontWrapQtApps = false;
+          nativeBuildInputs = super.nativeBuildInputs ++ [ final.qt5.wrapQtAppsHook ];
+          qtWrapperArgs = [
+            "--set-default"
+            "QT_QPA_PLATFORM"
+            "xcb"
+          ];
+          postFixup = "wrapQtApp $out/bin/ign";
+        });
         ign-transport11 = fortress-prev.ign-transport11.overrideAttrs {
           postFixup = ''
             substituteInPlace $out/lib/ruby/gz/cmdtransport11.rb --replace-fail \
