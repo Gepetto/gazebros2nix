@@ -113,14 +113,6 @@ final: prev: {
               --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
           '';
         };
-        gz-msgs10 = harmonic-prev.gz-msgs10.overrideAttrs {
-          patches = [
-            (final.fetchpatch2 {
-              url = "https://github.com/gazebosim/gz-msgs/pull/501.patch?full_index=1";
-              hash = "sha256-0uscwyYZafHfzooxcrrhtcfcxknpDTEcZ6Ie0WWySVw=";
-            })
-          ];
-        };
         gz-plugin2 = harmonic-prev.gz-plugin2.overrideAttrs {
           postFixup = ''
             substituteInPlace $out/lib/ruby/gz/cmdplugin2.rb --replace-fail \
