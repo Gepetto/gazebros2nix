@@ -324,6 +324,7 @@ def main():
                     "alum": "harmonic",
                     "jazzy": "harmonic",
                     "kilted": "ionic",
+                    "lyrical": "jetty",
                     "rolling": "jetty",
                 }[distro]
             environ["IGNITION_VERSION"] = environ["IGN_VERSION"]
