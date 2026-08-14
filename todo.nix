@@ -561,47 +561,73 @@ final: prev: {
             }
           );
 
-      kilted = prev.rosPackages.kilted.overrideScope (
-        kilted-final: kilted-prev:
-        (rosOverlay kilted-final kilted-prev)
-        // (gzVendorOverlay kilted-final kilted-prev)
-        // {
-          launch-testing = kilted-prev.launch-testing.overrideAttrs (super: {
-            patches = (super.patches or [ ]) ++ [
-              (final.fetchpatch2 {
-                url = "https://github.com/ros2/launch/pull/972.patch?full_index=1";
-                stripLen = 1;
-                includes = [ "launch_testing/*" ];
-                hash = "sha256-p7RoxvSUBsbnoxweS5KbdrlF9eGnxohy8VAGpMAQchc=";
-              })
-            ];
-          });
-          launch-testing-ros = kilted-prev.launch-testing-ros.overrideAttrs (super: {
-            patches = (super.patches or [ ]) ++ [
-              (final.fetchpatch2 {
-                url = "https://github.com/ros2/launch_ros/pull/540.patch?full_index=1";
-                stripLen = 1;
-                hash = "sha256-lv8R9lij5gwTvShmpLD8bkTu/WcIAdGWAV7qEz0UmF8=";
-              })
-            ];
-          });
-          sdformat-urdf = kilted-prev.sdformat-urdf.overrideAttrs {
-            postPatch = ''
-              substituteInPlace CMakeLists.txt --replace-fail \
-                "find_package(urdfdom_headers 1.0.6 REQUIRED)" \
-                "find_package(urdfdom_headers REQUIRED)"
-            '';
-          };
-        }
-      );
+      kilted =
+        (prev.rosPackages.kilted.overrideScope (
+          kilted-final: kilted-prev:
+          (rosOverlay kilted-final kilted-prev) // (gzVendorOverlay kilted-final kilted-prev)
+        )).overrideScope
+          (
+            kilted-final: kilted-prev: {
+              gz-dartsim-vendor = kilted-prev.gz-dartsim-vendor.overrideAttrs {
+                # env.GZ_RELAX_VERSION_MATCH = ""; TODO
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
+                '';
+              };
+              gz-tools-vendor = kilted-prev.gz-tools-vendor.overrideAttrs {
+                postFixup = "";
+                qtWrapperArgs = [ ];
+              };
+              launch-testing = kilted-prev.launch-testing.overrideAttrs (super: {
+                patches = (super.patches or [ ]) ++ [
+                  (final.fetchpatch2 {
+                    url = "https://github.com/ros2/launch/pull/972.patch?full_index=1";
+                    stripLen = 1;
+                    includes = [ "launch_testing/*" ];
+                    hash = "sha256-p7RoxvSUBsbnoxweS5KbdrlF9eGnxohy8VAGpMAQchc=";
+                  })
+                ];
+              });
+              launch-testing-ros = kilted-prev.launch-testing-ros.overrideAttrs (super: {
+                patches = (super.patches or [ ]) ++ [
+                  (final.fetchpatch2 {
+                    url = "https://github.com/ros2/launch_ros/pull/540.patch?full_index=1";
+                    stripLen = 1;
+                    hash = "sha256-lv8R9lij5gwTvShmpLD8bkTu/WcIAdGWAV7qEz0UmF8=";
+                  })
+                ];
+              });
+              sdformat-urdf = kilted-prev.sdformat-urdf.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "find_package(urdfdom_headers 1.0.6 REQUIRED)" \
+                    "find_package(urdfdom_headers REQUIRED)"
+                '';
+              };
+            }
+          );
 
-      rolling = prev.rosPackages.rolling.overrideScope (
-        rolling-final: rolling-prev:
-        (rosOverlay rolling-final rolling-prev)
-        // (gzVendorOverlay rolling-final rolling-prev)
-        // {
-          parameter-traits = null;
-        }
-      );
+      rolling =
+        (prev.rosPackages.rolling.overrideScope (
+          rolling-final: rolling-prev:
+          (rosOverlay rolling-final rolling-prev) // (gzVendorOverlay rolling-final rolling-prev)
+        )).overrideScope
+          (
+            rolling-final: rolling-prev: {
+              gz-dartsim-vendor = rolling-prev.gz-dartsim-vendor.overrideAttrs {
+                # env.GZ_RELAX_VERSION_MATCH = ""; TODO
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
+                '';
+              };
+              gz-tools-vendor = rolling-prev.gz-tools-vendor.overrideAttrs {
+                postFixup = "";
+                qtWrapperArgs = [ ];
+              };
+              parameter-traits = null;
+            }
+          );
     };
 }
