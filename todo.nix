@@ -470,6 +470,18 @@ final: prev: {
               gz-gui-vendor = jazzy-prev.gz-gui-vendor.overrideAttrs {
                 postInstall = "";
               };
+              gz-msgs-vendor = jazzy-prev.gz-msgs-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
+              gz-sim-vendor = jazzy-prev.gz-sim-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-tools-vendor = jazzy-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
@@ -559,13 +571,28 @@ final: prev: {
           (rosOverlay kilted-final kilted-prev) // (gzVendorOverlay kilted-final kilted-prev)
         )).overrideScope
           (
-            kilted-final: kilted-prev: {
+            _kilted-final: kilted-prev: {
+              gz-sim-vendor = kilted-prev.gz-sim-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
+              gz-msgs-vendor = kilted-prev.gz-msgs-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-dartsim-vendor = kilted-prev.gz-dartsim-vendor.overrideAttrs {
                 # env.GZ_RELAX_VERSION_MATCH = ""; TODO
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
                 '';
+              };
+              gz-gui-vendor = kilted-prev.gz-gui-vendor.overrideAttrs {
+                postInstall = "";
               };
               gz-tools-vendor = kilted-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
@@ -606,13 +633,16 @@ final: prev: {
           (rosOverlay rolling-final rolling-prev) // (gzVendorOverlay rolling-final rolling-prev)
         )).overrideScope
           (
-            rolling-final: rolling-prev: {
+            _rolling-final: rolling-prev: {
               gz-dartsim-vendor = rolling-prev.gz-dartsim-vendor.overrideAttrs {
                 # env.GZ_RELAX_VERSION_MATCH = ""; TODO
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
                 '';
+              };
+              gz-gui-vendor = rolling-prev.gz-gui-vendor.overrideAttrs {
+                postInstall = "";
               };
               gz-tools-vendor = rolling-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
