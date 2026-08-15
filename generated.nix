@@ -1,6 +1,6 @@
 final: prev:
 {
-  gazebo = prev.lib.filesystem.packagesFromDirectoryRecursive {
+  gazeboPackages = prev.lib.filesystem.packagesFromDirectoryRecursive {
     inherit (final) callPackage newScope;
     directory = ./gazebo-pkgs;
   };
@@ -23,7 +23,7 @@ final: prev:
         directory = ./ros-pkgs/humble;
       }
       // {
-        inherit (final.gazebo.fortress)
+        inherit (final.gazeboPackages.fortress)
           # keep-sorted start
           gz-cmake
           gz-common
@@ -87,7 +87,7 @@ final: prev:
         directory = ./ros-pkgs/jazzy;
       }
       // {
-        inherit (final.gazebo.harmonic)
+        inherit (final.gazeboPackages.harmonic)
           # keep-sorted start
           gz-cmake
           gz-cmake3
@@ -133,7 +133,7 @@ final: prev:
         directory = ./ros-pkgs/kilted;
       }
       // {
-        inherit (final.gazebo.ionic)
+        inherit (final.gazeboPackages.ionic)
           # keep-sorted start
           gz-cmake
           gz-cmake4
@@ -179,7 +179,7 @@ final: prev:
         directory = ./ros-pkgs/rolling;
       }
       // {
-        inherit (final.gazebo.jetty)
+        inherit (final.gazeboPackages.jetty)
           # keep-sorted start
           gz-cmake
           gz-cmake5

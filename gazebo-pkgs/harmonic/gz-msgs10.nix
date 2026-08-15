@@ -18,7 +18,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-msgs10";
-  version = "10.3.2";
+  version = "10.4.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -26,8 +26,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-msgs";
-    tag = "gz-msgs10_10.3.2";
-    hash = "sha256-gxhRqLzBCaDmK67T5RryDpxbDR3WLgV9DFs7w6ieMxQ=";
+    tag = "gz-msgs10_10.4.0";
+    hash = "sha256-ocfwumy95gz7Fg2DC7xKGuj+nPUFk/7gpRs/7SgR6fc=";
   };
 
   __structuredAttrs = true;

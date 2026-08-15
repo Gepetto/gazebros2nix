@@ -61,7 +61,21 @@
                 test -f .venv/bin/activate && source .venv/bin/activate
               '';
             };
-
+            legacyPackages = {
+              inherit (pkgs.gazeboPackages)
+                fortress
+                harmonic
+                ionic
+                jetty
+                ;
+              inherit (pkgs.rosPackages)
+                humble
+                jazzy
+                kilted
+                lyrical
+                rolling
+                ;
+            };
             packages = lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (
               {
                 flakoboros-json = pkgs.callPackage ./flakoboros-json.nix { inherit (inputs) rosdistro; };
@@ -176,7 +190,7 @@
 
               // lib.mapAttrs' (n: lib.nameValuePair "gz-fortress-${n}") (
                 lib.optionalAttrs (system == "x86_64-linux") {
-                  inherit (pkgs.gazebo.fortress)
+                  inherit (pkgs.gazeboPackages.fortress)
                     # keep-sorted start
                     gz-cmake
                     gz-common
@@ -217,7 +231,7 @@
 
               // lib.mapAttrs' (n: lib.nameValuePair "gz-harmonic-${n}") (
                 lib.optionalAttrs (system == "x86_64-linux") {
-                  inherit (pkgs.gazebo.harmonic)
+                  inherit (pkgs.gazeboPackages.harmonic)
                     # keep-sorted start
                     gz-cmake
                     gz-cmake3
@@ -258,7 +272,7 @@
 
               // lib.mapAttrs' (n: lib.nameValuePair "gz-ionic-${n}") (
                 lib.optionalAttrs (system == "x86_64-linux") {
-                  inherit (pkgs.gazebo.ionic)
+                  inherit (pkgs.gazeboPackages.ionic)
                     # keep-sorted start
                     gz-cmake
                     gz-common
@@ -283,7 +297,7 @@
 
               // lib.mapAttrs' (n: lib.nameValuePair "gz-jetty-${n}") (
                 lib.optionalAttrs (system == "x86_64-linux") {
-                  inherit (pkgs.gazebo.jetty)
+                  inherit (pkgs.gazeboPackages.jetty)
                     # keep-sorted start
                     gz-cmake
                     gz-common
