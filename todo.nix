@@ -399,12 +399,6 @@ final: prev: {
           net-ft-driver = humble-prev.net-ft-driver.overrideAttrs {
             src = humble-final.net-ft-description.src;
           };
-          play-motion2 = humble-prev.play-motion2.overrideAttrs (super: {
-            # ref. https://github.com/ros2/rclcpp/pull/3211
-            postPatch = (super.postPatch or "") + ''
-              sed -i "1i #include <functional>" src/utils/motion_loader.*
-            '';
-          });
           python-with-ament-package =
             let
               # TODO: this make no sense
