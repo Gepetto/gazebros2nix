@@ -367,6 +367,7 @@ final: prev: {
           gazebo-ros = null;
           gazebo-dev = null;
           agimus-demo-09-glue-spreading = null;
+          tiago-pro-gazebo = null;
 
           # keep-sorted start block=yes
 
