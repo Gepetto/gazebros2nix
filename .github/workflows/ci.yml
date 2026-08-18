@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-24.04]
-        build: ["gz-fortress", "gz-harmonic", "gz-ionic", "gz-jetty", "ros-humble", "ros-jazzy", "ros-kilted", "ros-rolling"]
+        build: ["gz-fortress", "gz-harmonic", "gz-ionic", "gz-jetty", "ros-humble", "ros-jazzy", "ros-kilted", "ros-rolling", "pal-alum"]
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
