@@ -69,6 +69,7 @@
                 jetty
                 ;
               inherit (pkgs.rosPackages)
+                alum
                 humble
                 jazzy
                 kilted
@@ -323,8 +324,28 @@
               // lib.mapAttrs' (n: lib.nameValuePair "pal-alum-${n}") {
                 inherit (pkgs.rosPackages.alum)
                   # keep-sorted start
+                  ackermann-steering-controller
+                  admittance-controller
+                  bicycle-steering-controller
+                  chained-filter-controller
+                  control-msgs
+                  control-toolbox
+                  controller-interface
                   controller-manager
                   controller-manager-msgs
+                  diff-drive-controller
+                  effort-controllers
+                  force-torque-sensor-broadcaster
+                  forward-command-controller
+                  gpio-controllers
+                  gps-sensor-broadcaster
+                  gripper-controllers
+                  hardware-interface
+                  hardware-interface-testing
+                  imu-sensor-broadcaster
+                  joint-limits
+                  joint-state-broadcaster
+                  joint-trajectory-controller
                   kangaroo-bringup
                   kangaroo-controller-configuration
                   kangaroo-description
@@ -332,6 +353,33 @@
                   kangaroo-mujoco
                   kangaroo-robot
                   kangaroo-simulation
+                  magnetometer-broadcaster
+                  mecanum-drive-controller
+                  motion-primitives-controllers
+                  omni-wheel-drive-controller
+                  parallel-gripper-controller
+                  pid-controller
+                  pose-broadcaster
+                  position-controllers
+                  range-sensor-broadcaster
+                  # realsense-gazebo-plugin
+                  # realsense-simulation
+                  realtime-tools
+                  ros2-control
+                  ros2-control-test-assets
+                  ros2-controllers
+                  ros2-controllers-test-nodes
+                  ros2controlcli
+                  rqt-controller-manager
+                  rqt-joint-trajectory-controller
+                  sdformat-test-files
+                  sdformat-vendor
+                  state-interfaces-broadcaster
+                  steering-controllers-library
+                  transmission-interface
+                  tricycle-controller
+                  tricycle-steering-controller
+                  velocity-controllers
                   # keep-sorted end
                   ;
               }

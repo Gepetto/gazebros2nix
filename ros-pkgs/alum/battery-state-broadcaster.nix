@@ -11,32 +11,27 @@
   control-msgs,
   controller-interface,
   generate-parameter-library,
-  geometry-msgs,
   hardware-interface,
-  nav-msgs,
   pluginlib,
   rclcpp,
   rclcpp-lifecycle,
-  rcpputils,
   realtime-tools,
   ros2-control-cmake,
-  std-srvs,
-  tf2,
-  tf2-geometry-msgs,
-  tf2-msgs,
+  sensor-msgs,
 
   # propagatedBuildInputs
 
   # checkInputs
   ament-cmake-gmock,
   controller-manager,
+  hardware-interface-testing,
   ros2-control-test-assets,
 
   # nativeCheckInputs
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
-  pname = "ros-alum-steering-controllers-library";
+  pname = "ros-alum-battery-state-broadcaster";
   version = "4.42.1";
 
   src = fetchFromGitHub {
@@ -45,7 +40,7 @@ buildRosPackage rec {
     tag = version;
     hash = "sha256-dTNDmlrMMiny5r5HY1VrvqpYWPdQT1zKVen8KuvF++s=";
   };
-  sourceRoot = "source/steering_controllers_library";
+  sourceRoot = "source/battery_state_broadcaster";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -62,41 +57,29 @@ buildRosPackage rec {
     control-msgs
     controller-interface
     generate-parameter-library
-    geometry-msgs
     hardware-interface
-    nav-msgs
     pluginlib
     rclcpp
     rclcpp-lifecycle
-    rcpputils
     realtime-tools
     ros2-control-cmake
-    std-srvs
-    tf2
-    tf2-geometry-msgs
-    tf2-msgs
+    sensor-msgs
   ];
   propagatedBuildInputs = [
     backward-ros
     control-msgs
     controller-interface
-    generate-parameter-library
-    geometry-msgs
     hardware-interface
-    nav-msgs
     pluginlib
     rclcpp
     rclcpp-lifecycle
-    rcpputils
     realtime-tools
-    std-srvs
-    tf2
-    tf2-geometry-msgs
-    tf2-msgs
+    sensor-msgs
   ];
   checkInputs = [
     ament-cmake-gmock
     controller-manager
+    hardware-interface-testing
     ros2-control-test-assets
   ];
   nativeCheckInputs = [
@@ -106,7 +89,7 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Package for steering robot configurations including odometry and interfaces.";
+    description = "ros2_control battery state broadcaster controller";
     license = with lib.licenses; [ asl20 ];
     homepage = "https://github.com/ros-controls/ros2_controllers";
     platforms = lib.platforms.linux;

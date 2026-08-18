@@ -8,6 +8,7 @@
 
   # buildInputs
   boost,
+  fmt,
   libcap,
   rclcpp,
   rclcpp-action,
@@ -47,6 +48,7 @@ buildRosPackage rec {
   buildInputs = [
     ament-cmake
     boost
+    fmt
     libcap
     rclcpp
     rclcpp-action
@@ -54,6 +56,7 @@ buildRosPackage rec {
   ];
   propagatedBuildInputs = [
     boost
+    fmt
     libcap
     rclcpp
     rclcpp-action

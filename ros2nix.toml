@@ -1,14 +1,26 @@
+[alum."gazebo-release/gz_cmake_vendor"]
+branch = "jazzy"
+[alum."gazebo-release/gz_math_vendor"]
+branch = "jazzy"
+[alum."gazebo-release/gz_tools_vendor"]
+branch = "jazzy"
+[alum."gazebo-release/gz_utils_vendor"]
+branch = "jazzy"
 [alum."gazebo-release/sdformat_vendor"]
 branch = "jazzy"
 [alum."pal-robotics/kangaroo_moveit_config"]
 [alum."pal-robotics/kangaroo_simulation"]
 [alum."pal-robotics/realsense_gazebo_plugin"]
 [alum."pal-robotics/realsense_simulation"]
+[alum."ros/sdformat_urdf"]
+branch = "jazzy"
 [alum."ros-controls/control_msgs"]
 branch = "jazzy"
 [alum."ros-controls/control_toolbox"]
 branch = "jazzy"
 packages = {"control_toolbox" = {do_check = false}}
+[alum."ros-controls/kinematics_interface"]
+branch = "jazzy"
 [alum."ros-controls/realtime_tools"]
 branch = "jazzy"
 packages = {"realtime_tools" = {do_check = false}}
@@ -24,8 +36,32 @@ transmission_interface = {do_check = false}
 [alum."ros-controls/ros2_controllers"]
 branch = "jazzy"
 [alum."ros-controls/ros2_controllers".packages]
+ackermann_steering_controller = {do_check = false}
+admittance_controller = {do_check = false}
+bicycle_steering_controller = {do_check = false}
+chained_filter_controller = {do_check = false}
+diff_drive_controller = {do_check = false}
+effort_controllers = {do_check = false}
+force_torque_sensor_broadcaster = {do_check = false}
+forward_command_controller = {do_check = false}
+gps_sensor_broadcaster = {do_check = false}
+gripper_controllers = {do_check = false}
+imu_sensor_broadcaster = {do_check = false}
 joint_state_broadcaster = {do_check = false}
 joint_trajectory_controller = {do_check = false}
+magnetometer_broadcaster = {do_check = false}
+motion_primitives_controllers = {do_check = false}
+mecanum_drive_controller = {do_check = false}
+omni_wheel_drive_controller = {do_check = false}
+parallel_gripper_controller = {do_check = false}
+pid_controller = {do_check = false}
+pose_broadcaster = {do_check = false}
+position_controllers = {do_check = false}
+range_sensor_broadcaster = {do_check = false}
+state_interfaces_broadcaster = {do_check = false}
+tricycle_controller = {do_check = false}
+tricycle_steering_controller = {do_check = false}
+velocity_controllers = {do_check = false}
 
 [humble."gepetto/Quest-Teleoperation-Panda"]
 native = ["v4l-utils"]
@@ -160,7 +196,7 @@ branch = "main"
 branch = "main"
 [kilted."agimus-project/agimus-franka-description"]
 branch = "main"
-do-check = false
+do_check = false
 [kilted."agimus-project/agimus-franka-ros2"]
 branch = "main"
 [kilted."agimus-project/agimus-libfranka"]

@@ -258,6 +258,7 @@ final: prev: {
           mim-solvers
           ;
         # keep-sorted start block=yes
+
         agimus-controller-ros = ros-prev.agimus-controller-ros.overrideAttrs {
           # this thing believe we did pass --build-directory or --build-base:
           # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
@@ -300,6 +301,108 @@ final: prev: {
             "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
           ];
         };
+        ament-copyright = ros-prev.ament-copyright.overrideAttrs (
+          {
+            postPatch ? "",
+            ...
+          }:
+          {
+            # don't lint files in build/ dir
+            postPatch = postPatch + ''
+              substituteInPlace ament_copyright/crawler.py --replace-fail \
+                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_']]" \
+                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_'] and d != 'build']"
+            '';
+          }
+        );
+        ament-cpplint = ros-prev.ament-cpplint.overrideAttrs (
+          {
+            postPatch ? "",
+            ...
+          }:
+          {
+            # don't lint files in build/ dir
+            postPatch = postPatch + ''
+              substituteInPlace ament_cpplint/main.py --replace-fail \
+                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_']]" \
+                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_'] and d != 'build']"
+            '';
+          }
+        );
+        ament-lint-cmake = ros-prev.ament-lint-cmake.overrideAttrs (
+          {
+            postPatch ? "",
+            ...
+          }:
+          {
+            # don't lint files in build/ dir
+            postPatch = postPatch + ''
+              substituteInPlace ament_lint_cmake/main.py --replace-fail \
+                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_']]" \
+                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_'] and d != 'build']"
+            '';
+          }
+        );
+        ament-mypy = ros-prev.ament-mypy.overrideAttrs (
+          {
+            postPatch ? "",
+            ...
+          }:
+          {
+            # don't lint files in build/ dir
+            postPatch = postPatch + ''
+              substituteInPlace ament_mypy/main.py --replace-fail \
+                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_']]" \
+                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_'] and d != 'build']"
+            '';
+          }
+        );
+        ament-uncrustify = ros-prev.ament-uncrustify.overrideAttrs (
+          {
+            postPatch ? "",
+            ...
+          }:
+          {
+            # don't lint files in build/ dir
+            postPatch = postPatch + ''
+              substituteInPlace ament_uncrustify/main.py --replace-fail \
+                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_']]" \
+                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_'] and d != 'build']"
+            '';
+          }
+        );
+        ament-xmllint = ros-prev.ament-xmllint.overrideAttrs (
+          {
+            postPatch ? "",
+            ...
+          }:
+          let
+            packageFormat2Xsd = final.fetchurl {
+              url = "http://download.ros.org/schema/package_format2.xsd";
+              hash = "sha256-pzKK8IWbPxWuTwSRLYRqWO3GZk2x5pr/BhsilAwZQwQ=";
+            };
+            packageFormat3Xsd = final.fetchurl {
+              url = "http://download.ros.org/schema/package_format3.xsd";
+              hash = "sha256-WFIBgJy/jIHsWk19hNgn9Gdt1ipLwKgS2npIXeoq1Do=";
+            };
+            rosPackageCatalog = final.writeText "ros-packages-catalog.xml" ''
+              <?xml version="1.0"?>
+              <!DOCTYPE catalog PUBLIC "-//OASIS//DTD XML Catalogs V1.1//EN" "http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd">
+              <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+                <uri name="http://download.ros.org/schema/package_format2.xsd" uri="${packageFormat2Xsd}"/>
+                <uri name="http://download.ros.org/schema/package_format3.xsd" uri="${packageFormat3Xsd}"/>
+              </catalog>
+            '';
+          in
+          {
+            disabledTests = [ "test_flake8" ]; # line too long because catalog path in patch
+            postPatch = postPatch + ''
+              substituteInPlace ament_xmllint/main.py --replace-fail \
+                "cmd, cwd=" \
+                "cmd, env={**os.environ, 'XML_CATALOG_FILES': '${rosPackageCatalog}'}, cwd="
+            '';
+          }
+        );
         gz-dartsim = final.dartsim;
         linear-feedback-controller = ros-prev.linear-feedback-controller.overrideAttrs {
           doCheck = true;

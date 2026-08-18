@@ -36,13 +36,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-control-toolbox";
-  version = "4.11.0";
+  version = "4.11.1";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "control_toolbox";
     tag = version;
-    hash = "sha256-q1h1hcE8/7kChj5mWL6Zvu7qoyrEWHcXdnrhIC04SfY=";
+    hash = "sha256-fGVMZhm03iw8lCGgZfdNDN0/KXLuvqKYBaxa8uAvN7c=";
   };
   sourceRoot = "source/control_toolbox";
 

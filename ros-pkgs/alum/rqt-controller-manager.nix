@@ -23,13 +23,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-rqt-controller-manager";
-  version = "4.46.0";
+  version = "4.47.0";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control";
     tag = version;
-    hash = "sha256-e0Y8CCl8/B80fLOXOePbjn1QRxFEi60W2IGTBhM2Qg4=";
+    hash = "sha256-orjAU4K/bbbn62u7VXRDU99/HYkegVbFwDXSrvFZhY0=";
   };
   sourceRoot = "source/rqt_controller_manager";
 

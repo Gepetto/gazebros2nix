@@ -9,6 +9,7 @@
   # buildInputs
 
   # propagatedBuildInputs
+  kangaroo-description,
   launch-pal,
   moveit-configs-utils,
   moveit-kinematics,
@@ -27,13 +28,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-kangaroo-moveit-config";
-  version = "2.2.0";
+  version = "2.2.2";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "kangaroo_moveit_config";
     tag = version;
-    hash = "sha256-8AqQQ/7krUTCSb1NgCrBbshuZSfA0TJS8CrsL1sOlaU=";
+    hash = "sha256-x2sbNLiJR3dNoF3vLWj31xqz+yrSXgMssJCcBj12Wjc=";
   };
   sourceRoot = "source/";
 
@@ -49,6 +50,7 @@ buildRosPackage rec {
     ament-cmake-auto
   ];
   propagatedBuildInputs = [
+    kangaroo-description
     launch-pal
     moveit-configs-utils
     moveit-kinematics
