@@ -5,39 +5,35 @@
 
   # nativeBuildInputs
   ament-cmake,
+  eigen3-cmake-module,
 
   # buildInputs
-  controller-interface,
-  generate-parameter-library,
-  hardware-interface,
+  eigen,
+  kinematics-interface,
+  pinocchio,
   pluginlib,
-  rclcpp,
-  rclcpp-lifecycle,
-  realtime-tools,
   ros2-control-cmake,
-  sensor-msgs,
 
   # propagatedBuildInputs
 
   # checkInputs
   ament-cmake-gmock,
-  controller-manager,
   ros2-control-test-assets,
 
   # nativeCheckInputs
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
-  pname = "ros-alum-gps-sensor-broadcaster";
-  version = "4.42.1";
+  pname = "ros-alum-kinematics-interface-pinocchio";
+  version = "1.7.1";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
-    repo = "ros2_controllers";
+    repo = "kinematics_interface";
     tag = version;
-    hash = "sha256-dTNDmlrMMiny5r5HY1VrvqpYWPdQT1zKVen8KuvF++s=";
+    hash = "sha256-T5hUz7aX6ZGRvZjo1kkNhzjUGq+JufFNXBNeLFthjo4=";
   };
-  sourceRoot = "source/gps_sensor_broadcaster";
+  sourceRoot = "source/kinematics_interface_pinocchio";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -46,45 +42,38 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
-    generate-parameter-library
+    eigen3-cmake-module
   ];
   buildInputs = [
     ament-cmake
-    controller-interface
-    generate-parameter-library
-    hardware-interface
+    eigen
+    eigen3-cmake-module
+    kinematics-interface
+    pinocchio
     pluginlib
-    rclcpp
-    rclcpp-lifecycle
-    realtime-tools
     ros2-control-cmake
-    sensor-msgs
   ];
   propagatedBuildInputs = [
-    controller-interface
-    generate-parameter-library
-    hardware-interface
+    eigen
+    eigen3-cmake-module
+    kinematics-interface
+    pinocchio
     pluginlib
-    rclcpp
-    rclcpp-lifecycle
-    realtime-tools
-    sensor-msgs
   ];
   checkInputs = [
     ament-cmake-gmock
-    controller-manager
     ros2-control-test-assets
   ];
   nativeCheckInputs = [
     writableTmpDirAsHomeHook
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
-    description = "Controller to publish readings of GPS sensors.";
+    description = "Pinocchio-based implementation of ros2_control kinematics interface";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/ros-controls/ros2_controllers";
+    homepage = "https://github.com/ros-controls/kinematics_interface";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

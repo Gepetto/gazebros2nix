@@ -5,37 +5,36 @@
 
   # nativeBuildInputs
   ament-cmake,
+  eigen3-cmake-module,
 
   # buildInputs
   backward-ros,
-  forward-command-controller,
+  eigen,
+  kdl-parser,
+  kinematics-interface,
   pluginlib,
-  rclcpp,
   ros2-control-cmake,
+  tf2-eigen-kdl,
 
   # propagatedBuildInputs
 
   # checkInputs
   ament-cmake-gmock,
-  controller-manager,
-  hardware-interface,
-  hardware-interface-testing,
-  ros2-control-test-assets,
 
   # nativeCheckInputs
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
-  pname = "ros-alum-velocity-controllers";
-  version = "4.42.1";
+  pname = "ros-alum-kinematics-interface-kdl";
+  version = "1.7.1";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
-    repo = "ros2_controllers";
+    repo = "kinematics_interface";
     tag = version;
-    hash = "sha256-dTNDmlrMMiny5r5HY1VrvqpYWPdQT1zKVen8KuvF++s=";
+    hash = "sha256-T5hUz7aX6ZGRvZjo1kkNhzjUGq+JufFNXBNeLFthjo4=";
   };
-  sourceRoot = "source/velocity_controllers";
+  sourceRoot = "source/kinematics_interface_kdl";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -44,38 +43,40 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+    eigen3-cmake-module
   ];
   buildInputs = [
     ament-cmake
     backward-ros
-    forward-command-controller
+    eigen
+    eigen3-cmake-module
+    kdl-parser
+    kinematics-interface
     pluginlib
-    rclcpp
     ros2-control-cmake
+    tf2-eigen-kdl
   ];
   propagatedBuildInputs = [
     backward-ros
-    forward-command-controller
+    eigen
+    kdl-parser
+    kinematics-interface
     pluginlib
-    rclcpp
+    tf2-eigen-kdl
   ];
   checkInputs = [
     ament-cmake-gmock
-    controller-manager
-    hardware-interface
-    hardware-interface-testing
-    ros2-control-test-assets
   ];
   nativeCheckInputs = [
     writableTmpDirAsHomeHook
   ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
-    description = "Generic controller for forwarding commands.";
+    description = "KDL implementation of ros2_control kinematics interface";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/ros-controls/ros2_controllers";
+    homepage = "https://github.com/ros-controls/kinematics_interface";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };
