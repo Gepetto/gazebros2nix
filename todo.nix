@@ -366,6 +366,7 @@ final: prev: {
           gazebo-planar-move-plugin = null;
           gazebo-ros = null;
           gazebo-dev = null;
+          agimus-demo-09-glue-spreading = null;
 
           # keep-sorted start block=yes
 
