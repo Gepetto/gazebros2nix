@@ -43,6 +43,7 @@ branch = "main"
 do_check = false
 [humble."agimus-project/agimus-libfranka-common"]
 [humble."agimus-project/agimus-msgs"]
+[humble."agimus-project/agimus_pytroller"]
 
 [humble."gbartyzel/ros2_net_ft_driver"]
 branch = "humble"
