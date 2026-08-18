@@ -343,11 +343,11 @@
                   agimus-controller-ros
                   agimus-demo-00-franka-controller
                   agimus-demo-01-lfc-alone
-                  # agimus-demo-02-simple-pd-plus-tiago-pro TODO: tiago-pro
+                  agimus-demo-02-simple-pd-plus-tiago-pro
                   agimus-demo-02-simple-pd-plus
-                  # agimus-demo-03-mpc-dummy-traj-tiago-pro TODO: tiago-pro
+                  agimus-demo-03-mpc-dummy-traj-tiago-pro
                   agimus-demo-03-mpc-dummy-traj
-                  # agimus-demo-04-dual-arm-tiago-pro TODO: tiago-pro
+                  agimus-demo-04-dual-arm-tiago-pro
                   agimus-demo-04-visual-servoing
                   agimus-demo-05-pick-and-place
                   agimus-demo-06-regrasp
@@ -355,7 +355,7 @@
                   agimus-demo-08-collision-avoidance
                   agimus-demos-common
                   agimus-demos-controllers
-                  # agimus-demos TODO: tiago-pro
+                  agimus-demos
                   agimus-franka-bringup
                   agimus-franka-description
                   agimus-franka-example-controllers
