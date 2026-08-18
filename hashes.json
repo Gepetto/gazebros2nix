@@ -20,6 +20,8 @@
   "https://github.com/agimus-project/agimus-libfranka-common/archive/2c2aee8674d222e8c60bd2fa419acbcf87d8a9e1.tar.gz": "sha256-s6tyhejjwbWa6sdOSgTKFuaaYd3cJI/TN0nNHiRoeS0=",
   "https://github.com/agimus-project/agimus-libfranka/archive/fcc87638ebe79028a03111c3664cf92291f215a3.tar.gz": "sha256-NCKmjA/EFn34POpeih6yIaqdozTHiF1h4LvjbQDYPeo=",
   "https://github.com/agimus-project/agimus-msgs/archive/refs/tags/v1.0.0.tar.gz": "sha256-j1eatFsB4Uek1n7x7gK5tSPi33B67mR8CXBVCDh+RFY=",
+  "https://github.com/agimus-project/agimus_pytroller/archive/001f3f65e684dbbb9dc11b77f0f97ec0cc88eb99.tar.gz": "sha256-nXnj1xS2XgAz7CqiQ1fXM9YO8La1v2Td8EQUiXQp/Rc=",
+  "https://github.com/agimus-project/agimus_pytroller/archive/c4481fe85553115ca7030a19bb447fad626bf26a.tar.gz": "sha256-YorDSRdhf85GqITJN+TDHMfdQ0yl2Ka0FXiUi4Zrcpw=",
   "https://github.com/gazebo-release/sdformat_vendor/archive/refs/tags/0.0.11.tar.gz": "sha256-i8oVA8vGztyetwwzh1CaLsvMDGGVWe4cXUSU1BL6yCs=",
   "https://github.com/gazebosim/gz-cmake gz-cmake3_3.6.0": "sha256-9UKHLCEfkbJ+NIUAKz3/rLFfG4e0wJaiR8eHslWqWFA=",
   "https://github.com/gazebosim/gz-cmake gz-cmake4_4.3.0": "sha256-pavUKGiCCstrfqsbEQdWNE9TrB3CP8Mnj1ocbAYC+KI=",
