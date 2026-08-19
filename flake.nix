@@ -356,6 +356,10 @@
                   magnetometer-broadcaster
                   mecanum-drive-controller
                   motion-primitives-controllers
+                  omni-base-bringup
+                  omni-base-controller-configuration
+                  omni-base-description
+                  omni-base-robot
                   omni-wheel-drive-controller
                   parallel-gripper-controller
                   pid-controller

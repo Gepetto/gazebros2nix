@@ -111,6 +111,7 @@
   "https://github.com/pal-robotics/kangaroo_robot/archive/refs/tags/2.13.2.tar.gz": "sha256-FeNxJSm840h/vULyYyGL00csbXzXl3wMK7fW5ccQ6MY=",
   "https://github.com/pal-robotics/kangaroo_robot/archive/refs/tags/2.15.0.tar.gz": "sha256-ocHhrTH8Xm1r5bkVyYUg5s86n8WSjRE5PlOeKgiL4Ng=",
   "https://github.com/pal-robotics/kangaroo_simulation/archive/refs/tags/2.6.1.tar.gz": "sha256-9p61humn6WCg5HC6k04sjwkqgW+th1ca5L07pfLhHeU=",
+  "https://github.com/pal-robotics/omni_base_robot/archive/refs/tags/2.14.1.tar.gz": "sha256-wkyZUJ8bmBAAcl7VCeZ9aAz/HU3F/C22jYFkskfsw9I=",
   "https://github.com/pal-robotics/realsense_gazebo_plugin/archive/refs/tags/3.2.0.tar.gz": "sha256-CPXmGao8reIUi1dH5PY5VFFXqHNzZSKyZ4Mo+jjbCuY=",
   "https://github.com/pal-robotics/realsense_simulation/archive/refs/tags/2.1.1.tar.gz": "sha256-Ug5VZLKR+eGfkwJDQa26+REj0IuURQ5l7U9NZJTnpOY=",
   "https://github.com/ros-controls/control_msgs/archive/refs/tags/5.9.0.tar.gz": "sha256-fODL6D1Ia5fJf/Ca4nI83+2pzI/e7XDq2hhfZFMxWQE=",

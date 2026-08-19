@@ -36,6 +36,9 @@ branch = "jazzy"
 branch = "jazzy"
 [alum."pal-robotics/kangaroo_moveit_config"]
 [alum."pal-robotics/kangaroo_simulation"]
+[alum."pal-robotics/omni_base_robot"]
+branch = "alum-devel"
+packages = {"omni_base_controller_configuration" = {do_check = false},"omni_base_description" = {do_check = false},"omni_base_bringup" = {do_check = false}}
 [alum."pal-robotics/realsense_gazebo_plugin"]
 [alum."pal-robotics/realsense_simulation"]
 [alum."ros/sdformat_urdf"]

@@ -99,7 +99,6 @@ final: prev: {
             ros-gz-point-cloud = null;
             gz-ogre-next = final.libogre-next-23-dev;
             # keep-sorted start block=yes
-
             admittance-controller = alum-prev.admittance-controller.overrideAttrs (super: {
               buildInputs = super.buildInputs ++ [ alum-final.ros2-control-test-assets ];
             });
