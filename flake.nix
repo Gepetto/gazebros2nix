@@ -365,6 +365,13 @@
                   # realsense-gazebo-plugin
                   # realsense-simulation
                   realtime-tools
+                  ros-gz
+                  ros-gz-bridge
+                  ros-gz-image
+                  ros-gz-interfaces
+                  # ros-gz-point-cloud
+                  ros-gz-sim
+                  ros-gz-sim-demos
                   ros2-control
                   ros2-control-test-assets
                   ros2-controllers
@@ -376,6 +383,7 @@
                   sdformat-vendor
                   state-interfaces-broadcaster
                   steering-controllers-library
+                  test-ros-gz-bridge
                   transmission-interface
                   tricycle-controller
                   tricycle-steering-controller

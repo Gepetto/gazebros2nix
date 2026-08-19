@@ -95,7 +95,7 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Meta-package containing interfaces for using ROS 2 with <a href=" "https://gazebosim.org" ">Gazebo</a> simulation.";
+    description = "Meta-package containing interfaces for using ROS 2 with <a href='https://gazebosim.org'>Gazebo</a> simulation.";
     license = with lib.licenses; [ asl20 ];
     homepage = "https://github.com/gazebosim/ros_gz";
     platforms = lib.platforms.linux;

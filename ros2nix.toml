@@ -2,9 +2,33 @@
 branch = "jazzy"
 [alum."gazebo-release/gz_cmake_vendor"]
 branch = "jazzy"
+[alum."gazebo-release/gz_common_vendor"]
+branch = "jazzy"
+[alum."gazebo-release/gz_dartsim_vendor"]
+branch = "jazzy"
+[alum."gazebo-release/gz_fuel_tools_vendor"]
+branch = "jazzy"
+[alum."gazebo-release/gz_gui_vendor"]
+branch = "jazzy"
 [alum."gazebo-release/gz_math_vendor"]
 branch = "jazzy"
+[alum."gazebo-release/gz_msgs_vendor"]
+branch = "jazzy"
+[alum."gazebo-release/gz_ogre_next_vendor"]
+branch = "jazzy"
+[alum."gazebo-release/gz_physics_vendor"]
+branch = "jazzy"
+[alum."gazebo-release/gz_plugin_vendor"]
+branch = "jazzy"
+[alum."gazebo-release/gz_rendering_vendor"]
+branch = "jazzy"
+[alum."gazebo-release/gz_sensors_vendor"]
+branch = "jazzy"
+[alum."gazebo-release/gz_sim_vendor"]
+branch = "jazzy"
 [alum."gazebo-release/gz_tools_vendor"]
+branch = "jazzy"
+[alum."gazebo-release/gz_transport_vendor"]
 branch = "jazzy"
 [alum."gazebo-release/gz_utils_vendor"]
 branch = "jazzy"
