@@ -101,6 +101,7 @@ branch = "main"
 do_check = false
 [jazzy."agimus-project/agimus-libfranka-common"]
 [jazzy."agimus-project/agimus-msgs"]
+[jazzy."agimus-project/agimus_pytroller"]
 
 [jazzy."gbartyzel/ros2_net_ft_driver"]
 packages = {"net_ft_driver" = {check = ["ament-lint-auto"], native = ["pkg-config"], propagated = ["curl", "curlpp"]}}

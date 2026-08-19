@@ -29,7 +29,7 @@
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
-  pname = "ros-humble-agimus-pytroller";
+  pname = "ros-jazzy-agimus-pytroller";
   version = "0.0.1";
 
   src = fetchFromGitHub {
