@@ -1,3 +1,5 @@
+[alum."gazebosim/ros_gz"]
+branch = "jazzy"
 [alum."gazebo-release/gz_cmake_vendor"]
 branch = "jazzy"
 [alum."gazebo-release/gz_math_vendor"]

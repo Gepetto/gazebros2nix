@@ -86,6 +86,8 @@
   "https://github.com/gazebosim/gz-utils gz-utils3_3.1.1": "sha256-fYzysdB608jfMb/EbqiGD4hXmPxcaVTUrt9Wx0dBlto=",
   "https://github.com/gazebosim/gz-utils gz-utils4_4.0.0": "sha256-fZonC/o5CNHdK/R3IgEoo1llehy36MwvXPQCgFnP8Ls=",
   "https://github.com/gazebosim/gz-utils ignition-utils1_1.5.1": "sha256-Ymlw1SBoSlHwxe/4E3jdMy8ECCFNy8YGboqTQi6UIs4=",
+  "https://github.com/gazebosim/ros_gz/archive/refs/tags/0.7.0.tar.gz": "sha256-yf9iUOf/o7E0hK31bz8UUSzUp0TyrTeHHDTbJCJefXs=",
+  "https://github.com/gazebosim/ros_gz/archive/refs/tags/1.0.23.tar.gz": "sha256-hliXefmoiD/RU/MXyEIQo4XulT7I4NBu+QxOPjkSni0=",
   "https://github.com/gazebosim/sdformat sdformat12_12.9.0": "sha256-KvQNrFxhZ+dJeTLe/BxMdtzLcrFcWasakbazKvLvJ7o=",
   "https://github.com/gazebosim/sdformat sdformat14_14.9.0": "sha256-map9BTLsw68+IonAm0JqHozhd7yVZ/3r9w0KgCa/q+4=",
   "https://github.com/gazebosim/sdformat sdformat15_15.4.0": "sha256-zMCoWFPUN/Q7J5F6mILoL/Ttgf/KXqenj6umlXqxZ90=",

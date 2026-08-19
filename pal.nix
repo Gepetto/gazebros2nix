@@ -95,6 +95,9 @@ final: prev: {
         (
           alum-final: alum-prev: {
             # keep-sorted start block=yes
+            admittance-controller = alum-prev.admittance-controller.overrideAttrs (super: {
+              buildInputs = super.buildInputs ++ [ alum-final.ros2-control-test-assets ];
+            });
             control-msgs = alum-prev.control-msgs.overrideAttrs {
               cmakeFlags = [
                 "-DCMAKE_SKIP_BUILD_RPATH=ON"
@@ -123,9 +126,6 @@ final: prev: {
               '';
               nativeCheckInputs = super.nativeCheckInputs ++ [ final.ctestCheckHook ];
               disabledTests = [ "uncrustify" ];
-            });
-            admittance-controller = alum-prev.admittance-controller.overrideAttrs (super: {
-              buildInputs = super.buildInputs ++ [ alum-final.ros2-control-test-assets ];
             });
             # keep-sorted end
           }
