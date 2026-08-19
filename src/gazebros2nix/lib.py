@@ -18,10 +18,12 @@ LICENSES = {
     "Apache 2": "asl20",
     "Apache 2.0": "asl20",
     "Apache-2.0": "asl20",
+    "BSD-2": "bsd2",
     "BSD-2-Clause": "bsd2",
     "BSD-3-Clause": "bsd3",
     "BSD-3-clause": "bsd3",
     "3-Clause BSD": "bsd3",
+    "MIT": "mit",
 }
 
 

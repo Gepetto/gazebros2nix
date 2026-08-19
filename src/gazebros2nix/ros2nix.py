@@ -77,7 +77,7 @@ buildRosPackage rec {
   doCheck = {{ do_check }};
 
   meta = {
-    description = "{{ pkg.description }}";
+    description = "{{ description }}";
     license = with lib.licenses; [ {% for lic in licenses %}{{ lic }} {% endfor %}];
     homepage = "{{ repo.html_url }}";
     platforms = lib.platforms.linux;
@@ -279,6 +279,7 @@ class Package:
             check_scopes=check_scopes,
             native_check_scopes=native_check_scopes,
             do_check=str(overrides.do_check).lower(),
+            description=pkg.description.replace('"', "'"),
         )
         path = repo.path / f"{kebabcase(pkg.name)}.nix"
         path.write_text(nix)
