@@ -232,6 +232,20 @@ do_check = false
 [kilted."agimus-project/agimus-libfranka-common"]
 [kilted."agimus-project/agimus-msgs"]
 
+[lyrical."agimus-project/agimus-controller"]
+branch = "main"
+[lyrical."agimus-project/agimus-demos"]
+branch = "main"
+[lyrical."agimus-project/agimus-franka-description"]
+branch = "main"
+[lyrical."agimus-project/agimus-franka-ros2"]
+branch = "main"
+[lyrical."agimus-project/agimus-libfranka"]
+branch = "main"
+do_check = false
+[lyrical."agimus-project/agimus-libfranka-common"]
+[lyrical."agimus-project/agimus-msgs"]
+
 [rolling."agimus-project/agimus-controller"]
 branch = "main"
 [rolling."agimus-project/agimus-demos"]

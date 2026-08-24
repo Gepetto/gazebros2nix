@@ -18,7 +18,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-common7";
-  version = "7.3.0";
+  version = "7.3.1";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -26,8 +26,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-common";
-    tag = "gz-common7_7.3.0";
-    hash = "sha256-LFuXkoGlln9Pj+TRZoZYY2pF8osKt9j1ub1Frzv/loQ=";
+    tag = "gz-common7_7.3.1";
+    hash = "sha256-igTHae00k4PIWTpc1xzxv8iKtbO6TvDsMA3iM0K/WAc=";
   };
 
   __structuredAttrs = true;

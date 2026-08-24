@@ -27,8 +27,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "gep_tiago_pro_control_stack";
-    rev = "29b10a5ad7319d0bc8434743b53e03a58c79aa7c";
-    hash = "sha256-QhDoJUtSkn5uRYl6vbCkBn5etUZnkph6GowHWPIPk0k=";
+    rev = "f590708d89acd27a468c3e84e3bcdc8f9b11708c";
+    hash = "sha256-R7t34wF/0euxxcCmUO2m+CpL5fR7hNHX5Y7YtIpWxTw=";
   };
   sourceRoot = "source/odometry_gz_hw_interface";
 

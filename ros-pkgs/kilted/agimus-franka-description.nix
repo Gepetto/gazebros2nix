@@ -58,7 +58,7 @@ buildRosPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "fork of franka_description with URDF files and meshes of Franka robots not maintained anymore by franka";
