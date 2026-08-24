@@ -738,6 +738,39 @@ final: prev: {
             }
           );
 
+      lyrical =
+        (prev.rosPackages.lyrical.overrideScope (
+          lyrical-final: lyrical-prev:
+          (rosOverlay lyrical-final lyrical-prev) // (gzVendorOverlay lyrical-final lyrical-prev)
+        )).overrideScope
+          (
+            _lyrical-final: lyrical-prev: {
+              gz-common-vendor = lyrical-prev.gz-common-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
+              gz-dartsim-vendor = lyrical-prev.gz-dartsim-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
+                '';
+              };
+              gz-gui-vendor = lyrical-prev.gz-gui-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+                postInstall = "";
+              };
+              gz-tools-vendor = lyrical-prev.gz-tools-vendor.overrideAttrs {
+                postFixup = "";
+                qtWrapperArgs = [ ];
+              };
+            }
+          );
+
       rolling =
         (prev.rosPackages.rolling.overrideScope (
           rolling-final: rolling-prev:
@@ -752,7 +785,6 @@ final: prev: {
                 '';
               };
               gz-dartsim-vendor = rolling-prev.gz-dartsim-vendor.overrideAttrs {
-                # env.GZ_RELAX_VERSION_MATCH = ""; TODO
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
