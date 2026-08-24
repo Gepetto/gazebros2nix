@@ -11,7 +11,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-tools2";
-  version = "2.0.3";
+  version = "2.0.4";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -19,8 +19,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-tools";
-    tag = "gz-tools2_2.0.3";
-    hash = "sha256-xMFJylj7OnDc7zVWiI4a/mvNpu9scz83F3bGopCt8l8=";
+    tag = "gz-tools2_2.0.4";
+    hash = "sha256-WVeZg7Wreqz0eScbrgELEAsmpfr1Dy7HogZFjGEht/I=";
   };
 
   __structuredAttrs = true;

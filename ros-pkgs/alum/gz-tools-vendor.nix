@@ -29,13 +29,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-gz-tools-vendor";
-  version = "0.0.7";
+  version = "0.0.8";
 
   src = fetchFromGitHub {
     owner = "gazebo-release";
     repo = "gz_tools_vendor";
     tag = version;
-    hash = "sha256-OZD/w0V1UwUN6iuz8YHSXcCr5Ksf4fRJbHevJWtjkeg=";
+    hash = "sha256-/HhW8bdAWuV6BjelFxKfxRpzTt6OhxSt8G/9ZXsXXxo=";
   };
   sourceRoot = "source/";
 
@@ -77,7 +77,7 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Vendor package for: gz-tools2 2.0.3
+    description = "Vendor package for: gz-tools2 2.0.4
 
     Gazebo Tools: Entrypoint to Gazebo's command line interface";
     license = with lib.licenses; [ asl20 ];

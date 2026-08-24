@@ -8,6 +8,7 @@
 
   # buildInputs
   backward-ros,
+  controller-manager,
   diagnostic-updater,
   hardware-interface,
   pluginlib,
@@ -16,7 +17,6 @@
   ros2-control-cmake,
 
   # propagatedBuildInputs
-  controller-manager,
   forward-command-controller,
   joint-state-broadcaster,
   joint-state-publisher-gui,
@@ -49,8 +49,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control_demos";
-    rev = "4462ded3975d1f7f3ba75aeaa09fb099b87866ed";
-    hash = "sha256-MRvHBHVYyqJn2vfTrMGZjNFI2ls7fDywS72mZXPOYxw=";
+    rev = "c8f354577269c06d5b9e6f4253ab877dd56d51dc";
+    hash = "sha256-dTyAfti1Z9yMfy5Yg0k5VZWDAD8rmYGdV+EOovki+2o=";
   };
   sourceRoot = "source/example_17";
 
@@ -65,6 +65,7 @@ buildRosPackage rec {
   buildInputs = [
     ament-cmake
     backward-ros
+    controller-manager
     diagnostic-updater
     hardware-interface
     pluginlib

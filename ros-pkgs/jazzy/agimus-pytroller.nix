@@ -35,8 +35,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus_pytroller";
-    rev = "edfae01d112fe83fe380ed103869dbd6938d4c12";
-    hash = "sha256-FMBV5MUJxot7pOrW6Fz3tij4RjQa1toFRLwjDBJdxeg=";
+    rev = "9edc25457e04c586acb0ec7d530dbf98c35fbc24";
+    hash = "sha256-NkBlxhGd3eIqz/IAcIA7lNpjMnEBBE2H9NPVsaiDOw8=";
   };
   sourceRoot = "source/";
 

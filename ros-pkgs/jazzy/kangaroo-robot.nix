@@ -20,13 +20,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-kangaroo-robot";
-  version = "2.15.0";
+  version = "2.15.1";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "kangaroo_robot";
     tag = version;
-    hash = "sha256-ocHhrTH8Xm1r5bkVyYUg5s86n8WSjRE5PlOeKgiL4Ng=";
+    hash = "sha256-/uiR6yVn9q4PHXBA0EIVWJvze1FEOaTEBoelBmuhe7w=";
   };
   sourceRoot = "source/kangaroo_robot";
 

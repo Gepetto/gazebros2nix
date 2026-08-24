@@ -24,7 +24,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-transport13";
-  version = "13.5.0";
+  version = "13.6.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -32,8 +32,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-transport";
-    tag = "gz-transport13_13.5.0";
-    hash = "sha256-JTTlV1WdtLbHxNhLtoWyTnAcW6Hoh78lxxyDl1gLVAo=";
+    tag = "gz-transport13_13.6.0";
+    hash = "sha256-NZnW74cBjZIoPlSlGfFB4llnkEnFTd5JZErhclrYJE0=";
   };
 
   __structuredAttrs = true;

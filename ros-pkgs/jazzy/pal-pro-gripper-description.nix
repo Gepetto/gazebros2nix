@@ -43,8 +43,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Tiago-Pro-Harmonic";
     repo = "pal_pro_gripper";
-    rev = "52b918ed364e8f033979d6f81bb57072c368f034";
-    hash = "sha256-WZX2cjcm3G2moHeiCIMCW379tLfeSFo7edd2MrklfPw=";
+    rev = "aba78447cdb836d8470436f6faad6ed9b37ded23";
+    hash = "sha256-9bgEP03iHhd3cTxZ3kJFJW9n44M/T3j51UUfVGTvn1k=";
   };
   sourceRoot = "source/pal_pro_gripper_description";
 

@@ -22,7 +22,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-gui10";
-  version = "10.0.0";
+  version = "10.1.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -30,8 +30,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-gui";
-    tag = "gz-gui10_10.0.0";
-    hash = "sha256-s34FtTFWV6+qakYz6atZfl20y7u8KQAU58a63FghhKc=";
+    tag = "gz-gui10_10.1.0";
+    hash = "sha256-UGvahx9+AJQ15ZlKymTc/S4bZkfK+KjIn17Ld1TSX9s=";
   };
 
   __structuredAttrs = true;
