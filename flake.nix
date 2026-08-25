@@ -442,6 +442,10 @@
                   mujoco-ros2-control
                   mujoco-vendor
                   net-ft-driver
+                  pal-atc
+                  pal-atc-bringup
+                  pal-atc-controller-configuration
+                  pal-atc-description
                   quest-control
                   ros2topic
                   tiago-pro-description
