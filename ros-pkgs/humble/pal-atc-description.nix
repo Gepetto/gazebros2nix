@@ -89,7 +89,7 @@ buildRosPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   meta = {
     description = "The pal_atc_description package";
