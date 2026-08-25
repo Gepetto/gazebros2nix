@@ -89,6 +89,7 @@ tricycle_controller = {do_check = false}
 tricycle_steering_controller = {do_check = false}
 velocity_controllers = {do_check = false}
 
+[humble."clementPene/pal_atc"]
 [humble."gepetto/Quest-Teleoperation-Panda"]
 native = ["v4l-utils"]
 propagated = ["python3Packages.pyarrow"]

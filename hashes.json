@@ -21,6 +21,7 @@
   "https://github.com/agimus-project/agimus-libfranka/archive/fcc87638ebe79028a03111c3664cf92291f215a3.tar.gz": "sha256-NCKmjA/EFn34POpeih6yIaqdozTHiF1h4LvjbQDYPeo=",
   "https://github.com/agimus-project/agimus-msgs/archive/refs/tags/v1.0.0.tar.gz": "sha256-j1eatFsB4Uek1n7x7gK5tSPi33B67mR8CXBVCDh+RFY=",
   "https://github.com/agimus-project/agimus_pytroller/archive/9edc25457e04c586acb0ec7d530dbf98c35fbc24.tar.gz": "sha256-NkBlxhGd3eIqz/IAcIA7lNpjMnEBBE2H9NPVsaiDOw8=",
+  "https://github.com/clementPene/pal_atc/archive/511b972963b8544a33eb555f92617138375edf97.tar.gz": "sha256-wYSAs1gI9lf9PPGRD4KXSpchtBTxfLq8iFedOf+/mC4=",
   "https://github.com/gazebo-release/gz_cmake_vendor/archive/refs/tags/0.0.12.tar.gz": "sha256-CwdntldmSpXo+MMimz3nIZZuk+tfiTC6E/UXXujM+f0=",
   "https://github.com/gazebo-release/gz_common_vendor/archive/refs/tags/0.0.9.tar.gz": "sha256-nvQpLaW+iwhlckrlDBtq6ogDjeikEwW52ZXw4M3rqSA=",
   "https://github.com/gazebo-release/gz_dartsim_vendor/archive/refs/tags/0.0.3.tar.gz": "sha256-B6QSeeHCwixbeQXeGfaOBZ3mCQ4o3ulgkfqtq/l2P34=",
