@@ -31,13 +31,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-gz-math-vendor";
-  version = "0.0.9";
+  version = "0.0.11";
 
   src = fetchFromGitHub {
     owner = "gazebo-release";
     repo = "gz_math_vendor";
     tag = version;
-    hash = "sha256-sj6mPVE27/gITE80l+p+ul7mvbDzKo+p3cWuVoaheQU=";
+    hash = "sha256-PXLr4crM8XDALSFbs71PVaUWWD0eoLt7ywWcHSN86DU=";
   };
   sourceRoot = "source/";
 
@@ -84,7 +84,7 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Vendor package for: gz-math7 7.6.0
+    description = "Vendor package for: gz-math7 7.7.0
 
     Gazebo Math : Math classes and functions for robot applications";
     license = with lib.licenses; [ asl20 ];

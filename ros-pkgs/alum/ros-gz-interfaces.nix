@@ -41,13 +41,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-ros-gz-interfaces";
-  version = "1.0.23";
+  version = "1.0.24";
 
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "ros_gz";
     tag = version;
-    hash = "sha256-hliXefmoiD/RU/MXyEIQo4XulT7I4NBu+QxOPjkSni0=";
+    hash = "sha256-DxB2eXnNwMuglUX8gQ+n/RvkQ2DAy/GJcFJpWpdJtTY=";
   };
   sourceRoot = "source/ros_gz_interfaces";
 

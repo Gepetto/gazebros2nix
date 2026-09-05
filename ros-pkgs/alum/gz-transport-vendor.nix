@@ -39,13 +39,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-gz-transport-vendor";
-  version = "0.0.8";
+  version = "0.0.9";
 
   src = fetchFromGitHub {
     owner = "gazebo-release";
     repo = "gz_transport_vendor";
     tag = version;
-    hash = "sha256-pjCwsyUqJ8Pt6F0jR6b9YE1YcC53S4kpYdeUYcWu6Zg=";
+    hash = "sha256-FXcuLljrPVl/8hmUVtdOSCdlpH5ks2op8LZFAst3Bg4=";
   };
   sourceRoot = "source/";
 

@@ -86,14 +86,6 @@ final: prev: {
 
         # keep-sorted start block=yes
 
-        gz-common5 = harmonic-prev.gz-common5.overrideAttrs {
-          patches = [
-            (final.fetchpatch {
-              url = "https://github.com/nim65s/gz-common/commit/d21c3dfce2bbe463f888ed0ede37c6d483b8a49f.patch?full_index=1";
-              hash = "sha256-uWNzRcbEg8b7ApJ3jKQqMQSUSGFAyJ9U18dCPzDwJhI=";
-            })
-          ];
-        };
         gz-gui8 = harmonic-prev.gz-gui8.overrideAttrs {
           patches = [
             (final.fetchpatch2 {
