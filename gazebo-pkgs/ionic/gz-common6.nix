@@ -21,7 +21,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-common6";
-  version = "6.3.0";
+  version = "6.4.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -29,8 +29,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-common";
-    tag = "gz-common6_6.3.0";
-    hash = "sha256-9IsV8Mc6evJAO+5tXNdb0j3kmieR96e/OKLNXii3WKk=";
+    tag = "gz-common6_6.4.0";
+    hash = "sha256-kC1b2z+j4QuRsz2xbgR9SZQKG4cETZKSFbNPW+5zqpk=";
   };
 
   __structuredAttrs = true;

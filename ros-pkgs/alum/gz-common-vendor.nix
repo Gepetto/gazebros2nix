@@ -38,13 +38,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-gz-common-vendor";
-  version = "0.0.9";
+  version = "0.0.10";
 
   src = fetchFromGitHub {
     owner = "gazebo-release";
     repo = "gz_common_vendor";
     tag = version;
-    hash = "sha256-nvQpLaW+iwhlckrlDBtq6ogDjeikEwW52ZXw4M3rqSA=";
+    hash = "sha256-TyDS8DDLP8vmQAcF7iDGRU1JfL1yX7C4Tai1vIIl9UM=";
   };
   sourceRoot = "source/";
 
@@ -104,7 +104,7 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Vendor package for: gz-common5 5.8.0
+    description = "Vendor package for: gz-common5 5.9.0
 
     Gazebo Common : AV, Graphics, Events, and much more.";
     license = with lib.licenses; [ asl20 ];
