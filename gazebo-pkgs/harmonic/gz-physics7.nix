@@ -18,6 +18,7 @@
   gz-utils,
   gz-utils2,
   pkg-config,
+  python3,
   sdformat,
   sdformat14,
 }:
@@ -41,6 +42,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     bullet

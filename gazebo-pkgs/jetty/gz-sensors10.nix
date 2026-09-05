@@ -15,6 +15,7 @@
   gz-transport,
   gz-utils,
   pkg-config,
+  python3,
   sdformat,
   xorg,
 }:
@@ -38,6 +39,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     gz-cmake

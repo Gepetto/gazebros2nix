@@ -13,6 +13,7 @@
   ign-math,
   ign-utils,
   pkg-config,
+  python3,
   spdlog,
   tinyxml-2,
   util-linux,
@@ -37,6 +38,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     assimp

@@ -6,6 +6,7 @@
   cmake,
   gz-cmake,
   pkg-config,
+  python3,
   spdlog,
 }:
 stdenv.mkDerivation {
@@ -28,6 +29,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     gz-cmake

@@ -16,6 +16,7 @@
   libyaml,
   libzip,
   pkg-config,
+  python3,
   tinyxml-2,
 }:
 stdenv.mkDerivation {
@@ -38,6 +39,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     curl

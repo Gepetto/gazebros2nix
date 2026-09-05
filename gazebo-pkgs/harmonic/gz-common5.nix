@@ -15,6 +15,7 @@
   gz-utils,
   gz-utils2,
   pkg-config,
+  python3,
   tinyxml-2,
   util-linux,
 }:
@@ -38,6 +39,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     assimp

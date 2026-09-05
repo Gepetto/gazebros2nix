@@ -5,6 +5,7 @@
 
   cmake,
   pkg-config,
+  python3,
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-cmake5";
@@ -26,6 +27,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
   ];

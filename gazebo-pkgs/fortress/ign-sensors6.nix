@@ -14,6 +14,7 @@
   ign-transport,
   ign-utils,
   pkg-config,
+  python3,
   sdformat,
   xorg,
 }:
@@ -37,6 +38,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     ign-cmake

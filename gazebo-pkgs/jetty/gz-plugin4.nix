@@ -9,6 +9,7 @@
   gz-tools2,
   gz-utils,
   pkg-config,
+  python3,
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-plugin4";
@@ -30,6 +31,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     gz-cmake

@@ -10,6 +10,7 @@
   gz-utils,
   gz-utils2,
   pkg-config,
+  python3,
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-plugin2";
@@ -31,6 +32,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     gz-cmake

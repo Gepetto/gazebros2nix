@@ -15,6 +15,7 @@
   ign-utils,
   pkg-config,
   protobuf,
+  python3,
   qt6,
   tinyxml-2,
   xorg,
@@ -39,6 +40,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     ign-cmake

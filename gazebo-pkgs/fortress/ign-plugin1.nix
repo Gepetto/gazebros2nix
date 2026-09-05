@@ -8,6 +8,7 @@
   ign-tools,
   ign-utils,
   pkg-config,
+  python3,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-plugin1";
@@ -29,6 +30,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     ign-cmake

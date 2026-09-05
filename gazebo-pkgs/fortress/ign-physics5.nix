@@ -14,6 +14,7 @@
   ign-plugin,
   ign-utils,
   pkg-config,
+  python3,
   sdformat,
 }:
 stdenv.mkDerivation {
@@ -36,6 +37,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     bullet

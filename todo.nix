@@ -224,6 +224,42 @@ final: prev: {
         # keep-sorted end
       }
     );
+
+    kura = prev.gazeboPackages.kura.overrideScope (
+      _kura-final: kura-prev: {
+        inherit (final) dartsim urdfdom-headers urdfdom;
+        dart = final.dartsim;
+
+        # keep-sorted start block=yes
+        gz-physics10 = kura-prev.gz-physics10.overrideAttrs (super: {
+          propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.mujoco ];
+          postPatch = ''
+            substituteInPlace CMakeLists.txt --replace-fail \
+              "add_subdirectory(third_party/mujoco_vendor)" \
+              "find_package(mujoco REQUIRED)"
+          '';
+        });
+        # keep-sorted end
+      }
+    );
+
+    rotary = prev.gazeboPackages.rotary.overrideScope (
+      _rotary-final: rotary-prev: {
+        inherit (final) dartsim urdfdom-headers urdfdom;
+        dart = final.dartsim;
+
+        # keep-sorted start block=yes
+        gz-physics10 = rotary-prev.gz-physics10.overrideAttrs (super: {
+          propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.mujoco ];
+          postPatch = ''
+            substituteInPlace CMakeLists.txt --replace-fail \
+              "add_subdirectory(third_party/mujoco_vendor)" \
+              "find_package(mujoco REQUIRED)"
+          '';
+        });
+        # keep-sorted end
+      }
+    );
   };
 
   rosPackages =
