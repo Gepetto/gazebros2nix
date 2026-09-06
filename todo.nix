@@ -473,6 +473,12 @@ final: prev: {
             env.IGNITION_VERSION = "fortress";
             env.IGN_VERSION = "fortress";
           };
+          gz-math-vendor = humble-prev.gz-math-vendor.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt --replace-fail \
+                "$""{VERSION_MATCH} $""{LIB_VER}" ""
+            '';
+          };
           launch-testing = humble-prev.launch-testing.overrideAttrs (super: {
             patches = (super.patches or [ ]) ++ [
               (final.fetchpatch2 {
@@ -482,12 +488,6 @@ final: prev: {
               })
             ];
           });
-          gz-math-vendor = humble-prev.gz-math-vendor.overrideAttrs {
-            postPatch = ''
-              substituteInPlace CMakeLists.txt --replace-fail \
-                "$""{VERSION_MATCH} $""{LIB_VER}" ""
-            '';
-          };
           net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
             # that repo somehow has a 0.0.0 tag
             src = final.fetchFromGitHub {
@@ -681,7 +681,18 @@ final: prev: {
         )).overrideScope
           (
             _kilted-final: kilted-prev: {
-              gz-sim-vendor = kilted-prev.gz-sim-vendor.overrideAttrs {
+              # keep-sorted start block=yes
+              gz-dartsim-vendor = kilted-prev.gz-dartsim-vendor.overrideAttrs {
+                # env.GZ_RELAX_VERSION_MATCH = ""; TODO
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
+                '';
+              };
+              gz-gui-vendor = kilted-prev.gz-gui-vendor.overrideAttrs {
+                postInstall = "";
+              };
+              gz-math-vendor = kilted-prev.gz-math-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
@@ -693,23 +704,7 @@ final: prev: {
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
                 '';
               };
-              gz-dartsim-vendor = kilted-prev.gz-dartsim-vendor.overrideAttrs {
-                # env.GZ_RELAX_VERSION_MATCH = ""; TODO
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
-                '';
-              };
-              gz-math-vendor = kilted-prev.gz-math-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-gui-vendor = kilted-prev.gz-gui-vendor.overrideAttrs {
-                postInstall = "";
-              };
-              gz-transport-vendor = kilted-prev.gz-transport-vendor.overrideAttrs {
+              gz-sim-vendor = kilted-prev.gz-sim-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
@@ -718,6 +713,12 @@ final: prev: {
               gz-tools-vendor = kilted-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
+              };
+              gz-transport-vendor = kilted-prev.gz-transport-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
               };
               launch-testing = kilted-prev.launch-testing.overrideAttrs (super: {
                 patches = (super.patches or [ ]) ++ [
@@ -745,6 +746,7 @@ final: prev: {
                     "find_package(urdfdom_headers REQUIRED)"
                 '';
               };
+              # keep-sorted end
             }
           );
 
@@ -755,6 +757,7 @@ final: prev: {
         )).overrideScope
           (
             _lyrical-final: lyrical-prev: {
+              # keep-sorted start block=yes
               gz-common-vendor = lyrical-prev.gz-common-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
@@ -784,6 +787,7 @@ final: prev: {
                 postFixup = "";
                 qtWrapperArgs = [ ];
               };
+              # keep-sorted end
             }
           );
 
@@ -794,6 +798,7 @@ final: prev: {
         )).overrideScope
           (
             _rolling-final: rolling-prev: {
+              # keep-sorted start block=yes
               gz-common-vendor = rolling-prev.gz-common-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
@@ -806,12 +811,6 @@ final: prev: {
                     "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
                 '';
               };
-              gz-math-vendor = rolling-prev.gz-math-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
               gz-gui-vendor = rolling-prev.gz-gui-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
@@ -819,11 +818,18 @@ final: prev: {
                 '';
                 postInstall = "";
               };
+              gz-math-vendor = rolling-prev.gz-math-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-tools-vendor = rolling-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
               };
               parameter-traits = null;
+              # keep-sorted end
             }
           );
     };
