@@ -799,6 +799,12 @@ final: prev: {
           (
             _rolling-final: rolling-prev: {
               # keep-sorted start block=yes
+              gz-cmake-vendor = rolling-prev.gz-cmake-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-common-vendor = rolling-prev.gz-common-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
