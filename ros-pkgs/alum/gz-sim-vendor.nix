@@ -53,13 +53,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-gz-sim-vendor";
-  version = "0.0.12";
+  version = "0.0.13";
 
   src = fetchFromGitHub {
     owner = "gazebo-release";
     repo = "gz_sim_vendor";
     tag = version;
-    hash = "sha256-JqW9A+N2fUJZ7ypN/fodBOXtGzi2ZcnLx6hA8T28DTY=";
+    hash = "sha256-6wqofv5zf2TzFBOE9kvGhqpG3T3X11TetahAKBBd9z8=";
   };
   sourceRoot = "source/";
 

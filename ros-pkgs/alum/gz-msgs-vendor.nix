@@ -34,13 +34,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-gz-msgs-vendor";
-  version = "0.0.7";
+  version = "0.0.8";
 
   src = fetchFromGitHub {
     owner = "gazebo-release";
     repo = "gz_msgs_vendor";
     tag = version;
-    hash = "sha256-CIwiL+mHTj+WpfH+JTipklF9KmtgWpyz390GFrd74B4=";
+    hash = "sha256-bvVq/teeDEp4k5OlPlFey+yu3xs5XrbLvA8NCkSffYc=";
   };
   sourceRoot = "source/";
 

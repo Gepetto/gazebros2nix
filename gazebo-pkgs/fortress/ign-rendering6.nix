@@ -19,6 +19,7 @@
   libxmu,
   ogre1_9,
   pkg-config,
+  python3,
   util-linux,
   vulkan-loader,
   xorg,
@@ -43,6 +44,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     boost

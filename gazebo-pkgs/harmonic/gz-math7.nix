@@ -9,11 +9,12 @@
   gz-utils,
   gz-utils2,
   pkg-config,
+  python3,
   python3Packages,
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-math7";
-  version = "7.6.0";
+  version = "7.7.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -21,8 +22,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-math";
-    tag = "gz-math7_7.6.0";
-    hash = "sha256-dsIldb2yDDQsCzhi2B4CKCN8XQsQgPfTJG16MEgiOiM=";
+    tag = "gz-math7_7.7.0";
+    hash = "sha256-51/covBxpiTuBlowjJW7zl0CD/pfEFB/N1u9vbg6F2A=";
   };
 
   __structuredAttrs = true;
@@ -31,6 +32,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     eigen

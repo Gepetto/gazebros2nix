@@ -5,6 +5,7 @@
 
   cmake,
   pkg-config,
+  python3,
   rubocop,
   ruby,
 }:
@@ -28,6 +29,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     ruby

@@ -35,13 +35,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-sdformat-vendor";
-  version = "0.0.11";
+  version = "0.0.14";
 
   src = fetchFromGitHub {
     owner = "gazebo-release";
     repo = "sdformat_vendor";
     tag = version;
-    hash = "sha256-i8oVA8vGztyetwwzh1CaLsvMDGGVWe4cXUSU1BL6yCs=";
+    hash = "sha256-dlRrHX3fltcqN49YEs1WOtQHkDg5HuqF9vpGqQBOAbY=";
   };
   sourceRoot = "source/";
 

@@ -113,6 +113,22 @@
                   ];
                 };
 
+                gz-kura = pkgs.rosPackages.rolling.buildEnv {
+                  name = "gz-kura";
+                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "rolling" { };
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-kura-" n) self'.packages) ++ [
+                    pkgs.qt6.wrapQtAppsHook
+                  ];
+                };
+
+                gz-rotary = pkgs.rosPackages.rolling.buildEnv {
+                  name = "gz-rotary";
+                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "rolling" { };
+                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-rotary-" n) self'.packages) ++ [
+                    pkgs.qt6.wrapQtAppsHook
+                  ];
+                };
+
                 pal-alum = pkgs.rosPackages.alum.buildEnv {
                   name = "pal-alum";
                   postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "humble" { };
@@ -313,6 +329,54 @@
                     gz-fuel-tools
                     gz-gui
                     gz-launch
+                    gz-math
+                    gz-msgs
+                    gz-physics
+                    gz-plugin
+                    gz-rendering
+                    gz-sensors
+                    gz-sim
+                    gz-tools
+                    gz-transport
+                    gz-utils
+                    sdformat
+                    # keep-sorted end
+                    ;
+                }
+              )
+
+              // lib.mapAttrs' (n: lib.nameValuePair "gz-kura-${n}") (
+                lib.optionalAttrs (system == "x86_64-linux") {
+                  inherit (pkgs.gazeboPackages.kura)
+                    # keep-sorted start
+                    gz-cmake
+                    gz-common
+                    gz-fuel-tools
+                    gz-gui
+                    gz-math
+                    gz-msgs
+                    gz-physics
+                    gz-plugin
+                    gz-rendering
+                    gz-sensors
+                    gz-sim
+                    gz-tools
+                    gz-transport
+                    gz-utils
+                    sdformat
+                    # keep-sorted end
+                    ;
+                }
+              )
+
+              // lib.mapAttrs' (n: lib.nameValuePair "gz-rotary-${n}") (
+                lib.optionalAttrs (system == "x86_64-linux") {
+                  inherit (pkgs.gazeboPackages.rotary)
+                    # keep-sorted start
+                    gz-cmake
+                    gz-common
+                    gz-fuel-tools
+                    gz-gui
                     gz-math
                     gz-msgs
                     gz-physics

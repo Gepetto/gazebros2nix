@@ -41,6 +41,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     cppzmq
@@ -54,7 +55,6 @@ stdenv.mkDerivation {
     libzenohc-dev
     libzenohcpp-dev
     protobuf
-    python3
     python3Packages.psutil
     python3Packages.pybind11
     python3Packages.pytest

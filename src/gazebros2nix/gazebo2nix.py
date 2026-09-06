@@ -152,9 +152,11 @@ class GazeboDistro(HashesFile):
             data["url"].removeprefix("https://github.com/"),
             fix_name(data["version"]),
         )
-        logger.info("  Gazebo Repo: %s", nick)
-        ign = pkg_name.startswith("ign-") or (
-            nick == "sdformat" and int(pkg_name.removeprefix(nick)) < 13
+        logger.info("Gazebo Distro: %s - Repo: %s", self.distro, nick)
+        ign = (
+            pkg_name.startswith("ign-")
+            or pkg_name != "main"
+            and (nick == "sdformat" and int(pkg_name.removeprefix(nick)) < 13)
         )
 
         do_check = True
@@ -162,34 +164,52 @@ class GazeboDistro(HashesFile):
         propagated = []
         check = []
 
+        owner, name = url.split("/")
+        repo = self.gh.get_repo(url)
+
+        package_xml = repo.get_contents("package.xml", ref=repo.default_branch)
+        pkg = parse_package_string(package_xml.decoded_content.decode())
+        k = kebabcase(pkg.name).rstrip("0123456789")
+
+        if pkg_name == "main":
+            pkg_name = pkg.name.replace("_", "-") + pkg.version.split(".")[0]
+
         if pkg_name in self.conf:
             do_check = self.conf[pkg_name].get("do_check", True)
             native = self.conf[pkg_name].get("native", [])
             propagated = self.conf[pkg_name].get("propagated", [])
             check = self.conf[pkg_name].get("check", [])
 
-        package = self.main.get_contents(f"{pkg_name}.yaml")
-        content = yload(package.decoded_content.decode(), Loader=Loader)
-        deps = [fix_name(d) for d in content["repositories"].keys()]
-        owner, name = url.split("/")
-        repo = self.gh.get_repo(url)
         tag_start = fix_tag(pkg_name)
+
         for tag in repo.get_tags():
-            if tag.name.startswith(tag_start) and "pre" not in tag.name:
+            if tag.name.startswith(tag_start):
                 tag_name = tag.name
-                version = tag_name.removeprefix(tag_start).removeprefix("_")
+                version = (
+                    tag_name.removeprefix(tag_start)
+                    .removeprefix("_")
+                    .removesuffix("-pre1")
+                    .removesuffix("-pre2")
+                    .removesuffix("-pre3")
+                    .removesuffix("-pre4")
+                )
                 break
         else:
             breakpoint()
 
-        hash = self.get_hash(repo.html_url, tag_name)
-
-        if ign:
-            package_xml = repo.get_contents("package.xml", ref=repo.default_branch)
-        else:
+        if not ign and pkg_name != "main":
             package_xml = repo.get_contents("package.xml", ref=tag_name)
-        pkg = parse_package_string(package_xml.decoded_content.decode())
-        k = kebabcase(pkg.name).rstrip("0123456789")
+            pkg = parse_package_string(package_xml.decoded_content.decode())
+            k = kebabcase(pkg.name).rstrip("0123456789")
+
+        if pkg_name == "main":
+            deps = []
+        else:
+            package = self.main.get_contents(f"{pkg_name}.yaml")
+            content = yload(package.decoded_content.decode(), Loader=Loader)
+            deps = [fix_name(d) for d in content["repositories"].keys()]
+
+        hash = self.get_hash(repo.html_url, tag_name)
 
         licenses = []
         for lic in pkg.licenses:
@@ -200,7 +220,7 @@ class GazeboDistro(HashesFile):
                 licenses.append("unfree")
 
         native = self.sort_deps(
-            pkg.buildtool_depends, ["cmake", "pkg-config"] + native, []
+            pkg.buildtool_depends, ["cmake", "pkg-config", "python3"] + native, []
         )
         propagated = self.sort_deps(
             pkg.exec_depends, [d for d in deps if d != k] + propagated, native

@@ -8,6 +8,7 @@
 
   # buildInputs
   backward-ros,
+  controller-interface,
   forward-command-controller,
   pluginlib,
   rclcpp,
@@ -48,6 +49,7 @@ buildRosPackage rec {
   buildInputs = [
     ament-cmake
     backward-ros
+    controller-interface
     forward-command-controller
     pluginlib
     rclcpp
@@ -55,6 +57,7 @@ buildRosPackage rec {
   ];
   propagatedBuildInputs = [
     backward-ros
+    controller-interface
     forward-command-controller
     pluginlib
     rclcpp

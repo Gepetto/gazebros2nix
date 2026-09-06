@@ -15,12 +15,13 @@
   gz-utils,
   gz-utils2,
   pkg-config,
+  python3,
   tinyxml-2,
   util-linux,
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-common5";
-  version = "5.8.0";
+  version = "5.9.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -28,8 +29,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-common";
-    tag = "gz-common5_5.8.0";
-    hash = "sha256-akwbxx38PVizQD29A7OtpA+raivk1ALkDUpPYkGblPs=";
+    tag = "gz-common5_5.9.0";
+    hash = "sha256-gv1JoSE+hELzYAHLJLo9uGC2ZZf9f+Rcd9g2j1LI6q4=";
   };
 
   __structuredAttrs = true;
@@ -38,6 +39,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     assimp

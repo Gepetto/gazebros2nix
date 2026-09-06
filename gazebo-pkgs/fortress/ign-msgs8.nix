@@ -33,13 +33,13 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     ign-cmake
     ign-math
     ign-tools
     protobuf
-    python3
     python3Packages.protobuf
     tinyxml-2
   ];

@@ -17,13 +17,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-ros2-control-test-assets";
-  version = "4.47.0";
+  version = "4.48.0";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control";
     tag = version;
-    hash = "sha256-orjAU4K/bbbn62u7VXRDU99/HYkegVbFwDXSrvFZhY0=";
+    hash = "sha256-1CqQ+Zu7v/T7KyTqOrKVHdeSIlEOvNnTwN26p6qxChw=";
   };
   sourceRoot = "source/ros2_control_test_assets";
 

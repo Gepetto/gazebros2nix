@@ -13,13 +13,14 @@
   ign-math,
   ign-utils,
   pkg-config,
+  python3,
   spdlog,
   tinyxml-2,
   util-linux,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-common4";
-  version = "4.8.1";
+  version = "4.9.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -27,8 +28,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-common";
-    tag = "ignition-common4_4.8.1";
-    hash = "sha256-hM+WuIY7H5lONpS8OKXZ6AoTtSylXGhLDBsbIwn8VYQ=";
+    tag = "ignition-common4_4.9.0";
+    hash = "sha256-Gj5sP7ng6aZOV0M2WAB4nDZCglb6QHI+/LVC6kcf7yY=";
   };
 
   __structuredAttrs = true;
@@ -37,6 +38,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     assimp

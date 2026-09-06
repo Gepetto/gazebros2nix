@@ -48,8 +48,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "stack-of-tasks";
     repo = "odri_dual_motor_testbed_robot";
-    rev = "8cd9267c302909236c5a7432c92f9082f32b5a17";
-    hash = "sha256-kmxW/zLKsaUd8BYmQduAGQl9Kj7HjfZ5J7NsfPIDkgk=";
+    rev = "4aee9cd8f6a46d8a17f9ff2b3e53d800d8e19ed5";
+    hash = "sha256-Ibw4wAf639B7l+0Z1goBCW1iKT/PrEkYDtSkazpYRJ0=";
   };
   sourceRoot = "source/odri_dual_motor_testbed_description";
 

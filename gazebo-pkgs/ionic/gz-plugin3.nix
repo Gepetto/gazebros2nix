@@ -10,6 +10,7 @@
   gz-utils,
   gz-utils3,
   pkg-config,
+  python3,
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-plugin3";
@@ -31,6 +32,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     gz-cmake

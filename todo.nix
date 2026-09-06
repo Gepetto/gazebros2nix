@@ -86,14 +86,6 @@ final: prev: {
 
         # keep-sorted start block=yes
 
-        gz-common5 = harmonic-prev.gz-common5.overrideAttrs {
-          patches = [
-            (final.fetchpatch {
-              url = "https://github.com/nim65s/gz-common/commit/d21c3dfce2bbe463f888ed0ede37c6d483b8a49f.patch?full_index=1";
-              hash = "sha256-uWNzRcbEg8b7ApJ3jKQqMQSUSGFAyJ9U18dCPzDwJhI=";
-            })
-          ];
-        };
         gz-gui8 = harmonic-prev.gz-gui8.overrideAttrs {
           patches = [
             (final.fetchpatch2 {
@@ -229,6 +221,42 @@ final: prev: {
               '/nix/store'
           '';
         };
+        # keep-sorted end
+      }
+    );
+
+    kura = prev.gazeboPackages.kura.overrideScope (
+      _kura-final: kura-prev: {
+        inherit (final) dartsim urdfdom-headers urdfdom;
+        dart = final.dartsim;
+
+        # keep-sorted start block=yes
+        gz-physics10 = kura-prev.gz-physics10.overrideAttrs (super: {
+          propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.mujoco ];
+          postPatch = ''
+            substituteInPlace CMakeLists.txt --replace-fail \
+              "add_subdirectory(third_party/mujoco_vendor)" \
+              "find_package(mujoco REQUIRED)"
+          '';
+        });
+        # keep-sorted end
+      }
+    );
+
+    rotary = prev.gazeboPackages.rotary.overrideScope (
+      _rotary-final: rotary-prev: {
+        inherit (final) dartsim urdfdom-headers urdfdom;
+        dart = final.dartsim;
+
+        # keep-sorted start block=yes
+        gz-physics10 = rotary-prev.gz-physics10.overrideAttrs (super: {
+          propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.mujoco ];
+          postPatch = ''
+            substituteInPlace CMakeLists.txt --replace-fail \
+              "add_subdirectory(third_party/mujoco_vendor)" \
+              "find_package(mujoco REQUIRED)"
+          '';
+        });
         # keep-sorted end
       }
     );
@@ -481,6 +509,12 @@ final: prev: {
             env.IGNITION_VERSION = "fortress";
             env.IGN_VERSION = "fortress";
           };
+          gz-math-vendor = humble-prev.gz-math-vendor.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt --replace-fail \
+                "$""{VERSION_MATCH} $""{LIB_VER}" ""
+            '';
+          };
           launch-testing = humble-prev.launch-testing.overrideAttrs (super: {
             patches = (super.patches or [ ]) ++ [
               (final.fetchpatch2 {
@@ -490,8 +524,8 @@ final: prev: {
               })
             ];
           });
-          # that repo somehow has a 0.0.0 tag
           net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
+            # that repo somehow has a 0.0.0 tag
             src = final.fetchFromGitHub {
               inherit (super.src) owner repo;
               rev = "f76040b53ce1bc021cba89fdca35089b8e883a16";
@@ -568,6 +602,12 @@ final: prev: {
               };
               gz-gui-vendor = jazzy-prev.gz-gui-vendor.overrideAttrs {
                 postInstall = "";
+              };
+              gz-math-vendor = jazzy-prev.gz-math-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
               };
               gz-msgs-vendor = jazzy-prev.gz-msgs-vendor.overrideAttrs {
                 postPatch = ''
@@ -677,7 +717,18 @@ final: prev: {
         )).overrideScope
           (
             _kilted-final: kilted-prev: {
-              gz-sim-vendor = kilted-prev.gz-sim-vendor.overrideAttrs {
+              # keep-sorted start block=yes
+              gz-dartsim-vendor = kilted-prev.gz-dartsim-vendor.overrideAttrs {
+                # env.GZ_RELAX_VERSION_MATCH = ""; TODO
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
+                '';
+              };
+              gz-gui-vendor = kilted-prev.gz-gui-vendor.overrideAttrs {
+                postInstall = "";
+              };
+              gz-math-vendor = kilted-prev.gz-math-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
@@ -689,17 +740,7 @@ final: prev: {
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
                 '';
               };
-              gz-dartsim-vendor = kilted-prev.gz-dartsim-vendor.overrideAttrs {
-                # env.GZ_RELAX_VERSION_MATCH = ""; TODO
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
-                '';
-              };
-              gz-gui-vendor = kilted-prev.gz-gui-vendor.overrideAttrs {
-                postInstall = "";
-              };
-              gz-transport-vendor = kilted-prev.gz-transport-vendor.overrideAttrs {
+              gz-sim-vendor = kilted-prev.gz-sim-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
@@ -708,6 +749,12 @@ final: prev: {
               gz-tools-vendor = kilted-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
+              };
+              gz-transport-vendor = kilted-prev.gz-transport-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
               };
               launch-testing = kilted-prev.launch-testing.overrideAttrs (super: {
                 patches = (super.patches or [ ]) ++ [
@@ -735,6 +782,7 @@ final: prev: {
                     "find_package(urdfdom_headers REQUIRED)"
                 '';
               };
+              # keep-sorted end
             }
           );
 
@@ -745,6 +793,7 @@ final: prev: {
         )).overrideScope
           (
             _lyrical-final: lyrical-prev: {
+              # keep-sorted start block=yes
               gz-common-vendor = lyrical-prev.gz-common-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
@@ -764,10 +813,17 @@ final: prev: {
                 '';
                 postInstall = "";
               };
+              gz-math-vendor = lyrical-prev.gz-math-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-tools-vendor = lyrical-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
               };
+              # keep-sorted end
             }
           );
 
@@ -778,6 +834,13 @@ final: prev: {
         )).overrideScope
           (
             _rolling-final: rolling-prev: {
+              # keep-sorted start block=yes
+              gz-cmake-vendor = rolling-prev.gz-cmake-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-common-vendor = rolling-prev.gz-common-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
@@ -797,11 +860,18 @@ final: prev: {
                 '';
                 postInstall = "";
               };
+              gz-math-vendor = rolling-prev.gz-math-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-tools-vendor = rolling-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
               };
               parameter-traits = null;
+              # keep-sorted end
             }
           );
     };

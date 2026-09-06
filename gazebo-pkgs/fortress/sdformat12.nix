@@ -10,6 +10,7 @@
   ign-utils,
   libxml2,
   pkg-config,
+  python3,
   python3Packages,
   ruby,
   tinyxml-2,
@@ -35,6 +36,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
     ruby
   ];
   propagatedBuildInputs = [

@@ -48,6 +48,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     boost
@@ -68,7 +69,6 @@ stdenv.mkDerivation {
     libxmu
     libz
     ogre1_9
-    python3
     util-linux
     vulkan-loader
   ];

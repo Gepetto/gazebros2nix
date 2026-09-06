@@ -225,40 +225,23 @@ final: prev:
         directory = ./ros-pkgs/rolling;
       }
       // {
-        inherit (final.gazeboPackages.jetty)
+        inherit (final.gazeboPackages.rotary)
           # keep-sorted start
           gz-cmake
-          gz-cmake5
           gz-common
-          gz-common7
           gz-fuel-tools
-          gz-fuel-tools11
           gz-gui
-          gz-gui10
-          gz-launch
-          gz-launch9
           gz-math
-          gz-math9
           gz-msgs
-          gz-msgs12
           gz-physics
-          gz-physics9
           gz-plugin
-          gz-plugin4
           gz-rendering
-          gz-rendering10
           gz-sensors
-          gz-sensors10
           gz-sim
-          gz-sim10
           gz-tools
-          gz-tools2
           gz-transport
-          gz-transport15
           gz-utils
-          gz-utils4
           sdformat
-          sdformat16
           # keep-sorted end
           ;
       }

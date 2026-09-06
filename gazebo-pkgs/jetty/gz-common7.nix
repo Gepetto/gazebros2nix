@@ -12,13 +12,14 @@
   gz-utils,
   libz,
   pkg-config,
+  python3,
   spdlog,
   tinyxml-2,
   util-linux,
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-common7";
-  version = "7.3.1";
+  version = "7.4.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -26,8 +27,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-common";
-    tag = "gz-common7_7.3.1";
-    hash = "sha256-igTHae00k4PIWTpc1xzxv8iKtbO6TvDsMA3iM0K/WAc=";
+    tag = "gz-common7_7.4.0";
+    hash = "sha256-XxAAva64aZWPk12H9dXioW/PmM42w5PSD8MnvM2dl5s=";
   };
 
   __structuredAttrs = true;
@@ -36,6 +37,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
+    python3
   ];
   propagatedBuildInputs = [
     assimp
