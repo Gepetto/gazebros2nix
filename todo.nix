@@ -482,8 +482,14 @@ final: prev: {
               })
             ];
           });
-          # that repo somehow has a 0.0.0 tag
+          gz-math-vendor = humble-prev.gz-math-vendor.overrideAttrs {
+            postPatch = ''
+              substituteInPlace CMakeLists.txt --replace-fail \
+                "$""{VERSION_MATCH} $""{LIB_VER}" ""
+            '';
+          };
           net-ft-description = humble-prev.net-ft-description.overrideAttrs (super: {
+            # that repo somehow has a 0.0.0 tag
             src = final.fetchFromGitHub {
               inherit (super.src) owner repo;
               rev = "f76040b53ce1bc021cba89fdca35089b8e883a16";
@@ -560,6 +566,12 @@ final: prev: {
               };
               gz-gui-vendor = jazzy-prev.gz-gui-vendor.overrideAttrs {
                 postInstall = "";
+              };
+              gz-math-vendor = jazzy-prev.gz-math-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
               };
               gz-msgs-vendor = jazzy-prev.gz-msgs-vendor.overrideAttrs {
                 postPatch = ''
@@ -688,6 +700,12 @@ final: prev: {
                     "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
                 '';
               };
+              gz-math-vendor = kilted-prev.gz-math-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-gui-vendor = kilted-prev.gz-gui-vendor.overrideAttrs {
                 postInstall = "";
               };
@@ -756,6 +774,12 @@ final: prev: {
                 '';
                 postInstall = "";
               };
+              gz-math-vendor = lyrical-prev.gz-math-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-tools-vendor = lyrical-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
@@ -780,6 +804,12 @@ final: prev: {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
+                '';
+              };
+              gz-math-vendor = rolling-prev.gz-math-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
                 '';
               };
               gz-gui-vendor = rolling-prev.gz-gui-vendor.overrideAttrs {
