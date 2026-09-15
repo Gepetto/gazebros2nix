@@ -82,6 +82,7 @@
                 flakoboros-json = pkgs.callPackage ./flakoboros-json.nix { inherit (inputs) rosdistro; };
                 gz-fortress = pkgs.rosPackages.humble.buildEnv {
                   name = "gz-fortress";
+                  wrapPrograms = false;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-fortress-" n) self'.packages) ++ [
                     pkgs.qt5.qtgraphicaleffects
                     pkgs.qt5.wrapQtAppsHook
@@ -90,6 +91,7 @@
 
                 gz-harmonic = pkgs.rosPackages.jazzy.buildEnv {
                   name = "gz-harmonic";
+                  wrapPrograms = false;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-harmonic-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -97,6 +99,7 @@
 
                 gz-ionic = pkgs.rosPackages.kilted.buildEnv {
                   name = "gz-ionic";
+                  wrapPrograms = false;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-ionic-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -104,6 +107,7 @@
 
                 gz-jetty = pkgs.rosPackages.rolling.buildEnv {
                   name = "gz-jetty";
+                  wrapPrograms = false;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-jetty-" n) self'.packages) ++ [
                     pkgs.qt6.wrapQtAppsHook
                   ];
@@ -111,6 +115,7 @@
 
                 gz-kura = pkgs.rosPackages.rolling.buildEnv {
                   name = "gz-kura";
+                  wrapPrograms = false;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-kura-" n) self'.packages) ++ [
                     pkgs.qt6.wrapQtAppsHook
                   ];
@@ -118,6 +123,7 @@
 
                 gz-rotary = pkgs.rosPackages.rolling.buildEnv {
                   name = "gz-rotary";
+                  wrapPrograms = false;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-rotary-" n) self'.packages) ++ [
                     pkgs.qt6.wrapQtAppsHook
                   ];
@@ -125,6 +131,7 @@
 
                 pal-alum = pkgs.rosPackages.alum.buildEnv {
                   name = "pal-alum";
+                  wrapPrograms = false;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "pal-alum-" n) self'.packages) ++ [
                     pkgs.qt5.qtgraphicaleffects
                     pkgs.qt5.wrapQtAppsHook
@@ -133,6 +140,7 @@
 
                 ros-humble = pkgs.rosPackages.humble.buildEnv {
                   name = "ros-humble";
+                  wrapPrograms = false;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-humble-" n) self'.packages) ++ [
                     pkgs.python3Packages.coal # TODO
                     pkgs.qt5.qtgraphicaleffects
@@ -142,6 +150,7 @@
 
                 ros-jazzy = pkgs.rosPackages.jazzy.buildEnv {
                   name = "ros-jazzy";
+                  wrapPrograms = false;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-" n) self'.packages) ++ [
                     pkgs.python3Packages.coal # TODO
                     pkgs.qt5.wrapQtAppsHook
@@ -150,6 +159,7 @@
 
                 ros-jazzy-odri = pkgs.rosPackages.jazzy.buildEnv {
                   name = "ros-jazzy-odri";
+                  wrapPrograms = false;
                   paths =
                     lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-odri-" n) self'.packages)
                     ++ [
@@ -160,6 +170,7 @@
 
                 ros-kilted = pkgs.rosPackages.kilted.buildEnv {
                   name = "ros-kilted";
+                  wrapPrograms = false;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-kilted-" n) self'.packages) ++ [
                     pkgs.qt5.wrapQtAppsHook
                   ];
@@ -167,6 +178,7 @@
 
                 ros-lyrical = pkgs.rosPackages.lyrical.buildEnv {
                   name = "ros-lyrical";
+                  wrapPrograms = false;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-lyrical-" n) self'.packages) ++ [
                     pkgs.qt6.wrapQtAppsHook
                   ];
@@ -174,6 +186,7 @@
 
                 ros-rolling = pkgs.rosPackages.rolling.buildEnv {
                   name = "ros-rolling";
+                  wrapPrograms = false;
                   paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-rolling-" n) self'.packages) ++ [
                     pkgs.qt6.wrapQtAppsHook
                   ];
