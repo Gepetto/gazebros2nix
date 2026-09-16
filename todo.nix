@@ -634,7 +634,7 @@ final: prev: {
               launch-testing = jazzy-prev.launch-testing.overrideAttrs (super: {
                 patches = (super.patches or [ ]) ++ [
                   (final.fetchpatch2 {
-                    url = "https://github.com/ros2/launch/pull/972.patch?full_index=1";
+                    url = "https://github.com/ros2/launch/pull/1008.patch?full_index=1";
                     stripLen = 1;
                     includes = [ "launch_testing/*" ];
                     hash = "sha256-p7RoxvSUBsbnoxweS5KbdrlF9eGnxohy8VAGpMAQchc=";
@@ -644,7 +644,7 @@ final: prev: {
               launch-testing-ros = jazzy-prev.launch-testing-ros.overrideAttrs (super: {
                 patches = (super.patches or [ ]) ++ [
                   (final.fetchpatch2 {
-                    url = "https://github.com/ros2/launch_ros/pull/540.patch?full_index=1";
+                    url = "https://github.com/ros2/launch_ros/pull/575.patch?full_index=1";
                     stripLen = 1;
                     hash = "sha256-lv8R9lij5gwTvShmpLD8bkTu/WcIAdGWAV7qEz0UmF8=";
                   })
@@ -759,7 +759,7 @@ final: prev: {
               launch-testing = kilted-prev.launch-testing.overrideAttrs (super: {
                 patches = (super.patches or [ ]) ++ [
                   (final.fetchpatch2 {
-                    url = "https://github.com/ros2/launch/pull/972.patch?full_index=1";
+                    url = "https://github.com/ros2/launch/pull/1007.patch?full_index=1";
                     stripLen = 1;
                     includes = [ "launch_testing/*" ];
                     hash = "sha256-p7RoxvSUBsbnoxweS5KbdrlF9eGnxohy8VAGpMAQchc=";
@@ -769,7 +769,7 @@ final: prev: {
               launch-testing-ros = kilted-prev.launch-testing-ros.overrideAttrs (super: {
                 patches = (super.patches or [ ]) ++ [
                   (final.fetchpatch2 {
-                    url = "https://github.com/ros2/launch_ros/pull/540.patch?full_index=1";
+                    url = "https://github.com/ros2/launch_ros/pull/574.patch?full_index=1";
                     stripLen = 1;
                     hash = "sha256-lv8R9lij5gwTvShmpLD8bkTu/WcIAdGWAV7qEz0UmF8=";
                   })
