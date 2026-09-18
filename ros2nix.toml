@@ -227,7 +227,6 @@ branch = "main"
 branch = "main"
 [kilted."agimus-project/agimus-franka-description"]
 branch = "main"
-do_check = false
 [kilted."agimus-project/agimus-franka-ros2"]
 branch = "main"
 [kilted."agimus-project/agimus-libfranka"]
