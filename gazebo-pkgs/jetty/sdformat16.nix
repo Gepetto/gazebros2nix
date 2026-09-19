@@ -15,6 +15,7 @@
   python3Packages,
   tinyxml-2,
   urdfdom,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-sdformat16";
@@ -53,10 +54,20 @@ stdenv.mkDerivation {
     python3Packages.psutil
     python3Packages.pytest
   ];
+  nativeCheckInputs = [
+    gz-math
+    gz-tools2
+    gz-utils
+    python3Packages.pybind11
+    tinyxml-2
+    urdfdom
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "SDFormat is an XML file format that describes environments, objects, and robots

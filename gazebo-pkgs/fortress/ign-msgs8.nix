@@ -12,6 +12,7 @@
   python3,
   python3Packages,
   tinyxml-2,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-msgs8";
@@ -46,10 +47,14 @@ stdenv.mkDerivation {
   checkInputs = [
     python3Packages.pytest
   ];
+  nativeCheckInputs = [
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = true;
+  doCheck = false;
+  doInstallCheck = true;
 
   meta = {
     description = "Gazebo Messages: Protobuf messages and functions for robot applications";

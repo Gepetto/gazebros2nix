@@ -18,6 +18,7 @@
   python3Packages,
   sqlite,
   util-linux,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-kura-gz-transport16";
@@ -59,10 +60,29 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    cppzmq
+    gz-math
+    gz-msgs
+    gz-tools
+    gz-utils
+    libzenohc-dev
+    libzenohcpp-dev
+    pkg-config
+    protobuf
+    python3
+    python3Packages.psutil
+    python3Packages.pybind11
+    python3Packages.pytest
+    sqlite
+    util-linux
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Transport: Provides fast and efficient asynchronous message passing, services, and data logging.";

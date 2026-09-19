@@ -8,6 +8,7 @@
   pkg-config,
   python3,
   spdlog,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-utils3";
@@ -37,10 +38,15 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    spdlog
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = true;
+  doCheck = false;
+  doInstallCheck = true;
 
   meta = {
     description = "Gazebo Utils : Classes and functions for robot applications";

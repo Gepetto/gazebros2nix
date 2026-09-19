@@ -11,6 +11,7 @@
   pkg-config,
   python3,
   python3Packages,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-math7";
@@ -43,10 +44,16 @@ stdenv.mkDerivation {
   checkInputs = [
     python3Packages.pytest
   ];
+  nativeCheckInputs = [
+    eigen
+    gz-utils2
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = true;
+  doCheck = false;
+  doInstallCheck = true;
 
   meta = {
     description = "Gazebo Math : Math classes and functions for robot applications";

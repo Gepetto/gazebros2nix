@@ -17,6 +17,7 @@
   spdlog,
   tinyxml-2,
   util-linux,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-kura-gz-common8";
@@ -55,10 +56,23 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    assimp
+    ffmpeg
+    gbenchmark
+    gdal
+    gz-math
+    gz-utils
+    spdlog
+    tinyxml-2
+    util-linux
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = true;
+  doCheck = false;
+  doInstallCheck = true;
 
   meta = {
     description = "Gazebo Common : AV, Graphics, Events, and much more.";

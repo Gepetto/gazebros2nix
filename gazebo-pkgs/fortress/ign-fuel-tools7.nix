@@ -18,6 +18,7 @@
   pkg-config,
   python3,
   tinyxml-2,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-fuel-tools7";
@@ -57,10 +58,14 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Fuel Tools: Classes and tools for interacting with Gazebo Fuel";

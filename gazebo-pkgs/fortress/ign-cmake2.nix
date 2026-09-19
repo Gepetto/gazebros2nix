@@ -6,6 +6,7 @@
   cmake,
   pkg-config,
   python3,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-cmake2";
@@ -33,10 +34,14 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = true;
+  doCheck = false;
+  doInstallCheck = true;
 
   meta = {
     description = "Gazebo CMake : CMake Modules for Gazebo Projects";

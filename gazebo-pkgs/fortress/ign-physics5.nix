@@ -16,6 +16,7 @@
   pkg-config,
   python3,
   sdformat,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-physics5";
@@ -53,10 +54,14 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Physics : Physics classes and functions for robot applications";

@@ -10,6 +10,7 @@
   gz-utils,
   pkg-config,
   python3,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-plugin4";
@@ -41,10 +42,16 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    gz-tools2
+    gz-utils
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Plugin : Cross-platform C++ library for dynamically loading plugins.";

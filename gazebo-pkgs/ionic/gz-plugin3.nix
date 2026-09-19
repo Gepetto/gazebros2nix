@@ -11,6 +11,7 @@
   gz-utils3,
   pkg-config,
   python3,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-plugin3";
@@ -43,10 +44,16 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    gz-tools2
+    gz-utils3
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Plugin : Cross-platform C++ library for dynamically loading plugins.";

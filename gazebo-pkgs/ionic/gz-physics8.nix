@@ -21,6 +21,7 @@
   python3,
   sdformat,
   sdformat15,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-physics8";
@@ -63,10 +64,23 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    bullet
+    dart
+    eigen
+    gbenchmark
+    gz-common6
+    gz-math8
+    gz-plugin3
+    gz-utils3
+    sdformat15
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Physics : Physics classes and functions for robot applications";

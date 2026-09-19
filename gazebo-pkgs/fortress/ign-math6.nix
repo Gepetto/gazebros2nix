@@ -10,6 +10,7 @@
   pkg-config,
   python3,
   python3Packages,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-math6";
@@ -41,10 +42,14 @@ stdenv.mkDerivation {
   checkInputs = [
     python3Packages.pytest
   ];
+  nativeCheckInputs = [
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = true;
+  doCheck = false;
+  doInstallCheck = true;
 
   meta = {
     description = "Gazebo Math : Math classes and functions for robot applications";

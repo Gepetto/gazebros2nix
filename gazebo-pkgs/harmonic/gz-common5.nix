@@ -18,6 +18,7 @@
   python3,
   tinyxml-2,
   util-linux,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-common5";
@@ -57,10 +58,23 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    assimp
+    ffmpeg
+    freeimage
+    gdal
+    gts
+    gz-math7
+    gz-utils2
+    tinyxml-2
+    util-linux
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Common : AV, Graphics, Events, and much more.";

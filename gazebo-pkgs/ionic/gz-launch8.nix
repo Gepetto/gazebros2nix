@@ -38,6 +38,7 @@
   sdformat,
   tinyxml-2,
   util-linux,
+  writableTmpDirAsHomeHook,
   xorg,
 }:
 stdenv.mkDerivation {
@@ -99,10 +100,31 @@ stdenv.mkDerivation {
   checkInputs = [
     xorg.xorgserver
   ];
+  nativeCheckInputs = [
+    binutils
+    gflags
+    gz-cmake4
+    gz-common6
+    gz-gui9
+    gz-math8
+    gz-msgs11
+    gz-plugin3
+    gz-sim9
+    gz-tools2
+    gz-transport14
+    libwebsockets
+    libxi
+    libxmu
+    libyaml
+    tinyxml-2
+    util-linux
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Launch : Run and manage programs and plugins";
