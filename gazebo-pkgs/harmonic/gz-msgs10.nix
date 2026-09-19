@@ -15,6 +15,7 @@
   python3,
   python3Packages,
   tinyxml-2,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-msgs10";
@@ -52,10 +53,20 @@ stdenv.mkDerivation {
   checkInputs = [
     python3Packages.pytest
   ];
+  nativeCheckInputs = [
+    gz-math7
+    gz-tools2
+    protobuf
+    python3
+    python3Packages.protobuf
+    tinyxml-2
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Messages: Protobuf messages and functions for robot applications";

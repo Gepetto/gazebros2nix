@@ -61,10 +61,14 @@ stdenv.mkDerivation {
   checkInputs = [{% for dep in check %}
     {{ dep }}{% endfor %}
   ];
+  nativeCheckInputs = [{% for dep in native_check %}
+    {{ dep }}{% endfor %}
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = {{ do_check }};
+  doCheck = false;
+  doInstallCheck = {{ do_check }};
 
   meta = {
     description = "{{ pkg.description }}";
@@ -226,6 +230,9 @@ class GazeboDistro(HashesFile):
             pkg.exec_depends, [d for d in deps if d != k] + propagated, native
         )
         check = self.sort_deps(pkg.test_depends, check, [*native, *propagated])
+        native_check = ["writableTmpDirAsHomeHook"]
+        if not ign:
+            native_check = self.sort_deps(pkg.exec_depends, native_check, [])
         if ign:
             native = list(map(gz_to_ign, native))
             propagated = list(map(gz_to_ign, propagated))
@@ -243,10 +250,18 @@ class GazeboDistro(HashesFile):
             native=native,
             propagated=propagated,
             check=check,
+            native_check=native_check,
             do_check=str(do_check).lower(),
             pkg=pkg,
             licenses=licenses,
-            deps=sorted(set([p.split(".")[0] for p in [*native, *propagated, *check]])),
+            deps=sorted(
+                set(
+                    [
+                        p.split(".")[0]
+                        for p in [*native, *propagated, *check, *native_check]
+                    ]
+                )
+            ),
         )
 
         file = self.path / f"{pkg_name}.nix"

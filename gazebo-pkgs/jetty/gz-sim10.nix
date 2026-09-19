@@ -36,6 +36,7 @@
   sdformat,
   tinyxml-2,
   util-linux,
+  writableTmpDirAsHomeHook,
   xorg,
 }:
 stdenv.mkDerivation {
@@ -98,10 +99,45 @@ stdenv.mkDerivation {
     python3Packages.pytest
     xorg.xorgserver
   ];
+  nativeCheckInputs = [
+    binutils
+    elfutils
+    freeglut
+    freeimage
+    gbenchmark
+    glew
+    gz-cmake
+    gz-common
+    gz-fuel-tools
+    gz-gui
+    gz-math
+    gz-msgs
+    gz-physics
+    gz-plugin
+    gz-rendering
+    gz-sensors
+    gz-tools2
+    gz-transport
+    gz-utils
+    libdwarf
+    libwebsockets
+    libxi
+    libxmu
+    protobuf
+    python3Packages.pybind11
+    qt6.qt5compat
+    qt6.qtbase
+    qt6.qtdeclarative
+    sdformat
+    tinyxml-2
+    util-linux
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Sim : A Robotic Simulator";

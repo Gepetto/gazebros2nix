@@ -16,6 +16,7 @@
   pkg-config,
   python3,
   sdformat,
+  writableTmpDirAsHomeHook,
   xorg,
 }:
 stdenv.mkDerivation {
@@ -55,10 +56,22 @@ stdenv.mkDerivation {
   checkInputs = [
     xorg.xorgserver
   ];
+  nativeCheckInputs = [
+    gz-common
+    gz-math
+    gz-msgs
+    gz-rendering
+    gz-tools
+    gz-transport
+    gz-utils
+    sdformat
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = true;
 
   meta = {
     description = "Gazebo Sensors : Sensor models for simulation";

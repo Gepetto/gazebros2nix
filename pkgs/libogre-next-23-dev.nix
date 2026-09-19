@@ -3,6 +3,7 @@
   fetchFromGitHub,
   stdenv,
   lib,
+  pkg-config,
   cmake,
   libGLU,
   freetype,
@@ -29,12 +30,11 @@ stdenv.mkDerivation (_finalAttrs: {
   version = "2.3.3";
 
   src = fetchFromGitHub {
-    # owner = "OGRECave";
-    owner = "nim65s"; # ref. https://github.com/OGRECave/ogre-next/pull/564
+    owner = "OGRECave";
     repo = "ogre-next";
     # rev = "v${finalAttrs.version}";
-    rev = "a29bd710e08e6503142b643d11a2d1e37b2cd028";
-    hash = "sha256-0+NKWKqoQ+Zqx9hj8LQDQ1qRXyBHUcKhY+uYDRVXlnw=";
+    rev = "06c53d072271276e07aef2233114a2dc5fa18ae2"; # branch v2-3
+    hash = "sha256-9gtF0fWmNsezYHvu0h2P/JLsnihvBTWGnGMYtCEEsPE=";
   };
 
   cmakeFlags = [
@@ -50,6 +50,11 @@ stdenv.mkDerivation (_finalAttrs: {
     "-DOGRE_BUILD_COMPONENT_HLMS_UNLIT=ON"
     "-DOGRE_BUILD_TESTS=ON"
     "-DOGRE_INSTALL_SAMPLES_SOURCE=ON"
+    "-DOGRE_GLSUPPORT_USE_EGL_HEADLESS=ON"
+    "-DOGRE_GLSUPPORT_USE_GLX=ON"
+    "-DOGRE_VULKAN_WINDOW_NULL=ON"
+    "-DOGRE_VULKAN_WINDOW_XCB=ON"
+    "-DOGRE_CONFIG_UNIX_NO_X11=OFF"
   ];
 
   nativeBuildInputs = [
@@ -59,11 +64,12 @@ stdenv.mkDerivation (_finalAttrs: {
     mesa
     ninja
     cppunit
-    vulkan-headers
-    shaderc
+    pkg-config
   ];
 
   buildInputs = [
+    vulkan-headers
+    shaderc
     freeimage
     freetype
     libXaw
@@ -82,7 +88,10 @@ stdenv.mkDerivation (_finalAttrs: {
     description = "3D Object-Oriented Graphics Rendering Engine
     aka ogre v2 - scene-oriented, flexible 3D C++ engine ";
     homepage = "https://ogrecave.github.io/ogre-next/api/latest";
-    maintainers = with maintainers; [ muellerbernd ];
+    maintainers = with maintainers; [
+      muellerbernd
+      nim65s
+    ];
     platforms = platforms.linux;
     license = licenses.mit;
   };

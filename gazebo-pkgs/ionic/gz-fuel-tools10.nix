@@ -23,6 +23,7 @@
   pkg-config,
   python3,
   tinyxml-2,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-fuel-tools10";
@@ -67,10 +68,25 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    curl
+    gflags
+    gz-common6
+    gz-math8
+    gz-msgs11
+    gz-tools2
+    gz-utils3
+    jsoncpp
+    libyaml
+    libzip
+    tinyxml-2
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Fuel Tools: Classes and tools for interacting with Gazebo Fuel";

@@ -19,6 +19,7 @@
   spdlog,
   tinyxml-2,
   util-linux,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-common6";
@@ -59,10 +60,23 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    assimp
+    ffmpeg
+    freeimage
+    gdal
+    gz-math8
+    gz-utils3
+    spdlog
+    tinyxml-2
+    util-linux
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Common : AV, Graphics, Events, and much more.";

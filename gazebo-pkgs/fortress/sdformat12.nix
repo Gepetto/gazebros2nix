@@ -15,6 +15,7 @@
   ruby,
   tinyxml-2,
   urdfdom,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-sdformat12";
@@ -54,10 +55,14 @@ stdenv.mkDerivation {
     python3Packages.psutils
     python3Packages.pytest
   ];
+  nativeCheckInputs = [
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "SDFormat is an XML file format that describes environments, objects, and robots

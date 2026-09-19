@@ -8,6 +8,7 @@
   python3,
   rubocop,
   ruby,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-tools1";
@@ -37,10 +38,14 @@ stdenv.mkDerivation {
   checkInputs = [
     rubocop
   ];
+  nativeCheckInputs = [
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Tools: Entrypoint to Gazebo's command line interface";

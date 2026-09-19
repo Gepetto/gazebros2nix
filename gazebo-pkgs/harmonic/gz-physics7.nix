@@ -21,6 +21,7 @@
   python3,
   sdformat,
   sdformat14,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-physics7";
@@ -63,10 +64,23 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    bullet
+    dart
+    eigen
+    gbenchmark
+    gz-common5
+    gz-math7
+    gz-plugin2
+    gz-utils2
+    sdformat14
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Physics : Physics classes and functions for robot applications";

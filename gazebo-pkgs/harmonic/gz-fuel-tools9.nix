@@ -23,6 +23,7 @@
   pkg-config,
   python3,
   tinyxml-2,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-fuel-tools9";
@@ -67,10 +68,25 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    curl
+    gflags
+    gz-common5
+    gz-math7
+    gz-msgs10
+    gz-tools2
+    gz-utils2
+    jsoncpp
+    libyaml
+    libzip
+    tinyxml-2
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Fuel Tools: Classes and tools for interacting with Gazebo Fuel";
