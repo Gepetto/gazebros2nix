@@ -6,6 +6,7 @@
   cmake,
   pkg-config,
   python3,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-cmake3";
@@ -32,6 +33,9 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

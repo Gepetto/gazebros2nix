@@ -18,6 +18,7 @@
   pkg-config,
   python3,
   tinyxml-2,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-rotary-gz-fuel-tools12";
@@ -57,10 +58,24 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    curl
+    gflags
+    gz-common
+    gz-math
+    gz-msgs
+    gz-tools
+    gz-utils
+    jsoncpp
+    libyaml
+    libzip
+    tinyxml-2
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "Gazebo Fuel Tools: Classes and tools for interacting with Gazebo Fuel";

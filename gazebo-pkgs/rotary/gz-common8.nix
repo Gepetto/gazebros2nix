@@ -17,6 +17,7 @@
   spdlog,
   tinyxml-2,
   util-linux,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-rotary-gz-common8";
@@ -54,6 +55,18 @@ stdenv.mkDerivation {
     util-linux
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
+    assimp
+    ffmpeg
+    gbenchmark
+    gdal
+    gz-math
+    gz-utils
+    spdlog
+    tinyxml-2
+    util-linux
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

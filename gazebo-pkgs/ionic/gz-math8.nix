@@ -11,6 +11,7 @@
   pkg-config,
   python3,
   python3Packages,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-math8";
@@ -42,6 +43,11 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
     python3Packages.pytest
+  ];
+  nativeCheckInputs = [
+    eigen
+    gz-utils3
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

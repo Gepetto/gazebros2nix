@@ -19,6 +19,7 @@
   pkg-config,
   python3,
   tinyxml-2,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-fuel-tools11";
@@ -58,6 +59,20 @@ stdenv.mkDerivation {
     tinyxml-2
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
+    curl
+    gflags
+    gz-common
+    gz-math
+    gz-msgs
+    gz-tools2
+    gz-utils
+    jsoncpp
+    libyaml
+    libzip
+    tinyxml-2
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

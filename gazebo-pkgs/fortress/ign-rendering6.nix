@@ -7,6 +7,10 @@
   cmake,
   freeglut,
   glew,
+  gz-common,
+  gz-math,
+  gz-plugin,
+  gz-utils,
   ign-cmake,
   ign-common,
   ign-math,
@@ -22,6 +26,7 @@
   python3,
   util-linux,
   vulkan-loader,
+  writableTmpDirAsHomeHook,
   xorg,
 }:
 stdenv.mkDerivation {
@@ -66,6 +71,23 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
     xorg.xorgserver
+  ];
+  nativeCheckInputs = [
+    freeglut
+    glew
+    gz-common
+    gz-math
+    gz-plugin
+    gz-utils
+    libGL
+    libGLU
+    libogre-next-23-dev
+    libxi
+    libxmu
+    ogre1_9
+    util-linux
+    vulkan-loader
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

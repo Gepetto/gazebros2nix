@@ -9,6 +9,7 @@
   pkg-config,
   python3,
   spdlog,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-kura-gz-utils5";
@@ -38,6 +39,11 @@ stdenv.mkDerivation {
     spdlog
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
+    cli11
+    spdlog
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

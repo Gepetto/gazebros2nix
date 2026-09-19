@@ -19,6 +19,7 @@
   spdlog,
   tinyxml-2,
   util-linux,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-common6";
@@ -58,6 +59,18 @@ stdenv.mkDerivation {
     util-linux
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
+    assimp
+    ffmpeg
+    freeimage
+    gdal
+    gz-math8
+    gz-utils3
+    spdlog
+    tinyxml-2
+    util-linux
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

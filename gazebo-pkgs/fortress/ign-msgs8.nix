@@ -4,6 +4,8 @@
   fetchFromGitHub,
 
   cmake,
+  gz-math,
+  gz-tools,
   ign-cmake,
   ign-math,
   ign-tools,
@@ -12,6 +14,7 @@
   python3,
   python3Packages,
   tinyxml-2,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-msgs8";
@@ -45,6 +48,15 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
     python3Packages.pytest
+  ];
+  nativeCheckInputs = [
+    gz-math
+    gz-tools
+    protobuf
+    python3
+    python3Packages.protobuf
+    tinyxml-2
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

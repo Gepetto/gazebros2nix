@@ -9,6 +9,7 @@
   gz-utils,
   pkg-config,
   python3,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-rotary-gz-plugin5";
@@ -39,10 +40,15 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    gz-tools
+    gz-utils
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "Gazebo Plugin : Cross-platform C++ library for dynamically loading plugins.";

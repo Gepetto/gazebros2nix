@@ -45,6 +45,7 @@
   sdformat14,
   tinyxml-2,
   util-linux,
+  writableTmpDirAsHomeHook,
   xorg,
 }:
 stdenv.mkDerivation {
@@ -117,6 +118,39 @@ stdenv.mkDerivation {
   checkInputs = [
     python3Packages.pytest
     xorg.xorgserver
+  ];
+  nativeCheckInputs = [
+    freeglut
+    freeimage
+    gbenchmark
+    glew
+    gz-cmake3
+    gz-common5
+    gz-fuel-tools9
+    gz-gui8
+    gz-math7
+    gz-msgs10
+    gz-physics7
+    gz-plugin2
+    gz-rendering8
+    gz-sensors8
+    gz-tools2
+    gz-transport13
+    gz-utils2
+    libxi
+    libxmu
+    protobuf
+    python3
+    python3Packages.pybind11
+    qt5.qtbase
+    qt5.qtdeclarative
+    qt5.qtgraphicaleffects
+    qt5.qtquickcontrols
+    qt5.qtquickcontrols2
+    sdformat14
+    tinyxml-2
+    util-linux
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

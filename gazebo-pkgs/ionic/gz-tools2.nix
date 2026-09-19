@@ -9,6 +9,7 @@
   python3,
   rubocop,
   ruby,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-tools2";
@@ -38,6 +39,10 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
     rubocop
+  ];
+  nativeCheckInputs = [
+    ruby
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

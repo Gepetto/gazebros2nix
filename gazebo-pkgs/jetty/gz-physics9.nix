@@ -16,6 +16,7 @@
   pkg-config,
   python3,
   sdformat,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-physics9";
@@ -52,6 +53,18 @@ stdenv.mkDerivation {
     sdformat
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
+    bullet
+    dart
+    eigen
+    gbenchmark
+    gz-common
+    gz-math
+    gz-plugin
+    gz-utils
+    sdformat
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

@@ -10,6 +10,7 @@
   gz-msgs,
   gz-tools,
   gz-utils,
+  libsodium,
   libzenohc-dev,
   libzenohcpp-dev,
   pkg-config,
@@ -18,6 +19,7 @@
   python3Packages,
   sqlite,
   util-linux,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-rotary-gz-transport16";
@@ -48,6 +50,7 @@ stdenv.mkDerivation {
     gz-msgs
     gz-tools
     gz-utils
+    libsodium
     libzenohc-dev
     libzenohcpp-dev
     protobuf
@@ -59,10 +62,28 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
   ];
+  nativeCheckInputs = [
+    cppzmq
+    gz-math
+    gz-msgs
+    gz-tools
+    gz-utils
+    libzenohc-dev
+    libzenohcpp-dev
+    pkg-config
+    protobuf
+    python3
+    python3Packages.psutil
+    python3Packages.pybind11
+    python3Packages.pytest
+    sqlite
+    util-linux
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "Gazebo Transport: Provides fast and efficient asynchronous message passing, services, and data logging.";

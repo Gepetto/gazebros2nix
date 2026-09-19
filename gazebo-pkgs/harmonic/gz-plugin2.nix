@@ -11,6 +11,7 @@
   gz-utils2,
   pkg-config,
   python3,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-plugin2";
@@ -42,6 +43,11 @@ stdenv.mkDerivation {
     gz-utils2
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
+    gz-tools2
+    gz-utils2
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

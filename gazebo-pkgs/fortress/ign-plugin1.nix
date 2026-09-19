@@ -4,11 +4,14 @@
   fetchFromGitHub,
 
   cmake,
+  gz-tools,
+  gz-utils,
   ign-cmake,
   ign-tools,
   ign-utils,
   pkg-config,
   python3,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-plugin1";
@@ -38,6 +41,11 @@ stdenv.mkDerivation {
     ign-utils
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
+    gz-tools
+    gz-utils
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

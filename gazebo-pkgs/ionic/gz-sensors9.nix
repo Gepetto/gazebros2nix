@@ -23,6 +23,7 @@
   python3,
   sdformat,
   sdformat15,
+  writableTmpDirAsHomeHook,
   xorg,
 }:
 stdenv.mkDerivation {
@@ -68,6 +69,16 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
     xorg.xorgserver
+  ];
+  nativeCheckInputs = [
+    gz-common6
+    gz-math8
+    gz-msgs11
+    gz-rendering9
+    gz-tools2
+    gz-transport14
+    sdformat15
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

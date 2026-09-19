@@ -10,6 +10,7 @@
   pkg-config,
   python3,
   python3Packages,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-kura-gz-math10";
@@ -40,6 +41,11 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
     python3Packages.pytest
+  ];
+  nativeCheckInputs = [
+    eigen
+    gz-utils
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

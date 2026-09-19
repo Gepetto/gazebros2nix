@@ -18,6 +18,7 @@
   python3,
   tinyxml-2,
   util-linux,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-common5";
@@ -56,6 +57,18 @@ stdenv.mkDerivation {
     util-linux
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
+    assimp
+    ffmpeg
+    freeimage
+    gdal
+    gts
+    gz-math7
+    gz-utils2
+    tinyxml-2
+    util-linux
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

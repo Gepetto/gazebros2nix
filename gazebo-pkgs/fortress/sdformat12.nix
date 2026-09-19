@@ -4,6 +4,9 @@
   fetchFromGitHub,
 
   cmake,
+  gz-math,
+  gz-tools,
+  gz-utils,
   ign-cmake,
   ign-math,
   ign-tools,
@@ -15,6 +18,7 @@
   ruby,
   tinyxml-2,
   urdfdom,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-sdformat12";
@@ -53,6 +57,15 @@ stdenv.mkDerivation {
     python3Packages.psutil
     python3Packages.psutils
     python3Packages.pytest
+  ];
+  nativeCheckInputs = [
+    gz-math
+    gz-tools
+    gz-utils
+    python3Packages.pybind11
+    tinyxml-2
+    urdfdom
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

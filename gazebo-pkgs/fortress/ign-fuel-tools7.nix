@@ -6,6 +6,11 @@
   cmake,
   curl,
   gflags,
+  gz-common,
+  gz-math,
+  gz-msgs,
+  gz-tools,
+  gz-utils,
   ign-cmake,
   ign-common,
   ign-math,
@@ -18,6 +23,7 @@
   pkg-config,
   python3,
   tinyxml-2,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-fuel-tools7";
@@ -56,6 +62,20 @@ stdenv.mkDerivation {
     tinyxml-2
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
+    curl
+    gflags
+    gz-common
+    gz-math
+    gz-msgs
+    gz-tools
+    gz-utils
+    jsoncpp
+    libyaml
+    libzip
+    tinyxml-2
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

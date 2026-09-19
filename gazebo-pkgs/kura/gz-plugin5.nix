@@ -9,6 +9,7 @@
   gz-utils,
   pkg-config,
   python3,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-kura-gz-plugin5";
@@ -38,6 +39,11 @@ stdenv.mkDerivation {
     gz-utils
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
+    gz-tools
+    gz-utils
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

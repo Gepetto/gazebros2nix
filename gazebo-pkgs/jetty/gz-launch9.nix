@@ -30,6 +30,7 @@
   sdformat,
   tinyxml-2,
   util-linux,
+  writableTmpDirAsHomeHook,
   xorg,
 }:
 stdenv.mkDerivation {
@@ -82,6 +83,26 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
     xorg.xorgserver
+  ];
+  nativeCheckInputs = [
+    binutils
+    gflags
+    gz-cmake
+    gz-common
+    gz-gui
+    gz-math
+    gz-msgs
+    gz-plugin
+    gz-sim
+    gz-tools2
+    gz-transport
+    libwebsockets
+    libxi
+    libxmu
+    libyaml
+    tinyxml-2
+    util-linux
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

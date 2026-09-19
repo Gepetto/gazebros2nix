@@ -9,6 +9,8 @@
   gbenchmark,
   gdal,
   gts,
+  gz-math,
+  gz-utils,
   ign-cmake,
   ign-math,
   ign-utils,
@@ -17,6 +19,7 @@
   spdlog,
   tinyxml-2,
   util-linux,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-common4";
@@ -54,6 +57,18 @@ stdenv.mkDerivation {
     util-linux
   ];
   checkInputs = [
+  ];
+  nativeCheckInputs = [
+    assimp
+    ffmpeg
+    gbenchmark
+    gdal
+    gz-math
+    gz-utils
+    spdlog
+    tinyxml-2
+    util-linux
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

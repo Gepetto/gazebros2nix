@@ -26,6 +26,7 @@
   python3,
   qt5,
   tinyxml-2,
+  writableTmpDirAsHomeHook,
   xorg,
 }:
 stdenv.mkDerivation {
@@ -81,6 +82,27 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
     xorg.xorgserver
+  ];
+  nativeCheckInputs = [
+    gz-common6
+    gz-math8
+    gz-msgs11
+    gz-plugin3
+    gz-rendering9
+    gz-tools2
+    gz-transport14
+    gz-utils3
+    protobuf
+    qt5.qtbase
+    qt5.qtcharts
+    qt5.qtdeclarative
+    qt5.qtgraphicaleffects
+    qt5.qtlocation
+    qt5.qtpositioning
+    qt5.qtquickcontrols
+    qt5.qtquickcontrols2
+    tinyxml-2
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

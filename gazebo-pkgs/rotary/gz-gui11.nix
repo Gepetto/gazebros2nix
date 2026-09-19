@@ -18,6 +18,7 @@
   python3,
   qt6,
   tinyxml-2,
+  writableTmpDirAsHomeHook,
   xorg,
 }:
 stdenv.mkDerivation {
@@ -62,10 +63,27 @@ stdenv.mkDerivation {
   checkInputs = [
     xorg.xorgserver
   ];
+  nativeCheckInputs = [
+    gz-common
+    gz-math
+    gz-msgs
+    gz-plugin
+    gz-rendering
+    gz-tools
+    gz-transport
+    gz-utils
+    protobuf
+    qt6.qt5compat
+    qt6.qtbase
+    qt6.qtdeclarative
+    qt6.qtsvg
+    tinyxml-2
+    writableTmpDirAsHomeHook
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = false;
+  doCheck = true;
 
   meta = {
     description = "Gazebo GUI : Graphical interfaces for robotics applications";

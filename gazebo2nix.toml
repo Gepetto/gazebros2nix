@@ -143,24 +143,7 @@ do_check = false
 
 [rotary.gz-common8]
 propagated = [ "libz" ]
-[rotary.gz-fuel-tools12]
-do_check = false
-[rotary.gz-gui11]
-do_check = false
-[rotary.gz-physics10]
-do_check = false
-[rotary.gz-plugin5]
-do_check = false
-[rotary.gz-rendering11]
-do_check = false
-propagated = [ "boost" ]
-[rotary.gz-sensors11]
-do_check = false
-[rotary.gz-sim11]
-do_check = false
-[rotary.gz-tools3]
-do_check = false
 [rotary.gz-transport16]
-do_check = false
-[rotary.sdformat17]
-do_check = false
+propagated = [ "libsodium" ]
+[rotary.gz-rendering11]
+propagated = [ "boost" ]

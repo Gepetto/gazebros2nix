@@ -17,6 +17,7 @@
   python3Packages,
   tinyxml-2,
   urdfdom,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-sdformat15";
@@ -56,6 +57,15 @@ stdenv.mkDerivation {
     libxml2
     python3Packages.psutil
     python3Packages.pytest
+  ];
+  nativeCheckInputs = [
+    gz-math8
+    gz-tools2
+    gz-utils3
+    python3Packages.pybind11
+    tinyxml-2
+    urdfdom
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

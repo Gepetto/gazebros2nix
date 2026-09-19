@@ -15,6 +15,7 @@
   python3,
   python3Packages,
   tinyxml-2,
+  writableTmpDirAsHomeHook,
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-msgs11";
@@ -51,6 +52,15 @@ stdenv.mkDerivation {
   ];
   checkInputs = [
     python3Packages.pytest
+  ];
+  nativeCheckInputs = [
+    gz-math8
+    gz-tools2
+    protobuf
+    python3
+    python3Packages.protobuf
+    tinyxml-2
+    writableTmpDirAsHomeHook
   ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
