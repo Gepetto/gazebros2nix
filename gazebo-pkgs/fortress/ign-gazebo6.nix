@@ -10,19 +10,6 @@
   freeimage,
   gbenchmark,
   glew,
-  gz-cmake,
-  gz-common,
-  gz-fuel-tools,
-  gz-gui,
-  gz-math,
-  gz-msgs,
-  gz-physics,
-  gz-plugin,
-  gz-rendering,
-  gz-sensors,
-  gz-tools,
-  gz-transport,
-  gz-utils,
   ign-cmake,
   ign-common,
   ign-fuel-tools,
@@ -111,37 +98,6 @@ stdenv.mkDerivation {
     xorg.xorgserver
   ];
   nativeCheckInputs = [
-    binutils
-    elfutils
-    freeglut
-    freeimage
-    gbenchmark
-    glew
-    gz-cmake
-    gz-common
-    gz-fuel-tools
-    gz-gui
-    gz-math
-    gz-msgs
-    gz-physics
-    gz-plugin
-    gz-rendering
-    gz-sensors
-    gz-tools
-    gz-transport
-    gz-utils
-    libdwarf
-    libwebsockets
-    libxi
-    libxmu
-    protobuf
-    python3Packages.pybind11
-    qt6.qt5compat
-    qt6.qtbase
-    qt6.qtdeclarative
-    sdformat
-    tinyxml-2
-    util-linux
     writableTmpDirAsHomeHook
   ];
 

@@ -5,10 +5,6 @@
 
   cmake,
   cppzmq,
-  gz-math,
-  gz-msgs,
-  gz-tools,
-  gz-utils,
   ign-cmake,
   ign-math,
   ign-msgs,
@@ -67,21 +63,6 @@ stdenv.mkDerivation {
   checkInputs = [
   ];
   nativeCheckInputs = [
-    cppzmq
-    gz-math
-    gz-msgs
-    gz-tools
-    gz-utils
-    libzenohc-dev
-    libzenohcpp-dev
-    pkg-config
-    protobuf
-    python3
-    python3Packages.psutil
-    python3Packages.pybind11
-    python3Packages.pytest
-    sqlite
-    util-linux
     writableTmpDirAsHomeHook
   ];
 

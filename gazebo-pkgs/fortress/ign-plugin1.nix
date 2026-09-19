@@ -4,8 +4,6 @@
   fetchFromGitHub,
 
   cmake,
-  gz-tools,
-  gz-utils,
   ign-cmake,
   ign-tools,
   ign-utils,
@@ -43,8 +41,6 @@ stdenv.mkDerivation {
   checkInputs = [
   ];
   nativeCheckInputs = [
-    gz-tools
-    gz-utils
     writableTmpDirAsHomeHook
   ];
 

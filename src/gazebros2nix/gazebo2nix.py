@@ -231,7 +231,8 @@ class GazeboDistro(HashesFile):
         )
         check = self.sort_deps(pkg.test_depends, check, [*native, *propagated])
         native_check = ["writableTmpDirAsHomeHook"]
-        native_check = self.sort_deps(pkg.exec_depends, native_check, [])
+        if not ign:
+            native_check = self.sort_deps(pkg.exec_depends, native_check, [])
         if ign:
             native = list(map(gz_to_ign, native))
             propagated = list(map(gz_to_ign, propagated))

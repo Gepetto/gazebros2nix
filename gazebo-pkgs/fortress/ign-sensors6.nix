@@ -4,13 +4,6 @@
   fetchFromGitHub,
 
   cmake,
-  gz-common,
-  gz-math,
-  gz-msgs,
-  gz-rendering,
-  gz-tools,
-  gz-transport,
-  gz-utils,
   ign-cmake,
   ign-common,
   ign-math,
@@ -64,14 +57,6 @@ stdenv.mkDerivation {
     xorg.xorgserver
   ];
   nativeCheckInputs = [
-    gz-common
-    gz-math
-    gz-msgs
-    gz-rendering
-    gz-tools
-    gz-transport
-    gz-utils
-    sdformat
     writableTmpDirAsHomeHook
   ];
 

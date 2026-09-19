@@ -9,8 +9,6 @@
   gbenchmark,
   gdal,
   gts,
-  gz-math,
-  gz-utils,
   ign-cmake,
   ign-math,
   ign-utils,
@@ -59,15 +57,6 @@ stdenv.mkDerivation {
   checkInputs = [
   ];
   nativeCheckInputs = [
-    assimp
-    ffmpeg
-    gbenchmark
-    gdal
-    gz-math
-    gz-utils
-    spdlog
-    tinyxml-2
-    util-linux
     writableTmpDirAsHomeHook
   ];
 

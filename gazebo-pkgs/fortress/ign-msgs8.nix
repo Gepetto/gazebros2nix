@@ -4,8 +4,6 @@
   fetchFromGitHub,
 
   cmake,
-  gz-math,
-  gz-tools,
   ign-cmake,
   ign-math,
   ign-tools,
@@ -50,12 +48,6 @@ stdenv.mkDerivation {
     python3Packages.pytest
   ];
   nativeCheckInputs = [
-    gz-math
-    gz-tools
-    protobuf
-    python3
-    python3Packages.protobuf
-    tinyxml-2
     writableTmpDirAsHomeHook
   ];
 

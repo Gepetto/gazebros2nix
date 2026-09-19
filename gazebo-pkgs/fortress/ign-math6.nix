@@ -5,7 +5,6 @@
 
   cmake,
   eigen,
-  gz-utils,
   ign-cmake,
   ign-utils,
   pkg-config,
@@ -44,8 +43,6 @@ stdenv.mkDerivation {
     python3Packages.pytest
   ];
   nativeCheckInputs = [
-    eigen
-    gz-utils
     writableTmpDirAsHomeHook
   ];
 

@@ -41,8 +41,6 @@ stdenv.mkDerivation {
   checkInputs = [
   ];
   nativeCheckInputs = [
-    cli11
-    spdlog
     writableTmpDirAsHomeHook
   ];
 

@@ -8,10 +8,6 @@
   dart,
   eigen,
   gbenchmark,
-  gz-common,
-  gz-math,
-  gz-plugin,
-  gz-utils,
   ign-cmake,
   ign-common,
   ign-math,
@@ -59,15 +55,6 @@ stdenv.mkDerivation {
   checkInputs = [
   ];
   nativeCheckInputs = [
-    bullet
-    dart
-    eigen
-    gbenchmark
-    gz-common
-    gz-math
-    gz-plugin
-    gz-utils
-    sdformat
     writableTmpDirAsHomeHook
   ];
 

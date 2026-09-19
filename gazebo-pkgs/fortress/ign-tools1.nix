@@ -39,7 +39,6 @@ stdenv.mkDerivation {
     rubocop
   ];
   nativeCheckInputs = [
-    ruby
     writableTmpDirAsHomeHook
   ];
 

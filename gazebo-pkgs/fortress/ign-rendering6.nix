@@ -7,10 +7,6 @@
   cmake,
   freeglut,
   glew,
-  gz-common,
-  gz-math,
-  gz-plugin,
-  gz-utils,
   ign-cmake,
   ign-common,
   ign-math,
@@ -73,20 +69,6 @@ stdenv.mkDerivation {
     xorg.xorgserver
   ];
   nativeCheckInputs = [
-    freeglut
-    glew
-    gz-common
-    gz-math
-    gz-plugin
-    gz-utils
-    libGL
-    libGLU
-    libogre-next-23-dev
-    libxi
-    libxmu
-    ogre1_9
-    util-linux
-    vulkan-loader
     writableTmpDirAsHomeHook
   ];
 

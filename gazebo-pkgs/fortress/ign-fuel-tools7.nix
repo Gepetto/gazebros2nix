@@ -6,11 +6,6 @@
   cmake,
   curl,
   gflags,
-  gz-common,
-  gz-math,
-  gz-msgs,
-  gz-tools,
-  gz-utils,
   ign-cmake,
   ign-common,
   ign-math,
@@ -64,17 +59,6 @@ stdenv.mkDerivation {
   checkInputs = [
   ];
   nativeCheckInputs = [
-    curl
-    gflags
-    gz-common
-    gz-math
-    gz-msgs
-    gz-tools
-    gz-utils
-    jsoncpp
-    libyaml
-    libzip
-    tinyxml-2
     writableTmpDirAsHomeHook
   ];
 
