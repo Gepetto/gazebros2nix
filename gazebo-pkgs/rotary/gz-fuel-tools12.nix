@@ -75,7 +75,8 @@ stdenv.mkDerivation {
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = true;
+  doCheck = false;
+  doInstallCheck = true;
 
   meta = {
     description = "Gazebo Fuel Tools: Classes and tools for interacting with Gazebo Fuel";

@@ -52,7 +52,8 @@ stdenv.mkDerivation {
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = true;
+  doCheck = false;
+  doInstallCheck = true;
 
   meta = {
     description = "Gazebo Math : Math classes and functions for robot applications";

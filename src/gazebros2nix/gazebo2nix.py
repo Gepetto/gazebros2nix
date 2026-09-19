@@ -67,7 +67,8 @@ stdenv.mkDerivation {
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = {{ do_check }};
+  doCheck = false;
+  doInstallCheck = {{ do_check }};
 
   meta = {
     description = "{{ pkg.description }}";

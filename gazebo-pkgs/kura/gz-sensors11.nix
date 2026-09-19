@@ -71,6 +71,7 @@ stdenv.mkDerivation {
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Sensors : Sensor models for simulation";

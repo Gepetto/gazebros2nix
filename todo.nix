@@ -375,8 +375,6 @@ final: prev: {
             "testFixture_TEST"
             "world_TEST"
           ];
-          doInstallCheck = true;
-          doCheck = false;
         });
         gz-tools3 = rotary-prev.gz-tools3.overrideAttrs (_super: {
           postFixup = ''
@@ -393,15 +391,11 @@ final: prev: {
           cmakeFlags = super.cmakeFlags ++ [
             (final.lib.cmakeFeature "GZ_PYTHON_INSTALL_PATH" final.python3.sitePackages)
           ];
-          doInstallCheck = true;
-          doCheck = false;
         });
         sdformat17 = rotary-prev.sdformat17.overrideAttrs (super: {
           cmakeFlags = super.cmakeFlags ++ [
             (final.lib.cmakeFeature "GZ_PYTHON_INSTALL_PATH" final.python3.sitePackages)
           ];
-          doInstallCheck = true;
-          doCheck = false;
         });
         # keep-sorted end
       }

@@ -88,6 +88,7 @@ stdenv.mkDerivation {
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Transport: Provides fast and efficient asynchronous message passing, services, and data logging.";

@@ -134,7 +134,8 @@ stdenv.mkDerivation {
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  doCheck = true;
+  doCheck = false;
+  doInstallCheck = true;
 
   meta = {
     description = "Gazebo Sim : A Robotic Simulator";

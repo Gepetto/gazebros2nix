@@ -67,6 +67,7 @@ stdenv.mkDerivation {
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "SDFormat is an XML file format that describes environments, objects, and robots

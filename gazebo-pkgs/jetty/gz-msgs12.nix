@@ -64,6 +64,7 @@ stdenv.mkDerivation {
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   doCheck = false;
+  doInstallCheck = false;
 
   meta = {
     description = "Gazebo Messages: Protobuf messages and functions for robot applications";
