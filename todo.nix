@@ -259,7 +259,7 @@ final: prev: {
             "UNIT_gz_TEST"
           ];
         });
-        gz-gui11 = rotary-prev.gz-gui11.overrideAttrs (super: {
+        gz-gui11 = rotary-prev.gz-gui11.overrideAttrs (_super: {
           env = {
             QT_QPA_PLATFORM = "offscreen";
             QML2_IMPORT_PATH = final.lib.makeSearchPathOutput "bin" final.qt6.qtbase.qtQmlPrefix [
