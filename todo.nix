@@ -417,13 +417,6 @@ final: prev: {
           ;
         # keep-sorted start block=yes
 
-        agimus-franka-hardware = ros-prev.agimus-franka-hardware.overrideAttrs {
-          # https://github.com/agimus-project/agimus-franka-ros2/pull/11
-          postPatch = ''
-            substituteInPlace src/agimus_franka_hardware_interface.cpp \
-              --replace-fail "<fmt/core.h>" "<fmt/format.h>"
-          '';
-        };
         agimus-controller-ros = ros-prev.agimus-controller-ros.overrideAttrs {
           # this thing believe we did pass --build-directory or --build-base:
           # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
@@ -447,6 +440,13 @@ final: prev: {
         agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs amentInstallCheckOverride;
         agimus-franka-example-controllers = ros-prev.agimus-franka-example-controllers.overrideAttrs amentInstallCheckOverride;
         agimus-franka-fr3-moveit-config = ros-prev.agimus-franka-fr3-moveit-config.overrideAttrs amentInstallCheckOverride;
+        agimus-franka-hardware = ros-prev.agimus-franka-hardware.overrideAttrs {
+          # https://github.com/agimus-project/agimus-franka-ros2/pull/11
+          postPatch = ''
+            substituteInPlace src/agimus_franka_hardware_interface.cpp \
+              --replace-fail "<fmt/core.h>" "<fmt/format.h>"
+          '';
+        };
         agimus-franka-msgs = ros-prev.agimus-franka-msgs.overrideAttrs {
           cmakeFlags = [
             "-DCMAKE_SKIP_BUILD_RPATH=ON"
