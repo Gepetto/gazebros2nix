@@ -417,6 +417,13 @@ final: prev: {
           ;
         # keep-sorted start block=yes
 
+        agimus-franka-hardware = ros-prev.agimus-franka-hardware.overrideAttrs {
+          # https://github.com/agimus-project/agimus-franka-ros2/pull/11
+          postPatch = ''
+            substituteInPlace src/agimus_franka_hardware_interface.cpp \
+              --replace-fail "<fmt/core.h>" "<fmt/format.h>"
+          '';
+        };
         agimus-controller-ros = ros-prev.agimus-controller-ros.overrideAttrs {
           # this thing believe we did pass --build-directory or --build-base:
           # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
