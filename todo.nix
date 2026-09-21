@@ -786,7 +786,7 @@ final: prev: {
                   (final.fetchpatch2 {
                     url = "https://github.com/ros2/launch_ros/pull/575.patch?full_index=1";
                     stripLen = 1;
-                    hash = "sha256-lv8R9lij5gwTvShmpLD8bkTu/WcIAdGWAV7qEz0UmF8=";
+                    hash = "sha256-mT8D2W2HnUdPZm1hGWv2DdhgbsP/RS5VsbJniRop6C8=";
                   })
                 ];
               });
@@ -911,7 +911,7 @@ final: prev: {
                   (final.fetchpatch2 {
                     url = "https://github.com/ros2/launch_ros/pull/574.patch?full_index=1";
                     stripLen = 1;
-                    hash = "sha256-lv8R9lij5gwTvShmpLD8bkTu/WcIAdGWAV7qEz0UmF8=";
+                    hash = "sha256-mT8D2W2HnUdPZm1hGWv2DdhgbsP/RS5VsbJniRop6C8=";
                   })
                 ];
               });
