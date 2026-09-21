@@ -10,16 +10,6 @@ final: prev: {
         --replace-fail "$""{PACKAGE_PREFIX_DIR}" "$out"
     '';
   });
-  zenoh-cpp = prev.zenoh-cpp.overrideAttrs (super: {
-    patches = (super.patches or [ ]) ++ [
-      # fix cmake syntax
-      (final.fetchpatch2 {
-        url = "https://github.com/eclipse-zenoh/zenoh-cpp/pull/790.patch?full_index=1";
-        hash = "sha256-oaCeLTrQ7veWzpTEKGo4pDmNLKmnBIjBkuX71vRtjoo=";
-      })
-    ];
-    postInstall = ""; # already fixed by the patch
-  });
   # keep-sorted end
 
   gazeboPackages = prev.gazeboPackages // {
