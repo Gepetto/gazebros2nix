@@ -16,7 +16,7 @@ So you can either write your own config file to generate your own packages, or u
 nix shell .#gz-fortress --command ign gazebo --render-engine ogre tests/fortress.sdf
 nix shell .#gz-harmonic --command gz sim tests/harmonic.sdf
 nix shell .#gz-ionic    --command gz sim tests/ionic.sdf
-nix shell .#gz-jetty    --command gz sim tests/ionic.sdf
+nix shell .#gz-jetty    --command gz sim tests/jetty.sdf
 nix shell .#ros-humble  --command ros2 launch agimus_demo_03_mpc_dummy_traj bringup.launch.py use_gazebo:=true use_rviz:=true
 nix shell .#ros-jazzy   --command ros2 launch agimus_demo_03_mpc_dummy_traj bringup.launch.py use_gazebo:=true use_rviz:=true
 nix shell .#ros-jazzy   --command ros2 launch tiago_pro_gazebo tiago_pro_gazebo.launch.py is_public_sim:=True world_name:=empty arm_type_left:=no-arm end_effector_right:=no-end-effector end_effector_left:=no-end-effector tuck_arm:=False gazebo_version:=gazebo

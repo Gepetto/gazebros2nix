@@ -14,6 +14,7 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } (
       { lib, ... }:
       let
+        inherit (inputs.flakoboros.lib) mkQtHelpers ros2gz pythonVersion;
         flakeModule = inputs.flake-parts.lib.importApply ./module.nix {
           inherit (inputs) flakoboros treefmt-nix;
         };
@@ -27,7 +28,7 @@
             flakoboros = {
               overlays = [
                 (final: _prev: {
-                  pythonVersion = inputs.flakoboros.lib.pythonVersion final;
+                  pythonVersion = pythonVersion final;
                 })
               ];
               rosShellDistro = "humble";
@@ -67,6 +68,8 @@
                 harmonic
                 ionic
                 jetty
+                kura
+                rotary
                 ;
               inherit (pkgs.rosPackages)
                 alum
@@ -77,601 +80,747 @@
                 rolling
                 ;
             };
-            packages = lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (
-              {
-                flakoboros-json = pkgs.callPackage ./flakoboros-json.nix { inherit (inputs) rosdistro; };
-                gz-fortress = pkgs.rosPackages.humble.buildEnv {
-                  name = "gz-fortress";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "humble" { };
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-fortress-" n) self'.packages) ++ [
-                    pkgs.qt5.qtgraphicaleffects
-                    pkgs.qt5.wrapQtAppsHook
-                  ];
-                };
+            packages =
+              let
+                qt5Helpers = mkQtHelpers pkgs "5";
+                qt6Helpers = mkQtHelpers pkgs "6";
+              in
+              lib.filterAttrs (_n: v: v.meta.available && !v.meta.broken) (
+                {
+                  flakoboros-json = pkgs.callPackage ./flakoboros-json.nix { inherit (inputs) rosdistro; };
 
-                gz-harmonic = pkgs.rosPackages.jazzy.buildEnv {
-                  name = "gz-harmonic";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "jazzy" { };
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-harmonic-" n) self'.packages) ++ [
-                    pkgs.qt5.wrapQtAppsHook
-                  ];
-                };
+                  gz-fortress =
+                    let
+                      gzDistro = "fortress";
+                      env = pkgs.buildEnv {
+                        name = "gz-${gzDistro}-env";
+                        paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-${gzDistro}-" n) self'.packages);
+                      };
+                    in
+                    pkgs.stdenv.mkDerivation {
+                      name = "gz-${gzDistro}";
+                      nativeBuildInputs = [ pkgs.qt5.wrapQtAppsHook ];
+                      dontUnpack = true;
+                      dontWrapQtApps = true;
+                      buildPhase = ''
+                        makeQtWrapper ${env}/bin/ign $out/bin/ign \
+                          --set QT_QPA_PLATFORM xcb \
+                          --suffix QML2_IMPORT_PATH : ${qt5Helpers.QML2_IMPORT_PATH} \
+                          --suffix IGN_CONFIG_PATH : ${env}/share/ignition \
+                          --set-default IGN_IP 127.0.0.1 \
+                          --set-default IGN_VERSION ${gzDistro}
+                      '';
+                      meta.mainProgram = "ign";
+                      passthru = { inherit env; };
+                    };
 
-                gz-ionic = pkgs.rosPackages.kilted.buildEnv {
-                  name = "gz-ionic";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "kilted" { };
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-ionic-" n) self'.packages) ++ [
-                    pkgs.qt5.wrapQtAppsHook
-                  ];
-                };
+                  gz-harmonic =
+                    let
+                      gzDistro = "harmonic";
+                      env = pkgs.buildEnv {
+                        name = "gz-${gzDistro}-env";
+                        paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-${gzDistro}-" n) self'.packages);
+                      };
+                    in
+                    pkgs.stdenv.mkDerivation {
+                      name = "gz-${gzDistro}";
+                      nativeBuildInputs = [ pkgs.qt5.wrapQtAppsHook ];
+                      dontUnpack = true;
+                      dontWrapQtApps = true;
+                      buildPhase = ''
+                        makeQtWrapper ${env}/bin/gz $out/bin/gz \
+                          --suffix QML2_IMPORT_PATH : ${qt5Helpers.QML2_IMPORT_PATH} \
+                          --suffix GZ_CONFIG_PATH : ${env}/share/gz \
+                          --set-default GZ_IP 127.0.0.1 \
+                          --set-default GZ_VERSION ${gzDistro}
+                      '';
+                      meta.mainProgram = "gz";
+                      passthru = { inherit env; };
+                    };
 
-                gz-jetty = pkgs.rosPackages.rolling.buildEnv {
-                  name = "gz-jetty";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "rolling" { };
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-jetty-" n) self'.packages) ++ [
-                    pkgs.qt6.wrapQtAppsHook
-                  ];
-                };
+                  gz-ionic =
+                    let
+                      gzDistro = "ionic";
+                      env = pkgs.buildEnv {
+                        name = "gz-${gzDistro}-env";
+                        paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-${gzDistro}-" n) self'.packages);
+                      };
+                    in
+                    pkgs.stdenv.mkDerivation {
+                      name = "gz-${gzDistro}";
+                      nativeBuildInputs = [ pkgs.qt5.wrapQtAppsHook ];
+                      dontUnpack = true;
+                      dontWrapQtApps = true;
+                      buildPhase = ''
+                        makeQtWrapper ${env}/bin/gz $out/bin/gz \
+                          --suffix QML2_IMPORT_PATH : ${qt5Helpers.QML2_IMPORT_PATH} \
+                          --suffix GZ_CONFIG_PATH : ${env}/share/gz \
+                          --set-default GZ_IP 127.0.0.1 \
+                          --set-default GZ_VERSION ${gzDistro}
+                      '';
+                      meta.mainProgram = "gz";
+                      passthru = { inherit env; };
+                    };
 
-                gz-kura = pkgs.rosPackages.rolling.buildEnv {
-                  name = "gz-kura";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "rolling" { };
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-kura-" n) self'.packages) ++ [
-                    pkgs.qt6.wrapQtAppsHook
-                  ];
-                };
+                  gz-jetty =
+                    let
+                      gzDistro = "jetty";
+                      env = pkgs.buildEnv {
+                        name = "gz-${gzDistro}-env";
+                        paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-${gzDistro}-" n) self'.packages);
+                      };
+                    in
+                    pkgs.stdenv.mkDerivation {
+                      name = "gz-${gzDistro}";
+                      buildInputs = [ pkgs.qt6.qtbase ];
+                      nativeBuildInputs = [ pkgs.qt6.wrapQtAppsHook ];
+                      dontUnpack = true;
+                      dontWrapQtApps = true;
+                      buildPhase = ''
+                        makeQtWrapper ${env}/bin/gz $out/bin/gz \
+                          --suffix QML2_IMPORT_PATH : ${qt6Helpers.QML2_IMPORT_PATH} \
+                          --suffix GZ_CONFIG_PATH : ${env}/share/gz \
+                          --set-default GZ_IP 127.0.0.1 \
+                          --set-default GZ_VERSION ${gzDistro}
+                      '';
+                      meta.mainProgram = "gz";
+                      passthru = { inherit env; };
+                    };
 
-                gz-rotary = pkgs.rosPackages.rolling.buildEnv {
-                  name = "gz-rotary";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "rolling" { };
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-rotary-" n) self'.packages) ++ [
-                    pkgs.qt6.wrapQtAppsHook
-                  ];
-                };
+                  gz-kura =
+                    let
+                      gzDistro = "kura";
+                      env = pkgs.buildEnv {
+                        name = "gz-${gzDistro}-env";
+                        paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-${gzDistro}-" n) self'.packages);
+                      };
+                    in
+                    pkgs.stdenv.mkDerivation {
+                      name = "gz-${gzDistro}";
+                      buildInputs = [ pkgs.qt6.qtbase ];
+                      nativeBuildInputs = [ pkgs.qt6.wrapQtAppsHook ];
+                      dontUnpack = true;
+                      dontWrapQtApps = true;
+                      buildPhase = ''
+                        makeQtWrapper ${env}/bin/gz $out/bin/gz \
+                          --suffix GZ_CONFIG_PATH : ${env}/share/gz \
+                          --set-default GZ_IP 127.0.0.1 \
+                          --set-default GZ_VERSION ${gzDistro}
+                      '';
+                      meta.mainProgram = "gz";
+                      passthru = { inherit env; };
+                    };
 
-                pal-alum = pkgs.rosPackages.alum.buildEnv {
-                  name = "pal-alum";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "humble" { };
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "pal-alum-" n) self'.packages) ++ [
-                    pkgs.qt5.qtgraphicaleffects
-                    pkgs.qt5.wrapQtAppsHook
-                  ];
-                };
+                  gz-rotary =
+                    let
+                      gzDistro = "rotary";
+                      env = pkgs.buildEnv {
+                        name = "gz-${gzDistro}-env";
+                        paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "gz-${gzDistro}-" n) self'.packages);
+                      };
+                    in
+                    pkgs.stdenv.mkDerivation {
+                      name = "gz-${gzDistro}";
+                      buildInputs = [ pkgs.qt6.qtbase ];
+                      nativeBuildInputs = [ pkgs.qt6.wrapQtAppsHook ];
+                      dontUnpack = true;
+                      dontWrapQtApps = true;
+                      buildPhase = ''
+                        makeQtWrapper ${env}/bin/gz $out/bin/gz \
+                          --suffix GZ_CONFIG_PATH : ${env}/share/gz \
+                          --set-default GZ_IP 127.0.0.1 \
+                          --set-default GZ_VERSION ${gzDistro}
+                      '';
+                      meta.mainProgram = "gz";
+                      passthru = { inherit env; };
+                    };
 
-                ros-humble = pkgs.rosPackages.humble.buildEnv {
-                  name = "ros-humble";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "humble" { };
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-humble-" n) self'.packages) ++ [
-                    pkgs.python3Packages.coal # TODO
-                    pkgs.qt5.qtgraphicaleffects
-                    pkgs.qt5.wrapQtAppsHook
-                  ];
-                };
+                  pal-alum = pkgs.rosPackages.alum.buildEnv {
+                    name = "pal-alum";
+                    paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "pal-alum-" n) self'.packages);
+                    wrapPrograms = false;
+                  };
 
-                ros-jazzy = pkgs.rosPackages.jazzy.buildEnv {
-                  name = "ros-jazzy";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "jazzy" { };
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-" n) self'.packages) ++ [
-                    pkgs.python3Packages.coal # TODO
-                    pkgs.qt5.wrapQtAppsHook
-                  ];
-                };
+                  ros-humble =
+                    let
+                      rosDistro = "humble";
+                      gzDistro = ros2gz rosDistro;
+                      env = pkgs.rosPackages.${rosDistro}.buildEnv {
+                        paths = lib.attrValues (
+                          lib.filterAttrs (n: _p: lib.hasPrefix "ros-${rosDistro}-" n) self'.packages
+                        );
+                        wrapPrograms = false;
+                        postBuild = ''
+                          rm $out/bin/ign
+                          cp ${lib.getExe self'.packages."gz-${gzDistro}"} $out/bin
+                        '';
+                      };
+                    in
+                    pkgs.stdenv.mkDerivation {
+                      name = "ros-${rosDistro}";
+                      nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+                      dontUnpack = true;
+                      buildPhase = ''
+                        for ex in ament_index fastdds ign ipython ipython3 python python3 ros2 rviz2 xacro; do
+                          makeWrapper ${env}/bin/$ex $out/bin/$ex \
+                            --suffix PATH : "${env}/bin" \
+                            --suffix LD_LIBRARY_PATH : "${env}/lib" \
+                            --suffix PYTHONPATH : "${env}/${pkgs.python3.sitePackages}" \
+                            --suffix CMAKE_PREFIX_PATH : "${env}" \
+                            --suffix AMENT_PREFIX_PATH : "${env}" \
+                            --suffix ROS_PACKAGE_PATH : "${env}/share" \
+                            --suffix IGN_GAZEBO_RESOURCE_PATH : "${env}/share" \
+                            --set ROS_DISTRO '${rosDistro}' \
+                            --set ROS_VERSION '2' \
+                            --set ROS_PYTHON_VERSION '3'
+                        done
+                      '';
+                      meta.mainProgram = "ros2";
+                      passthru = { inherit env; };
+                    };
 
-                ros-jazzy-odri = pkgs.rosPackages.jazzy.buildEnv {
-                  name = "ros-jazzy-odri";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "jazzy" { };
-                  paths =
-                    lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-jazzy-odri-" n) self'.packages)
-                    ++ [
-                      pkgs.python3Packages.coal # TODO
-                      pkgs.qt5.wrapQtAppsHook
+                  ros-jazzy =
+                    let
+                      rosDistro = "jazzy";
+                      gzDistro = ros2gz rosDistro;
+                      env = pkgs.rosPackages.${rosDistro}.buildEnv {
+                        paths = lib.attrValues (
+                          lib.filterAttrs (n: _p: lib.hasPrefix "ros-${rosDistro}-" n) self'.packages
+                        );
+                        wrapPrograms = false;
+                        postBuild = ''
+                          rm $out/bin/gz
+                          cp ${lib.getExe self'.packages."gz-${gzDistro}"} $out/bin
+                        '';
+                      };
+                    in
+                    pkgs.stdenv.mkDerivation {
+                      name = "ros-${rosDistro}";
+                      nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+                      dontUnpack = true;
+                      buildPhase = ''
+                        for ex in ament_index fastdds gz ipython ipython3 python python3 ros2 rviz2 xacro; do
+                          makeWrapper ${env}/bin/$ex $out/bin/$ex \
+                            --suffix PATH : "${env}/bin" \
+                            --suffix LD_LIBRARY_PATH : "${env}/lib" \
+                            --suffix PYTHONPATH : "${env}/${pkgs.python3.sitePackages}" \
+                            --suffix CMAKE_PREFIX_PATH : "${env}" \
+                            --suffix AMENT_PREFIX_PATH : "${env}" \
+                            --suffix ROS_PACKAGE_PATH : "${env}/share" \
+                            --suffix GZ_SIM_RESOURCE_PATH : "${env}/share" \
+                            --set ROS_DISTRO '${rosDistro}' \
+                            --set ROS_VERSION '2' \
+                            --set ROS_PYTHON_VERSION '3'
+                        done
+                      '';
+                      meta.mainProgram = "ros2";
+                      passthru = { inherit env; };
+                    };
+
+                  ros-kilted = pkgs.rosPackages.kilted.buildEnv {
+                    name = "ros-kilted";
+                    paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-kilted-" n) self'.packages) ++ [
+                      self'.packages."gz-${ros2gz "kilted"}"
                     ];
-                };
+                    wrapPrograms = false;
+                  };
 
-                ros-kilted = pkgs.rosPackages.kilted.buildEnv {
-                  name = "ros-kilted";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "kilted" { };
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-kilted-" n) self'.packages) ++ [
-                    pkgs.qt5.wrapQtAppsHook
-                  ];
-                };
+                  ros-lyrical = pkgs.rosPackages.lyrical.buildEnv {
+                    name = "ros-lyrical";
+                    paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-lyrical-" n) self'.packages) ++ [
+                      self'.packages."gz-${ros2gz "lyrical"}"
+                    ];
+                    wrapPrograms = false;
+                  };
 
-                ros-lyrical = pkgs.rosPackages.lyrical.buildEnv {
-                  name = "ros-lyrical";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "lyrical" { };
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-lyrical-" n) self'.packages) ++ [
-                    pkgs.qt6.wrapQtAppsHook
-                  ];
-                };
+                  ros-rolling = pkgs.rosPackages.rolling.buildEnv {
+                    name = "ros-rolling";
+                    paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-rolling-" n) self'.packages) ++ [
+                      self'.packages."gz-${ros2gz "rolling"}"
+                    ];
+                    wrapPrograms = false;
+                  };
+                }
 
-                ros-rolling = pkgs.rosPackages.rolling.buildEnv {
-                  name = "ros-rolling";
-                  postBuild = inputs.flakoboros.lib.rosWrapperArgs pkgs "rolling" { };
-                  paths = lib.attrValues (lib.filterAttrs (n: _p: lib.hasPrefix "ros-rolling-" n) self'.packages) ++ [
-                    pkgs.qt6.wrapQtAppsHook
-                  ];
-                };
-              }
-
-              // {
-                inherit (pkgs)
-                  # keep-sorted start
-                  freeimage
-                  libjpeg_turbo-freeimage
-                  libogre-next-23-dev
-                  ogre1_9
-                  # keep-sorted end
-                  ;
-              }
-
-              // lib.mapAttrs' (n: lib.nameValuePair "py-${n}") {
-                inherit (pkgs.python3Packages)
-                  # keep-sorted start
-                  colmpc
-                  gazebros2nix
-                  # keep-sorted end
-                  ;
-              }
-
-              // lib.mapAttrs' (n: lib.nameValuePair "gz-fortress-${n}") (
-                lib.optionalAttrs (system == "x86_64-linux") {
-                  inherit (pkgs.gazeboPackages.fortress)
+                // {
+                  inherit (pkgs)
                     # keep-sorted start
-                    gz-cmake
-                    gz-common
-                    gz-fuel-tools
-                    gz-gui
-                    gz-launch
-                    gz-math
-                    gz-msgs
-                    gz-physics
-                    gz-plugin
-                    gz-rendering
-                    gz-sensors
-                    gz-sim
-                    gz-tools
-                    gz-transport
-                    gz-utils
-                    ign-cmake2
-                    ign-common4
-                    ign-fuel-tools7
-                    ign-gazebo6
-                    ign-gui6
-                    ign-launch5
-                    ign-math6
-                    ign-msgs8
-                    ign-physics5
-                    ign-plugin1
-                    ign-rendering6
-                    ign-sensors6
-                    ign-tools1
-                    ign-transport11
-                    ign-utils1
-                    sdformat
-                    sdformat12
+                    freeimage
+                    libjpeg_turbo-freeimage
+                    libogre-next-23-dev
+                    ogre1_9
                     # keep-sorted end
                     ;
                 }
-              )
 
-              // lib.mapAttrs' (n: lib.nameValuePair "gz-harmonic-${n}") (
-                lib.optionalAttrs (system == "x86_64-linux") {
-                  inherit (pkgs.gazeboPackages.harmonic)
+                // lib.mapAttrs' (n: lib.nameValuePair "py-${n}") {
+                  inherit (pkgs.python3Packages)
                     # keep-sorted start
-                    gz-cmake
-                    gz-cmake3
-                    gz-common
-                    gz-common5
-                    gz-fuel-tools
-                    gz-fuel-tools9
-                    gz-gui
-                    gz-gui8
-                    gz-launch
-                    gz-launch7
-                    gz-math
-                    gz-math7
-                    gz-msgs
-                    gz-msgs10
-                    gz-physics
-                    gz-physics7
-                    gz-plugin
-                    gz-plugin2
-                    gz-rendering
-                    gz-rendering8
-                    gz-sensors
-                    gz-sensors8
-                    gz-sim
-                    gz-sim8
-                    gz-tools
-                    gz-tools2
-                    gz-transport
-                    gz-transport13
-                    gz-utils
-                    gz-utils2
-                    sdformat
-                    sdformat14
+                    colmpc
+                    gazebros2nix
                     # keep-sorted end
                     ;
                 }
-              )
 
-              // lib.mapAttrs' (n: lib.nameValuePair "gz-ionic-${n}") (
-                lib.optionalAttrs (system == "x86_64-linux") {
-                  inherit (pkgs.gazeboPackages.ionic)
+                // lib.mapAttrs' (n: lib.nameValuePair "gz-fortress-${n}") (
+                  lib.optionalAttrs (system == "x86_64-linux") {
+                    inherit (pkgs.gazeboPackages.fortress)
+                      # keep-sorted start
+                      gz-cmake
+                      gz-common
+                      gz-fuel-tools
+                      gz-gui
+                      gz-launch
+                      gz-math
+                      gz-msgs
+                      gz-physics
+                      gz-plugin
+                      gz-rendering
+                      gz-sensors
+                      gz-sim
+                      gz-tools
+                      gz-transport
+                      gz-utils
+                      ign-cmake2
+                      ign-common4
+                      ign-fuel-tools7
+                      ign-gazebo6
+                      ign-gui6
+                      ign-launch5
+                      ign-math6
+                      ign-msgs8
+                      ign-physics5
+                      ign-plugin1
+                      ign-rendering6
+                      ign-sensors6
+                      ign-tools1
+                      ign-transport11
+                      ign-utils1
+                      sdformat
+                      sdformat12
+                      # keep-sorted end
+                      ;
+                  }
+                )
+
+                // lib.mapAttrs' (n: lib.nameValuePair "gz-harmonic-${n}") (
+                  lib.optionalAttrs (system == "x86_64-linux") {
+                    inherit (pkgs.gazeboPackages.harmonic)
+                      # keep-sorted start
+                      gz-cmake
+                      gz-cmake3
+                      gz-common
+                      gz-common5
+                      gz-fuel-tools
+                      gz-fuel-tools9
+                      gz-gui
+                      gz-gui8
+                      gz-launch
+                      gz-launch7
+                      gz-math
+                      gz-math7
+                      gz-msgs
+                      gz-msgs10
+                      gz-physics
+                      gz-physics7
+                      gz-plugin
+                      gz-plugin2
+                      gz-rendering
+                      gz-rendering8
+                      gz-sensors
+                      gz-sensors8
+                      gz-sim
+                      gz-sim8
+                      gz-tools
+                      gz-tools2
+                      gz-transport
+                      gz-transport13
+                      gz-utils
+                      gz-utils2
+                      sdformat
+                      sdformat14
+                      # keep-sorted end
+                      ;
+                  }
+                )
+
+                // lib.mapAttrs' (n: lib.nameValuePair "gz-ionic-${n}") (
+                  lib.optionalAttrs (system == "x86_64-linux") {
+                    inherit (pkgs.gazeboPackages.ionic)
+                      # keep-sorted start
+                      gz-cmake
+                      gz-common
+                      gz-fuel-tools
+                      gz-gui
+                      gz-launch
+                      gz-math
+                      gz-msgs
+                      gz-physics
+                      gz-plugin
+                      gz-rendering
+                      gz-sensors
+                      gz-sim
+                      gz-tools
+                      gz-transport
+                      gz-utils
+                      sdformat
+                      # keep-sorted end
+                      ;
+                  }
+                )
+
+                // lib.mapAttrs' (n: lib.nameValuePair "gz-jetty-${n}") (
+                  lib.optionalAttrs (system == "x86_64-linux") {
+                    inherit (pkgs.gazeboPackages.jetty)
+                      # keep-sorted start
+                      gz-cmake
+                      gz-common
+                      gz-fuel-tools
+                      gz-gui
+                      gz-launch
+                      gz-math
+                      gz-msgs
+                      gz-physics
+                      gz-plugin
+                      gz-rendering
+                      gz-sensors
+                      gz-sim
+                      gz-tools
+                      gz-transport
+                      gz-utils
+                      sdformat
+                      # keep-sorted end
+                      ;
+                  }
+                )
+
+                // lib.mapAttrs' (n: lib.nameValuePair "gz-kura-${n}") (
+                  lib.optionalAttrs (system == "x86_64-linux") {
+                    inherit (pkgs.gazeboPackages.kura)
+                      # keep-sorted start
+                      gz-cmake
+                      gz-common
+                      gz-fuel-tools
+                      gz-gui
+                      gz-math
+                      gz-msgs
+                      gz-physics
+                      gz-plugin
+                      gz-rendering
+                      gz-sensors
+                      gz-sim
+                      gz-tools
+                      gz-transport
+                      gz-utils
+                      sdformat
+                      # keep-sorted end
+                      ;
+                  }
+                )
+
+                // lib.mapAttrs' (n: lib.nameValuePair "gz-rotary-${n}") (
+                  lib.optionalAttrs (system == "x86_64-linux") {
+                    inherit (pkgs.gazeboPackages.rotary)
+                      # keep-sorted start
+                      gz-cmake
+                      gz-common
+                      gz-fuel-tools
+                      gz-gui
+                      gz-math
+                      gz-msgs
+                      gz-physics
+                      gz-plugin
+                      gz-rendering
+                      gz-sensors
+                      gz-sim
+                      gz-tools
+                      gz-transport
+                      gz-utils
+                      sdformat
+                      # keep-sorted end
+                      ;
+                  }
+                )
+
+                // lib.mapAttrs' (n: lib.nameValuePair "pal-alum-${n}") {
+                  inherit (pkgs.rosPackages.alum)
                     # keep-sorted start
-                    gz-cmake
-                    gz-common
-                    gz-fuel-tools
-                    gz-gui
-                    gz-launch
-                    gz-math
-                    gz-msgs
-                    gz-physics
-                    gz-plugin
-                    gz-rendering
-                    gz-sensors
-                    gz-sim
-                    gz-tools
-                    gz-transport
-                    gz-utils
-                    sdformat
+                    ackermann-steering-controller
+                    admittance-controller
+                    bicycle-steering-controller
+                    chained-filter-controller
+                    control-msgs
+                    control-toolbox
+                    controller-interface
+                    controller-manager
+                    controller-manager-msgs
+                    diff-drive-controller
+                    effort-controllers
+                    force-torque-sensor-broadcaster
+                    forward-command-controller
+                    gpio-controllers
+                    gps-sensor-broadcaster
+                    gripper-controllers
+                    hardware-interface
+                    hardware-interface-testing
+                    imu-sensor-broadcaster
+                    joint-limits
+                    joint-state-broadcaster
+                    joint-trajectory-controller
+                    kangaroo-bringup
+                    kangaroo-controller-configuration
+                    kangaroo-description
+                    kangaroo-moveit-config
+                    kangaroo-mujoco
+                    kangaroo-robot
+                    kangaroo-simulation
+                    magnetometer-broadcaster
+                    mecanum-drive-controller
+                    motion-primitives-controllers
+                    omni-wheel-drive-controller
+                    parallel-gripper-controller
+                    pid-controller
+                    pose-broadcaster
+                    position-controllers
+                    range-sensor-broadcaster
+                    # realsense-gazebo-plugin
+                    # realsense-simulation
+                    realtime-tools
+                    ros-gz
+                    ros-gz-bridge
+                    ros-gz-image
+                    ros-gz-interfaces
+                    # ros-gz-point-cloud
+                    ros-gz-sim
+                    ros-gz-sim-demos
+                    ros2-control
+                    ros2-control-test-assets
+                    ros2-controllers
+                    ros2-controllers-test-nodes
+                    ros2controlcli
+                    rqt-controller-manager
+                    rqt-joint-trajectory-controller
+                    sdformat-test-files
+                    sdformat-vendor
+                    state-interfaces-broadcaster
+                    steering-controllers-library
+                    test-ros-gz-bridge
+                    transmission-interface
+                    tricycle-controller
+                    tricycle-steering-controller
+                    velocity-controllers
                     # keep-sorted end
                     ;
                 }
-              )
 
-              // lib.mapAttrs' (n: lib.nameValuePair "gz-jetty-${n}") (
-                lib.optionalAttrs (system == "x86_64-linux") {
-                  inherit (pkgs.gazeboPackages.jetty)
+                // lib.mapAttrs' (n: lib.nameValuePair "ros-humble-${n}") {
+                  inherit (pkgs.rosPackages.humble)
                     # keep-sorted start
-                    gz-cmake
-                    gz-common
-                    gz-fuel-tools
-                    gz-gui
-                    gz-launch
-                    gz-math
-                    gz-msgs
-                    gz-physics
-                    gz-plugin
-                    gz-rendering
-                    gz-sensors
-                    gz-sim
-                    gz-tools
-                    gz-transport
-                    gz-utils
-                    sdformat
+                    agimus-controller
+                    agimus-controller-ros
+                    agimus-demo-00-franka-controller
+                    agimus-demo-01-lfc-alone
+                    agimus-demo-02-simple-pd-plus
+                    agimus-demo-02-simple-pd-plus-tiago-pro
+                    agimus-demo-03-mpc-dummy-traj
+                    agimus-demo-03-mpc-dummy-traj-tiago-pro
+                    agimus-demo-04-dual-arm-tiago-pro
+                    agimus-demo-04-visual-servoing
+                    agimus-demo-05-pick-and-place
+                    agimus-demo-06-regrasp
+                    # agimus-demo-07-deburring TODO: pytroller
+                    agimus-demo-08-collision-avoidance
+                    agimus-demos
+                    agimus-demos-common
+                    agimus-demos-controllers
+                    agimus-franka-bringup
+                    agimus-franka-description
+                    agimus-franka-example-controllers
+                    agimus-franka-fr3-moveit-config
+                    agimus-franka-gazebo-bringup
+                    agimus-franka-gripper
+                    agimus-franka-hardware
+                    agimus-franka-ign-ros2-control
+                    agimus-franka-msgs
+                    agimus-franka-robot-state-broadcaster
+                    agimus-franka-ros2
+                    agimus-franka-semantic-components
+                    agimus-integration-launch-testing
+                    agimus-libfranka
+                    agimus-libfranka-common
+                    agimus-msgs
+                    agimus-pytroller
+                    linear-feedback-controller
+                    linear-feedback-controller-msgs
+                    mujoco-ros2-control
+                    mujoco-vendor
+                    net-ft-driver
+                    pal-atc
+                    pal-atc-bringup
+                    pal-atc-controller-configuration
+                    pal-atc-description
+                    quest-control
+                    ros2topic
+                    tiago-pro-description
+                    # tiago-pro-gazebo TODO: gazebo-classic
                     # keep-sorted end
                     ;
                 }
-              )
 
-              // lib.mapAttrs' (n: lib.nameValuePair "gz-kura-${n}") (
-                lib.optionalAttrs (system == "x86_64-linux") {
-                  inherit (pkgs.gazeboPackages.kura)
+                // lib.mapAttrs' (n: lib.nameValuePair "ros-jazzy-${n}") {
+                  inherit (pkgs.rosPackages.jazzy)
                     # keep-sorted start
-                    gz-cmake
-                    gz-common
-                    gz-fuel-tools
-                    gz-gui
-                    gz-math
-                    gz-msgs
-                    gz-physics
-                    gz-plugin
-                    gz-rendering
-                    gz-sensors
-                    gz-sim
-                    gz-tools
-                    gz-transport
-                    gz-utils
-                    sdformat
+                    agimus-controller
+                    agimus-controller-ros
+                    agimus-demo-00-franka-controller
+                    agimus-demo-01-lfc-alone
+                    # agimus-demo-02-simple-pd-plus-tiago-pro TODO: tiago-pro
+                    agimus-demo-02-simple-pd-plus
+                    # agimus-demo-03-mpc-dummy-traj-tiago-pro TODO: tiago-pro
+                    agimus-demo-03-mpc-dummy-traj
+                    # agimus-demo-04-dual-arm-tiago-pro TODO: tiago-pro
+                    agimus-demo-04-visual-servoing
+                    agimus-demo-05-pick-and-place
+                    agimus-demo-06-regrasp
+                    # agimus-demo-07-deburring TODO: pytroller
+                    agimus-demo-08-collision-avoidance
+                    agimus-demos-common
+                    agimus-demos-controllers
+                    # agimus-demos TODO: tiago-pro
+                    agimus-franka-bringup
+                    agimus-franka-description
+                    agimus-franka-example-controllers
+                    agimus-franka-fr3-moveit-config
+                    agimus-franka-gripper
+                    agimus-franka-hardware
+                    agimus-franka-msgs
+                    agimus-franka-robot-state-broadcaster
+                    agimus-franka-ros2
+                    agimus-franka-semantic-components
+                    agimus-integration-launch-testing
+                    agimus-libfranka
+                    agimus-libfranka-common
+                    agimus-msgs
+                    # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
+                    # ros2-control-demos # need the other ones
+                    br2-gazebo-worlds
+                    kangaroo-bringup
+                    kangaroo-controller-configuration
+                    kangaroo-description
+                    kangaroo-moveit-config
+                    kangaroo-mujoco
+                    kangaroo-robot
+                    kangaroo-simulation
+                    launch-pal
+                    linear-feedback-controller
+                    linear-feedback-controller-msgs
+                    moveit-core
+                    net-ft-driver
+                    odri-dual-motor-testbed-bringup
+                    odri-dual-motor-testbed-description
+                    odri-dual-motor-testbed-gazebo
+                    odri-dual-motor-testbed-robot
+                    odri-forward-command-controller
+                    odri-gz-ros2-control
+                    omni-base-bringup
+                    omni-base-controller-configuration
+                    omni-base-description
+                    omni-base-robot
+                    pal-pro-gripper
+                    pal-pro-gripper-bringup
+                    pal-pro-gripper-controller-configuration
+                    pal-pro-gripper-description
+                    pal-pro-gripper-wrapper
+                    pal-sea-arm
+                    pal-sea-arm-bringup
+                    pal-sea-arm-controller-configuration
+                    pal-sea-arm-description
+                    pal-sea-arm-moveit-config
+                    pal-urdf-utils
+                    play-motion2
+                    play-motion2-cli
+                    play-motion2-msgs
+                    realsense-simulation
+                    ros-gz-bridge
+                    ros-gz-image
+                    ros2-control-demo-description
+                    ros2-control-demo-example-1
+                    ros2-control-demo-example-10
+                    ros2-control-demo-example-11
+                    # ros2-control-demo-example-12  # TODO generate_parameter_library_cpp_BIN
+                    ros2-control-demo-example-13
+                    ros2-control-demo-example-14
+                    ros2-control-demo-example-15
+                    ros2-control-demo-example-16
+                    # ros2-control-demo-example-17 # error: 'control_msgs' has not been declared
+                    ros2-control-demo-example-2
+                    ros2-control-demo-example-3
+                    ros2-control-demo-example-4
+                    ros2-control-demo-example-5
+                    ros2-control-demo-example-6
+                    ros2-control-demo-example-7
+                    ros2-control-demo-example-8
+                    ros2topic
+                    # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
+                    # ros2-control-demos # need the other ones
+                    tiago-pro-bringup
+                    tiago-pro-controller-configuration
+                    tiago-pro-description
+                    tiago-pro-gazebo
+                    tiago-pro-head-bringup
+                    tiago-pro-head-controller-configuration
+                    tiago-pro-head-description
+                    tiago-pro-head-robot
+                    tiago-pro-lfc-bringup
+                    tiago-pro-moveit-config
+                    tiago-pro-robot
+                    tiago-pro-simulation
                     # keep-sorted end
                     ;
                 }
-              )
 
-              // lib.mapAttrs' (n: lib.nameValuePair "gz-rotary-${n}") (
-                lib.optionalAttrs (system == "x86_64-linux") {
-                  inherit (pkgs.gazeboPackages.rotary)
+                // lib.mapAttrs' (n: lib.nameValuePair "ros-kilted-${n}") {
+                  inherit (pkgs.rosPackages.kilted)
                     # keep-sorted start
-                    gz-cmake
-                    gz-common
-                    gz-fuel-tools
-                    gz-gui
-                    gz-math
-                    gz-msgs
-                    gz-physics
-                    gz-plugin
-                    gz-rendering
-                    gz-sensors
-                    gz-sim
-                    gz-tools
-                    gz-transport
-                    gz-utils
-                    sdformat
+                    agimus-controller
+                    agimus-controller-ros
+                    agimus-franka-description
+                    agimus-msgs
+                    linear-feedback-controller
+                    linear-feedback-controller-msgs
+                    ros2topic
                     # keep-sorted end
                     ;
                 }
-              )
 
-              // lib.mapAttrs' (n: lib.nameValuePair "pal-alum-${n}") {
-                inherit (pkgs.rosPackages.alum)
-                  # keep-sorted start
-                  ackermann-steering-controller
-                  admittance-controller
-                  bicycle-steering-controller
-                  chained-filter-controller
-                  control-msgs
-                  control-toolbox
-                  controller-interface
-                  controller-manager
-                  controller-manager-msgs
-                  diff-drive-controller
-                  effort-controllers
-                  force-torque-sensor-broadcaster
-                  forward-command-controller
-                  gpio-controllers
-                  gps-sensor-broadcaster
-                  gripper-controllers
-                  hardware-interface
-                  hardware-interface-testing
-                  imu-sensor-broadcaster
-                  joint-limits
-                  joint-state-broadcaster
-                  joint-trajectory-controller
-                  kangaroo-bringup
-                  kangaroo-controller-configuration
-                  kangaroo-description
-                  kangaroo-moveit-config
-                  kangaroo-mujoco
-                  kangaroo-robot
-                  kangaroo-simulation
-                  magnetometer-broadcaster
-                  mecanum-drive-controller
-                  motion-primitives-controllers
-                  omni-wheel-drive-controller
-                  parallel-gripper-controller
-                  pid-controller
-                  pose-broadcaster
-                  position-controllers
-                  range-sensor-broadcaster
-                  # realsense-gazebo-plugin
-                  # realsense-simulation
-                  realtime-tools
-                  ros-gz
-                  ros-gz-bridge
-                  ros-gz-image
-                  ros-gz-interfaces
-                  # ros-gz-point-cloud
-                  ros-gz-sim
-                  ros-gz-sim-demos
-                  ros2-control
-                  ros2-control-test-assets
-                  ros2-controllers
-                  ros2-controllers-test-nodes
-                  ros2controlcli
-                  rqt-controller-manager
-                  rqt-joint-trajectory-controller
-                  sdformat-test-files
-                  sdformat-vendor
-                  state-interfaces-broadcaster
-                  steering-controllers-library
-                  test-ros-gz-bridge
-                  transmission-interface
-                  tricycle-controller
-                  tricycle-steering-controller
-                  velocity-controllers
-                  # keep-sorted end
-                  ;
-              }
+                // lib.mapAttrs' (n: lib.nameValuePair "ros-lyrical-${n}") {
+                  inherit (pkgs.rosPackages.lyrical)
+                    # keep-sorted start
+                    agimus-controller
+                    agimus-controller-ros
+                    agimus-franka-description
+                    agimus-msgs
+                    linear-feedback-controller
+                    linear-feedback-controller-msgs
+                    ros2topic
+                    # keep-sorted end
+                    ;
+                }
 
-              // lib.mapAttrs' (n: lib.nameValuePair "ros-humble-${n}") {
-                inherit (pkgs.rosPackages.humble)
-                  # keep-sorted start
-                  agimus-controller
-                  agimus-controller-ros
-                  agimus-demo-00-franka-controller
-                  agimus-demo-01-lfc-alone
-                  agimus-demo-02-simple-pd-plus
-                  agimus-demo-02-simple-pd-plus-tiago-pro
-                  agimus-demo-03-mpc-dummy-traj
-                  agimus-demo-03-mpc-dummy-traj-tiago-pro
-                  agimus-demo-04-dual-arm-tiago-pro
-                  agimus-demo-04-visual-servoing
-                  agimus-demo-05-pick-and-place
-                  agimus-demo-06-regrasp
-                  # agimus-demo-07-deburring TODO: pytroller
-                  agimus-demo-08-collision-avoidance
-                  agimus-demos
-                  agimus-demos-common
-                  agimus-demos-controllers
-                  agimus-franka-bringup
-                  agimus-franka-description
-                  agimus-franka-example-controllers
-                  agimus-franka-fr3-moveit-config
-                  agimus-franka-gazebo-bringup
-                  agimus-franka-gripper
-                  agimus-franka-hardware
-                  agimus-franka-ign-ros2-control
-                  agimus-franka-msgs
-                  agimus-franka-robot-state-broadcaster
-                  agimus-franka-ros2
-                  agimus-franka-semantic-components
-                  agimus-integration-launch-testing
-                  agimus-libfranka
-                  agimus-libfranka-common
-                  agimus-msgs
-                  agimus-pytroller
-                  linear-feedback-controller
-                  linear-feedback-controller-msgs
-                  mujoco-ros2-control
-                  mujoco-vendor
-                  net-ft-driver
-                  pal-atc
-                  pal-atc-bringup
-                  pal-atc-controller-configuration
-                  pal-atc-description
-                  quest-control
-                  ros2topic
-                  tiago-pro-description
-                  # tiago-pro-gazebo TODO: gazebo-classic
-                  # keep-sorted end
-                  ;
-              }
-
-              // lib.mapAttrs' (n: lib.nameValuePair "ros-jazzy-${n}") {
-                inherit (pkgs.rosPackages.jazzy)
-                  # keep-sorted start
-                  agimus-controller
-                  agimus-controller-ros
-                  agimus-demo-00-franka-controller
-                  agimus-demo-01-lfc-alone
-                  # agimus-demo-02-simple-pd-plus-tiago-pro TODO: tiago-pro
-                  agimus-demo-02-simple-pd-plus
-                  # agimus-demo-03-mpc-dummy-traj-tiago-pro TODO: tiago-pro
-                  agimus-demo-03-mpc-dummy-traj
-                  # agimus-demo-04-dual-arm-tiago-pro TODO: tiago-pro
-                  agimus-demo-04-visual-servoing
-                  agimus-demo-05-pick-and-place
-                  agimus-demo-06-regrasp
-                  # agimus-demo-07-deburring TODO: pytroller
-                  agimus-demo-08-collision-avoidance
-                  agimus-demos-common
-                  agimus-demos-controllers
-                  # agimus-demos TODO: tiago-pro
-                  agimus-franka-bringup
-                  agimus-franka-description
-                  agimus-franka-example-controllers
-                  agimus-franka-fr3-moveit-config
-                  agimus-franka-gripper
-                  agimus-franka-hardware
-                  agimus-franka-msgs
-                  agimus-franka-robot-state-broadcaster
-                  agimus-franka-ros2
-                  agimus-franka-semantic-components
-                  agimus-integration-launch-testing
-                  agimus-libfranka
-                  agimus-libfranka-common
-                  agimus-msgs
-                  # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
-                  # ros2-control-demos # need the other ones
-                  br2-gazebo-worlds
-                  kangaroo-bringup
-                  kangaroo-controller-configuration
-                  kangaroo-description
-                  kangaroo-moveit-config
-                  kangaroo-mujoco
-                  kangaroo-robot
-                  kangaroo-simulation
-                  launch-pal
-                  linear-feedback-controller
-                  linear-feedback-controller-msgs
-                  moveit-core
-                  net-ft-driver
-                  odri-dual-motor-testbed-bringup
-                  odri-dual-motor-testbed-description
-                  odri-dual-motor-testbed-gazebo
-                  odri-dual-motor-testbed-robot
-                  odri-forward-command-controller
-                  odri-gz-ros2-control
-                  omni-base-bringup
-                  omni-base-controller-configuration
-                  omni-base-description
-                  omni-base-robot
-                  pal-pro-gripper
-                  pal-pro-gripper-bringup
-                  pal-pro-gripper-controller-configuration
-                  pal-pro-gripper-description
-                  pal-pro-gripper-wrapper
-                  pal-sea-arm
-                  pal-sea-arm-bringup
-                  pal-sea-arm-controller-configuration
-                  pal-sea-arm-description
-                  pal-sea-arm-moveit-config
-                  pal-urdf-utils
-                  play-motion2
-                  play-motion2-cli
-                  play-motion2-msgs
-                  realsense-simulation
-                  ros-gz-bridge
-                  ros-gz-image
-                  ros2-control-demo-description
-                  ros2-control-demo-example-1
-                  ros2-control-demo-example-10
-                  ros2-control-demo-example-11
-                  # ros2-control-demo-example-12  # TODO generate_parameter_library_cpp_BIN
-                  ros2-control-demo-example-13
-                  ros2-control-demo-example-14
-                  ros2-control-demo-example-15
-                  ros2-control-demo-example-16
-                  # ros2-control-demo-example-17 # error: 'control_msgs' has not been declared
-                  ros2-control-demo-example-2
-                  ros2-control-demo-example-3
-                  ros2-control-demo-example-4
-                  ros2-control-demo-example-5
-                  ros2-control-demo-example-6
-                  ros2-control-demo-example-7
-                  ros2-control-demo-example-8
-                  ros2topic
-                  # ros2-control-demo-example-9 # need to fix gz-sim-vendor first
-                  # ros2-control-demos # need the other ones
-                  tiago-pro-bringup
-                  tiago-pro-controller-configuration
-                  tiago-pro-description
-                  tiago-pro-gazebo
-                  tiago-pro-head-bringup
-                  tiago-pro-head-controller-configuration
-                  tiago-pro-head-description
-                  tiago-pro-head-robot
-                  tiago-pro-lfc-bringup
-                  tiago-pro-moveit-config
-                  tiago-pro-robot
-                  tiago-pro-simulation
-                  # keep-sorted end
-                  ;
-              }
-
-              // lib.mapAttrs' (n: lib.nameValuePair "ros-kilted-${n}") {
-                inherit (pkgs.rosPackages.kilted)
-                  # keep-sorted start
-                  agimus-controller
-                  agimus-controller-ros
-                  agimus-franka-description
-                  agimus-msgs
-                  linear-feedback-controller
-                  linear-feedback-controller-msgs
-                  ros2topic
-                  # keep-sorted end
-                  ;
-              }
-
-              // lib.mapAttrs' (n: lib.nameValuePair "ros-lyrical-${n}") {
-                inherit (pkgs.rosPackages.lyrical)
-                  # keep-sorted start
-                  agimus-controller
-                  agimus-controller-ros
-                  agimus-franka-description
-                  agimus-msgs
-                  linear-feedback-controller
-                  linear-feedback-controller-msgs
-                  ros2topic
-                  # keep-sorted end
-                  ;
-              }
-
-              // lib.mapAttrs' (n: lib.nameValuePair "ros-rolling-${n}") {
-                inherit (pkgs.rosPackages.rolling)
-                  # keep-sorted start
-                  agimus-controller
-                  agimus-controller-ros
-                  agimus-franka-description
-                  agimus-msgs
-                  linear-feedback-controller
-                  linear-feedback-controller-msgs
-                  ros2topic
-                  # keep-sorted end
-                  ;
-              }
-            );
+                // lib.mapAttrs' (n: lib.nameValuePair "ros-rolling-${n}") {
+                  inherit (pkgs.rosPackages.rolling)
+                    # keep-sorted start
+                    agimus-controller
+                    agimus-controller-ros
+                    agimus-franka-description
+                    agimus-msgs
+                    linear-feedback-controller
+                    linear-feedback-controller-msgs
+                    ros2topic
+                    # keep-sorted end
+                    ;
+                }
+              );
 
             treefmt = {
               settings.global.excludes = [

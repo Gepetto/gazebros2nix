@@ -42,22 +42,14 @@ final: prev: {
         ign-rendering6 = fortress-prev.ign-rendering6.overrideAttrs (super: {
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
         });
-        ign-tools1 = fortress-prev.ign-tools1.overrideAttrs (super: {
+        ign-tools1 = fortress-prev.ign-tools1.overrideAttrs {
           # ref. https://github.com/gazebosim/gz-tools/pull/173 merged
           postPatch = ''
             substituteInPlace CMakeLists.txt --replace-fail \
               "cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)" \
               "cmake_minimum_required(VERSION 3.10 FATAL_ERROR)"
           '';
-          dontWrapQtApps = false;
-          nativeBuildInputs = super.nativeBuildInputs ++ [ final.qt5.wrapQtAppsHook ];
-          qtWrapperArgs = [
-            "--set-default"
-            "QT_QPA_PLATFORM"
-            "xcb"
-          ];
-          postFixup = "wrapQtApp $out/bin/ign";
-        });
+        };
         ign-transport11 = fortress-prev.ign-transport11.overrideAttrs {
           postFixup = ''
             substituteInPlace $out/lib/ruby/gz/cmdtransport11.rb --replace-fail \
@@ -109,6 +101,13 @@ final: prev: {
               hash = "sha256-ekKz8p2YBLLakVijhGS6+e6x98Zl8kx4Hg3PRJDkM5M=";
             })
           ];
+        };
+        gz-tools2 = harmonic-prev.gz-tools2.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/bin/gz \
+              --replace-fail "File.expand_path('../../../.." "'$out" \
+              --replace-fail "', __dir__)" "'"
+          '';
         };
         gz-transport13 = harmonic-prev.gz-transport13.overrideAttrs {
           postFixup = ''
@@ -163,6 +162,13 @@ final: prev: {
               '"/nix/store'
           '';
         };
+        gz-tools2 = ionic-prev.gz-tools2.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/bin/gz \
+              --replace-fail "File.expand_path('../../../.." "'$out" \
+              --replace-fail "', __dir__)" "'"
+          '';
+        };
         # keep-sorted end
       }
     );
@@ -204,6 +210,13 @@ final: prev: {
               --replace-fail "$""{CMAKE_INSTALL_LIBEXECDIR}" "libexec"
           '';
         });
+        gz-tools2 = jetty-prev.gz-tools2.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/bin/gz \
+              --replace-fail "File.expand_path('../../../.." "'$out" \
+              --replace-fail "', __dir__)" "'"
+          '';
+        };
         gz-transport15 = jetty-prev.gz-transport15.overrideAttrs {
           postFixup = ''
             substituteInPlace $out/lib/ruby/gz/cmd{transport,log}15.rb --replace-fail \
@@ -221,6 +234,7 @@ final: prev: {
         dart = final.dartsim;
 
         # keep-sorted start block=yes
+
         gz-physics10 = kura-prev.gz-physics10.overrideAttrs (super: {
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.mujoco ];
           postPatch = ''
@@ -229,6 +243,13 @@ final: prev: {
               "find_package(mujoco REQUIRED)"
           '';
         });
+        gz-tools3 = kura-prev.gz-tools3.overrideAttrs {
+          postFixup = ''
+            substituteInPlace $out/bin/gz \
+              --replace-fail "File.expand_path('../../../.." "'$out" \
+              --replace-fail "', __dir__)" "'"
+          '';
+        };
         # keep-sorted end
       }
     );
@@ -239,7 +260,8 @@ final: prev: {
         dart = final.dartsim;
 
         # keep-sorted start block=yes
-        gz-fuel-tools12 = rotary-prev.gz-fuel-tools12.overrideAttrs (_super: {
+
+        gz-fuel-tools12 = rotary-prev.gz-fuel-tools12.overrideAttrs {
           nativeCheckInputs = [ final.ctestCheckHook ];
           disabledTests = [
             # try to download assets
@@ -248,8 +270,8 @@ final: prev: {
             "UNIT_Interface_TEST"
             "UNIT_gz_TEST"
           ];
-        });
-        gz-gui11 = rotary-prev.gz-gui11.overrideAttrs (_super: {
+        };
+        gz-gui11 = rotary-prev.gz-gui11.overrideAttrs {
           env = {
             QT_QPA_PLATFORM = "offscreen";
             QML2_IMPORT_PATH = final.lib.makeSearchPathOutput "bin" final.qt6.qtbase.qtQmlPrefix [
@@ -259,7 +281,7 @@ final: prev: {
           };
           doInstallCheck = true;
           doCheck = false;
-        });
+        };
         gz-math10 = rotary-prev.gz-math10.overrideAttrs (super: {
           cmakeFlags = super.cmakeFlags ++ [
             (final.lib.cmakeFeature "GZ_PYTHON_INSTALL_PATH" final.python3.sitePackages)
@@ -284,12 +306,12 @@ final: prev: {
             patchShebangs test/static_assert/testrunner.bash
           '';
         });
-        gz-plugin5 = rotary-prev.gz-plugin5.overrideAttrs (_super: {
+        gz-plugin5 = rotary-prev.gz-plugin5.overrideAttrs {
           postPatch = ''
             patchShebangs test/static_assertions/testrunner.bash
           '';
-        });
-        gz-rendering11 = rotary-prev.gz-rendering11.overrideAttrs (_super: {
+        };
+        gz-rendering11 = rotary-prev.gz-rendering11.overrideAttrs {
           nativeCheckInputs = [ final.ctestCheckHook ];
           disabledTests = [
             # Can't open display
@@ -298,7 +320,7 @@ final: prev: {
             "UNIT_RenderingIface_TEST_ogre_gl3plus"
             "UNIT_RenderingIface_TEST_ogre2_gl3plus"
           ];
-        });
+        };
         gz-sensors11 = rotary-prev.gz-sensors11.overrideAttrs (super: {
           nativeCheckInputs = super.nativeCheckInputs ++ [ final.ctestCheckHook ];
           disabledTests = [
@@ -366,13 +388,13 @@ final: prev: {
             "world_TEST"
           ];
         });
-        gz-tools3 = rotary-prev.gz-tools3.overrideAttrs (_super: {
+        gz-tools3 = rotary-prev.gz-tools3.overrideAttrs {
           postFixup = ''
             substituteInPlace $out/bin/gz \
               --replace-fail "File.expand_path('../../../.." "'$out" \
               --replace-fail "', __dir__)" "'"
           '';
-        });
+        };
         gz-transport16 = rotary-prev.gz-transport16.overrideAttrs (super: {
           postPatch = ''
             substituteInPlace src/cmd/gz_TEST.cc --replace-fail \
@@ -684,10 +706,10 @@ final: prev: {
               ]);
             in
             "${python}/${python.sitePackages}";
-          ros-gz = humble-prev.ros-gz.overrideAttrs (_super: {
+          ros-gz = humble-prev.ros-gz.overrideAttrs {
             env.PYTHONPATH = humble-final.python-with-ament-package;
             meta.platforms = final.lib.platforms.linux;
-          });
+          };
           ros-gz-sim = humble-prev.ros-gz-sim.overrideAttrs (super: {
             propagatedNativeBuildInputs = (super.propagatedNativeBuildInputs or [ ]) ++ [
               humble-final.gz-tools
