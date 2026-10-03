@@ -349,6 +349,7 @@
                     libjpeg_turbo-freeimage
                     libogre-next-23-dev
                     ogre1_9
+                    rosdoc2
                     # keep-sorted end
                     ;
                 }
