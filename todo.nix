@@ -790,25 +790,6 @@ final: prev: {
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
                 '';
               };
-              launch-testing = jazzy-prev.launch-testing.overrideAttrs (super: {
-                patches = (super.patches or [ ]) ++ [
-                  (final.fetchpatch2 {
-                    url = "https://github.com/ros2/launch/pull/1008.patch?full_index=1";
-                    stripLen = 1;
-                    includes = [ "launch_testing/*" ];
-                    hash = "sha256-p7RoxvSUBsbnoxweS5KbdrlF9eGnxohy8VAGpMAQchc=";
-                  })
-                ];
-              });
-              launch-testing-ros = jazzy-prev.launch-testing-ros.overrideAttrs (super: {
-                patches = (super.patches or [ ]) ++ [
-                  (final.fetchpatch2 {
-                    url = "https://github.com/ros2/launch_ros/pull/575.patch?full_index=1";
-                    stripLen = 1;
-                    hash = "sha256-mT8D2W2HnUdPZm1hGWv2DdhgbsP/RS5VsbJniRop6C8=";
-                  })
-                ];
-              });
               moveit-task-constructor-core = jazzy-prev.moveit-task-constructor-core.overrideAttrs (super: {
                 # TODO: unvendor pybind11 upstream
                 cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DPYBIND11_INSTALL=OFF" ];
@@ -915,25 +896,6 @@ final: prev: {
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
                 '';
               };
-              launch-testing = kilted-prev.launch-testing.overrideAttrs (super: {
-                patches = (super.patches or [ ]) ++ [
-                  (final.fetchpatch2 {
-                    url = "https://github.com/ros2/launch/pull/1007.patch?full_index=1";
-                    stripLen = 1;
-                    includes = [ "launch_testing/*" ];
-                    hash = "sha256-p7RoxvSUBsbnoxweS5KbdrlF9eGnxohy8VAGpMAQchc=";
-                  })
-                ];
-              });
-              launch-testing-ros = kilted-prev.launch-testing-ros.overrideAttrs (super: {
-                patches = (super.patches or [ ]) ++ [
-                  (final.fetchpatch2 {
-                    url = "https://github.com/ros2/launch_ros/pull/574.patch?full_index=1";
-                    stripLen = 1;
-                    hash = "sha256-mT8D2W2HnUdPZm1hGWv2DdhgbsP/RS5VsbJniRop6C8=";
-                  })
-                ];
-              });
               sdformat-urdf = kilted-prev.sdformat-urdf.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
