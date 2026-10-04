@@ -5,6 +5,7 @@
 
   # nativeBuildInputs
   ament-cmake,
+  rosdoc2,
 
   # buildInputs
   ament-cmake-auto,
@@ -12,12 +13,15 @@
   gz-sim-vendor,
 
   # propagatedBuildInputs
+  controller-manager,
   joint-state-broadcaster,
   launch,
   launch-param-builder,
   launch-ros,
   odri-dual-motor-testbed-description,
+  odri-forward-command-controller,
   odri-gz-ros2-control,
+  robot-state-publisher,
   ros-gz-bridge,
   ros-gz-sim,
   ros2launch,
@@ -58,8 +62,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "stack-of-tasks";
     repo = "odri_dual_motor_testbed_robot";
-    rev = "4aee9cd8f6a46d8a17f9ff2b3e53d800d8e19ed5";
-    hash = "sha256-Ibw4wAf639B7l+0Z1goBCW1iKT/PrEkYDtSkazpYRJ0=";
+    rev = "8869d16e271536089e7ba288217b0ff514614113";
+    hash = "sha256-i2gpZkyHXvELIeQbHyONA58sotpB07qKROD3LRH4C64=";
   };
   sourceRoot = "source/odri_dual_motor_testbed_gazebo";
 
@@ -70,6 +74,7 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+    rosdoc2
   ];
   buildInputs = [
     ament-cmake
@@ -78,13 +83,16 @@ buildRosPackage rec {
     gz-sim-vendor
   ];
   propagatedBuildInputs = [
+    controller-manager
     gz-plugin-vendor
     joint-state-broadcaster
     launch
     launch-param-builder
     launch-ros
     odri-dual-motor-testbed-description
+    odri-forward-command-controller
     odri-gz-ros2-control
+    robot-state-publisher
     ros-gz-bridge
     ros-gz-sim
     ros2launch

@@ -722,7 +722,11 @@
                     odri-dual-motor-testbed-bringup
                     odri-dual-motor-testbed-description
                     odri-dual-motor-testbed-gazebo
+                    odri-dual-motor-testbed-haptic-pair
+                    odri-dual-motor-testbed-hardware
                     odri-dual-motor-testbed-robot
+                    odri-five-bar-force-velocity-controller
+                    odri-five-bar-force-velocity-py
                     odri-forward-command-controller
                     odri-gz-ros2-control
                     omni-base-bringup
@@ -740,6 +744,7 @@
                     pal-sea-arm-description
                     pal-sea-arm-moveit-config
                     pal-urdf-utils
+                    pico-dual-drv8316c-ros2-hardware-interface
                     play-motion2
                     play-motion2-cli
                     play-motion2-msgs

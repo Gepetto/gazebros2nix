@@ -5,6 +5,7 @@
 
   # nativeBuildInputs
   ament-cmake,
+  rosdoc2,
 
   # buildInputs
   controller-manager,
@@ -45,8 +46,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "stack-of-tasks";
     repo = "odri_dual_motor_testbed_robot";
-    rev = "4aee9cd8f6a46d8a17f9ff2b3e53d800d8e19ed5";
-    hash = "sha256-Ibw4wAf639B7l+0Z1goBCW1iKT/PrEkYDtSkazpYRJ0=";
+    rev = "8869d16e271536089e7ba288217b0ff514614113";
+    hash = "sha256-i2gpZkyHXvELIeQbHyONA58sotpB07qKROD3LRH4C64=";
   };
   sourceRoot = "source/odri_dual_motor_testbed_robot";
 
@@ -57,6 +58,7 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+    rosdoc2
   ];
   buildInputs = [
     ament-cmake
@@ -73,7 +75,6 @@ buildRosPackage rec {
     ament-cmake-copyright
     ament-cmake-cppcheck
     ament-cmake-cpplint
-    ament-cmake-lint-cmake
     ament-cmake-xmllint
     ament-lint-auto
     ament-lint-common
