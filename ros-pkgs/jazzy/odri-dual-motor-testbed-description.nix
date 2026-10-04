@@ -5,15 +5,18 @@
 
   # nativeBuildInputs
   ament-cmake,
+  rosdoc2,
 
   # buildInputs
   ament-cmake-auto,
 
   # propagatedBuildInputs
+  joint-state-publisher-gui,
   launch,
   launch-param-builder,
   launch-ros,
   ros2launch,
+  rviz2,
   xacro,
 
   # checkInputs
@@ -48,8 +51,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "stack-of-tasks";
     repo = "odri_dual_motor_testbed_robot";
-    rev = "4aee9cd8f6a46d8a17f9ff2b3e53d800d8e19ed5";
-    hash = "sha256-Ibw4wAf639B7l+0Z1goBCW1iKT/PrEkYDtSkazpYRJ0=";
+    rev = "8869d16e271536089e7ba288217b0ff514614113";
+    hash = "sha256-i2gpZkyHXvELIeQbHyONA58sotpB07qKROD3LRH4C64=";
   };
   sourceRoot = "source/odri_dual_motor_testbed_description";
 
@@ -60,23 +63,25 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+    rosdoc2
   ];
   buildInputs = [
     ament-cmake
     ament-cmake-auto
   ];
   propagatedBuildInputs = [
+    joint-state-publisher-gui
     launch
     launch-param-builder
     launch-ros
     ros2launch
+    rviz2
     xacro
   ];
   checkInputs = [
     ament-cmake-copyright
     ament-cmake-cppcheck
     ament-cmake-cpplint
-    ament-cmake-lint-cmake
     ament-cmake-pep257
     ament-cmake-uncrustify
     ament-cmake-xmllint

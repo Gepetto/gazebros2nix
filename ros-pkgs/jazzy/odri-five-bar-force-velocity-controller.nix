@@ -9,12 +9,12 @@
   # buildInputs
   controller-interface,
   generate-parameter-library,
+  geometry-msgs,
   hardware-interface,
   pluginlib,
   rclcpp,
   rclcpp-lifecycle,
   realtime-tools,
-  std-msgs,
 
   # propagatedBuildInputs
 
@@ -44,7 +44,7 @@
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-odri-forward-command-controller";
+  pname = "ros-jazzy-odri-five-bar-force-velocity-controller";
   version = "0.1.0";
 
   src = fetchFromGitHub {
@@ -53,7 +53,7 @@ buildRosPackage rec {
     rev = "8869d16e271536089e7ba288217b0ff514614113";
     hash = "sha256-i2gpZkyHXvELIeQbHyONA58sotpB07qKROD3LRH4C64=";
   };
-  sourceRoot = "source/odri_dual_motor_testbed_controllers/odri_forward_command_controller";
+  sourceRoot = "source/odri_dual_motor_testbed_controllers/odri_five_bar_force_velocity_controller";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -68,22 +68,22 @@ buildRosPackage rec {
     ament-cmake
     controller-interface
     generate-parameter-library
+    geometry-msgs
     hardware-interface
     pluginlib
     rclcpp
     rclcpp-lifecycle
     realtime-tools
-    std-msgs
   ];
   propagatedBuildInputs = [
     controller-interface
     generate-parameter-library
+    geometry-msgs
     hardware-interface
     pluginlib
     rclcpp
     rclcpp-lifecycle
     realtime-tools
-    std-msgs
   ];
   checkInputs = [
     ament-cmake-gmock
@@ -114,7 +114,13 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Forward command controller for ODRI joints that sends position, velocity, effort, gain_kp and gain_kd commands together via a single topic using std_msgs/Float64MultiArray. The flat data array is ordered as: [pos×n | vel×n | eff×n | gain_kp×n | gain_kd×n] for n joints. Per-value NaN entries are silently skipped for partial updates.";
+    description = "ros2_control endpoint force-to-velocity controller (qdot = J^T f_c) for
+    the odri_dual_motor_testbed five-bar mechanism. Reads motor_1/motor_2
+    position state interfaces, reads a contact force from a
+    geometry_msgs/WrenchStamped topic, and commands qdot = J^T f_c as a
+    velocity setpoint using an analytical (closed-form) Jacobian derived
+    from the URDF geometry -- no Pinocchio or other rigid-body library
+    involved.";
     license = with lib.licenses; [ asl20 ];
     homepage = "https://github.com/stack-of-tasks/odri_dual_motor_testbed_robot";
     platforms = lib.platforms.linux;

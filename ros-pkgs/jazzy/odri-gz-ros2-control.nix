@@ -51,8 +51,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "stack-of-tasks";
     repo = "odri_gz_ros2_control";
-    rev = "3373b01634b18c65b63f6773f28fb8de520c0bc0";
-    hash = "sha256-c+fpSjwMszL8zQnbk4VY/IXy/GLR38Ud9/p/RanDpJA=";
+    rev = "db3b8514b64c58f852f843b0cd416bf3bd8da691";
+    hash = "sha256-Kkjrnb9ZNXKPuimR/TOzsdlq1F0rlY9AiwBTljZDDHs=";
   };
   sourceRoot = "source/";
 

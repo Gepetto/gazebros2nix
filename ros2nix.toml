@@ -136,6 +136,8 @@ do_check = false
 [jazzy."gbartyzel/ros2_net_ft_driver"]
 packages = {"net_ft_driver" = {check = ["ament-lint-auto"], native = ["pkg-config"], propagated = ["curl", "curlpp"]}}
 
+[jazzy."Gepetto/pico_dual_drv8316c_ros2_hardware_interface"]
+
 [jazzy."pal-robotics/kangaroo_moveit_config"]
 [jazzy."pal-robotics/kangaroo_robot".packages]
 kangaroo_bringup = {do_check = false}
@@ -182,8 +184,15 @@ do_check = false
 [jazzy."ros-controls/ros2_control_demos".packages.example_17]
 do_check = false
 
-[jazzy."stack-of-tasks/odri_dual_motor_testbed_robot"]
-[jazzy."stack-of-tasks/odri_forward_command_controller"]
+[jazzy."stack-of-tasks/odri_dual_motor_testbed_robot".packages]
+odri_forward_command_controller = {native = ["rosdoc2"]}
+odri_dual_motor_testbed_bringup = {native = ["rosdoc2"]}
+odri_dual_motor_testbed_hardware = {native = ["rosdoc2"]}
+odri_five_bar_force_velocity_controller = {native = ["rosdoc2"]}
+odri_dual_motor_testbed_description = {native = ["rosdoc2"]}
+odri_dual_motor_testbed_robot = {native = ["rosdoc2"]}
+odri_dual_motor_testbed_gazebo = {native = ["rosdoc2"]}
+odri_five_bar_force_velocity_py = {native = ["rosdoc2"]}
 [jazzy."stack-of-tasks/odri_gz_ros2_control"]
 
 [jazzy."Tiago-Pro-Harmonic/br2_gazebo_worlds"]
