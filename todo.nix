@@ -436,7 +436,6 @@ final: prev: {
         inherit (final.python3Packages)
           colmpc
           mim-solvers
-          osrf-pycommon
           ;
         # keep-sorted start block=yes
 
