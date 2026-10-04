@@ -346,9 +346,11 @@
                   inherit (pkgs)
                     # keep-sorted start
                     freeimage
+                    ilmbase
                     libjpeg_turbo-freeimage
                     libogre-next-23-dev
                     ogre1_9
+                    openexr_2
                     rosdoc2
                     # keep-sorted end
                     ;
