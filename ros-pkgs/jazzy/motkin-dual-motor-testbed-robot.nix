@@ -12,8 +12,8 @@
   xacro,
 
   # propagatedBuildInputs
-  odri-dual-motor-testbed-bringup,
-  odri-dual-motor-testbed-description,
+  motkin-dual-motor-testbed-bringup,
+  motkin-dual-motor-testbed-description,
 
   # checkInputs
   ament-cmake-copyright,
@@ -40,16 +40,16 @@
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-odri-dual-motor-testbed-robot";
+  pname = "ros-jazzy-motkin-dual-motor-testbed-robot";
   version = "1.0.0";
 
   src = fetchFromGitHub {
-    owner = "stack-of-tasks";
-    repo = "odri_dual_motor_testbed_robot";
-    rev = "8869d16e271536089e7ba288217b0ff514614113";
-    hash = "sha256-i2gpZkyHXvELIeQbHyONA58sotpB07qKROD3LRH4C64=";
+    owner = "Gepetto";
+    repo = "motkin-dual-motor-testbed-robot";
+    rev = "b908e007ad56de145dc8eb2507ee1e5d1f82fc79";
+    hash = "sha256-Bg7q+sILOjrFzTZ7VQ58yysFfNj89nV2RZiTRsZn8Cg=";
   };
-  sourceRoot = "source/odri_dual_motor_testbed_robot";
+  sourceRoot = "source/motkin_dual_motor_testbed_robot";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -67,8 +67,8 @@ buildRosPackage rec {
   ];
   propagatedBuildInputs = [
     controller-manager
-    odri-dual-motor-testbed-bringup
-    odri-dual-motor-testbed-description
+    motkin-dual-motor-testbed-bringup
+    motkin-dual-motor-testbed-description
     xacro
   ];
   checkInputs = [
@@ -103,9 +103,9 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Meta package describing the ODRI dual motor testbed robot";
+    description = "Meta package describing the MOTKIN dual motor testbed robot";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/stack-of-tasks/odri_dual_motor_testbed_robot";
+    homepage = "https://github.com/Gepetto/motkin-dual-motor-testbed-robot";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

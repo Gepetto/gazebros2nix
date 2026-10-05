@@ -5,27 +5,19 @@
 
   # nativeBuildInputs
   ament-cmake,
-  rosdoc2,
 
   # buildInputs
-  ament-cmake-auto,
+  controller-manager,
   gz-plugin-vendor,
   gz-sim-vendor,
+  hardware-interface,
+  pluginlib,
+  rclcpp,
+  rclcpp-lifecycle,
+  ros2-control-cmake,
+  yaml-cpp-vendor,
 
   # propagatedBuildInputs
-  controller-manager,
-  joint-state-broadcaster,
-  launch,
-  launch-param-builder,
-  launch-ros,
-  odri-dual-motor-testbed-description,
-  odri-forward-command-controller,
-  odri-gz-ros2-control,
-  robot-state-publisher,
-  ros-gz-bridge,
-  ros-gz-sim,
-  ros2launch,
-  xacro,
 
   # checkInputs
   ament-cmake-copyright,
@@ -39,9 +31,6 @@
   ament-cmake-xmllint,
   ament-lint-auto,
   ament-lint-common,
-  launch-testing-ament-cmake,
-  rclcpp,
-  sensor-msgs,
   xmllintPackageHook,
 
   # nativeCheckInputs
@@ -56,16 +45,16 @@
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-odri-dual-motor-testbed-gazebo";
-  version = "1.0.0";
+  pname = "ros-jazzy-motkin-gz-ros2-control";
+  version = "1.2.2";
 
   src = fetchFromGitHub {
-    owner = "stack-of-tasks";
-    repo = "odri_dual_motor_testbed_robot";
-    rev = "8869d16e271536089e7ba288217b0ff514614113";
-    hash = "sha256-i2gpZkyHXvELIeQbHyONA58sotpB07qKROD3LRH4C64=";
+    owner = "Gepetto";
+    repo = "motkin-gz-ros2-control";
+    rev = "1e865d0e507b5f7fbadb389028ad24113355cade";
+    hash = "sha256-4Eajf7Tl0skAFK43yV+y/bIeGkVs4MJ5tQnRLJC7ja4=";
   };
-  sourceRoot = "source/odri_dual_motor_testbed_gazebo";
+  sourceRoot = "source/";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -74,37 +63,39 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
-    rosdoc2
   ];
   buildInputs = [
     ament-cmake
-    ament-cmake-auto
+    controller-manager
     gz-plugin-vendor
     gz-sim-vendor
+    hardware-interface
+    pluginlib
+    rclcpp
+    rclcpp-lifecycle
+    ros2-control-cmake
+    yaml-cpp-vendor
   ];
   propagatedBuildInputs = [
     controller-manager
     gz-plugin-vendor
-    joint-state-broadcaster
-    launch
-    launch-param-builder
-    launch-ros
-    odri-dual-motor-testbed-description
-    odri-forward-command-controller
-    odri-gz-ros2-control
-    robot-state-publisher
-    ros-gz-bridge
-    ros-gz-sim
-    ros2launch
-    xacro
+    gz-sim-vendor
+    hardware-interface
+    pluginlib
+    rclcpp
+    rclcpp-lifecycle
+    ros2-control-cmake
+    yaml-cpp-vendor
   ];
   checkInputs = [
+    ament-cmake-copyright
+    ament-cmake-cppcheck
+    ament-cmake-cpplint
     ament-cmake-gtest
+    ament-cmake-lint-cmake
+    ament-cmake-xmllint
     ament-lint-auto
     ament-lint-common
-    launch-testing-ament-cmake
-    rclcpp
-    sensor-msgs
     ament-cmake-copyright
     ament-cmake-cppcheck
     ament-cmake-cpplint
@@ -130,9 +121,9 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Package starting the ODRI dual motor testbed robot in Gazebo";
+    description = "Gazebo ros2_control package allows to control simulated robots using ros2_control framework.";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/stack-of-tasks/odri_dual_motor_testbed_robot";
+    homepage = "https://github.com/Gepetto/motkin-gz-ros2-control";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

@@ -717,18 +717,19 @@
                     launch-pal
                     linear-feedback-controller
                     linear-feedback-controller-msgs
+                    motkin-dual-motor-testbed-bringup
+                    motkin-dual-motor-testbed-description
+                    motkin-dual-motor-testbed-gazebo
+                    motkin-dual-motor-testbed-haptic-pair
+                    motkin-dual-motor-testbed-hardware
+                    motkin-dual-motor-testbed-robot
+                    motkin-five-bar-force-velocity-controller
+                    motkin-five-bar-force-velocity-py
+                    motkin-forward-command-controller
+                    motkin-gz-ros2-control
+                    motkin-ros2-hardware-interface
                     moveit-core
                     net-ft-driver
-                    odri-dual-motor-testbed-bringup
-                    odri-dual-motor-testbed-description
-                    odri-dual-motor-testbed-gazebo
-                    odri-dual-motor-testbed-haptic-pair
-                    odri-dual-motor-testbed-hardware
-                    odri-dual-motor-testbed-robot
-                    odri-five-bar-force-velocity-controller
-                    odri-five-bar-force-velocity-py
-                    odri-forward-command-controller
-                    odri-gz-ros2-control
                     omni-base-bringup
                     omni-base-controller-configuration
                     omni-base-description
@@ -744,7 +745,6 @@
                     pal-sea-arm-description
                     pal-sea-arm-moveit-config
                     pal-urdf-utils
-                    pico-dual-drv8316c-ros2-hardware-interface
                     play-motion2
                     play-motion2-cli
                     play-motion2-msgs
