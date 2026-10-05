@@ -5,31 +5,32 @@
 
   # nativeBuildInputs
   ament-cmake,
+  rosdoc2,
 
   # buildInputs
-  controller-interface,
-  generate-parameter-library,
-  geometry-msgs,
-  hardware-interface,
-  pluginlib,
-  rclcpp,
-  rclcpp-lifecycle,
-  realtime-tools,
+  ament-cmake-auto,
 
   # propagatedBuildInputs
+  joint-state-publisher-gui,
+  launch,
+  launch-param-builder,
+  launch-ros,
+  ros2launch,
+  rviz2,
+  xacro,
 
   # checkInputs
   ament-cmake-copyright,
   ament-cmake-cppcheck,
   ament-cmake-cpplint,
   ament-cmake-flake8,
-  ament-cmake-gmock,
   ament-cmake-lint-cmake,
   ament-cmake-pep257,
   ament-cmake-uncrustify,
   ament-cmake-xmllint,
   ament-lint-auto,
   ament-lint-common,
+  launch-testing-ament-cmake,
   xmllintPackageHook,
 
   # nativeCheckInputs
@@ -44,16 +45,16 @@
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-odri-five-bar-force-velocity-controller";
-  version = "0.1.0";
+  pname = "ros-jazzy-motkin-dual-motor-testbed-description";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
-    owner = "stack-of-tasks";
-    repo = "odri_dual_motor_testbed_robot";
-    rev = "8869d16e271536089e7ba288217b0ff514614113";
-    hash = "sha256-i2gpZkyHXvELIeQbHyONA58sotpB07qKROD3LRH4C64=";
+    owner = "Gepetto";
+    repo = "motkin-dual-motor-testbed-robot";
+    rev = "b908e007ad56de145dc8eb2507ee1e5d1f82fc79";
+    hash = "sha256-Bg7q+sILOjrFzTZ7VQ58yysFfNj89nV2RZiTRsZn8Cg=";
   };
-  sourceRoot = "source/odri_dual_motor_testbed_controllers/odri_five_bar_force_velocity_controller";
+  sourceRoot = "source/motkin_dual_motor_testbed_description";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -62,33 +63,31 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
-    generate-parameter-library
+    rosdoc2
   ];
   buildInputs = [
     ament-cmake
-    controller-interface
-    generate-parameter-library
-    geometry-msgs
-    hardware-interface
-    pluginlib
-    rclcpp
-    rclcpp-lifecycle
-    realtime-tools
+    ament-cmake-auto
   ];
   propagatedBuildInputs = [
-    controller-interface
-    generate-parameter-library
-    geometry-msgs
-    hardware-interface
-    pluginlib
-    rclcpp
-    rclcpp-lifecycle
-    realtime-tools
+    joint-state-publisher-gui
+    launch
+    launch-param-builder
+    launch-ros
+    ros2launch
+    rviz2
+    xacro
   ];
   checkInputs = [
-    ament-cmake-gmock
+    ament-cmake-copyright
+    ament-cmake-cppcheck
+    ament-cmake-cpplint
+    ament-cmake-pep257
+    ament-cmake-uncrustify
+    ament-cmake-xmllint
     ament-lint-auto
     ament-lint-common
+    launch-testing-ament-cmake
     ament-cmake-copyright
     ament-cmake-cppcheck
     ament-cmake-cpplint
@@ -114,15 +113,9 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "ros2_control endpoint force-to-velocity controller (qdot = J^T f_c) for
-    the odri_dual_motor_testbed five-bar mechanism. Reads motor_1/motor_2
-    position state interfaces, reads a contact force from a
-    geometry_msgs/WrenchStamped topic, and commands qdot = J^T f_c as a
-    velocity setpoint using an analytical (closed-form) Jacobian derived
-    from the URDF geometry -- no Pinocchio or other rigid-body library
-    involved.";
+    description = "Package describing the MOTKIN dual motor testbed robot";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/stack-of-tasks/odri_dual_motor_testbed_robot";
+    homepage = "https://github.com/Gepetto/motkin-dual-motor-testbed-robot";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

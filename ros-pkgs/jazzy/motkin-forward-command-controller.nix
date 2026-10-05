@@ -7,25 +7,23 @@
   ament-cmake,
 
   # buildInputs
+  controller-interface,
+  generate-parameter-library,
   hardware-interface,
   pluginlib,
   rclcpp,
   rclcpp-lifecycle,
-  ros2-control-cmake,
+  realtime-tools,
+  std-msgs,
 
   # propagatedBuildInputs
-  controller-manager,
-  joint-state-broadcaster,
-  odri-forward-command-controller,
-  robot-state-publisher,
-  xacro,
 
   # checkInputs
   ament-cmake-copyright,
   ament-cmake-cppcheck,
   ament-cmake-cpplint,
   ament-cmake-flake8,
-  ament-cmake-gtest,
+  ament-cmake-gmock,
   ament-cmake-lint-cmake,
   ament-cmake-pep257,
   ament-cmake-uncrustify,
@@ -46,16 +44,16 @@
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-pico-dual-drv8316c-ros2-hardware-interface";
+  pname = "ros-jazzy-motkin-forward-command-controller";
   version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "Gepetto";
-    repo = "pico_dual_drv8316c_ros2_hardware_interface";
-    rev = "6fafb40cf9d46ea4798ae3d2d884284c786d6d9d";
-    hash = "sha256-hFyiO2dsjNsk51LEKUrAAACHAeavOpfyRs4DPenVICI=";
+    repo = "motkin-dual-motor-testbed-robot";
+    rev = "b908e007ad56de145dc8eb2507ee1e5d1f82fc79";
+    hash = "sha256-Bg7q+sILOjrFzTZ7VQ58yysFfNj89nV2RZiTRsZn8Cg=";
   };
-  sourceRoot = "source/";
+  sourceRoot = "source/motkin_dual_motor_testbed_controllers/motkin_forward_command_controller";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -64,34 +62,31 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
+    generate-parameter-library
   ];
   buildInputs = [
     ament-cmake
+    controller-interface
+    generate-parameter-library
     hardware-interface
     pluginlib
     rclcpp
     rclcpp-lifecycle
-    ros2-control-cmake
+    realtime-tools
+    std-msgs
   ];
   propagatedBuildInputs = [
-    controller-manager
+    controller-interface
+    generate-parameter-library
     hardware-interface
-    joint-state-broadcaster
-    odri-forward-command-controller
     pluginlib
     rclcpp
     rclcpp-lifecycle
-    robot-state-publisher
-    ros2-control-cmake
-    xacro
+    realtime-tools
+    std-msgs
   ];
   checkInputs = [
-    ament-cmake-copyright
-    ament-cmake-cppcheck
-    ament-cmake-cpplint
-    ament-cmake-gtest
-    ament-cmake-lint-cmake
-    ament-cmake-xmllint
+    ament-cmake-gmock
     ament-lint-auto
     ament-lint-common
     ament-cmake-copyright
@@ -119,12 +114,9 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "ros2_control SystemInterface hardware plugin that drives a dual-motor
-    testbed through the Raspberry Pi Pico USB-CDC binary protocol implemented
-    by pico_dual_PMSM_BUG79100G_DRV8316C (dual BUG79100G encoder + DRV8316C
-    driver board).";
+    description = "Forward command controller for MOTKIN joints that sends position, velocity, effort, gain_kp and gain_kd commands together via a single topic using std_msgs/Float64MultiArray. The flat data array is ordered as: [pos×n | vel×n | eff×n | gain_kp×n | gain_kd×n] for n joints. Per-value NaN entries are silently skipped for partial updates.";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/Gepetto/pico_dual_drv8316c_ros2_hardware_interface";
+    homepage = "https://github.com/Gepetto/motkin-dual-motor-testbed-robot";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

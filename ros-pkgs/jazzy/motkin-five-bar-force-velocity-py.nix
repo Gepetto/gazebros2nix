@@ -25,16 +25,16 @@
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-odri-five-bar-force-velocity-py";
+  pname = "ros-jazzy-motkin-five-bar-force-velocity-py";
   version = "0.1.0";
 
   src = fetchFromGitHub {
-    owner = "stack-of-tasks";
-    repo = "odri_dual_motor_testbed_robot";
-    rev = "8869d16e271536089e7ba288217b0ff514614113";
-    hash = "sha256-i2gpZkyHXvELIeQbHyONA58sotpB07qKROD3LRH4C64=";
+    owner = "Gepetto";
+    repo = "motkin-dual-motor-testbed-robot";
+    rev = "b908e007ad56de145dc8eb2507ee1e5d1f82fc79";
+    hash = "sha256-Bg7q+sILOjrFzTZ7VQ58yysFfNj89nV2RZiTRsZn8Cg=";
   };
-  sourceRoot = "source/odri_dual_motor_testbed_controllers/odri_five_bar_force_velocity_py";
+  sourceRoot = "source/motkin_dual_motor_testbed_controllers/motkin_five_bar_force_velocity_py";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -73,12 +73,12 @@ buildRosPackage rec {
 
   meta = {
     description = "Python endpoint force-to-velocity controller (qdot = J^T f_c) for the
-    odri_dual_motor_testbed five-bar mechanism. Drives the joints through
-    the odri_forward_command_controller ~/commands topic, using an
+    motkin_dual_motor_testbed five-bar mechanism. Drives the joints through
+    the motkin_forward_command_controller ~/commands topic, using an
     analytical (closed-form) Jacobian derived from the URDF geometry --
     no Pinocchio or other rigid-body library involved.";
     license = with lib.licenses; [ asl20 ];
-    homepage = "https://github.com/stack-of-tasks/odri_dual_motor_testbed_robot";
+    homepage = "https://github.com/Gepetto/motkin-dual-motor-testbed-robot";
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.nim65s ];
   };

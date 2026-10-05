@@ -790,6 +790,14 @@ final: prev: {
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
                 '';
               };
+              motkin-dual-motor-testbed-bringup = jazzy-prev.motkin-dual-motor-testbed-bringup.overrideAttrs {
+                doCheck = false; # TODO: cppcheck + cpplint + uncrustify
+              };
+              motkin-dual-motor-testbed-description =
+                jazzy-prev.motkin-dual-motor-testbed-description.overrideAttrs
+                  {
+                    doCheck = false; # TODO: cppcheck + cpplint + uncrustify
+                  };
               moveit-task-constructor-core = jazzy-prev.moveit-task-constructor-core.overrideAttrs (super: {
                 # TODO: unvendor pybind11 upstream
                 cmakeFlags = (super.cmakeFlags or [ ]) ++ [ "-DPYBIND11_INSTALL=OFF" ];
@@ -812,12 +820,6 @@ final: prev: {
               };
               net-ft-driver = jazzy-prev.net-ft-driver.overrideAttrs {
                 src = jazzy-final.net-ft-description.src;
-              };
-              odri-dual-motor-testbed-bringup = jazzy-prev.odri-dual-motor-testbed-bringup.overrideAttrs {
-                doCheck = false; # TODO: cppcheck + cpplint + uncrustify
-              };
-              odri-dual-motor-testbed-description = jazzy-prev.odri-dual-motor-testbed-description.overrideAttrs {
-                doCheck = false; # TODO: cppcheck + cpplint + uncrustify
               };
               pal-gazebo-plugins = null;
               pal-gazebo-worlds = null;
