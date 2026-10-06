@@ -45,13 +45,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-motkin-forward-command-controller";
-  version = "0.1.0";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "Gepetto";
     repo = "motkin-dual-motor-testbed-robot";
-    rev = "b908e007ad56de145dc8eb2507ee1e5d1f82fc79";
-    hash = "sha256-Bg7q+sILOjrFzTZ7VQ58yysFfNj89nV2RZiTRsZn8Cg=";
+    tag = "v${version}";
+    hash = "sha256-2M4x1X6l2DgIzXU8Bol3Q+WxbdgNK5fP9zzs3pKVao0=";
   };
   sourceRoot = "source/motkin_dual_motor_testbed_controllers/motkin_forward_command_controller";
 
@@ -87,6 +87,7 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-cmake-gmock
+    ament-cmake-xmllint
     ament-lint-auto
     ament-lint-common
     ament-cmake-copyright

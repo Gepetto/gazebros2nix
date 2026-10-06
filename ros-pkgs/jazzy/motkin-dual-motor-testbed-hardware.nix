@@ -19,8 +19,11 @@
 
   # checkInputs
   ament-cmake-gtest,
+  ament-cmake-xmllint,
+  xmllintPackageHook,
 
   # nativeCheckInputs
+  ament-xmllint,
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
@@ -30,8 +33,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "Gepetto";
     repo = "motkin-dual-motor-testbed-robot";
-    rev = "b908e007ad56de145dc8eb2507ee1e5d1f82fc79";
-    hash = "sha256-Bg7q+sILOjrFzTZ7VQ58yysFfNj89nV2RZiTRsZn8Cg=";
+    tag = "v${version}";
+    hash = "sha256-2M4x1X6l2DgIzXU8Bol3Q+WxbdgNK5fP9zzs3pKVao0=";
   };
   sourceRoot = "source/motkin_dual_motor_testbed_hardware";
 
@@ -61,8 +64,11 @@ buildRosPackage rec {
   ];
   checkInputs = [
     ament-cmake-gtest
+    ament-cmake-xmllint
+    xmllintPackageHook
   ];
   nativeCheckInputs = [
+    ament-xmllint
     writableTmpDirAsHomeHook
   ];
 
