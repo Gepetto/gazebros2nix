@@ -1,11 +1,8 @@
 {
   "https://github.com/Gepetto/Quest-Teleoperation-Panda/archive/f09f37c221bd3a526ee90dcc91db9a14871fca1a.tar.gz": "sha256-oA4R56XldID3tl00ZKhVlKjndok6I9VfwYhKyCrTxfc=",
-  "https://github.com/Gepetto/motkin-dual-motor-testbed-robot/archive/2e510d8b8699ecab9f1b3232e0b5b6d2f316b6e8.tar.gz": "sha256-ULQTUUQRe7d/WIM5APmWG0w2HQ44PlBtgmZB/0SK1Hg=",
-  "https://github.com/Gepetto/motkin-dual-motor-testbed-robot/archive/b908e007ad56de145dc8eb2507ee1e5d1f82fc79.tar.gz": "sha256-Bg7q+sILOjrFzTZ7VQ58yysFfNj89nV2RZiTRsZn8Cg=",
-  "https://github.com/Gepetto/motkin-gz-ros2-control/archive/1e865d0e507b5f7fbadb389028ad24113355cade.tar.gz": "sha256-4Eajf7Tl0skAFK43yV+y/bIeGkVs4MJ5tQnRLJC7ja4=",
-  "https://github.com/Gepetto/motkin-ros2-hardware-interface/archive/7d3c8aac53545251918ba23122f79f74d0e4f725.tar.gz": "sha256-hmDwxlXSTlea7L3t+I9p5kisV3PSznbOMzxUsrej3pk=",
-  "https://github.com/Gepetto/motkin-ros2-hardware-interface/archive/9cc10c8829ecab97b2f664228262ada42518e90a.tar.gz": "sha256-TamIlO+cl9bQ8EL1rjAffjkgkX2b9tkXKUkEbg0MM0U=",
-  "https://github.com/Gepetto/pico_dual_drv8316c_ros2_hardware_interface/archive/6fafb40cf9d46ea4798ae3d2d884284c786d6d9d.tar.gz": "sha256-hFyiO2dsjNsk51LEKUrAAACHAeavOpfyRs4DPenVICI=",
+  "https://github.com/Gepetto/motkin-dual-motor-testbed-robot/archive/refs/tags/v1.0.1.tar.gz": "sha256-DlwOyh1HqqNfH5CH8HXmfrmvzCg6pghYavjPU1ZU3C4=",
+  "https://github.com/Gepetto/motkin-gz-ros2-control/archive/refs/tags/v1.0.1.tar.gz": "sha256-Tncs/oFVZcObjN/qlPSaSB380puUkHQEEjc08FCRqcA=",
+  "https://github.com/Gepetto/motkin-ros2-hardware-interface/archive/refs/tags/v1.0.2.tar.gz": "sha256-UOXKn40ITbIrhC0STdJdmXmWBgDCK1v7Jakm9Qjj3YM=",
   "https://github.com/Tiago-Pro-Harmonic/br2_gazebo_worlds/archive/06b159ab0ac93862c271bf547aaa89e872001324.tar.gz": "sha256-5LiutalVo2H+j3+kI8CedbFb23VWVuVwskC9wL2FVqE=",
   "https://github.com/Tiago-Pro-Harmonic/gep_tiago_pro_control_stack/archive/f590708d89acd27a468c3e84e3bcdc8f9b11708c.tar.gz": "sha256-R7t34wF/0euxxcCmUO2m+CpL5fR7hNHX5Y7YtIpWxTw=",
   "https://github.com/Tiago-Pro-Harmonic/launch_pal/archive/3f1d6a195bf04cb9e318cdca17952ccd4a54fc8a.tar.gz": "sha256-uLe2AS1vTghoRlWNEfgD9vGtwqzeWhPx8m1QC5sgHYs=",
@@ -159,10 +156,5 @@
   "https://github.com/ros-controls/ros2_control_demos/archive/bd78ea5c413607df3153fc9b99a4455ebd0615c9.tar.gz": "sha256-qkeX3P6mbslOIikT8506xqEdYAQbLTs3JXzhdcwNliw=",
   "https://github.com/ros-controls/ros2_control_demos/archive/c8f354577269c06d5b9e6f4253ab877dd56d51dc.tar.gz": "sha256-dTyAfti1Z9yMfy5Yg0k5VZWDAD8rmYGdV+EOovki+2o=",
   "https://github.com/ros-controls/ros2_controllers/archive/refs/tags/4.42.1.tar.gz": "sha256-dTNDmlrMMiny5r5HY1VrvqpYWPdQT1zKVen8KuvF++s=",
-  "https://github.com/ros/sdformat_urdf/archive/refs/tags/1.0.2.tar.gz": "sha256-Lt2OlG5neiGGgvc0JvM9uEhYa++aiwJHptonbYaAqVo=",
-  "https://github.com/stack-of-tasks/odri_dual_motor_testbed_robot/archive/4aee9cd8f6a46d8a17f9ff2b3e53d800d8e19ed5.tar.gz": "sha256-Ibw4wAf639B7l+0Z1goBCW1iKT/PrEkYDtSkazpYRJ0=",
-  "https://github.com/stack-of-tasks/odri_dual_motor_testbed_robot/archive/8869d16e271536089e7ba288217b0ff514614113.tar.gz": "sha256-i2gpZkyHXvELIeQbHyONA58sotpB07qKROD3LRH4C64=",
-  "https://github.com/stack-of-tasks/odri_dual_motor_testbed_robot/archive/8cd9267c302909236c5a7432c92f9082f32b5a17.tar.gz": "sha256-kmxW/zLKsaUd8BYmQduAGQl9Kj7HjfZ5J7NsfPIDkgk=",
-  "https://github.com/stack-of-tasks/odri_gz_ros2_control/archive/3373b01634b18c65b63f6773f28fb8de520c0bc0.tar.gz": "sha256-c+fpSjwMszL8zQnbk4VY/IXy/GLR38Ud9/p/RanDpJA=",
-  "https://github.com/stack-of-tasks/odri_gz_ros2_control/archive/db3b8514b64c58f852f843b0cd416bf3bd8da691.tar.gz": "sha256-Kkjrnb9ZNXKPuimR/TOzsdlq1F0rlY9AiwBTljZDDHs="
+  "https://github.com/ros/sdformat_urdf/archive/refs/tags/1.0.2.tar.gz": "sha256-Lt2OlG5neiGGgvc0JvM9uEhYa++aiwJHptonbYaAqVo="
 }

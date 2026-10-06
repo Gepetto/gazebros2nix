@@ -10,13 +10,23 @@
   # buildInputs
   geometry-msgs,
   rclpy,
+  sensor-msgs,
+  std-msgs,
 
   # propagatedBuildInputs
+  controller-manager,
+  joint-state-broadcaster,
   launch,
   launch-ros,
+  motkin-dual-motor-testbed-description,
   motkin-dual-motor-testbed-gazebo,
+  motkin-dual-motor-testbed-hardware,
   motkin-five-bar-force-velocity-controller,
+  motkin-forward-command-controller,
+  robot-state-publisher,
   ros2launch,
+  rviz2,
+  xacro,
 
   # checkInputs
   ament-copyright,
@@ -30,13 +40,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-motkin-dual-motor-testbed-haptic-pair";
-  version = "0.1.0";
+  version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "Gepetto";
     repo = "motkin-dual-motor-testbed-robot";
-    rev = "b908e007ad56de145dc8eb2507ee1e5d1f82fc79";
-    hash = "sha256-Bg7q+sILOjrFzTZ7VQ58yysFfNj89nV2RZiTRsZn8Cg=";
+    tag = "v${version}";
+    hash = "sha256-DlwOyh1HqqNfH5CH8HXmfrmvzCg6pghYavjPU1ZU3C4=";
   };
   sourceRoot = "source/motkin_dual_motor_testbed_haptic_pair";
 
@@ -54,15 +64,27 @@ buildRosPackage rec {
     ament-cmake-python
     geometry-msgs
     rclpy
+    sensor-msgs
+    std-msgs
   ];
   propagatedBuildInputs = [
+    controller-manager
     geometry-msgs
+    joint-state-broadcaster
     launch
     launch-ros
+    motkin-dual-motor-testbed-description
     motkin-dual-motor-testbed-gazebo
+    motkin-dual-motor-testbed-hardware
     motkin-five-bar-force-velocity-controller
+    motkin-forward-command-controller
     rclpy
+    robot-state-publisher
     ros2launch
+    rviz2
+    sensor-msgs
+    std-msgs
+    xacro
   ];
   checkInputs = [
     ament-copyright
