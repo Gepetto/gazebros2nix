@@ -1,8 +1,11 @@
 {
   "https://github.com/Gepetto/Quest-Teleoperation-Panda/archive/f09f37c221bd3a526ee90dcc91db9a14871fca1a.tar.gz": "sha256-oA4R56XldID3tl00ZKhVlKjndok6I9VfwYhKyCrTxfc=",
   "https://github.com/Gepetto/motkin-dual-motor-testbed-robot/archive/refs/tags/v1.0.1.tar.gz": "sha256-DlwOyh1HqqNfH5CH8HXmfrmvzCg6pghYavjPU1ZU3C4=",
+  "https://github.com/Gepetto/motkin-dual-motor-testbed-robot/archive/refs/tags/v1.1.0.tar.gz": "sha256-xSp2/KlOReis2AaLKqJjMEd/7BfmfrGBFG3HfobqBqM=",
   "https://github.com/Gepetto/motkin-gz-ros2-control/archive/refs/tags/v1.0.1.tar.gz": "sha256-Tncs/oFVZcObjN/qlPSaSB380puUkHQEEjc08FCRqcA=",
+  "https://github.com/Gepetto/motkin-gz-ros2-control/archive/refs/tags/v1.1.0.tar.gz": "sha256-HHGsmgS62m519+j8/XccA8B+mRJ6QpYJhcL/wO1Zytk=",
   "https://github.com/Gepetto/motkin-ros2-hardware-interface/archive/refs/tags/v1.0.2.tar.gz": "sha256-UOXKn40ITbIrhC0STdJdmXmWBgDCK1v7Jakm9Qjj3YM=",
+  "https://github.com/Gepetto/motkin-ros2-hardware-interface/archive/refs/tags/v1.1.0.tar.gz": "sha256-LPBfkcxmvZhqrpqSs6B26/6BYtJopFZkAPTBKGKcHdE=",
   "https://github.com/Tiago-Pro-Harmonic/br2_gazebo_worlds/archive/06b159ab0ac93862c271bf547aaa89e872001324.tar.gz": "sha256-5LiutalVo2H+j3+kI8CedbFb23VWVuVwskC9wL2FVqE=",
   "https://github.com/Tiago-Pro-Harmonic/gep_tiago_pro_control_stack/archive/f590708d89acd27a468c3e84e3bcdc8f9b11708c.tar.gz": "sha256-R7t34wF/0euxxcCmUO2m+CpL5fR7hNHX5Y7YtIpWxTw=",
   "https://github.com/Tiago-Pro-Harmonic/launch_pal/archive/3f1d6a195bf04cb9e318cdca17952ccd4a54fc8a.tar.gz": "sha256-uLe2AS1vTghoRlWNEfgD9vGtwqzeWhPx8m1QC5sgHYs=",
