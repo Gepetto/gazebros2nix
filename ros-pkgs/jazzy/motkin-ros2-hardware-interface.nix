@@ -47,13 +47,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-motkin-ros2-hardware-interface";
-  version = "1.0.2";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "Gepetto";
     repo = "motkin-ros2-hardware-interface";
     tag = "v${version}";
-    hash = "sha256-UOXKn40ITbIrhC0STdJdmXmWBgDCK1v7Jakm9Qjj3YM=";
+    hash = "sha256-LPBfkcxmvZhqrpqSs6B26/6BYtJopFZkAPTBKGKcHdE=";
   };
   sourceRoot = "source/";
 

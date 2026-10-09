@@ -722,6 +722,7 @@
                     motkin-dual-motor-testbed-gazebo
                     motkin-dual-motor-testbed-haptic-pair
                     motkin-dual-motor-testbed-hardware
+                    motkin-dual-motor-testbed-msgs
                     motkin-dual-motor-testbed-robot
                     motkin-five-bar-force-velocity-controller
                     motkin-five-bar-force-velocity-py

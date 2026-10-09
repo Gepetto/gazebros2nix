@@ -46,13 +46,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-motkin-gz-ros2-control";
-  version = "1.0.1";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "Gepetto";
     repo = "motkin-gz-ros2-control";
     tag = "v${version}";
-    hash = "sha256-Tncs/oFVZcObjN/qlPSaSB380puUkHQEEjc08FCRqcA=";
+    hash = "sha256-HHGsmgS62m519+j8/XccA8B+mRJ6QpYJhcL/wO1Zytk=";
   };
   sourceRoot = "source/";
 

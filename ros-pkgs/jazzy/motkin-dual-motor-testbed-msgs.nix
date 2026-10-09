@@ -5,27 +5,21 @@
 
   # nativeBuildInputs
   ament-cmake,
-  ament-cmake-python,
+  rosidl-default-generators,
 
   # buildInputs
-  geometry-msgs,
-  rclpy,
-  sensor-msgs,
   std-msgs,
 
   # propagatedBuildInputs
+  rosidl-default-runtime,
 
   # checkInputs
-  ament-copyright,
-  ament-flake8,
-  ament-pep257,
-  python3Packages,
 
   # nativeCheckInputs
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
-  pname = "ros-jazzy-motkin-five-bar-force-velocity-py";
+  pname = "ros-jazzy-motkin-dual-motor-testbed-msgs";
   version = "1.1.0";
 
   src = fetchFromGitHub {
@@ -34,7 +28,7 @@ buildRosPackage rec {
     tag = "v${version}";
     hash = "sha256-xSp2/KlOReis2AaLKqJjMEd/7BfmfrGBFG3HfobqBqM=";
   };
-  sourceRoot = "source/motkin_dual_motor_testbed_controllers/motkin_five_bar_force_velocity_py";
+  sourceRoot = "source/motkin_dual_motor_testbed_msgs";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -43,27 +37,18 @@ buildRosPackage rec {
 
   nativeBuildInputs = [
     ament-cmake
-    ament-cmake-python
+    rosidl-default-generators
   ];
   buildInputs = [
     ament-cmake
-    ament-cmake-python
-    geometry-msgs
-    rclpy
-    sensor-msgs
+    rosidl-default-generators
     std-msgs
   ];
   propagatedBuildInputs = [
-    geometry-msgs
-    rclpy
-    sensor-msgs
+    rosidl-default-runtime
     std-msgs
   ];
   checkInputs = [
-    ament-copyright
-    ament-flake8
-    ament-pep257
-    python3Packages.pytest
   ];
   nativeCheckInputs = [
     writableTmpDirAsHomeHook
@@ -72,11 +57,7 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Python endpoint force-to-velocity controller (qdot = J^T f_c) for the
-    motkin_dual_motor_testbed five-bar mechanism. Drives the joints through
-    the motkin_forward_command_controller ~/commands topic, using an
-    analytical (closed-form) Jacobian derived from the URDF geometry --
-    no Pinocchio or other rigid-body library involved.";
+    description = "Messages for the MOTKIN dual motor testbed robot.";
     license = with lib.licenses; [ asl20 ];
     homepage = "https://github.com/Gepetto/motkin-dual-motor-testbed-robot";
     platforms = lib.platforms.linux;

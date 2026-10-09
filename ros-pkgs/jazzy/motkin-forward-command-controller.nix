@@ -10,6 +10,7 @@
   controller-interface,
   generate-parameter-library,
   hardware-interface,
+  motkin-dual-motor-testbed-msgs,
   pluginlib,
   rclcpp,
   rclcpp-lifecycle,
@@ -17,6 +18,7 @@
   std-msgs,
 
   # propagatedBuildInputs
+  rclpy,
 
   # checkInputs
   ament-cmake-copyright,
@@ -45,13 +47,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-motkin-forward-command-controller";
-  version = "1.0.1";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "Gepetto";
     repo = "motkin-dual-motor-testbed-robot";
     tag = "v${version}";
-    hash = "sha256-DlwOyh1HqqNfH5CH8HXmfrmvzCg6pghYavjPU1ZU3C4=";
+    hash = "sha256-xSp2/KlOReis2AaLKqJjMEd/7BfmfrGBFG3HfobqBqM=";
   };
   sourceRoot = "source/motkin_dual_motor_testbed_controllers/motkin_forward_command_controller";
 
@@ -69,6 +71,7 @@ buildRosPackage rec {
     controller-interface
     generate-parameter-library
     hardware-interface
+    motkin-dual-motor-testbed-msgs
     pluginlib
     rclcpp
     rclcpp-lifecycle
@@ -79,9 +82,11 @@ buildRosPackage rec {
     controller-interface
     generate-parameter-library
     hardware-interface
+    motkin-dual-motor-testbed-msgs
     pluginlib
     rclcpp
     rclcpp-lifecycle
+    rclpy
     realtime-tools
     std-msgs
   ];

@@ -47,13 +47,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-jazzy-motkin-dual-motor-testbed-bringup";
-  version = "1.0.1";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "Gepetto";
     repo = "motkin-dual-motor-testbed-robot";
     tag = "v${version}";
-    hash = "sha256-DlwOyh1HqqNfH5CH8HXmfrmvzCg6pghYavjPU1ZU3C4=";
+    hash = "sha256-xSp2/KlOReis2AaLKqJjMEd/7BfmfrGBFG3HfobqBqM=";
   };
   sourceRoot = "source/motkin_dual_motor_testbed_bringup";
 
