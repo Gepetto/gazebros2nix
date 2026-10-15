@@ -598,6 +598,16 @@ final: prev: {
             env.IGNITION_VERSION = "fortress";
             env.IGN_VERSION = "fortress";
           };
+          ament-cmake-core = humble-prev.ament-cmake-core.overrideAttrs {
+            patches = [
+              (final.fetchpatch2 {
+                url = "https://github.com/ament/ament_cmake/pull/410.patch?full_index=1";
+                stripLen = 1;
+                hash = "sha256-Ov2kVdSj+9hO7OPG6nSL/cg+kiy21lkW7OWtTeMFudM=";
+              })
+            ];
+          };
+
           gz-math-vendor = humble-prev.gz-math-vendor.overrideAttrs {
             postPatch = ''
               substituteInPlace CMakeLists.txt --replace-fail \
