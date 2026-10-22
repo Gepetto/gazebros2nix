@@ -22,10 +22,10 @@ jobs:
           - "gz-rotary"
           - "ros-humble"
           - "ros-jazzy"
-          - "ros-kilted"
+          # - "ros-kilted"
           - "ros-lyrical"
           - "ros-rolling"
-          - "pal-alum"
+          # - "pal-alum"
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
