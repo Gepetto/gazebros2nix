@@ -607,7 +607,6 @@ final: prev: {
               })
             ];
           };
-
           gz-math-vendor = humble-prev.gz-math-vendor.overrideAttrs {
             postPatch = ''
               substituteInPlace CMakeLists.txt --replace-fail \
