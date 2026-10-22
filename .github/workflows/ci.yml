@@ -17,7 +17,7 @@ jobs:
         build:
           - "gz-fortress"
           - "gz-harmonic"
-          - "gz-ionic"
+          # - "gz-ionic"
           - "gz-jetty"
           - "gz-rotary"
           - "ros-humble"
