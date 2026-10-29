@@ -488,76 +488,6 @@ final: prev: {
             "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
           ];
         };
-        ament-copyright = ros-prev.ament-copyright.overrideAttrs (
-          {
-            postPatch ? "",
-            ...
-          }:
-          {
-            # don't lint files in build/ dir
-            postPatch = postPatch + ''
-              substituteInPlace ament_copyright/crawler.py --replace-fail \
-                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_']]" \
-                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_'] and d != 'build']"
-            '';
-          }
-        );
-        ament-cpplint = ros-prev.ament-cpplint.overrideAttrs (
-          {
-            postPatch ? "",
-            ...
-          }:
-          {
-            # don't lint files in build/ dir
-            postPatch = postPatch + ''
-              substituteInPlace ament_cpplint/main.py --replace-fail \
-                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_']]" \
-                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_'] and d != 'build']"
-            '';
-          }
-        );
-        ament-lint-cmake = ros-prev.ament-lint-cmake.overrideAttrs (
-          {
-            postPatch ? "",
-            ...
-          }:
-          {
-            # don't lint files in build/ dir
-            postPatch = postPatch + ''
-              substituteInPlace ament_lint_cmake/main.py --replace-fail \
-                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_']]" \
-                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_'] and d != 'build']"
-            '';
-          }
-        );
-        ament-mypy = ros-prev.ament-mypy.overrideAttrs (
-          {
-            postPatch ? "",
-            ...
-          }:
-          {
-            # don't lint files in build/ dir
-            postPatch = postPatch + ''
-              substituteInPlace ament_mypy/main.py --replace-fail \
-                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_']]" \
-                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_'] and d != 'build']"
-            '';
-          }
-        );
-        ament-uncrustify = ros-prev.ament-uncrustify.overrideAttrs (
-          {
-            postPatch ? "",
-            ...
-          }:
-          {
-            # don't lint files in build/ dir
-            postPatch = postPatch + ''
-              substituteInPlace ament_uncrustify/main.py --replace-fail \
-                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_']]" \
-                "dirnames[:] = [d for d in dirnames if d[0] not in ['.', '_'] and d != 'build']"
-            '';
-          }
-        );
         ament-xmllint = ros-prev.ament-xmllint.overrideAttrs (
           {
             postPatch ? "",
@@ -667,6 +597,15 @@ final: prev: {
             env.ROS_DISTRO = "humble";
             env.IGNITION_VERSION = "fortress";
             env.IGN_VERSION = "fortress";
+          };
+          ament-cmake-core = humble-prev.ament-cmake-core.overrideAttrs {
+            patches = [
+              (final.fetchpatch2 {
+                url = "https://github.com/ament/ament_cmake/pull/410.patch?full_index=1";
+                stripLen = 1;
+                hash = "sha256-Ov2kVdSj+9hO7OPG6nSL/cg+kiy21lkW7OWtTeMFudM=";
+              })
+            ];
           };
           gz-math-vendor = humble-prev.gz-math-vendor.overrideAttrs {
             postPatch = ''
