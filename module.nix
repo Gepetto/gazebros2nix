@@ -18,7 +18,7 @@
     flake.overlays.gazebros2nix = lib.composeManyExtensions [
       (import ./garbage)
       (import ./generated.nix)
-      (import ./todo.nix)
+      (import ./todo.nix { inherit (flakoboros.lib) tmpOverride; })
       (import ./pal.nix)
     ];
 
