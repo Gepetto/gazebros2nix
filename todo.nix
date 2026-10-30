@@ -707,6 +707,12 @@ final: prev: {
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
                 '';
               };
+              gz-rendering-vendor = jazzy-prev.gz-rendering-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-msgs-vendor = jazzy-prev.gz-msgs-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
@@ -876,6 +882,12 @@ final: prev: {
                 postInstall = "";
               };
               gz-math-vendor = lyrical-prev.gz-math-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
+              gz-rendering-vendor = lyrical-prev.gz-rendering-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
