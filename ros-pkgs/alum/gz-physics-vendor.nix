@@ -37,13 +37,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-gz-physics-vendor";
-  version = "0.0.9";
+  version = "0.0.10";
 
   src = fetchFromGitHub {
     owner = "gazebo-release";
     repo = "gz_physics_vendor";
     tag = version;
-    hash = "sha256-1C7gezFEs3hADVeBAjLw06IlsA788BZLQKkL40FfLxw=";
+    hash = "sha256-2aTF4xIyVpD3ylSENIftQUpbl4SErNsChqd3VXe8dsk=";
   };
   sourceRoot = "source/";
 
@@ -102,7 +102,7 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Vendor package for: gz-physics7 7.8.0
+    description = "Vendor package for: gz-physics7 7.9.0
 
     Gazebo Physics : Physics classes and functions for robot applications";
     license = with lib.licenses; [ asl20 ];

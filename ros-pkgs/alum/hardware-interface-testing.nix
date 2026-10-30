@@ -7,11 +7,10 @@
   ament-cmake,
 
   # buildInputs
-  control-msgs,
-  fmt,
   hardware-interface,
   lifecycle-msgs,
   pluginlib,
+  rclcpp,
   rclcpp-lifecycle,
   ros2-control-cmake,
   ros2-control-test-assets,
@@ -26,13 +25,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-hardware-interface-testing";
-  version = "4.48.0";
+  version = "4.49.0";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control";
     tag = version;
-    hash = "sha256-1CqQ+Zu7v/T7KyTqOrKVHdeSIlEOvNnTwN26p6qxChw=";
+    hash = "sha256-wb3s95kNsBvMB3eT1NeuUEnjg612k13nkC4BqZ1h7K4=";
   };
   sourceRoot = "source/hardware_interface_testing";
 
@@ -46,21 +45,19 @@ buildRosPackage rec {
   ];
   buildInputs = [
     ament-cmake
-    control-msgs
-    fmt
     hardware-interface
     lifecycle-msgs
     pluginlib
+    rclcpp
     rclcpp-lifecycle
     ros2-control-cmake
     ros2-control-test-assets
   ];
   propagatedBuildInputs = [
-    control-msgs
-    fmt
     hardware-interface
     lifecycle-msgs
     pluginlib
+    rclcpp
     rclcpp-lifecycle
     ros2-control-test-assets
   ];

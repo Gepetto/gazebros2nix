@@ -27,7 +27,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-rendering6";
-  version = "6.6.4";
+  version = "6.7.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -35,8 +35,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-rendering";
-    tag = "ignition-rendering6_6.6.4";
-    hash = "sha256-fKsPosKFp/0bQTmoAmZL0vxlreOHhx3jnJ8TUm9LyHE=";
+    tag = "ignition-rendering6_6.7.0";
+    hash = "sha256-a7yRWIuEoksZmOceISSi6QalObUJzB2mdb6dHJcJer4=";
   };
 
   __structuredAttrs = true;

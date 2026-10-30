@@ -42,13 +42,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-gz-rendering-vendor";
-  version = "0.0.7";
+  version = "0.0.8";
 
   src = fetchFromGitHub {
     owner = "gazebo-release";
     repo = "gz_rendering_vendor";
     tag = version;
-    hash = "sha256-vuhGuTENu1lMGLgFy/wMD+TBpvso0O/PKdNESLfqN+8=";
+    hash = "sha256-p0zDDkk17hdSFhm9rg1OyJUHGy/awWYSUq3uDAk8eDY=";
   };
   sourceRoot = "source/";
 
@@ -116,7 +116,7 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Vendor package for: gz-rendering8 8.2.3
+    description = "Vendor package for: gz-rendering8 8.3.0
 
     Gazebo Rendering: Rendering library for robot applications";
     license = with lib.licenses; [ asl20 ];

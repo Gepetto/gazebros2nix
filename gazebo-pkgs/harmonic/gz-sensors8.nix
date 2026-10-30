@@ -28,7 +28,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-harmonic-gz-sensors8";
-  version = "8.2.2";
+  version = "8.3.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -36,8 +36,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sensors";
-    tag = "gz-sensors8_8.2.2";
-    hash = "sha256-TRDMCMesJXVSVGA3bnRngtXTi4VVf0y12AJQ79EEMiI=";
+    tag = "gz-sensors8_8.3.0";
+    hash = "sha256-/FNpDG8IAHzhJEvh7LTEPjatO163t1W3uBV3PQHaLcI=";
   };
 
   __structuredAttrs = true;

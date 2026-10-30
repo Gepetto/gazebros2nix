@@ -30,8 +30,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-fuel-tools";
-    tag = "gz-fuel-tools12_12.0.0-pre1";
-    hash = "sha256-e24s4vV21ubXir/z0cDfkXlQLhpW0PCkl7vMOl51m0E=";
+    tag = "gz-fuel-tools12_12.0.0-pre2";
+    hash = "sha256-4VVDgMos+7Rlr89qVjTCNBu4AKeLuA1MLHOoa0lU/rw=";
   };
 
   __structuredAttrs = true;

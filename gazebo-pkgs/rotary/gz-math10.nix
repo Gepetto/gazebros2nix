@@ -22,8 +22,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-math";
-    tag = "gz-math10_10.0.0-pre1";
-    hash = "sha256-OMoWL1zMaWiKteUrEx+MtHdmsFIwxvbp0nei3s1lrn4=";
+    tag = "gz-math10_10.0.0-pre2";
+    hash = "sha256-iS2icq97Cc1yVRnq9jwUnkbq2AA91bREPSNXQFbPpdk=";
   };
 
   __structuredAttrs = true;

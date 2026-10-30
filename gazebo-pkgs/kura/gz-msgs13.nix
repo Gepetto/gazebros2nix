@@ -25,8 +25,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-msgs";
-    tag = "gz-msgs13_13.0.0-pre1";
-    hash = "sha256-L3zEWYOKxCvryRSNss1cfYQ1iJEiRPU5DawzEvVxWxs=";
+    tag = "gz-msgs13_13.0.0-pre2";
+    hash = "sha256-o7+Clq16hGqcIoSakvUtVZhFNYn3qtI7bB3rU3jc8rw=";
   };
 
   __structuredAttrs = true;

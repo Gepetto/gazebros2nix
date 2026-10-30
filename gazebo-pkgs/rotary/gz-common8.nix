@@ -29,8 +29,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-common";
-    tag = "gz-common8_8.0.0-pre1";
-    hash = "sha256-x7yWY81sNkMs4wyYc/PUHgjShCnbRSdk/lEOAe3V5v4=";
+    tag = "gz-common8_8.0.0-pre2";
+    hash = "sha256-1r9cu/Grme6mZyWLiwxJ3F+h691AMZ3MV33QumBjXNs=";
   };
 
   __structuredAttrs = true;

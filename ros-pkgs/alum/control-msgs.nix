@@ -25,13 +25,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-control-msgs";
-  version = "5.9.0";
+  version = "5.10.0";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "control_msgs";
     tag = version;
-    hash = "sha256-fODL6D1Ia5fJf/Ca4nI83+2pzI/e7XDq2hhfZFMxWQE=";
+    hash = "sha256-CHZC8pGUtgPx/OM8kQQmI+qhrlmPMacFArB0gt9alFA=";
   };
   sourceRoot = "source/control_msgs";
 

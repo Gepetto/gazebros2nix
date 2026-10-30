@@ -12,6 +12,8 @@
   asio-cmake-module,
   curlpp,
   hardware-interface,
+  net-ft-description,
+  net-ft-diagnostic-broadcaster,
   pluginlib,
   rclcpp,
   rclcpp-lifecycle,
@@ -53,6 +55,8 @@ buildRosPackage rec {
     asio-cmake-module
     curlpp
     hardware-interface
+    net-ft-description
+    net-ft-diagnostic-broadcaster
     pluginlib
     rclcpp
     rclcpp-lifecycle
@@ -64,6 +68,8 @@ buildRosPackage rec {
     curl
     curlpp
     hardware-interface
+    net-ft-description
+    net-ft-diagnostic-broadcaster
     pluginlib
     rclcpp
     rclcpp-lifecycle

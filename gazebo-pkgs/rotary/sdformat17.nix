@@ -26,8 +26,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "sdformat";
-    tag = "sdformat17_17.0.0-pre1";
-    hash = "sha256-zt59adjHU1/CA9P3P9bLSDmM2K6JfVXXAT7FJFF1HmU=";
+    tag = "sdformat17_17.0.0-pre2";
+    hash = "sha256-awm0YIqoDKmehZGIf4pcpeN3rMNFLNJPgzscK8lhNSY=";
   };
 
   __structuredAttrs = true;

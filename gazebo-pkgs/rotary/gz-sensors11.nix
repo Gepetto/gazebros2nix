@@ -29,8 +29,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sensors";
-    tag = "gz-sensors11_11.0.0-pre1";
-    hash = "sha256-H23cYzkzN2w+TBXZfuqTeiJLYDp7H4CSeWIs2Lm4UZE=";
+    tag = "gz-sensors11_11.0.0-pre2";
+    hash = "sha256-2WICP5UqGxIzP9gOhQ552i82C+30IPQ6T0QPhUsporo=";
   };
 
   __structuredAttrs = true;

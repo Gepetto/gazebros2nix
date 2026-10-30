@@ -28,7 +28,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-sensors9";
-  version = "9.2.0";
+  version = "9.3.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -36,8 +36,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sensors";
-    tag = "gz-sensors9_9.2.0";
-    hash = "sha256-Vxl3xdmh8ybRbjDxNGt8qgQOP9ctAcYAoVwWeytAglc=";
+    tag = "gz-sensors9_9.3.0";
+    hash = "sha256-sLuW9ykxaYPmF++1Wju7mnLe2LTgPHpKaaE7YFepxys=";
   };
 
   __structuredAttrs = true;

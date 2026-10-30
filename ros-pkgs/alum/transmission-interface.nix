@@ -11,6 +11,7 @@
   fmt,
   hardware-interface,
   pluginlib,
+  rclcpp,
   ros2-control-cmake,
 
   # propagatedBuildInputs
@@ -24,13 +25,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-transmission-interface";
-  version = "4.48.0";
+  version = "4.49.0";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control";
     tag = version;
-    hash = "sha256-1CqQ+Zu7v/T7KyTqOrKVHdeSIlEOvNnTwN26p6qxChw=";
+    hash = "sha256-wb3s95kNsBvMB3eT1NeuUEnjg612k13nkC4BqZ1h7K4=";
   };
   sourceRoot = "source/transmission_interface";
 
@@ -49,12 +50,14 @@ buildRosPackage rec {
     fmt
     hardware-interface
     pluginlib
+    rclcpp
     ros2-control-cmake
   ];
   propagatedBuildInputs = [
     fmt
     hardware-interface
     pluginlib
+    rclcpp
   ];
   checkInputs = [
     ament-cmake-gmock

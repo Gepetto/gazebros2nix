@@ -45,8 +45,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "agimus-project";
     repo = "agimus-franka-ros2";
-    rev = "8a05aced1fae55a09b3f019b6d2645ef45cf002d";
-    hash = "sha256-+LMsdt14tBKIlo0KnfCYFoiYyFYYP4a1QkeEtpzRAIM=";
+    rev = "68860d371b5b1fda26325c1f5c0422fe51424780";
+    hash = "sha256-jdU/MAOiYqDlfqCH0vgmKQr/tNcEhI02hA1get249B0=";
   };
   sourceRoot = "source/agimus_franka_semantic_components";
 

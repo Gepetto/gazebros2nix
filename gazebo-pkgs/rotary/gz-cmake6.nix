@@ -18,8 +18,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-cmake";
-    tag = "gz-cmake6_6.0.0-pre1";
-    hash = "sha256-uCZcA4fzWCuUNxA7M0fYgx8JZhy8INl5J0zS1izg8AU=";
+    tag = "gz-cmake6_6.0.0-pre2";
+    hash = "sha256-OLH+pn0zM3sHBqhBWtbJpb4tcotEbAdBlqO/cSMna3U=";
   };
 
   __structuredAttrs = true;

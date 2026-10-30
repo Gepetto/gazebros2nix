@@ -31,8 +31,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-transport";
-    tag = "gz-transport16_16.0.0-pre1";
-    hash = "sha256-FqHWKoFHrRHAcEOjx6bo4aKpVv0EOYSo0DyS0N7eVIM=";
+    tag = "gz-transport16_16.0.0-pre2";
+    hash = "sha256-dKgcOyKMF7J+Yy5pJE9MtYAmekVLp6VpqtSsxrt2k4A=";
   };
 
   __structuredAttrs = true;
