@@ -21,8 +21,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-plugin";
-    tag = "gz-plugin5_5.0.0-pre1";
-    hash = "sha256-K9DNJSQ6JBKdMv2zmhrDOrTWF6V3N2C7gTVGZWj/Ues=";
+    tag = "gz-plugin5_5.0.0-pre2";
+    hash = "sha256-hunkI9vEcYZ8x2RCnXI9Pb5kFBeEiWlp7T5rR7MQJIk=";
   };
 
   __structuredAttrs = true;

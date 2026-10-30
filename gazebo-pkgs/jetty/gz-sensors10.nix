@@ -22,7 +22,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-sensors10";
-  version = "10.1.1";
+  version = "10.2.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -30,8 +30,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sensors";
-    tag = "gz-sensors10_10.1.1";
-    hash = "sha256-rSfTxdEpeFkhg3NMvGgc9PrMal3qkUuLW7R/FCLOd/w=";
+    tag = "gz-sensors10_10.2.0";
+    hash = "sha256-BVQQu8jElyLgj9kN3sMOZrCxKS5TKqXFmEDCNoCvmm4=";
   };
 
   __structuredAttrs = true;

@@ -48,8 +48,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sim";
-    tag = "gz-sim11_11.0.0-pre1";
-    hash = "sha256-x1LzlEtu/Q2DnuZTWQ0p8hAFF/RwMH011tTuQa9XWBs=";
+    tag = "gz-sim11_11.0.0-pre3";
+    hash = "sha256-3VxjIbvRjAz+aZbtOfIHNjDhX2xmT+VrRgKI3FjoQTc=";
   };
 
   __structuredAttrs = true;

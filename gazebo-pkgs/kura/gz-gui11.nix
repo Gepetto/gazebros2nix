@@ -31,8 +31,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-gui";
-    tag = "gz-gui11_11.0.0-pre1";
-    hash = "sha256-8GMqeGAFAYhOlAXdUozG5apKau3EKJYt6/bYeIHOi4I=";
+    tag = "gz-gui11_11.0.0-pre2";
+    hash = "sha256-WFau+OzbHw0ZxvM4jZh3NWgXwhoOsoMcHuNzvYFsKwU=";
   };
 
   __structuredAttrs = true;

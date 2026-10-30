@@ -36,13 +36,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-gz-sensors-vendor";
-  version = "0.0.6";
+  version = "0.0.7";
 
   src = fetchFromGitHub {
     owner = "gazebo-release";
     repo = "gz_sensors_vendor";
     tag = version;
-    hash = "sha256-pDFtXaG0iGacqzSfNZieFqDJDxD3nimkSUK7gWt99Ug=";
+    hash = "sha256-1+EAJoydQp9Sh57j9n1am/ayp7EQbmaH+kjXnIkkx18=";
   };
   sourceRoot = "source/";
 
@@ -98,7 +98,7 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Vendor package for: gz-sensors8 8.2.2
+    description = "Vendor package for: gz-sensors8 8.3.0
 
     Gazebo Sensors : Sensor models for simulation";
     license = with lib.licenses; [ asl20 ];

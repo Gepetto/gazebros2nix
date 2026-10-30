@@ -11,6 +11,7 @@
   backward-ros,
   fmt,
   pluginlib,
+  rcl-interfaces,
   rclcpp,
   rclcpp-lifecycle,
   realtime-tools,
@@ -25,19 +26,20 @@
   generate-parameter-library,
   launch-ros,
   launch-testing-ament-cmake,
+  lifecycle-msgs,
 
   # nativeCheckInputs
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-joint-limits";
-  version = "4.48.0";
+  version = "4.49.0";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control";
     tag = version;
-    hash = "sha256-1CqQ+Zu7v/T7KyTqOrKVHdeSIlEOvNnTwN26p6qxChw=";
+    hash = "sha256-wb3s95kNsBvMB3eT1NeuUEnjg612k13nkC4BqZ1h7K4=";
   };
   sourceRoot = "source/joint_limits";
 
@@ -56,6 +58,7 @@ buildRosPackage rec {
     backward-ros
     fmt
     pluginlib
+    rcl-interfaces
     rclcpp
     rclcpp-lifecycle
     realtime-tools
@@ -67,6 +70,7 @@ buildRosPackage rec {
     backward-ros
     fmt
     pluginlib
+    rcl-interfaces
     rclcpp
     rclcpp-lifecycle
     realtime-tools
@@ -78,6 +82,7 @@ buildRosPackage rec {
     generate-parameter-library
     launch-ros
     launch-testing-ament-cmake
+    lifecycle-msgs
   ];
   nativeCheckInputs = [
     writableTmpDirAsHomeHook

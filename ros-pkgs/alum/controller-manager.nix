@@ -12,6 +12,7 @@
   backward-ros,
   controller-interface,
   controller-manager-msgs,
+  diagnostic-msgs,
   diagnostic-updater,
   fmt,
   generate-parameter-library,
@@ -19,7 +20,10 @@
   libstatistics-collector,
   lifecycle-msgs,
   pluginlib,
+  rcl,
+  rcl-interfaces,
   rclcpp,
+  rclcpp-lifecycle,
   realtime-tools,
   ros2-control-cmake,
   std-msgs,
@@ -29,7 +33,6 @@
   launch-ros,
   launch-testing-ros,
   python3Packages,
-  rcl-interfaces,
   rclpy,
   ros2param,
   sensor-msgs,
@@ -37,10 +40,10 @@
   # checkInputs
   ament-cmake-gmock,
   ament-cmake-pytest,
-  diagnostic-msgs,
   example-interfaces,
   hardware-interface-testing,
   launch-testing,
+  launch-testing-ament-cmake,
   robot-state-publisher,
   ros2-control-test-assets,
   ros2pkg,
@@ -50,13 +53,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-controller-manager";
-  version = "4.48.0";
+  version = "4.49.0";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control";
     tag = version;
-    hash = "sha256-1CqQ+Zu7v/T7KyTqOrKVHdeSIlEOvNnTwN26p6qxChw=";
+    hash = "sha256-wb3s95kNsBvMB3eT1NeuUEnjg612k13nkC4BqZ1h7K4=";
   };
   sourceRoot = "source/controller_manager";
 
@@ -78,6 +81,7 @@ buildRosPackage rec {
     backward-ros
     controller-interface
     controller-manager-msgs
+    diagnostic-msgs
     diagnostic-updater
     fmt
     generate-parameter-library
@@ -85,7 +89,10 @@ buildRosPackage rec {
     libstatistics-collector
     lifecycle-msgs
     pluginlib
+    rcl
+    rcl-interfaces
     rclcpp
+    rclcpp-lifecycle
     realtime-tools
     ros2-control-cmake
     std-msgs
@@ -94,6 +101,7 @@ buildRosPackage rec {
     backward-ros
     controller-interface
     controller-manager-msgs
+    diagnostic-msgs
     diagnostic-updater
     fmt
     generate-parameter-library
@@ -106,8 +114,10 @@ buildRosPackage rec {
     pluginlib
     python3Packages.filelock
     python3Packages.pyyaml
+    rcl
     rcl-interfaces
     rclcpp
+    rclcpp-lifecycle
     rclpy
     realtime-tools
     ros2param
@@ -117,10 +127,10 @@ buildRosPackage rec {
   checkInputs = [
     ament-cmake-gmock
     ament-cmake-pytest
-    diagnostic-msgs
     example-interfaces
     hardware-interface-testing
     launch-testing
+    launch-testing-ament-cmake
     python3Packages.coverage
     robot-state-publisher
     ros2-control-test-assets

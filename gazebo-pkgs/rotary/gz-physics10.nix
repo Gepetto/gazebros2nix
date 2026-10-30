@@ -28,8 +28,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-physics";
-    tag = "gz-physics10_10.0.0-pre1";
-    hash = "sha256-2nnXivxevWzRFlf31XmIdcQt4FAklGMKIs0WdOYBqaY=";
+    tag = "gz-physics10_10.0.0-pre2";
+    hash = "sha256-Fe3S1AnTRQDtsXd4fvPnpCHTtoE26cFomRKeLBfHCIA=";
   };
 
   __structuredAttrs = true;

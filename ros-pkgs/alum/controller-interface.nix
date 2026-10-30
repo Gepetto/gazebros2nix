@@ -10,31 +10,34 @@
   # buildInputs
   fmt,
   hardware-interface,
+  joint-limits,
+  lifecycle-msgs,
   pal-statistics,
+  rclcpp,
   rclcpp-lifecycle,
   realtime-tools,
   ros2-control-cmake,
 
   # propagatedBuildInputs
-
-  # checkInputs
-  ament-cmake-gmock,
   geometry-msgs,
   sensor-msgs,
   std-msgs,
+
+  # checkInputs
+  ament-cmake-gmock,
 
   # nativeCheckInputs
   writableTmpDirAsHomeHook,
 }:
 buildRosPackage rec {
   pname = "ros-alum-controller-interface";
-  version = "4.48.0";
+  version = "4.49.0";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control";
     tag = version;
-    hash = "sha256-1CqQ+Zu7v/T7KyTqOrKVHdeSIlEOvNnTwN26p6qxChw=";
+    hash = "sha256-wb3s95kNsBvMB3eT1NeuUEnjg612k13nkC4BqZ1h7K4=";
   };
   sourceRoot = "source/controller_interface";
 
@@ -52,21 +55,29 @@ buildRosPackage rec {
     ament-cmake-gen-version-h
     fmt
     hardware-interface
+    joint-limits
+    lifecycle-msgs
     pal-statistics
+    rclcpp
     rclcpp-lifecycle
     realtime-tools
     ros2-control-cmake
   ];
   propagatedBuildInputs = [
+    fmt
+    geometry-msgs
     hardware-interface
+    joint-limits
+    lifecycle-msgs
+    pal-statistics
+    rclcpp
     rclcpp-lifecycle
     realtime-tools
+    sensor-msgs
+    std-msgs
   ];
   checkInputs = [
     ament-cmake-gmock
-    geometry-msgs
-    sensor-msgs
-    std-msgs
   ];
   nativeCheckInputs = [
     writableTmpDirAsHomeHook

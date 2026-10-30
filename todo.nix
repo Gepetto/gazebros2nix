@@ -1,3 +1,7 @@
+{
+  tmpOverride,
+  ...
+}:
 final: prev: {
   # keep-sorted start block=yes
   example-robot-data = prev.example-robot-data.overrideAttrs {
@@ -93,14 +97,6 @@ final: prev: {
               '"../../..//nix/store' \
               '"/nix/store'
           '';
-        };
-        gz-rendering8 = harmonic-prev.gz-rendering8.overrideAttrs {
-          patches = [
-            (final.fetchpatch {
-              url = "https://github.com/gazebosim/gz-rendering/commit/80b6a05e535cc818d6f8590bc86f6a823f35e471.patch?full_index=1";
-              hash = "sha256-ekKz8p2YBLLakVijhGS6+e6x98Zl8kx4Hg3PRJDkM5M=";
-            })
-          ];
         };
         gz-tools2 = harmonic-prev.gz-tools2.overrideAttrs {
           postFixup = ''
@@ -462,13 +458,6 @@ final: prev: {
         agimus-franka-description = ros-prev.agimus-franka-description.overrideAttrs amentInstallCheckOverride;
         agimus-franka-example-controllers = ros-prev.agimus-franka-example-controllers.overrideAttrs amentInstallCheckOverride;
         agimus-franka-fr3-moveit-config = ros-prev.agimus-franka-fr3-moveit-config.overrideAttrs amentInstallCheckOverride;
-        agimus-franka-hardware = ros-prev.agimus-franka-hardware.overrideAttrs {
-          # https://github.com/agimus-project/agimus-franka-ros2/pull/11
-          postPatch = ''
-            substituteInPlace src/agimus_franka_hardware_interface.cpp \
-              --replace-fail "<fmt/core.h>" "<fmt/format.h>"
-          '';
-        };
         agimus-franka-msgs = ros-prev.agimus-franka-msgs.overrideAttrs {
           cmakeFlags = [
             "-DCMAKE_SKIP_BUILD_RPATH=ON"
@@ -707,13 +696,25 @@ final: prev: {
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
                 '';
               };
+              gz-msgs-vendor = jazzy-prev.gz-msgs-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
+              gz-physics-vendor = jazzy-prev.gz-physics-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-rendering-vendor = jazzy-prev.gz-rendering-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
                 '';
               };
-              gz-msgs-vendor = jazzy-prev.gz-msgs-vendor.overrideAttrs {
+              gz-sensors-vendor = jazzy-prev.gz-sensors-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
@@ -805,6 +806,7 @@ final: prev: {
           (
             _kilted-final: kilted-prev: {
               # keep-sorted start block=yes
+
               gz-dartsim-vendor = kilted-prev.gz-dartsim-vendor.overrideAttrs {
                 # env.GZ_RELAX_VERSION_MATCH = ""; TODO
                 postPatch = ''
@@ -822,6 +824,18 @@ final: prev: {
                 '';
               };
               gz-msgs-vendor = kilted-prev.gz-msgs-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
+              gz-physics-vendor = kilted-prev.gz-physics-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
+              gz-sensors-vendor = kilted-prev.gz-sensors-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
@@ -887,13 +901,19 @@ final: prev: {
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
                 '';
               };
+              gz-physics-vendor = lyrical-prev.gz-physics-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-rendering-vendor = lyrical-prev.gz-rendering-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
                 '';
               };
-              gz-physics-vendor = lyrical-prev.gz-physics-vendor.overrideAttrs {
+              gz-sensors-vendor = lyrical-prev.gz-sensors-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
@@ -903,6 +923,17 @@ final: prev: {
                 postFixup = "";
                 qtWrapperArgs = [ ];
               };
+              linear-feedback-controller =
+                (tmpOverride lyrical-prev.linear-feedback-controller "4.0.4-r1").overrideAttrs
+                  {
+                    version = "4.1.0";
+                    src = final.fetchFromGitHub {
+                      owner = "loco-3d";
+                      repo = "linear-feedback-controller";
+                      tag = "v4.1.0";
+                      hash = "sha256-vkOKC82bTMDFbTAULx27PT72f7Wrd98L489OWlPQ5/E=";
+                    };
+                  };
               # keep-sorted end
             }
           );
@@ -950,6 +981,17 @@ final: prev: {
                 postFixup = "";
                 qtWrapperArgs = [ ];
               };
+              linear-feedback-controller =
+                (tmpOverride rolling-prev.linear-feedback-controller "4.0.4-r1").overrideAttrs
+                  {
+                    version = "4.1.0";
+                    src = final.fetchFromGitHub {
+                      owner = "loco-3d";
+                      repo = "linear-feedback-controller";
+                      tag = "v4.1.0";
+                      hash = "sha256-vkOKC82bTMDFbTAULx27PT72f7Wrd98L489OWlPQ5/E=";
+                    };
+                  };
               parameter-traits = null;
               # keep-sorted end
             }

@@ -35,8 +35,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-rendering";
-    tag = "gz-rendering11_11.0.0-pre1";
-    hash = "sha256-WWQS11ScmdQImEnb9jMOqv/I2RDEZZGZ+ofCy87Nnm4=";
+    tag = "gz-rendering11_11.0.0-pre2";
+    hash = "sha256-LMuQ0U1FUOt9oJUSZ7icaOoj9Flng7dlJPi2hnw2kXY=";
   };
 
   __structuredAttrs = true;
@@ -69,6 +69,7 @@ stdenv.mkDerivation {
     xorg.xorgserver
   ];
   nativeCheckInputs = [
+    boost
     freeglut
     glew
     gz-common

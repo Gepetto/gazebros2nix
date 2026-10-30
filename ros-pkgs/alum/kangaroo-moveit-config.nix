@@ -28,13 +28,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-kangaroo-moveit-config";
-  version = "2.2.2";
+  version = "2.3.0";
 
   src = fetchFromGitHub {
     owner = "pal-robotics";
     repo = "kangaroo_moveit_config";
     tag = version;
-    hash = "sha256-x2sbNLiJR3dNoF3vLWj31xqz+yrSXgMssJCcBj12Wjc=";
+    hash = "sha256-jX667A1wJADj4MqCvoPA5+Ld1ltiZBuZ6qf5iDN7zoY=";
   };
   sourceRoot = "source/";
 

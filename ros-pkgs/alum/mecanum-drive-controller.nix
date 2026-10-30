@@ -39,13 +39,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-mecanum-drive-controller";
-  version = "4.42.1";
+  version = "4.43.0";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_controllers";
     tag = version;
-    hash = "sha256-dTNDmlrMMiny5r5HY1VrvqpYWPdQT1zKVen8KuvF++s=";
+    hash = "sha256-OIOKhwufDAVOb1wtWNTZ4gvnuUqBHtgSPVi8TjRdpLE=";
   };
   sourceRoot = "source/mecanum_drive_controller";
 

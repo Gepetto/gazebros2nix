@@ -20,7 +20,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-physics5";
-  version = "5.4.0";
+  version = "5.4.1";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -28,8 +28,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-physics";
-    tag = "ignition-physics5_5.4.0";
-    hash = "sha256-nHtxWJtp69iJzojz0G4Cc+vEPOBHQtOdD5N0zR5uBZg=";
+    tag = "ignition-physics5_5.4.1";
+    hash = "sha256-+Nj8bRUIEMLj+UhQ3s5r4Sri4PIPFz5yNyS3veb+Ejg=";
   };
 
   __structuredAttrs = true;

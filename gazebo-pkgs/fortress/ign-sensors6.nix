@@ -21,7 +21,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-sensors6";
-  version = "6.9.0";
+  version = "6.10.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -29,8 +29,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sensors";
-    tag = "ignition-sensors6_6.9.0";
-    hash = "sha256-6Elq0T1g0HdpDIOt9aIUuSpfhRXySRt8wKAVO8bLKNk=";
+    tag = "ignition-sensors6_6.10.0";
+    hash = "sha256-cVH4BwGOxZg8zIhBeJaB4NMaKwZMtIZeahPrZk45TZ4=";
   };
 
   __structuredAttrs = true;

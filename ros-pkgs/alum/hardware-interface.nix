@@ -12,19 +12,21 @@
   control-msgs,
   fmt,
   joint-limits,
+  libstatistics-collector,
   lifecycle-msgs,
   pal-statistics,
   pluginlib,
+  rclcpp,
   rclcpp-lifecycle,
   rcpputils,
   rcutils,
   realtime-tools,
   ros2-control-cmake,
-  sdformat-urdf,
-  tinyxml2-vendor,
+  tinyxml-2,
   urdf,
 
   # propagatedBuildInputs
+  sdformat-urdf,
 
   # checkInputs
   ament-cmake-gmock,
@@ -35,13 +37,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-hardware-interface";
-  version = "4.48.0";
+  version = "4.49.0";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control";
     tag = version;
-    hash = "sha256-1CqQ+Zu7v/T7KyTqOrKVHdeSIlEOvNnTwN26p6qxChw=";
+    hash = "sha256-wb3s95kNsBvMB3eT1NeuUEnjg612k13nkC4BqZ1h7K4=";
   };
   sourceRoot = "source/hardware_interface";
 
@@ -61,16 +63,17 @@ buildRosPackage rec {
     control-msgs
     fmt
     joint-limits
+    libstatistics-collector
     lifecycle-msgs
     pal-statistics
     pluginlib
+    rclcpp
     rclcpp-lifecycle
     rcpputils
     rcutils
     realtime-tools
     ros2-control-cmake
-    sdformat-urdf
-    tinyxml2-vendor
+    tinyxml-2
     urdf
   ];
   propagatedBuildInputs = [
@@ -78,15 +81,17 @@ buildRosPackage rec {
     control-msgs
     fmt
     joint-limits
+    libstatistics-collector
     lifecycle-msgs
     pal-statistics
     pluginlib
+    rclcpp
     rclcpp-lifecycle
     rcpputils
     rcutils
     realtime-tools
     sdformat-urdf
-    tinyxml2-vendor
+    tinyxml-2
     urdf
   ];
   checkInputs = [
