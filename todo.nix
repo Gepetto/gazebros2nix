@@ -39,7 +39,7 @@ final: prev: {
           patches = [
             (final.fetchpatch2 {
               url = "https://github.com/gazebosim/gz-gui/pull/696.patch?full_index=1";
-              hash = "sha256-MCAkRp7unMx9r2WZnR4vbUpJAeU6Bpku2E7IyAmLoIM=";
+              hash = "sha256-NIk6UAViwK/qwPk4LiyByZkfDEuh7Tc9RdHyRXRjd4I=";
             })
           ];
         };
