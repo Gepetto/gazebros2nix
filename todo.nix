@@ -1,5 +1,5 @@
 {
-  tmpOverride,
+  # tmpOverride,
   ...
 }:
 final: prev: {
@@ -923,17 +923,6 @@ final: prev: {
                 postFixup = "";
                 qtWrapperArgs = [ ];
               };
-              linear-feedback-controller =
-                (tmpOverride lyrical-prev.linear-feedback-controller "4.0.4-r1").overrideAttrs
-                  {
-                    version = "4.1.0";
-                    src = final.fetchFromGitHub {
-                      owner = "loco-3d";
-                      repo = "linear-feedback-controller";
-                      tag = "v4.1.0";
-                      hash = "sha256-vkOKC82bTMDFbTAULx27PT72f7Wrd98L489OWlPQ5/E=";
-                    };
-                  };
               # keep-sorted end
             }
           );
@@ -981,17 +970,6 @@ final: prev: {
                 postFixup = "";
                 qtWrapperArgs = [ ];
               };
-              linear-feedback-controller =
-                (tmpOverride rolling-prev.linear-feedback-controller "4.0.4-r1").overrideAttrs
-                  {
-                    version = "4.1.0";
-                    src = final.fetchFromGitHub {
-                      owner = "loco-3d";
-                      repo = "linear-feedback-controller";
-                      tag = "v4.1.0";
-                      hash = "sha256-vkOKC82bTMDFbTAULx27PT72f7Wrd98L489OWlPQ5/E=";
-                    };
-                  };
               parameter-traits = null;
               # keep-sorted end
             }
