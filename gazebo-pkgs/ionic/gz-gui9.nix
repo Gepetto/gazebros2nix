@@ -31,7 +31,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-gui9";
-  version = "9.0.2";
+  version = "9.1.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -39,8 +39,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-gui";
-    tag = "gz-gui9_9.0.2";
-    hash = "sha256-2HA9Ah2QdC9VmYAJdC/36Kiin9lJJbSOT9YlJj3VwU8=";
+    tag = "gz-gui9_9.1.0";
+    hash = "sha256-DipcUhpI+x+hxmLnWqdfSFxKlTVhfTSjH1oOX4Jq+Bo=";
   };
 
   __structuredAttrs = true;

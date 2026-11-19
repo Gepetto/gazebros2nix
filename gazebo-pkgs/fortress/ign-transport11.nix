@@ -23,7 +23,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-transport11";
-  version = "11.4.2";
+  version = "11.4.3";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -31,8 +31,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-transport";
-    tag = "ignition-transport11_11.4.2";
-    hash = "sha256-lYstBoT+o2uza1gRCbF+BWyS2JLSm1E30B1NJsVNArE=";
+    tag = "ignition-transport11_11.4.3";
+    hash = "sha256-1FWX9q1gz/Ud5AdJZ+Nja6TXJ+oD3mMHVEFKUkixiCo=";
   };
 
   __structuredAttrs = true;

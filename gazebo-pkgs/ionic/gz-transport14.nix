@@ -25,7 +25,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-transport14";
-  version = "14.3.0";
+  version = "14.4.1";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -33,8 +33,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-transport";
-    tag = "gz-transport14_14.3.0";
-    hash = "sha256-IoUrcPpZGduwK0v/B2XHOsHtWaffJ5BxVoY2P5TtWME=";
+    tag = "gz-transport14_14.4.1";
+    hash = "sha256-Kd+mWBxVwIxbXvgqjwT0ORRHHaICZEvKZ0Kemjd6Xwc=";
   };
 
   __structuredAttrs = true;

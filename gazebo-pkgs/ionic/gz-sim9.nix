@@ -50,7 +50,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-sim9";
-  version = "9.6.0";
+  version = "9.7.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -58,8 +58,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-sim";
-    tag = "gz-sim9_9.6.0";
-    hash = "sha256-/vOJWiEXcHwMdiwAghyiaPyTcq3KahCZkcWSkWfdwhk=";
+    tag = "gz-sim9_9.7.0";
+    hash = "sha256-WsR6NKmSL1lKdrGZpS16oxFj8mOUGFJ4PQUOkfMmORU=";
   };
 
   __structuredAttrs = true;

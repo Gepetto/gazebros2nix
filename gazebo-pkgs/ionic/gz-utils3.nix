@@ -12,7 +12,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-utils3";
-  version = "3.1.1";
+  version = "3.2.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -20,8 +20,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-utils";
-    tag = "gz-utils3_3.1.1";
-    hash = "sha256-fYzysdB608jfMb/EbqiGD4hXmPxcaVTUrt9Wx0dBlto=";
+    tag = "gz-utils3_3.2.0";
+    hash = "sha256-G0Wog6S4RASkalhwSOawU/0DjZlsoYHBf6y/oDLRfdc=";
   };
 
   __structuredAttrs = true;
