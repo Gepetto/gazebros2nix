@@ -39,13 +39,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-gz-transport-vendor";
-  version = "0.0.9";
+  version = "0.0.10";
 
   src = fetchFromGitHub {
     owner = "gazebo-release";
     repo = "gz_transport_vendor";
     tag = version;
-    hash = "sha256-FXcuLljrPVl/8hmUVtdOSCdlpH5ks2op8LZFAst3Bg4=";
+    hash = "sha256-yfsXSZCyvmvHXiYYA4H08nj60wtsGnihOTPe2MM7E6s=";
   };
   sourceRoot = "source/";
 
@@ -112,7 +112,7 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Vendor package for: gz-transport13 13.6.0
+    description = "Vendor package for: gz-transport13 13.7.0
 
     Gazebo Transport: Provides fast and efficient asynchronous message passing, services, and data logging.";
     license = with lib.licenses; [ asl20 ];

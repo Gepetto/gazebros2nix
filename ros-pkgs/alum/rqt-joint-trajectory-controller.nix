@@ -27,13 +27,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-rqt-joint-trajectory-controller";
-  version = "4.43.0";
+  version = "4.43.1";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_controllers";
     tag = version;
-    hash = "sha256-OIOKhwufDAVOb1wtWNTZ4gvnuUqBHtgSPVi8TjRdpLE=";
+    hash = "sha256-xlaASWjMrASxgCu4Jw6WGSfwBZiWZegKLo9Fd2pjVC8=";
   };
   sourceRoot = "source/rqt_joint_trajectory_controller";
 

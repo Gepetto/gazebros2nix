@@ -27,13 +27,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-realtime-tools";
-  version = "3.13.0";
+  version = "3.15.0";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "realtime_tools";
     tag = version;
-    hash = "sha256-OeAsM0ANjZWOau2T8keBGs5pwkkmEMGkkvekZp3MAr4=";
+    hash = "sha256-qd9Mzdk3mVrN4DsUGnm6t9teqF8mipqFecsB3+0dujc=";
   };
   sourceRoot = "source/realtime_tools";
 

@@ -25,13 +25,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-transmission-interface";
-  version = "4.49.0";
+  version = "4.50.0";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control";
     tag = version;
-    hash = "sha256-wb3s95kNsBvMB3eT1NeuUEnjg612k13nkC4BqZ1h7K4=";
+    hash = "sha256-ns2mLL0roGgQq+OCkDg9drTkQae4+whBp62zEkrQvPU=";
   };
   sourceRoot = "source/transmission_interface";
 

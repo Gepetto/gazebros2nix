@@ -37,13 +37,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-steering-controllers-library";
-  version = "4.43.0";
+  version = "4.43.1";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_controllers";
     tag = version;
-    hash = "sha256-OIOKhwufDAVOb1wtWNTZ4gvnuUqBHtgSPVi8TjRdpLE=";
+    hash = "sha256-xlaASWjMrASxgCu4Jw6WGSfwBZiWZegKLo9Fd2pjVC8=";
   };
   sourceRoot = "source/steering_controllers_library";
 
