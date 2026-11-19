@@ -770,9 +770,6 @@ final: prev: {
           (
             _lyrical-final: lyrical-prev: {
               # keep-sorted start block=yes
-              gz-gui-vendor = lyrical-prev.gz-gui-vendor.overrideAttrs {
-                postInstall = "";
-              };
               gz-tools-vendor = lyrical-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
@@ -789,9 +786,6 @@ final: prev: {
           (
             _rolling-final: rolling-prev: {
               # keep-sorted start block=yes
-              gz-gui-vendor = rolling-prev.gz-gui-vendor.overrideAttrs {
-                postInstall = "";
-              };
               gz-tools-vendor = rolling-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
