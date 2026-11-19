@@ -35,7 +35,7 @@ final: prev: {
         ign-common4 = fortress-prev.ign-common4.overrideAttrs (super: {
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
         });
-        ign-gui6 = fortress-prev.ign-gui6.overrideAttrs {
+        ign-gui6 = (tmpOverride fortress-prev.ign-gui6 "6.9.0").overrideAttrs {
           patches = [
             (final.fetchpatch2 {
               url = "https://github.com/gazebosim/gz-gui/pull/696.patch?full_index=1";
@@ -46,7 +46,7 @@ final: prev: {
         ign-rendering6 = fortress-prev.ign-rendering6.overrideAttrs (super: {
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
         });
-        ign-tools1 = fortress-prev.ign-tools1.overrideAttrs {
+        ign-tools1 = (tmpOverride fortress-prev.ign-tools1 "1.5.0").overrideAttrs {
           # ref. https://github.com/gazebosim/gz-tools/pull/173 merged
           postPatch = ''
             substituteInPlace CMakeLists.txt --replace-fail \
@@ -72,11 +72,11 @@ final: prev: {
 
         # keep-sorted start block=yes
 
-        gz-gui8 = harmonic-prev.gz-gui8.overrideAttrs {
+        gz-gui8 = (tmpOverride harmonic-prev.gz-gui8 "8.4.0").overrideAttrs {
           patches = [
             (final.fetchpatch2 {
-              url = "https://github.com/gazebosim/gz-gui/pull/677.patch?full_index=1";
-              hash = "sha256-JQgHaNAOv36K4c+i+Fn5+ZRb0LK9E7UExm2SKBYKKFo=";
+              url = "https://github.com/gazebosim/gz-gui/pull/700.patch?full_index=1";
+              hash = "sha256-MId7fumD01PSsAUtRw1sydLNQJLxakiPDcSwale8K20=";
             })
             (final.fetchpatch2 {
               url = "https://github.com/gazebosim/gz-gui/pull/745.patch?full_index=1";
@@ -84,7 +84,7 @@ final: prev: {
             })
           ];
         };
-        gz-launch7 = harmonic-prev.gz-launch7.overrideAttrs {
+        gz-launch7 = (tmpOverride harmonic-prev.gz-launch7 "7.1.2").overrideAttrs {
           # ref. https://github.com/gazebosim/gz-launch/pull/329
           postPatch = ''
             substituteInPlace plugins/websocket_server/WebsocketServer.cc \
@@ -123,7 +123,7 @@ final: prev: {
 
         # keep-sorted start block=yes
 
-        gz-launch8 = ionic-prev.gz-launch8.overrideAttrs {
+        gz-launch8 = (tmpOverride ionic-prev.gz-launch8 "8.0.3").overrideAttrs {
           # ref. https://github.com/gazebosim/gz-launch/pull/330
           postPatch = ''
             substituteInPlace plugins/websocket_server/WebsocketServer.cc \
@@ -587,10 +587,10 @@ final: prev: {
             env.IGNITION_VERSION = "fortress";
             env.IGN_VERSION = "fortress";
           };
-          ament-cmake-core = humble-prev.ament-cmake-core.overrideAttrs {
+          ament-cmake-core = (tmpOverride humble-prev.ament-cmake-core "1.3.15-r1").overrideAttrs {
             patches = [
               (final.fetchpatch2 {
-                url = "https://github.com/ament/ament_cmake/pull/410.patch?full_index=1";
+                url = "https://github.com/ament/ament_cmake/pull/652.patch?full_index=1";
                 stripLen = 1;
                 hash = "sha256-Ov2kVdSj+9hO7OPG6nSL/cg+kiy21lkW7OWtTeMFudM=";
               })
@@ -644,7 +644,7 @@ final: prev: {
             ];
           });
           ros-gz-sim-demos = null; # wants qt-gui-cpp, where qt5 and python 3.13 are not compatible
-          sdformat-urdf = humble-prev.sdformat-urdf.overrideAttrs {
+          sdformat-urdf = (tmpOverride humble-prev.sdformat-urdf "1.0.1-r1").overrideAttrs {
             # ref. https://github.com/ros/sdformat_urdf/pull/41 merged
             postPatch = ''
               substituteInPlace CMakeLists.txt --replace-fail \
@@ -783,7 +783,7 @@ final: prev: {
               #     jazzy-final.gz-tools
               #   ];
               # });
-              sdformat-urdf = jazzy-prev.sdformat-urdf.overrideAttrs {
+              sdformat-urdf = (tmpOverride jazzy-prev.sdformat-urdf "1.0.2-r1").overrideAttrs {
                 postPatch = ''
                   # ref. https://github.com/ros/sdformat_urdf/pull/42
                   substituteInPlace CMakeLists.txt --replace-fail \
@@ -857,7 +857,7 @@ final: prev: {
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
                 '';
               };
-              sdformat-urdf = kilted-prev.sdformat-urdf.overrideAttrs {
+              sdformat-urdf = (tmpOverride kilted-prev.sdformat-urdf "2.0.1-r2").overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "find_package(urdfdom_headers 1.0.6 REQUIRED)" \
