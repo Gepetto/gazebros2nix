@@ -545,13 +545,11 @@ final: prev: {
             final.lib.nameValuePair "${pkg}-vendor" (
               ros-prev."${pkg}-vendor".overrideAttrs (
                 {
-                  # cmakeFlags ? [ ],
                   propagatedBuildInputs ? [ ],
                   ...
                 }:
                 {
-                  # cmakeFlags = cmakeFlags ++ [ (final.lib.cmakeFeature "AMENT_VENDOR_POLICY" "NEVER_VENDOR") ];
-                  cmakeFlags = [ (final.lib.cmakeFeature "AMENT_VENDOR_POLICY" "NEVER_VENDOR") ];
+                  env.GZ_RELAX_VERSION_MATCH = "1";
                   propagatedBuildInputs = propagatedBuildInputs ++ [ ros-final."${pkg}" ];
                 }
               )
@@ -588,12 +586,6 @@ final: prev: {
                 hash = "sha256-Ov2kVdSj+9hO7OPG6nSL/cg+kiy21lkW7OWtTeMFudM=";
               })
             ];
-          };
-          gz-math-vendor = humble-prev.gz-math-vendor.overrideAttrs {
-            postPatch = ''
-              substituteInPlace CMakeLists.txt --replace-fail \
-                "$""{VERSION_MATCH} $""{LIB_VER}" ""
-            '';
           };
           launch-testing = humble-prev.launch-testing.overrideAttrs (super: {
             patches = (super.patches or [ ]) ++ [
@@ -674,67 +666,12 @@ final: prev: {
               };
               gazebo-planar-move-plugin = null;
 
-              gz-cmake-vendor = jazzy-prev.gz-cmake-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-dartsim-vendor = jazzy-prev.gz-dartsim-vendor.overrideAttrs {
-                # env.GZ_RELAX_VERSION_MATCH = ""; TODO
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
-                '';
-              };
               gz-gui-vendor = jazzy-prev.gz-gui-vendor.overrideAttrs {
                 postInstall = "";
-              };
-              gz-math-vendor = jazzy-prev.gz-math-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-msgs-vendor = jazzy-prev.gz-msgs-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-physics-vendor = jazzy-prev.gz-physics-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-rendering-vendor = jazzy-prev.gz-rendering-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-sensors-vendor = jazzy-prev.gz-sensors-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-sim-vendor = jazzy-prev.gz-sim-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
               };
               gz-tools-vendor = jazzy-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
-              };
-              gz-transport-vendor = jazzy-prev.gz-transport-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
               };
               motkin-dual-motor-testbed-bringup = jazzy-prev.motkin-dual-motor-testbed-bringup.overrideAttrs {
                 doCheck = false; # TODO: cppcheck + cpplint + uncrustify
@@ -807,77 +744,12 @@ final: prev: {
             _kilted-final: kilted-prev: {
               # keep-sorted start block=yes
 
-              gz-cmake-vendor = kilted-prev.gz-cmake-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-dartsim-vendor = kilted-prev.gz-dartsim-vendor.overrideAttrs {
-                # env.GZ_RELAX_VERSION_MATCH = ""; TODO
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
-                '';
-              };
               gz-gui-vendor = kilted-prev.gz-gui-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
                 postInstall = "";
-              };
-              gz-math-vendor = kilted-prev.gz-math-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-msgs-vendor = kilted-prev.gz-msgs-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-physics-vendor = kilted-prev.gz-physics-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-rendering-vendor = kilted-prev.gz-rendering-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-sensors-vendor = kilted-prev.gz-sensors-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-sim-vendor = kilted-prev.gz-sim-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
               };
               gz-tools-vendor = kilted-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
-              };
-              gz-transport-vendor = kilted-prev.gz-transport-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-utils-vendor = kilted-prev.gz-utils-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
               };
               sdformat-urdf = (tmpOverride kilted-prev.sdformat-urdf "2.0.1-r2").overrideAttrs {
                 postPatch = ''
@@ -898,76 +770,12 @@ final: prev: {
           (
             _lyrical-final: lyrical-prev: {
               # keep-sorted start block=yes
-              gz-cmake-vendor = lyrical-prev.gz-cmake-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-common-vendor = lyrical-prev.gz-common-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-dartsim-vendor = lyrical-prev.gz-dartsim-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
-                '';
-              };
               gz-gui-vendor = lyrical-prev.gz-gui-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
                 postInstall = "";
-              };
-              gz-math-vendor = lyrical-prev.gz-math-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-msgs-vendor = lyrical-prev.gz-msgs-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-physics-vendor = lyrical-prev.gz-physics-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-rendering-vendor = lyrical-prev.gz-rendering-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-sensors-vendor = lyrical-prev.gz-sensors-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-sim-vendor = lyrical-prev.gz-sim-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
               };
               gz-tools-vendor = lyrical-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
-              };
-              gz-transport-vendor = lyrical-prev.gz-transport-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
               };
               # keep-sorted end
             }
@@ -981,36 +789,8 @@ final: prev: {
           (
             _rolling-final: rolling-prev: {
               # keep-sorted start block=yes
-              gz-cmake-vendor = rolling-prev.gz-cmake-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-common-vendor = rolling-prev.gz-common-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-dartsim-vendor = rolling-prev.gz-dartsim-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
-                '';
-              };
               gz-gui-vendor = rolling-prev.gz-gui-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
                 postInstall = "";
-              };
-              gz-math-vendor = rolling-prev.gz-math-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
               };
               gz-tools-vendor = rolling-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
