@@ -3,6 +3,15 @@
   ...
 }:
 let
+  relBinRubyGzFixup =
+    pkg:
+    pkg.overrideAttrs {
+      postFixup = ''
+        substituteInPlace $out/bin/gz \
+          --replace-fail "File.expand_path('../../../.." "'$out" \
+          --replace-fail "', __dir__)" "'"
+      '';
+    };
   relLibRubyGzFixup =
     pkg: file:
     pkg.overrideAttrs {
@@ -42,7 +51,6 @@ final: prev: {
         };
 
         # keep-sorted start block=yes
-
         ign-common4 = fortress-prev.ign-common4.overrideAttrs (super: {
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
         });
@@ -76,7 +84,6 @@ final: prev: {
         dart = final.dartsim;
 
         # keep-sorted start block=yes
-
         gz-gui8 = (tmpOverride harmonic-prev.gz-gui8 "8.4.0").overrideAttrs {
           patches = [
             (final.fetchpatch2 {
@@ -97,13 +104,7 @@ final: prev: {
           '';
         };
         gz-plugin2 = relLibRubyGzFixup harmonic-prev.gz-plugin2 "cmdplugin2.rb";
-        gz-tools2 = harmonic-prev.gz-tools2.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/bin/gz \
-              --replace-fail "File.expand_path('../../../.." "'$out" \
-              --replace-fail "', __dir__)" "'"
-          '';
-        };
+        gz-tools2 = relBinRubyGzFixup harmonic-prev.gz-tools2;
         gz-transport13 = relLibRubyGzFixup harmonic-prev.gz-transport13 "cmdtransport13.rb";
         # keep-sorted end
       }
@@ -115,18 +116,11 @@ final: prev: {
         dart = final.dartsim;
 
         # keep-sorted start block=yes
-
         gz-msgs11 = relLibRubyGzFixup ionic-prev.gz-msgs11 "cmdmsgs11.rb";
         gz-plugin3 = relLibRubyGzFixup ionic-prev.gz-plugin3 "cmdplugin3.rb";
         gz-sdformat15 = relLibRubyGzFixup ionic-prev.gz-sdformat15 "cmdsdformat15.rb";
         gz-sim9 = relLibRubyGzFixup ionic-prev.gz-sim9 "cmdmodel9.rb";
-        gz-tools2 = ionic-prev.gz-tools2.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/bin/gz \
-              --replace-fail "File.expand_path('../../../.." "'$out" \
-              --replace-fail "', __dir__)" "'"
-          '';
-        };
+        gz-tools2 = relBinRubyGzFixup ionic-prev.gz-tools2;
         # keep-sorted end
       }
     );
@@ -137,7 +131,6 @@ final: prev: {
         dart = final.dartsim;
 
         # keep-sorted start block=yes
-
         gz-msgs12 = relLibRubyGzFixup jetty-prev.gz-msgs12 "cmdmsgs12.rb";
         gz-plugin4 = relLibRubyGzFixup jetty-prev.gz-plugin4 "cmdplugin4.rb";
         gz-sdformat16 = relLibRubyGzFixup jetty-prev.gz-sdformat16 "cmdsdformat16.rb";
@@ -150,13 +143,7 @@ final: prev: {
               --replace-fail "$""{CMAKE_INSTALL_LIBEXECDIR}" "libexec"
           '';
         });
-        gz-tools2 = jetty-prev.gz-tools2.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/bin/gz \
-              --replace-fail "File.expand_path('../../../.." "'$out" \
-              --replace-fail "', __dir__)" "'"
-          '';
-        };
+        gz-tools2 = relBinRubyGzFixup jetty-prev.gz-tools2;
         gz-transport15 = relLibRubyGzFixup jetty-prev.gz-transport15 "cmd{transport,log}15.rb";
         # keep-sorted end
       }
@@ -168,7 +155,6 @@ final: prev: {
         dart = final.dartsim;
 
         # keep-sorted start block=yes
-
         gz-physics10 = kura-prev.gz-physics10.overrideAttrs (super: {
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.mujoco ];
           postPatch = ''
@@ -177,13 +163,7 @@ final: prev: {
               "find_package(mujoco REQUIRED)"
           '';
         });
-        gz-tools3 = kura-prev.gz-tools3.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/bin/gz \
-              --replace-fail "File.expand_path('../../../.." "'$out" \
-              --replace-fail "', __dir__)" "'"
-          '';
-        };
+        gz-tools3 = relBinRubyGzFixup kura-prev.gz-tools3;
         # keep-sorted end
       }
     );
@@ -194,7 +174,6 @@ final: prev: {
         dart = final.dartsim;
 
         # keep-sorted start block=yes
-
         gz-fuel-tools12 = rotary-prev.gz-fuel-tools12.overrideAttrs {
           nativeCheckInputs = [ final.ctestCheckHook ];
           disabledTests = [
@@ -322,13 +301,7 @@ final: prev: {
             "world_TEST"
           ];
         });
-        gz-tools3 = rotary-prev.gz-tools3.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/bin/gz \
-              --replace-fail "File.expand_path('../../../.." "'$out" \
-              --replace-fail "', __dir__)" "'"
-          '';
-        };
+        gz-tools3 = relBinRubyGzFixup rotary-prev.gz-tools3;
         gz-transport16 = rotary-prev.gz-transport16.overrideAttrs (super: {
           postPatch = ''
             substituteInPlace src/cmd/gz_TEST.cc --replace-fail \
@@ -372,7 +345,6 @@ final: prev: {
           mim-solvers
           ;
         # keep-sorted start block=yes
-
         agimus-controller-ros = ros-prev.agimus-controller-ros.overrideAttrs {
           # this thing believe we did pass --build-directory or --build-base:
           # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
@@ -515,7 +487,6 @@ final: prev: {
           tiago-pro-gazebo = null;
 
           # keep-sorted start block=yes
-
           _unresolved_ignition-gazebo6 = humble-final.ignition-gazebo6;
           _unresolved_ignition-plugin = humble-final.ignition-plugin;
           agimus-franka-ign-ros2-control = humble-prev.agimus-franka-ign-ros2-control.overrideAttrs {
@@ -610,7 +581,6 @@ final: prev: {
                 ];
               };
               gazebo-planar-move-plugin = null;
-
               gz-gui-vendor = jazzy-prev.gz-gui-vendor.overrideAttrs {
                 postInstall = "";
               };
@@ -654,17 +624,6 @@ final: prev: {
               pal-maps = null;
               # TODO: does not seem useful for now, but might bite later
               realsense-gazebo-plugin = null;
-              # ros-gz-bridge = jazzy-prev.ros-gz-bridge.overrideAttrs {
-              #   cmakeFlags = [
-              #     "-DGZ_MSGS_VERSION_FULL=${jazzy-final.gz-msgs.version}"
-              #   ];
-              # };
-              # ros-gz-sim = jazzy-prev.ros-gz-sim.overrideAttrs (super: {
-              #   cmakeFlags = [ "-DGZ_SIM_VER=${final.lib.versions.major jazzy-final.gz-sim.version}" ];
-              #   propagatedNativeBuildInputs = (super.propagatedNativeBuildInputs or [ ]) ++ [
-              #     jazzy-final.gz-tools
-              #   ];
-              # });
               sdformat-urdf = (tmpOverride jazzy-prev.sdformat-urdf "1.0.2-r1").overrideAttrs {
                 postPatch = ''
                   # ref. https://github.com/ros/sdformat_urdf/pull/42
@@ -688,7 +647,6 @@ final: prev: {
           (
             _kilted-final: kilted-prev: {
               # keep-sorted start block=yes
-
               gz-gui-vendor = kilted-prev.gz-gui-vendor.overrideAttrs {
                 postInstall = "";
               };
