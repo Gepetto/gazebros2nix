@@ -1,5 +1,5 @@
 {
-  # tmpOverride,
+  tmpOverride,
   ...
 }:
 final: prev: {
@@ -7,7 +7,7 @@ final: prev: {
   example-robot-data = prev.example-robot-data.overrideAttrs {
     passthru.rosPackage = true;
   };
-  zenoh-c = prev.zenoh-c.overrideAttrs (super: {
+  zenoh-c = (tmpOverride prev.zenoh-c "1.10.0").overrideAttrs (super: {
     # PACKAGE_PREFIX_DIR is $dev
     postInstall = super.postInstall + ''
       substituteInPlace $out/lib/cmake/zenohc/zenohcConfig.cmake \
