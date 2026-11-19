@@ -807,6 +807,12 @@ final: prev: {
             _kilted-final: kilted-prev: {
               # keep-sorted start block=yes
 
+              gz-cmake-vendor = kilted-prev.gz-cmake-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-dartsim-vendor = kilted-prev.gz-dartsim-vendor.overrideAttrs {
                 # env.GZ_RELAX_VERSION_MATCH = ""; TODO
                 postPatch = ''
