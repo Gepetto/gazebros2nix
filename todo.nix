@@ -876,6 +876,12 @@ final: prev: {
           (
             _lyrical-final: lyrical-prev: {
               # keep-sorted start block=yes
+              gz-cmake-vendor = lyrical-prev.gz-cmake-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-common-vendor = lyrical-prev.gz-common-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
