@@ -2,6 +2,17 @@
   tmpOverride,
   ...
 }:
+let
+  relLibRubyGzFixup =
+    pkg: file:
+    pkg.overrideAttrs {
+      postFixup = ''
+        substituteInPlace $out/lib/ruby/gz/${file} --replace-fail \
+          '../../..//nix/store' \
+          '/nix/store'
+      '';
+    };
+in
 final: prev: {
   # keep-sorted start block=yes
   example-robot-data = prev.example-robot-data.overrideAttrs {
@@ -54,13 +65,7 @@ final: prev: {
               "cmake_minimum_required(VERSION 3.10 FATAL_ERROR)"
           '';
         };
-        ign-transport11 = fortress-prev.ign-transport11.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdtransport11.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
+        ign-transport11 = relLibRubyGzFixup fortress-prev.ign-transport11 "cmdtransport11.rb";
         # keep-sorted end
       }
     );
@@ -91,13 +96,7 @@ final: prev: {
               --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
           '';
         };
-        gz-plugin2 = harmonic-prev.gz-plugin2.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdplugin2.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
+        gz-plugin2 = relLibRubyGzFixup harmonic-prev.gz-plugin2 "cmdplugin2.rb";
         gz-tools2 = harmonic-prev.gz-tools2.overrideAttrs {
           postFixup = ''
             substituteInPlace $out/bin/gz \
@@ -105,13 +104,7 @@ final: prev: {
               --replace-fail "', __dir__)" "'"
           '';
         };
-        gz-transport13 = harmonic-prev.gz-transport13.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdtransport13.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
+        gz-transport13 = relLibRubyGzFixup harmonic-prev.gz-transport13 "cmdtransport13.rb";
         # keep-sorted end
       }
     );
@@ -123,34 +116,10 @@ final: prev: {
 
         # keep-sorted start block=yes
 
-        gz-msgs11 = ionic-prev.gz-msgs11.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdmsgs11.rb --replace-fail \
-              "'../../..//nix/store" \
-              "'/nix/store"
-          '';
-        };
-        gz-plugin3 = ionic-prev.gz-plugin3.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdplugin3.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
-        gz-sdformat15 = ionic-prev.gz-sdformat15.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdsdformat15.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
-        gz-sim9 = ionic-prev.gz-sim9.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdmodel9.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
+        gz-msgs11 = relLibRubyGzFixup ionic-prev.gz-msgs11 "cmdmsgs11.rb";
+        gz-plugin3 = relLibRubyGzFixup ionic-prev.gz-plugin3 "cmdplugin3.rb";
+        gz-sdformat15 = relLibRubyGzFixup ionic-prev.gz-sdformat15 "cmdsdformat15.rb";
+        gz-sim9 = relLibRubyGzFixup ionic-prev.gz-sim9 "cmdmodel9.rb";
         gz-tools2 = ionic-prev.gz-tools2.overrideAttrs {
           postFixup = ''
             substituteInPlace $out/bin/gz \
@@ -169,27 +138,9 @@ final: prev: {
 
         # keep-sorted start block=yes
 
-        gz-msgs12 = jetty-prev.gz-msgs12.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdmsgs12.rb --replace-fail \
-              "'../../..//nix/store" \
-              "'/nix/store"
-          '';
-        };
-        gz-plugin4 = jetty-prev.gz-plugin4.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdplugin4.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
-        gz-sdformat16 = jetty-prev.gz-sdformat16.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdsdformat16.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
+        gz-msgs12 = relLibRubyGzFixup jetty-prev.gz-msgs12 "cmdmsgs12.rb";
+        gz-plugin4 = relLibRubyGzFixup jetty-prev.gz-plugin4 "cmdplugin4.rb";
+        gz-sdformat16 = relLibRubyGzFixup jetty-prev.gz-sdformat16 "cmdsdformat16.rb";
         gz-sim10 = jetty-prev.gz-sim10.overrideAttrs (super: {
           postPatch = (super.postPatch or "") + ''
             substituteInPlace src/cmd/CMakeLists.txt \
@@ -206,13 +157,7 @@ final: prev: {
               --replace-fail "', __dir__)" "'"
           '';
         };
-        gz-transport15 = jetty-prev.gz-transport15.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmd{transport,log}15.rb --replace-fail \
-              '../../..//nix/store' \
-              '/nix/store'
-          '';
-        };
+        gz-transport15 = relLibRubyGzFixup jetty-prev.gz-transport15 "cmd{transport,log}15.rb";
         # keep-sorted end
       }
     );
