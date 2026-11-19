@@ -821,6 +821,10 @@ final: prev: {
                 '';
               };
               gz-gui-vendor = kilted-prev.gz-gui-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
                 postInstall = "";
               };
               gz-math-vendor = kilted-prev.gz-math-vendor.overrideAttrs {
@@ -836,6 +840,12 @@ final: prev: {
                 '';
               };
               gz-physics-vendor = kilted-prev.gz-physics-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
+              gz-rendering-vendor = kilted-prev.gz-rendering-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
@@ -858,6 +868,12 @@ final: prev: {
                 qtWrapperArgs = [ ];
               };
               gz-transport-vendor = kilted-prev.gz-transport-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
+              gz-utils-vendor = kilted-prev.gz-utils-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
@@ -913,6 +929,12 @@ final: prev: {
                     "$""{VERSION_MATCH} $""{LIB_VER}" ""
                 '';
               };
+              gz-msgs-vendor = lyrical-prev.gz-msgs-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-physics-vendor = lyrical-prev.gz-physics-vendor.overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
@@ -940,6 +962,12 @@ final: prev: {
               gz-tools-vendor = lyrical-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
+              };
+              gz-transport-vendor = lyrical-prev.gz-transport-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
               };
               # keep-sorted end
             }
