@@ -10,7 +10,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-cmake4";
-  version = "4.3.0";
+  version = "4.4.1";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -18,8 +18,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-cmake";
-    tag = "gz-cmake4_4.3.0";
-    hash = "sha256-pavUKGiCCstrfqsbEQdWNE9TrB3CP8Mnj1ocbAYC+KI=";
+    tag = "gz-cmake4_4.4.1";
+    hash = "sha256-bLu+4X3CNQ3EHbO8Z54oo9NplU4yhW+6yITLYJpRrB0=";
   };
 
   __structuredAttrs = true;

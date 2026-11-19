@@ -19,7 +19,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-msgs11";
-  version = "11.2.0";
+  version = "11.2.1";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -27,8 +27,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-msgs";
-    tag = "gz-msgs11_11.2.0";
-    hash = "sha256-YoYkAjp9wEIjT6N8dmKGLtyosMfLUj2/BD66hmlc2wQ=";
+    tag = "gz-msgs11_11.2.1";
+    hash = "sha256-Q4GXwAL5oncIezuLvGk7n3+O6GfKpYgC89PS1+Z4qL4=";
   };
 
   __structuredAttrs = true;

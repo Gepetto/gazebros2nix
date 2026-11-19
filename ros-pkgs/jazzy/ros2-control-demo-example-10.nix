@@ -35,6 +35,7 @@
   launch-testing,
   launch-testing-ament-cmake,
   rclpy,
+  ros2-control-demo-test-utils,
   urdf-test,
   urdfdom,
 
@@ -48,8 +49,8 @@ buildRosPackage rec {
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "ros2_control_demos";
-    rev = "3c35e783e268e5235bb042a71c68112a3ecb777e";
-    hash = "sha256-qcsGDDCW8il3IhFTbMy7AXcTcdm8FA9sWNqdDQbsgDw=";
+    rev = "5b8777c65ee8bc6eff74d24ce67438cc50cdc591";
+    hash = "sha256-ekhXOMT6hec6CQMzeUSfnxd5Z6bgclKL7ICg2Usbkdw=";
   };
   sourceRoot = "source/example_10";
 
@@ -97,6 +98,7 @@ buildRosPackage rec {
     launch-testing
     launch-testing-ament-cmake
     rclpy
+    ros2-control-demo-test-utils
     urdf-test
     urdfdom
   ];

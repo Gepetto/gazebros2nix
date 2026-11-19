@@ -18,7 +18,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-jetty-gz-msgs12";
-  version = "12.0.2";
+  version = "12.1.0";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -26,8 +26,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-msgs";
-    tag = "gz-msgs12_12.0.2";
-    hash = "sha256-yKuD08jZtQmtCWO/TvLngqhRVAbu4bZC9B4e9KxKr4M=";
+    tag = "gz-msgs12_12.1.0";
+    hash = "sha256-oXmOx6d4DWD26CcO2gAykw7vbMchKhdr0eh5CV8UaK4=";
   };
 
   __structuredAttrs = true;

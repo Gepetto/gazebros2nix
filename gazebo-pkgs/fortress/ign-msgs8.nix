@@ -16,7 +16,7 @@
 }:
 stdenv.mkDerivation {
   pname = "ign-fortress-ign-msgs8";
-  version = "8.7.1";
+  version = "8.7.2";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -24,8 +24,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-msgs";
-    tag = "ignition-msgs8_8.7.1";
-    hash = "sha256-SgB4JvDR/isKzvZrGxML6Si0LYbeoRQ3LP7FAMlo4V0=";
+    tag = "ignition-msgs8_8.7.2";
+    hash = "sha256-w4eQvA+x3CTZs7FtPD/qHCnJkM9jUzMKAu70YQ26zyQ=";
   };
 
   __structuredAttrs = true;

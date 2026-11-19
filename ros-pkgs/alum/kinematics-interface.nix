@@ -25,13 +25,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-kinematics-interface";
-  version = "1.7.1";
+  version = "1.7.2";
 
   src = fetchFromGitHub {
     owner = "ros-controls";
     repo = "kinematics_interface";
     tag = version;
-    hash = "sha256-T5hUz7aX6ZGRvZjo1kkNhzjUGq+JufFNXBNeLFthjo4=";
+    hash = "sha256-K5Vmv+lsareGtPGNRHXwNdodTNb12PJo9MmsnfY2lKo=";
   };
   sourceRoot = "source/kinematics_interface";
 

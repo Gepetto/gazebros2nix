@@ -25,7 +25,7 @@
 }:
 stdenv.mkDerivation {
   pname = "gz-ionic-gz-physics8";
-  version = "8.5.0";
+  version = "8.5.1";
 
   rosPackage = true;
   dontWrapQtApps = true;
@@ -33,8 +33,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-physics";
-    tag = "gz-physics8_8.5.0";
-    hash = "sha256-DWCdfts28/g4oJtF0LWx6g2N0+CUGzhKnmnHpycJNHw=";
+    tag = "gz-physics8_8.5.1";
+    hash = "sha256-Dti4B5SGBzeIMLpXY1Y+2l3fVYHpRlMFuRmhSw7H0qA=";
   };
 
   __structuredAttrs = true;

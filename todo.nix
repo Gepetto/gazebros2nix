@@ -2,12 +2,32 @@
   tmpOverride,
   ...
 }:
+let
+  relBinRubyGzFixup =
+    pkg:
+    pkg.overrideAttrs {
+      postFixup = ''
+        substituteInPlace $out/bin/gz \
+          --replace-fail "File.expand_path('../../../.." "'$out" \
+          --replace-fail "', __dir__)" "'"
+      '';
+    };
+  relLibRubyGzFixup =
+    pkg: file:
+    pkg.overrideAttrs {
+      postFixup = ''
+        substituteInPlace $out/lib/ruby/gz/${file} --replace-fail \
+          '../../..//nix/store' \
+          '/nix/store'
+      '';
+    };
+in
 final: prev: {
   # keep-sorted start block=yes
   example-robot-data = prev.example-robot-data.overrideAttrs {
     passthru.rosPackage = true;
   };
-  zenoh-c = prev.zenoh-c.overrideAttrs (super: {
+  zenoh-c = (tmpOverride prev.zenoh-c "1.10.0").overrideAttrs (super: {
     # PACKAGE_PREFIX_DIR is $dev
     postInstall = super.postInstall + ''
       substituteInPlace $out/lib/cmake/zenohc/zenohcConfig.cmake \
@@ -31,22 +51,21 @@ final: prev: {
         };
 
         # keep-sorted start block=yes
-
         ign-common4 = fortress-prev.ign-common4.overrideAttrs (super: {
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
         });
-        ign-gui6 = fortress-prev.ign-gui6.overrideAttrs {
+        ign-gui6 = (tmpOverride fortress-prev.ign-gui6 "6.9.0").overrideAttrs {
           patches = [
             (final.fetchpatch2 {
               url = "https://github.com/gazebosim/gz-gui/pull/696.patch?full_index=1";
-              hash = "sha256-MCAkRp7unMx9r2WZnR4vbUpJAeU6Bpku2E7IyAmLoIM=";
+              hash = "sha256-NIk6UAViwK/qwPk4LiyByZkfDEuh7Tc9RdHyRXRjd4I=";
             })
           ];
         };
         ign-rendering6 = fortress-prev.ign-rendering6.overrideAttrs (super: {
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.freeimage ];
         });
-        ign-tools1 = fortress-prev.ign-tools1.overrideAttrs {
+        ign-tools1 = (tmpOverride fortress-prev.ign-tools1 "1.5.0").overrideAttrs {
           # ref. https://github.com/gazebosim/gz-tools/pull/173 merged
           postPatch = ''
             substituteInPlace CMakeLists.txt --replace-fail \
@@ -54,13 +73,7 @@ final: prev: {
               "cmake_minimum_required(VERSION 3.10 FATAL_ERROR)"
           '';
         };
-        ign-transport11 = fortress-prev.ign-transport11.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdtransport11.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
+        ign-transport11 = relLibRubyGzFixup fortress-prev.ign-transport11 "cmdtransport11.rb";
         # keep-sorted end
       }
     );
@@ -71,12 +84,11 @@ final: prev: {
         dart = final.dartsim;
 
         # keep-sorted start block=yes
-
-        gz-gui8 = harmonic-prev.gz-gui8.overrideAttrs {
+        gz-gui8 = (tmpOverride harmonic-prev.gz-gui8 "8.4.0").overrideAttrs {
           patches = [
             (final.fetchpatch2 {
-              url = "https://github.com/gazebosim/gz-gui/pull/677.patch?full_index=1";
-              hash = "sha256-JQgHaNAOv36K4c+i+Fn5+ZRb0LK9E7UExm2SKBYKKFo=";
+              url = "https://github.com/gazebosim/gz-gui/pull/700.patch?full_index=1";
+              hash = "sha256-MId7fumD01PSsAUtRw1sydLNQJLxakiPDcSwale8K20=";
             })
             (final.fetchpatch2 {
               url = "https://github.com/gazebosim/gz-gui/pull/745.patch?full_index=1";
@@ -84,34 +96,16 @@ final: prev: {
             })
           ];
         };
-        gz-launch7 = harmonic-prev.gz-launch7.overrideAttrs {
+        gz-launch7 = (tmpOverride harmonic-prev.gz-launch7 "7.1.2").overrideAttrs {
           # ref. https://github.com/gazebosim/gz-launch/pull/329
           postPatch = ''
             substituteInPlace plugins/websocket_server/WebsocketServer.cc \
               --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
           '';
         };
-        gz-plugin2 = harmonic-prev.gz-plugin2.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdplugin2.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
-        gz-tools2 = harmonic-prev.gz-tools2.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/bin/gz \
-              --replace-fail "File.expand_path('../../../.." "'$out" \
-              --replace-fail "', __dir__)" "'"
-          '';
-        };
-        gz-transport13 = harmonic-prev.gz-transport13.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdtransport13.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
+        gz-plugin2 = relLibRubyGzFixup harmonic-prev.gz-plugin2 "cmdplugin2.rb";
+        gz-tools2 = relBinRubyGzFixup harmonic-prev.gz-tools2;
+        gz-transport13 = relLibRubyGzFixup harmonic-prev.gz-transport13 "cmdtransport13.rb";
         # keep-sorted end
       }
     );
@@ -122,49 +116,11 @@ final: prev: {
         dart = final.dartsim;
 
         # keep-sorted start block=yes
-
-        gz-launch8 = ionic-prev.gz-launch8.overrideAttrs {
-          # ref. https://github.com/gazebosim/gz-launch/pull/330
-          postPatch = ''
-            substituteInPlace plugins/websocket_server/WebsocketServer.cc \
-              --replace-fail '((_op)+","+(_topic)+","+(_type)+",")' '((_op)+","+(_topic)+","+(std::string(_type))+",")'
-          '';
-        };
-        gz-msgs11 = ionic-prev.gz-msgs11.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdmsgs11.rb --replace-fail \
-              "'../../..//nix/store" \
-              "'/nix/store"
-          '';
-        };
-        gz-plugin3 = ionic-prev.gz-plugin3.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdplugin3.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
-        gz-sdformat15 = ionic-prev.gz-sdformat15.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdsdformat15.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
-        gz-sim9 = ionic-prev.gz-sim9.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdmodel9.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
-        gz-tools2 = ionic-prev.gz-tools2.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/bin/gz \
-              --replace-fail "File.expand_path('../../../.." "'$out" \
-              --replace-fail "', __dir__)" "'"
-          '';
-        };
+        gz-msgs11 = relLibRubyGzFixup ionic-prev.gz-msgs11 "cmdmsgs11.rb";
+        gz-plugin3 = relLibRubyGzFixup ionic-prev.gz-plugin3 "cmdplugin3.rb";
+        gz-sdformat15 = relLibRubyGzFixup ionic-prev.gz-sdformat15 "cmdsdformat15.rb";
+        gz-sim9 = relLibRubyGzFixup ionic-prev.gz-sim9 "cmdmodel9.rb";
+        gz-tools2 = relBinRubyGzFixup ionic-prev.gz-tools2;
         # keep-sorted end
       }
     );
@@ -175,28 +131,9 @@ final: prev: {
         dart = final.dartsim;
 
         # keep-sorted start block=yes
-
-        gz-msgs12 = jetty-prev.gz-msgs12.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdmsgs12.rb --replace-fail \
-              "'../../..//nix/store" \
-              "'/nix/store"
-          '';
-        };
-        gz-plugin4 = jetty-prev.gz-plugin4.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdplugin4.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
-        gz-sdformat16 = jetty-prev.gz-sdformat16.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmdsdformat16.rb --replace-fail \
-              '"../../..//nix/store' \
-              '"/nix/store'
-          '';
-        };
+        gz-msgs12 = relLibRubyGzFixup jetty-prev.gz-msgs12 "cmdmsgs12.rb";
+        gz-plugin4 = relLibRubyGzFixup jetty-prev.gz-plugin4 "cmdplugin4.rb";
+        gz-sdformat16 = relLibRubyGzFixup jetty-prev.gz-sdformat16 "cmdsdformat16.rb";
         gz-sim10 = jetty-prev.gz-sim10.overrideAttrs (super: {
           postPatch = (super.postPatch or "") + ''
             substituteInPlace src/cmd/CMakeLists.txt \
@@ -206,20 +143,8 @@ final: prev: {
               --replace-fail "$""{CMAKE_INSTALL_LIBEXECDIR}" "libexec"
           '';
         });
-        gz-tools2 = jetty-prev.gz-tools2.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/bin/gz \
-              --replace-fail "File.expand_path('../../../.." "'$out" \
-              --replace-fail "', __dir__)" "'"
-          '';
-        };
-        gz-transport15 = jetty-prev.gz-transport15.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/lib/ruby/gz/cmd{transport,log}15.rb --replace-fail \
-              '../../..//nix/store' \
-              '/nix/store'
-          '';
-        };
+        gz-tools2 = relBinRubyGzFixup jetty-prev.gz-tools2;
+        gz-transport15 = relLibRubyGzFixup jetty-prev.gz-transport15 "cmd{transport,log}15.rb";
         # keep-sorted end
       }
     );
@@ -230,7 +155,6 @@ final: prev: {
         dart = final.dartsim;
 
         # keep-sorted start block=yes
-
         gz-physics10 = kura-prev.gz-physics10.overrideAttrs (super: {
           propagatedBuildInputs = super.propagatedBuildInputs ++ [ final.mujoco ];
           postPatch = ''
@@ -239,13 +163,7 @@ final: prev: {
               "find_package(mujoco REQUIRED)"
           '';
         });
-        gz-tools3 = kura-prev.gz-tools3.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/bin/gz \
-              --replace-fail "File.expand_path('../../../.." "'$out" \
-              --replace-fail "', __dir__)" "'"
-          '';
-        };
+        gz-tools3 = relBinRubyGzFixup kura-prev.gz-tools3;
         # keep-sorted end
       }
     );
@@ -256,7 +174,6 @@ final: prev: {
         dart = final.dartsim;
 
         # keep-sorted start block=yes
-
         gz-fuel-tools12 = rotary-prev.gz-fuel-tools12.overrideAttrs {
           nativeCheckInputs = [ final.ctestCheckHook ];
           disabledTests = [
@@ -384,13 +301,7 @@ final: prev: {
             "world_TEST"
           ];
         });
-        gz-tools3 = rotary-prev.gz-tools3.overrideAttrs {
-          postFixup = ''
-            substituteInPlace $out/bin/gz \
-              --replace-fail "File.expand_path('../../../.." "'$out" \
-              --replace-fail "', __dir__)" "'"
-          '';
-        };
+        gz-tools3 = relBinRubyGzFixup rotary-prev.gz-tools3;
         gz-transport16 = rotary-prev.gz-transport16.overrideAttrs (super: {
           postPatch = ''
             substituteInPlace src/cmd/gz_TEST.cc --replace-fail \
@@ -434,7 +345,6 @@ final: prev: {
           mim-solvers
           ;
         # keep-sorted start block=yes
-
         agimus-controller-ros = ros-prev.agimus-controller-ros.overrideAttrs {
           # this thing believe we did pass --build-directory or --build-base:
           # https://github.com/PickNikRobotics/generate_parameter_library/blob/main/generate_parameter_library_py/generate_parameter_library_py/setup_helper.py
@@ -552,13 +462,11 @@ final: prev: {
             final.lib.nameValuePair "${pkg}-vendor" (
               ros-prev."${pkg}-vendor".overrideAttrs (
                 {
-                  # cmakeFlags ? [ ],
                   propagatedBuildInputs ? [ ],
                   ...
                 }:
                 {
-                  # cmakeFlags = cmakeFlags ++ [ (final.lib.cmakeFeature "AMENT_VENDOR_POLICY" "NEVER_VENDOR") ];
-                  cmakeFlags = [ (final.lib.cmakeFeature "AMENT_VENDOR_POLICY" "NEVER_VENDOR") ];
+                  env.GZ_RELAX_VERSION_MATCH = "1";
                   propagatedBuildInputs = propagatedBuildInputs ++ [ ros-final."${pkg}" ];
                 }
               )
@@ -579,7 +487,6 @@ final: prev: {
           tiago-pro-gazebo = null;
 
           # keep-sorted start block=yes
-
           _unresolved_ignition-gazebo6 = humble-final.ignition-gazebo6;
           _unresolved_ignition-plugin = humble-final.ignition-plugin;
           agimus-franka-ign-ros2-control = humble-prev.agimus-franka-ign-ros2-control.overrideAttrs {
@@ -587,20 +494,14 @@ final: prev: {
             env.IGNITION_VERSION = "fortress";
             env.IGN_VERSION = "fortress";
           };
-          ament-cmake-core = humble-prev.ament-cmake-core.overrideAttrs {
+          ament-cmake-core = (tmpOverride humble-prev.ament-cmake-core "1.3.15-r1").overrideAttrs {
             patches = [
               (final.fetchpatch2 {
-                url = "https://github.com/ament/ament_cmake/pull/410.patch?full_index=1";
+                url = "https://github.com/ament/ament_cmake/pull/652.patch?full_index=1";
                 stripLen = 1;
                 hash = "sha256-Ov2kVdSj+9hO7OPG6nSL/cg+kiy21lkW7OWtTeMFudM=";
               })
             ];
-          };
-          gz-math-vendor = humble-prev.gz-math-vendor.overrideAttrs {
-            postPatch = ''
-              substituteInPlace CMakeLists.txt --replace-fail \
-                "$""{VERSION_MATCH} $""{LIB_VER}" ""
-            '';
           };
           launch-testing = humble-prev.launch-testing.overrideAttrs (super: {
             patches = (super.patches or [ ]) ++ [
@@ -644,7 +545,7 @@ final: prev: {
             ];
           });
           ros-gz-sim-demos = null; # wants qt-gui-cpp, where qt5 and python 3.13 are not compatible
-          sdformat-urdf = humble-prev.sdformat-urdf.overrideAttrs {
+          sdformat-urdf = (tmpOverride humble-prev.sdformat-urdf "1.0.1-r1").overrideAttrs {
             # ref. https://github.com/ros/sdformat_urdf/pull/41 merged
             postPatch = ''
               substituteInPlace CMakeLists.txt --replace-fail \
@@ -680,61 +581,12 @@ final: prev: {
                 ];
               };
               gazebo-planar-move-plugin = null;
-              gz-dartsim-vendor = jazzy-prev.gz-dartsim-vendor.overrideAttrs {
-                # env.GZ_RELAX_VERSION_MATCH = ""; TODO
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
-                '';
-              };
               gz-gui-vendor = jazzy-prev.gz-gui-vendor.overrideAttrs {
                 postInstall = "";
-              };
-              gz-math-vendor = jazzy-prev.gz-math-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-msgs-vendor = jazzy-prev.gz-msgs-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-physics-vendor = jazzy-prev.gz-physics-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-rendering-vendor = jazzy-prev.gz-rendering-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-sensors-vendor = jazzy-prev.gz-sensors-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-sim-vendor = jazzy-prev.gz-sim-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
               };
               gz-tools-vendor = jazzy-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
-              };
-              gz-transport-vendor = jazzy-prev.gz-transport-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
               };
               motkin-dual-motor-testbed-bringup = jazzy-prev.motkin-dual-motor-testbed-bringup.overrideAttrs {
                 doCheck = false; # TODO: cppcheck + cpplint + uncrustify
@@ -772,18 +624,7 @@ final: prev: {
               pal-maps = null;
               # TODO: does not seem useful for now, but might bite later
               realsense-gazebo-plugin = null;
-              # ros-gz-bridge = jazzy-prev.ros-gz-bridge.overrideAttrs {
-              #   cmakeFlags = [
-              #     "-DGZ_MSGS_VERSION_FULL=${jazzy-final.gz-msgs.version}"
-              #   ];
-              # };
-              # ros-gz-sim = jazzy-prev.ros-gz-sim.overrideAttrs (super: {
-              #   cmakeFlags = [ "-DGZ_SIM_VER=${final.lib.versions.major jazzy-final.gz-sim.version}" ];
-              #   propagatedNativeBuildInputs = (super.propagatedNativeBuildInputs or [ ]) ++ [
-              #     jazzy-final.gz-tools
-              #   ];
-              # });
-              sdformat-urdf = jazzy-prev.sdformat-urdf.overrideAttrs {
+              sdformat-urdf = (tmpOverride jazzy-prev.sdformat-urdf "1.0.2-r1").overrideAttrs {
                 postPatch = ''
                   # ref. https://github.com/ros/sdformat_urdf/pull/42
                   substituteInPlace CMakeLists.txt --replace-fail \
@@ -806,58 +647,14 @@ final: prev: {
           (
             _kilted-final: kilted-prev: {
               # keep-sorted start block=yes
-
-              gz-dartsim-vendor = kilted-prev.gz-dartsim-vendor.overrideAttrs {
-                # env.GZ_RELAX_VERSION_MATCH = ""; TODO
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
-                '';
-              };
               gz-gui-vendor = kilted-prev.gz-gui-vendor.overrideAttrs {
                 postInstall = "";
-              };
-              gz-math-vendor = kilted-prev.gz-math-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-msgs-vendor = kilted-prev.gz-msgs-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-physics-vendor = kilted-prev.gz-physics-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-sensors-vendor = kilted-prev.gz-sensors-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-sim-vendor = kilted-prev.gz-sim-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
               };
               gz-tools-vendor = kilted-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
               };
-              gz-transport-vendor = kilted-prev.gz-transport-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              sdformat-urdf = kilted-prev.sdformat-urdf.overrideAttrs {
+              sdformat-urdf = (tmpOverride kilted-prev.sdformat-urdf "2.0.1-r2").overrideAttrs {
                 postPatch = ''
                   substituteInPlace CMakeLists.txt --replace-fail \
                     "find_package(urdfdom_headers 1.0.6 REQUIRED)" \
@@ -876,64 +673,10 @@ final: prev: {
           (
             _lyrical-final: lyrical-prev: {
               # keep-sorted start block=yes
-              gz-common-vendor = lyrical-prev.gz-common-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-dartsim-vendor = lyrical-prev.gz-dartsim-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
-                '';
-              };
-              gz-gui-vendor = lyrical-prev.gz-gui-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-                postInstall = "";
-              };
-              gz-math-vendor = lyrical-prev.gz-math-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-physics-vendor = lyrical-prev.gz-physics-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-rendering-vendor = lyrical-prev.gz-rendering-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-sensors-vendor = lyrical-prev.gz-sensors-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
               gz-tools-vendor = lyrical-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
               };
-              linear-feedback-controller =
-                (tmpOverride lyrical-prev.linear-feedback-controller "4.0.4-r1").overrideAttrs
-                  {
-                    version = "4.1.0";
-                    src = final.fetchFromGitHub {
-                      owner = "loco-3d";
-                      repo = "linear-feedback-controller";
-                      tag = "v4.1.0";
-                      hash = "sha256-vkOKC82bTMDFbTAULx27PT72f7Wrd98L489OWlPQ5/E=";
-                    };
-                  };
               # keep-sorted end
             }
           );
@@ -946,52 +689,10 @@ final: prev: {
           (
             _rolling-final: rolling-prev: {
               # keep-sorted start block=yes
-              gz-cmake-vendor = rolling-prev.gz-cmake-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-common-vendor = rolling-prev.gz-common-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
-              gz-dartsim-vendor = rolling-prev.gz-dartsim-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER_MAJOR}.$""{LIB_VER_MINOR}" ""
-                '';
-              };
-              gz-gui-vendor = rolling-prev.gz-gui-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-                postInstall = "";
-              };
-              gz-math-vendor = rolling-prev.gz-math-vendor.overrideAttrs {
-                postPatch = ''
-                  substituteInPlace CMakeLists.txt --replace-fail \
-                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
-                '';
-              };
               gz-tools-vendor = rolling-prev.gz-tools-vendor.overrideAttrs {
                 postFixup = "";
                 qtWrapperArgs = [ ];
               };
-              linear-feedback-controller =
-                (tmpOverride rolling-prev.linear-feedback-controller "4.0.4-r1").overrideAttrs
-                  {
-                    version = "4.1.0";
-                    src = final.fetchFromGitHub {
-                      owner = "loco-3d";
-                      repo = "linear-feedback-controller";
-                      tag = "v4.1.0";
-                      hash = "sha256-vkOKC82bTMDFbTAULx27PT72f7Wrd98L489OWlPQ5/E=";
-                    };
-                  };
               parameter-traits = null;
               # keep-sorted end
             }

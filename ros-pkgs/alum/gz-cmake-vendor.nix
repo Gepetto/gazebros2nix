@@ -28,13 +28,13 @@
 }:
 buildRosPackage rec {
   pname = "ros-alum-gz-cmake-vendor";
-  version = "0.0.12";
+  version = "0.0.13";
 
   src = fetchFromGitHub {
     owner = "gazebo-release";
     repo = "gz_cmake_vendor";
     tag = version;
-    hash = "sha256-CwdntldmSpXo+MMimz3nIZZuk+tfiTC6E/UXXujM+f0=";
+    hash = "sha256-z9XegockaFHBy/Zzil79irbvkMYRv7u56YBu/FXCQq4=";
   };
   sourceRoot = "source/";
 
@@ -74,7 +74,7 @@ buildRosPackage rec {
   doCheck = true;
 
   meta = {
-    description = "Vendor package for: gz-cmake3 3.6.0
+    description = "Vendor package for: gz-cmake3 3.7.0
 
     Gazebo CMake : CMake Modules for Gazebo Projects";
     license = with lib.licenses; [ asl20 ];
