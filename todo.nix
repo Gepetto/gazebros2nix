@@ -673,6 +673,13 @@ final: prev: {
                 ];
               };
               gazebo-planar-move-plugin = null;
+
+              gz-cmake-vendor = jazzy-prev.gz-cmake-vendor.overrideAttrs {
+                postPatch = ''
+                  substituteInPlace CMakeLists.txt --replace-fail \
+                    "$""{VERSION_MATCH} $""{LIB_VER}" ""
+                '';
+              };
               gz-dartsim-vendor = jazzy-prev.gz-dartsim-vendor.overrideAttrs {
                 # env.GZ_RELAX_VERSION_MATCH = ""; TODO
                 postPatch = ''
