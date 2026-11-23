@@ -28,7 +28,7 @@ jobs:
           # - "pal-alum"
     steps:
       - uses: actions/checkout@v7
-      - uses: cachix/install-nix-action@v31
+      - uses: cachix/install-nix-action@v32
       - uses: cachix/cachix-action@v17
         with:
           name: gepetto
@@ -48,7 +48,7 @@ jobs:
       - uses: jlumbroso/free-disk-space@main
         if: ${{ matrix.os == 'ubuntu' }}
       - uses: actions/checkout@v7
-      - uses: cachix/install-nix-action@v31
+      - uses: cachix/install-nix-action@v32
       - uses: cachix/cachix-action@v17
         with:
           name: gepetto
